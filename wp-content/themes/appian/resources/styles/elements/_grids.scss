@@ -3,10 +3,18 @@
   --grid-side-gutter: 1.75rem; // 28px side margin
   --grid-gutter: 1.5rem; // 24px column gap
 
-  // Desktop (Viewport >= 1200px)
-  @include media-breakpoint-up(xl) {
-    --grid-side-gutter: 5rem; // 80px side margin
-    --grid-gutter: 2.5rem; // 40px column gap
+  @media (min-width: 576px) {
+    --grid-side-gutter: 2rem;
+  }
+
+  @include media-breakpoint-up(lg) {
+    --grid-side-gutter: 4rem;
+    --grid-gutter: 2rem;
+  }
+
+  // media
+  @include media-breakpoint-up(xxl) {
+    --grid-side-gutter: 8.4375rem; // 135px
   }
 }
 
