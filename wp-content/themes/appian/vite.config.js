@@ -7,7 +7,7 @@ const moduleJsFiles = globSync('resources/scripts/modules/**/*.js');
 
 export default defineConfig({
 
-    base: '/wp-content/themes/outside-traineeship-boilerplate/public/',
+    base: '/wp-content/themes/appian/public/',
 
     server: {
         cors: true,
