@@ -11,6 +11,7 @@
     --grid-gutter: 2rem;
   }
 
+  // media
   @include media-breakpoint-up(xxl) {
     --grid-side-gutter: 8.4375rem; // 135px
   }
