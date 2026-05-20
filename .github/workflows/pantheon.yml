@@ -60,7 +60,7 @@ jobs:
       - name: Deploy to Pantheon for branch
         if: github.event_name == 'push' && success()
         run: |
-          cd wp-content/themes/outside-traineeship-boilerplate  && yarn install && yarn build
+          cd wp-content/themes/appian  && yarn install && yarn build
           cd ../../../
           ./vendor/bin/terminus auth:login --machine-token="${{ secrets.PANTHEON_MACHINE_TOKEN }}"
           commit_message=$(git log -1 --pretty=%B)
@@ -70,7 +70,7 @@ jobs:
       - name: multi-dev to Pantheon for PR
         if: github.event_name == 'pull_request' && success()
         run: |
-          cd wp-content/themes/outside-traineeship-boilerplate && yarn install && yarn build
+          cd wp-content/themes/appian && yarn install && yarn build
           cd ../../../
           git fetch --unshallow origin
           ./vendor/bin/terminus auth:login --machine-token="${{ secrets.PANTHEON_MACHINE_TOKEN }}"
