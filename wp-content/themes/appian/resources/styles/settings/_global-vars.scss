@@ -1,23 +1,67 @@
 $global: "theme";
 
 :root {
-  --subtle: #fbf9f6;
-  --border-subtle: #dbdad7;
-  --font-color-body: #424241;
-  --font-color-body-grey: #757573;
-  --font-color-headline: #091d3e;
-  --icon-grey: #a8a7a5;
-  --background-subtle: var(--subtle);
-  --blue-gradient: linear-gradient(180deg, #1873d2 0%, #b2edfe 47.78%, #fff 100%);
-  --border-input-default: var(--icon-grey);
-  --light-blue-50: #effbfe;
-  --border-input-default: #a8a7a5;
-  --rounded-input-default: 0.25rem;
+  --border-subtle: #{$color-neutral-100};
+  --font-color-body: #{$color-neutral-500};
+  --font-color-body-grey: #{$color-neutral-200};
+  --font-color-headline: #{$color-secondary};
+  --icon-grey: #{$color-neutral-200};
   --box-shadow: 0px 4px 32px 0px rgba(0, 0, 0, 0.1);
-  --fluid-32-80: clamp(2rem, -5.4096rem + 11.5663vw, 5rem);
-  --neutral-100: #f6f5f1;
-  --icon-primary: #091d3e;
-  --red-orange: #ea483b;
+
+  // Figma Colours - Primary red
+  --color-primary-red: #{$color-primary-red};
+  --color-primary-red-rgb:
+    #{red($color-primary-red)}, #{green($color-primary-red)},
+    #{blue($color-primary-red)};
+  --color-dark-red: #{$color-dark-red};
+  --color-ultra-dark-red: #{$color-ultra-dark-red};
+  --color-light-red: #{$color-light-red};
+  --color-ultra-light-red: #{$color-ultra-light-red};
+
+  // Figma Colours - Secondary
+  --color-secondary: #{$color-secondary};
+  --color-secondary-dark: #{$color-secondary-dark};
+  --color-secondary-light: #{$color-secondary-light};
+  --color-secondary-ultra-light: #{$color-secondary-ultra-light};
+
+  // Figma Colours - Neutrals
+  --color-neutral-600: #{$color-neutral-600};
+  --color-neutral-500: #{$color-neutral-500};
+  --color-neutral-400: #{$color-neutral-400};
+  --color-neutral-300: #{$color-neutral-300};
+  --color-neutral-200: #{$color-neutral-200};
+  --color-neutral-100: #{$color-neutral-100};
+  --color-neutral-75: #{$color-neutral-75};
+  --color-neutral-50: #{$color-neutral-50};
+
+  // Overlays
+  --overlay-68: rgba(0, 0, 0, 0.68);
+  --overlay-50: rgba(0, 0, 0, 0.5);
+  --overlay-30: rgba(0, 0, 0, 0.3);
+  --overlay-20: rgba(0, 0, 0, 0.2);
+
+  // Reusable Design System Colours
+  --os-primary: var(--color-primary-red);
+  --os-secondary: var(--color-secondary);
+  --os-dark: var(--color-neutral-600);
+
+  // --background-subtle: var(--subtle);
+  // --subtle: #fbf9f6;
+  // --blue-gradient: linear-gradient(
+  //   180deg,
+  //   #1873d2 0%,
+  //   #b2edfe 47.78%,
+  //   #fff 100%
+  // );
+
+  // --border-input-default: var(--icon-grey);
+  // --light-blue-50: #effbfe;
+  // --border-input-default: #a8a7a5;
+  // --rounded-input-default: 0.25rem;
+  // --fluid-32-80: clamp(2rem, -5.4096rem + 11.5663vw, 5rem);
+  // --neutral-100: #f6f5f1;
+  // --icon-primary: #091d3e;
+  // --red-orange: #ea483b;
 }
 
 // :root {

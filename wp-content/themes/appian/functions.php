@@ -328,6 +328,25 @@ function theme_block_editor_assets() {
 	);
 }
 
+// Hide header/footer on styleguide page
+add_filter('body_class', function($classes) {
+    if (is_page('styleguide')) {
+        $classes[] = 'has-styleguide';
+    }
+    return $classes;
+});
+
+add_filter(
+	'block_editor_settings_all',
+	function ( $settings ) {
+		$appStyles = vite_assets( 'resources/styles/app.scss' );
+		$settings['styles'][] = array(
+			'css' => "@import url('{$appStyles}')",
+		);
+		return $settings;
+	}
+);
+
 add_action(
 	'enqueue_block_editor_assets',
 	'theme_block_editor_assets'

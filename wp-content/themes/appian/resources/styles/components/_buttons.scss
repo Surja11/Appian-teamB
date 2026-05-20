@@ -1,212 +1,207 @@
+/* BUTTONS */
 .btn {
-  --btn-bg: var(--os-primary);
-  --btn-border-color: var(--os-primary);
-  --btn-color: #{$white};
-  --btn-hover-bg: var(--os-primary);
-  --btn-hover-border-color: var(--os-primary);
-  --btn-hover-color: #{$black};
-  --btn-padding: 0.875rem 1.25rem;
-  --btn-focus-bg: var(--os-primary);
-  --btn-focus-color: #{$black};
-  --btn-border-radius: 9999px;
-  --btn-weight: 700;
-  --btn-border-width: 0.125rem; // 2px
-  --btn-font-size: 0.875rem; // 14px
-  --btn-line-height: 1rem; // 16px
+  --btn-font-size: 1rem;
+  --btn-line-height: 1.5;
+  --btn-weight: 500;
+  --btn-border-width: 0.0625rem;
+  --btn-border-radius: 0;
 
-  border: var(--btn-border-width, 0.125rem) solid var(--btn-border-color, transparent);
-  border-radius: var(--btn-border-radius, 0);
+  font-family: $font-family-sans-serif;
+  font-weight: var(--btn-weight);
+  border-radius: var(--btn-border-radius);
   box-sizing: border-box;
   text-decoration: none;
-  background-color: var(--btn-bg, transparent);
-  color: var(--btn-color, $black);
-  padding: var(--btn-padding, 0.875rem 1.25rem);
-  font-size: var(--btn-font-size, 0.875rem);
-  line-height: var(--btn-line-height, 1rem);
-  font-weight: var(--btn-weight, 700);
   display: inline-flex;
   justify-content: space-between;
   align-items: center;
   position: relative;
+  letter-spacing: 0;
+  cursor: pointer;
+
+  font-size: var(--btn-font-size);
+  line-height: var(--btn-line-height);
+
+  border: var(--btn-border-width) solid transparent;
+  background-color: transparent;
   transition:
-    color 0.35s ease,
-    background-color 0.35s ease;
+    color 0.3s ease,
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    text-decoration-color 0.3s ease;
+
+  height: 68px;
+  min-width: 209px;
+  padding: 22px 28px;
 
   @media (hover: hover) and (pointer: fine) {
     &:hover {
-      background-color: var(--btn-hover-bg, $black);
-      color: var(--btn-hover-color, $white);
-      border-color: var(--btn-hover-border-color, var(--os-primary));
+      background-color: var(--btn-hover-bg, transparent);
+      color: var(--btn-hover-color, inherit);
+      border-color: var(--btn-hover-border-color, transparent);
     }
   }
 
   &:focus,
   &:active {
     background-color: var(--btn-focus-bg, transparent);
-    color: var(--btn-focus-color);
+    color: var(--btn-focus-color, inherit);
+    border-color: var(--btn-focus-border-color, transparent);
+    outline: none;
   }
 
   &:focus-visible {
-    outline: 0.0625rem solid inherit;
+    outline: 0.125rem solid var(--os-primary);
     outline-offset: 0.25rem;
   }
 
+  /* BUTTON SIZES & TYPOGRAPHY  */
+
   &--small {
-    --btn-padding: 0.625rem 0.875rem;
+    --btn-font-size: 0.875rem;
+    --btn-line-height: 1.4;
+
+    height: 52px;
+    min-width: 144px;
+    padding: 16px 24px;
   }
 
+  /* BUTTON VARIANTS */
+
+  // Primary Variant
   &-primary {
     --btn-bg: var(--os-primary);
     --btn-border-color: var(--os-primary);
     --btn-color: #{$white};
+    --btn-hover-bg: #000000;
+    --btn-hover-border-color: #000000;
+    --btn-hover-color: #{$white};
+    --btn-focus-bg: var(--os-dark);
+    --btn-focus-color: #{$white};
+    --btn-focus-border-color: var(--os-dark);
+
+    background-color: var(--btn-bg);
+    border-color: var(--btn-border-color);
+    color: var(--btn-color);
+
+    &:disabled,
+    &.disabled {
+      background-color: #{$color-neutral-100} !important;
+      border-color: #{$color-neutral-100} !important;
+      color: #{$color-neutral-200} !important;
+      pointer-events: none;
+      cursor: not-allowed;
+    }
+  }
+
+  // Secondary Variant (With Arrow)
+  &-secondary {
+    --btn-bg: transparent;
+    --btn-border-color: var(--os-primary);
+    --btn-color: var(--os-primary);
     --btn-hover-bg: var(--os-primary);
     --btn-hover-border-color: var(--os-primary);
-    --btn-hover-color: #{$black};
+    --btn-hover-color: #{$white};
+    --btn-focus-bg: var(--os-primary);
+    --btn-focus-color: #{$white};
+    --btn-focus-border-color: var(--os-primary);
 
-    @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-      &:hover,
-      &:focus,
-      &:active {
-        --btn-hover-bg: transparent;
-      }
+    background-color: var(--btn-bg);
+    border-color: var(--btn-border-color);
+    color: var(--btn-color);
+
+    &:disabled,
+    &.disabled {
+      background-color: transparent !important;
+      border-color: #{$color-neutral-100} !important;
+      color: #{$color-neutral-200} !important;
+      pointer-events: none;
+      cursor: not-allowed;
     }
   }
 
-  &-secondary {
-    --btn-bg: var(--os-midnight-blue);
-    --btn-border-color: var(--os-midnight-blue);
-    --btn-color: #{$white};
-    --btn-hover-bg: var(--os-midnight-blue);
-    --btn-hover-border-color: var(--os-midnight-blue);
-    --btn-hover-color: #{$black};
+  // Secondary Variant (No Arrow)
+  &-secondary-no-arrow {
+    justify-content: center;
+    --btn-bg: transparent;
+    --btn-border-color: var(--os-primary);
+    --btn-color: var(--os-primary);
+    --btn-hover-bg: var(--os-primary);
+    --btn-hover-border-color: var(--os-primary);
+    --btn-hover-color: #{$white};
+    --btn-focus-bg: var(--os-primary);
+    --btn-focus-color: #{$white};
+    --btn-focus-border-color: var(--os-primary);
 
-    @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-      &:hover,
-      &:focus,
-      &:active {
-        --btn-hover-bg: transparent;
-      }
+    background-color: var(--btn-bg);
+    border-color: var(--btn-border-color);
+    color: var(--btn-color);
+    min-width: 97px;
+
+    &.btn--small,
+    &--small {
+      min-width: 84px;
+    }
+
+    &:disabled,
+    &.disabled {
+      background-color: transparent !important;
+      border-color: #{$color-neutral-100} !important;
+      color: #{$color-neutral-200} !important;
+      pointer-events: none;
+      cursor: not-allowed;
     }
   }
 
+  // Tertiary Variant
+  &-tertiary {
+    background-color: transparent;
+    color: var(--os-primary);
+    border: none;
+    border-bottom: 1px solid var(--os-primary);
+    border-radius: 0;
+
+    height: 40px;
+    min-width: 0;
+    padding: 8px 0;
+    gap: 0.5rem;
+
+    justify-content: flex-start;
+
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        background-color: transparent;
+        color: var(--os-dark);
+        border-bottom-color: var(--os-dark);
+      }
+    }
+
+    &.btn--small,
+    &--small {
+      height: 36px;
+      padding: 8px 0;
+    }
+
+    &:disabled,
+    &.disabled {
+      color: #{$color-neutral-200};
+      border-bottom-color: #{$color-neutral-200};
+      background-color: transparent;
+      pointer-events: none;
+      cursor: not-allowed;
+    }
+  }
+
+  // Reset
   &-reset {
     border: none;
     background: transparent;
     padding: 0;
-  }
-
-  &-link {
-    --btn-font-size: 1rem;
-    --btn-line-height: 1.4;
-    --btn-color: var(--os-primary);
-    --btn-hover-color: var(--os-primary);
-    --btn-icon-color: var(--os-primary);
-    --btn-icon-size: 1.5rem;
-    --btn-focus-color: var(--os-primary);
-
-    border: none;
-    background: transparent;
-    padding: 0;
-    color: var(--btn-color);
-    border-radius: 0;
-    gap: 0.5rem;
-    font-weight: 600;
-
-    i {
-      color: var(--btn-icon-color);
-      font-size: var(--btn-icon-size);
-      transition: translate 0.35s ease;
-    }
-
-    &:hover,
-    &:focus {
-      background: transparent;
-
-      i {
-        translate: 0.5rem;
-      }
-    }
-
-    &:active {
-      background-color: transparent;
-    }
-
-    &:focus {
-      i {
-        color: var(--btn-focus-color);
-      }
-    }
-
-    &-secondary {
-      --btn-icon-color: var(--os-midnight-blue);
-      --btn-color: var(--os-midnight-blue);
-      --btn-hover-color: var(--os-midnight-blue);
-    }
-
-    &--underline {
-      text-decoration: underline;
-      text-underline-offset: 0.25rem;
-      text-decoration-thickness: 0.0625rem;
-
-      &:hover,
-      &:focus {
-        text-decoration: none;
-      }
-    }
-
-    @media (hover: hover) and (pointer: fine) {
-      &:hover,
-      &:focus,
-      &:active {
-        background: transparent;
-      }
-    }
-  }
-
-  &-outline {
-    --btn-bg: transparent;
-    --btn-border-color: var(--os-primary);
-    --btn-color: var(--os-gray-900);
-    --btn-hover-bg: var(--os-primary);
-    --btn-hover-border-color: var(--os-primary);
-    --btn-hover-color: #{$white};
-    --btn-weight: 600;
-
-    &-primary {
-      --btn-border-color: var(--os-primary);
-      --btn-color: var(--os-gray-900);
-      --btn-hover-bg: var(--os-primary);
-      --btn-hover-border-color: var(--os-primary);
-      --btn-hover-color: #{$white};
-    }
-
-    &-secondary {
-      --btn-border-color: var(--os-midnight-blue);
-      --btn-color: var(--os-gray-900);
-      --btn-hover-bg: var(--os-midnight-blue);
-      --btn-hover-border-color: var(--os-midnight-blue);
-      --btn-hover-color: #{$white};
-    }
+    height: auto;
+    min-width: auto;
   }
 }
 
-.bg-dark {
-  &:has(.btn-primary) {
-    .btn-primary {
-      &:hover {
-        --btn-hover-color: #{$white};
-      }
-    }
-
-    .btn-outline {
-      --btn-color: #{$white};
-    }
-  }
-}
-
-/* ==================
-  CTA Link Styles
-================== */
+/* CTA LINKS */
 .c-cta-link {
   &:hover {
     text-decoration: underline;

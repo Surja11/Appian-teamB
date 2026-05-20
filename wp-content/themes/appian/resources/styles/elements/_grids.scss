@@ -1,38 +1,40 @@
 :root {
-  --grid-side-gutter: 1.5rem;
-  --grid-gutter: 1.5rem;
+  // Mobile (Viewport < 575px)
+  --grid-side-gutter: 1.75rem; // 28px side margin
+  --grid-gutter: 1.5rem; // 24px column gap
 
-  @media (min-width: 576px) {
-    --grid-side-gutter: 2rem;
-  }
-
-  @include media-breakpoint-up(lg) {
-    --grid-side-gutter: 4rem;
-    --grid-gutter: 2rem;
-  }
-
-  @include media-breakpoint-up(xxl) {
-    --grid-side-gutter: 8.4375rem; // 135px
+  // Desktop (Viewport >= 1200px)
+  @include media-breakpoint-up(xl) {
+    --grid-side-gutter: 5rem; // 80px side margin
+    --grid-gutter: 2.5rem; // 40px column gap
   }
 }
 
 .container,
 .container-fluid {
-  padding-left: var(--grid-side-gutter);
-  padding-right: var(--grid-side-gutter);
-  margin-inline: auto;
   width: 100%;
+  padding-right: var(--grid-side-gutter);
+  padding-left: var(--grid-side-gutter);
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .container {
-  max-width: 1440px;
+  // Desktop Wide
+  @include media-breakpoint-up(xxl) {
+    max-width: 1440px;
+  }
 }
 
-.container-md {
-  @include media-breakpoint-up(md) {
-    padding-left: var(--grid-side-gutter);
-    padding-right: var(--grid-side-gutter);
-    margin-inline: auto;
+.row {
+  margin-right: calc(var(--grid-gutter) * -0.5);
+  margin-left: calc(var(--grid-gutter) * -0.5);
+
+  > .col,
+  > [class*="col-"],
+  > * {
+    padding-right: calc(var(--grid-gutter) * 0.5);
+    padding-left: calc(var(--grid-gutter) * 0.5);
   }
 }
 
@@ -53,15 +55,3 @@
 //     max-width: calc(44.625rem + var(--grid-side-gutter) * 2);
 //   }
 // }
-
-.row {
-  margin-right: calc(var(--grid-gutter) * -0.5);
-  margin-left: calc(var(--grid-gutter) * -0.5);
-
-  > .col,
-  > [class*="col-"],
-  > * {
-    padding-right: calc(var(--grid-gutter) * 0.5);
-    padding-left: calc(var(--grid-gutter) * 0.5);
-  }
-}
