@@ -1,85 +1,79 @@
-import { defineConfig } from 'vite';
-import { globSync } from 'glob';
-import path from 'path';
+import { defineConfig } from "vite";
+import { globSync } from "glob";
+import path from "path";
 
-const moduleCssFiles = globSync('resources/styles/modules/**/*.scss');
-const moduleJsFiles = globSync('resources/scripts/modules/**/*.js');
+const moduleCssFiles = globSync("resources/styles/modules/**/*.scss", {
+  ignore: "resources/styles/modules/styleguide.scss",
+});
+const moduleJsFiles = globSync("resources/scripts/modules/**/*.js");
 
 export default defineConfig({
+  base: "/wp-content/themes/appian/public/",
 
-    base: '/wp-content/themes/appian/public/',
+  server: {
+    cors: true,
 
-    server: {
-        cors: true,
-
-        headers: {
-            'Access-Control-Allow-Origin': '*',
-        },
-
-        host: 'localhost',
-        port: 5173,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
     },
 
-    resolve: {
-        alias: {
-            '@scripts': path.resolve(__dirname, './resources/scripts'),
-            '@styles': path.resolve(__dirname, './resources/styles'),
-            '@images': path.resolve(__dirname, './resources/images'),
-            '@fonts': path.resolve(__dirname, './resources/fonts'),
-        },
+    host: "localhost",
+    port: 5173,
+  },
+
+  resolve: {
+    alias: {
+      "@scripts": path.resolve(__dirname, "./resources/scripts"),
+      "@styles": path.resolve(__dirname, "./resources/styles"),
+      "@images": path.resolve(__dirname, "./resources/images"),
+      "@fonts": path.resolve(__dirname, "./resources/fonts"),
     },
+  },
 
-    css: {
-        preprocessorOptions: {
-            scss: {
-                quietDeps: true,
-            },
-        },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        quietDeps: true,
+      },
     },
+  },
 
-    build: {
+  build: {
+    manifest: true,
 
-        manifest: true,
+    outDir: "public",
 
-        outDir: 'public',
+    emptyOutDir: true,
 
-        emptyOutDir: true,
+    rollupOptions: {
+      input: [
+        "resources/styles/app.scss",
+        "resources/styles/editor.scss",
 
-        rollupOptions: {
+        "resources/scripts/app.js",
+        "resources/scripts/editor.js",
 
-            input: [
-                'resources/styles/app.scss',
-                'resources/styles/editor.scss',
+        ...moduleCssFiles,
+        ...moduleJsFiles,
+      ],
 
-                'resources/scripts/app.js',
-                'resources/scripts/editor.js',
+      output: {
+        manualChunks(id) {
+          if (id.includes("node_modules/")) {
+            const directories = id.split("node_modules/")[1].split("/");
 
-                ...moduleCssFiles,
-                ...moduleJsFiles,
-            ],
+            const name = directories[0].startsWith("@")
+              ? `${directories[0]}/${directories[1]}`
+              : directories[0];
 
-            output: {
+            return `vendor/${name}`;
+          }
 
-                manualChunks(id) {
-
-                    if (id.includes('node_modules/')) {
-
-                        const directories = id
-                            .split('node_modules/')[1]
-                            .split('/');
-
-                        const name = directories[0].startsWith('@')
-                            ? `${directories[0]}/${directories[1]}`
-                            : directories[0];
-
-                        return `vendor/${name}`;
-                    }
-
-                    if (id.includes('resources/scripts/shared/')) {
-                        return 'shared';
-                    }
-                },
-            },
+          if (id.includes("resources/scripts/shared/")) {
+            return "shared";
+          }
         },
+      },
     },
+  },
 });

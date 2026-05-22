@@ -27,15 +27,15 @@
       @extend .transition-fast;
     }
 
-    &:hover {
-      &:hover,
-      &:focus,
-      &:active,
-      &.disabled,
-      &:disabled {
-        //@extend .opacity-3;
-      }
-    }
+    // &:hover {
+    //   &:hover,
+    //   &:focus,
+    //   &:active,
+    //   &.disabled,
+    //   &:disabled {
+    //     // @extend .opacity-3;
+    //   }
+    // }
   }
 }
 
@@ -150,7 +150,7 @@
     --os-input-check-line-height: 1.625rem;
     --os-checkbox-space: 1rem;
     --os-checkbox-radius: 0.25rem;
-    --os-checkbox-border-color: var(--border-input-default);
+    --os-checkbox-border-color: var(--color-neutral-200);
 
     display: flex;
     font-size: var(--os-input-check-font-size);
