@@ -1,81 +1,337 @@
-:root {
-  --theme-header-height: -90px;
-  --site-banner-height: auto;
+$nav-font-family: $font-family-sans-serif;
+$nav-font-size: 1rem;
+$nav-font-weight: $font-weight-medium;
+$nav-color: $color-secondary;
+$nav-hover-color: $color-primary-red;
+$nav-border-color: $color-neutral-100;
+$nav-dropdown-bg: $color-neutral-50;
+$nav-dropdown-shadow: $box-shadow;
+$nav-gap: 2.5rem;
+$nav-z: $zindex-fixed;
+
+$nav-breakpoint: map-get($grid-breakpoints, xl); 
+
+@mixin focus-box($offset: 5px) {
+  &:focus {
+    outline: 1px solid $nav-color;
+    outline-offset: $offset;
+  }
 }
 
-.#{$global} {
-  &-header {
-    background-color: $white;
-    top: 0;
-    transition: all 0.5s ease-in-out;
-    transition-delay: 0.1s;
-    z-index: 10;
-    border-block-end: 1px solid var(--border-subtle, #dbdad7);
-    min-height: 5rem;
+.header {
+  position: relative;
+  min-height: 100svh;
+  font-family: $nav-font-family;
+  color: $nav-color;
+  background-color: $color-neutral-50;
+
+  @media (min-width: $nav-breakpoint) {
+    min-height: unset;
+  }
+}
+
+.navbar {
+  display: flex;
+  flex-wrap: wrap;
+  // align-items   : flex-start;
+  align-content: flex-start;
+  height: 100%;
+  // padding         : 19px;
+
+  @media (min-width: $nav-breakpoint) {
+    justify-content: space-between;
+    // align-items    : center;
+    align-content: center;
+    $nav-gap: clamp(1rem, 3vw, 2.5rem);
+    height: unset;
+  }
+
+  &__logo-container {
+    align-self: flex-start;
+    max-width: 85px;
+
+    @media (min-width: $nav-breakpoint) {
+      max-width: 119.81px;
+    }
+
+    a {
+      display: block;
+      @include focus-box;
+    }
+  }
+
+  &__logo {
+    display: block;
+    aspect-ratio: 2.59/1;
+    object-fit: cover;
+    width: 100%;
+    height: auto;
+  }
+&__icon-container {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  padding: 0;
+  position: absolute;
+  top: 1.813rem;
+  right: 2.188rem;
+  cursor: pointer;
+  @include focus-box;
+
+  @media (min-width: $nav-breakpoint) {
+    display: none;
+    opacity: 0;
+  }
+
+  &[aria-expanded="true"] {
+    .navbar__icon--open {
+      display: none;
+    }
+
+    .navbar__icon--close {
+      display: block;
+    }
+  }
+}
+&__icon {
+  display: block;
+  width: 14px;
+  height: 14px;
+
+  &--close {
+    display: none;
+  }
+}
+  &__main {
+    width: 100%;
+    margin-top: 4.5625rem;
+    display: none;
+
+    &--open {
+      display: block;
+      // padding-top: 2rem;
+      border-bottom: 1px solid $nav-border-color;
+      // margin-top : 1.5rem;
+    }
+
+    @media (min-width: $nav-breakpoint) {
+      display: flex;
+      align-items: center;
+      width: auto;
+      padding-top: 0;
+      border-top: none;
+      margin-top: 0;
+    }
+  }
+
+  &__list {
     display: flex;
-  }
-}
+    flex-direction: column;
+    list-style: none;
+    font-size: $nav-font-size;
+    font-weight: $nav-font-weight;
+    line-height: $line-height-base;
+    padding: 0;
+    margin: 0;
 
-#app:has(.sticky-banner) .theme-header {
-  top: 7.12rem;
-
-  @media (min-width: 615px) {
-    top: 5.5rem;
-  }
-
-  @include media-breakpoint-up(md) {
-    top: 3.12rem;
-  }
-}
-
-.scroll-down {
-  .theme-header {
-    transform: translateY(var(--theme-header-height));
-    transition: all 0.5s ease-in-out 0.1s;
-
-    @include media-breakpoint-down(lg) {
-      --theme-header-height: -80px;
-    }
-  }
-}
-
-.scroll-up .theme-header.has-site-banner {
-  transform: translateY(var(--site-banner-height));
-  transition: all 0.5s ease-in-out 0.1s;
-}
-
-.sticky-banner {
-  position: sticky;
-  top: 0;
-  z-index: 999;
-}
-
-.logged-in {
-  .theme-header {
-    top: 2.87rem !important;
-
-    @media (min-width: 783px) {
-      top: 2rem !important;
+    @media (min-width: $nav-breakpoint) {
+      flex-direction: row;
+      align-items: center;
+      gap: $nav-gap;
     }
   }
 
-  #app:has(.sticky-banner) .theme-header {
-    top: 10rem !important;
+  &__item {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid $nav-border-color;
 
-    @media (min-width: 615px) {
-      top: 8.37rem !important;
+    @media (min-width: $nav-breakpoint) {
+      padding: 0;
+      border-bottom: none;
+      position: relative; 
     }
 
-    @media (min-width: 783px) {
-      top: 5.12rem !important;
+    &:last-child {
+      border-bottom: none;
     }
   }
 
-  .sticky-banner {
-    top: 2.87rem;
+  &__link {
+    display: inline-block;
+    font-size: $nav-font-size;
+    font-weight: $nav-font-weight;
+    text-decoration: none;
+    color: $nav-color;
+    transition: color $transition-base;
+    @include focus-box;
 
-    @media (min-width: 783px) {
-      top: 2rem;
+    &:hover {
+      color: $nav-hover-color;
+    }
+  }
+
+  &__dropdown-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem; 
+    width: 100%;
+    padding: 0;
+    border: none;
+    background: transparent;
+    font-family: $nav-font-family;
+    font-size: $nav-font-size;
+    font-weight: $nav-font-weight;
+    color: $nav-color;
+    text-align: left;
+    cursor: pointer;
+    transition: color $transition-base;
+    @include focus-box;
+
+    &:hover {
+      color: $nav-hover-color;
+    }
+
+    // Rotate chevron when open
+    &[aria-expanded="true"] img {
+      transform: rotate(180deg);
+    }
+
+    img {
+      flex-shrink: 0;
+      transition: transform 0.2s ease;
+    }
+
+    @media (min-width: $nav-breakpoint) {
+      width: auto;
+    }
+  }
+
+  &__dropdown {
+    display: none;
+    padding: 1.5rem 0 0 1rem; 
+    font-weight: $font-weight-normal;
+
+    &--open {
+      display: block;
+    }
+
+    @media (min-width: $nav-breakpoint) {
+      position: absolute;
+      top: calc(100% + 0.2rem); 
+      left: -1rem;
+      z-index: $zindex-dropdown; 
+      min-width: 220px;
+      padding: 1rem;
+      background-color: $nav-dropdown-bg;
+      // border: 1px solid black;
+      border-bottom-left-radius: $border-radius-lg; 
+      border-bottom-right-radius: $border-radius-lg;
+    }
+  }
+
+  &__dropdown-list {
+    display: flex;
+    flex-direction: column;
+    gap:0.75rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+
+  &__dropdown-link {
+    display: block;
+    padding: 0.625rem 1rem; 
+    font-family: $nav-font-family;
+    font-size: $font-size-sm; 
+    font-weight: $font-weight-normal;
+    color: $nav-color;
+    text-decoration: none;
+    white-space: nowrap;
+    transition:
+      color $transition-base,
+      background-color $transition-base;
+    @include focus-box($offset: 2px);
+
+    &:hover {
+      color: $nav-hover-color;
+      background-color: $color-ultra-light-red; 
+    }
+  }
+
+  &__extra {
+    align-self: flex-end;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: auto;
+
+    @media (min-width: $nav-breakpoint) {
+      width: auto;
+      margin-top: 0;
+      gap: 1.5rem; // 24px
+      align-self: center;
+    }
+  }
+
+  &__social {
+    display: flex;
+    align-items: center;
+    @include focus-box;
+
+    img {
+      display: block;
+      width: 24px;
+      height: 24px;
+    }
+
+    @media (min-width: $nav-breakpoint) {
+      display: none;
+    }
+  }
+
+  // Contact block
+  &__contact {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem; 
+  }
+
+  &__contact-label {
+    display: block;
+    font-size: 0.625rem;
+    font-weight: $font-weight-normal;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: $color-neutral-200;
+  }
+
+  &__contact-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; 
+
+    img {
+      flex-shrink: 0;
+      width: 18px;
+      height: 18px;
+    }
+
+    a {
+      font-size: 0.9375rem;
+      font-weight: $font-weight-semibold; 
+      text-decoration: none;
+      color: $nav-color;
+      white-space: nowrap;
+      transition: color $transition-base;
+      @include focus-box($offset: 3px);
+
+      &:hover {
+        color: $nav-hover-color;
+      }
     }
   }
 }
