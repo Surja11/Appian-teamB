@@ -13,7 +13,7 @@ $primaryColors = [
 
 $secondaryColors = [
 // Secondary colors
- 
+
 
     ['name' => 'Secondary',             'var' => '$color-secondary',             'hex' => '#101922', 'class' => '.bg-secondary',             'style' => 'background-color:var(--color-secondary)'],
     ['name' => 'Secondary Dark',        'var' => '$color-secondary-dark',        'hex' => '#0C131A', 'class' => '.bg-secondary-dark',                          'style' => 'background-color:var(--color-secondary-dark)'],
