@@ -409,70 +409,70 @@ if (!function_exists('sgColorItem')) {
 
                 <p class="m-styleguide__section-label">Primary (Large)</p>
                 <div class="m-styleguide__btn-row">
-                    <button class="btn btn-primary"><span>Label</span><span>&rarr;</span></button>
-                    <button class="btn btn-primary" disabled><span>Disabled</span><span>&rarr;</span></button>
+                    <button class="btn btn-primary"><span>Label</span><span><?php include get_template_directory() . '/resources/images/icon-arrow-right.svg'; ?></span></button>
+                    <button class="btn btn-primary" disabled><span>Disable</span><span><?php include get_template_directory() . '/resources/images/icon-arrow-right.svg'; ?></span></button>
                 </div>
 
                 <p class="m-styleguide__section-label">Primary (Small)</p>
                 <div class="m-styleguide__btn-row">
-                    <button class="btn btn-primary btn--small"><span>Label</span><span>&rarr;</span></button>
-                    <button class="btn btn-primary btn--small" disabled><span>Disabled</span><span>&rarr;</span></button>
+                    <button class="btn btn-primary btn--small"><span>Label</span><span><?php include get_template_directory() . '/resources/images/icon-arrow-right.svg'; ?></span></button>
+                    <button class="btn btn-primary btn--small" disabled><span>Disable</span><span><?php include get_template_directory() . '/resources/images/icon-arrow-right.svg'; ?></span></button>
                 </div>
                 <div class="m-styleguide__code">
 <code>&lt;button class="btn btn-primary"&gt;&lt;span&gt;Label&lt;/span&gt;&lt;span&gt;&amp;rarr;&lt;/span&gt;&lt;/button&gt;
 &lt;button class="btn btn-primary btn--small"&gt;&lt;span&gt;Label&lt;/span&gt;&lt;span&gt;&amp;rarr;&lt;/span&gt;&lt;/button&gt;
-&lt;button class="btn btn-primary" disabled&gt;&lt;span&gt;Disabled&lt;/span&gt;&lt;span&gt;&amp;rarr;&lt;/span&gt;&lt;/button&gt;</code>
+&lt;button class="btn btn-primary" disabled&gt;&lt;span&gt;Disable&lt;/span&gt;&lt;span&gt;&amp;rarr;&lt;/span&gt;&lt;/button&gt;</code>
                 </div>
 
                 <p class="m-styleguide__section-label">Secondary with Arrow (Large)</p>
                 <div class="m-styleguide__btn-row">
-                    <button class="btn btn-secondary"><span>Label</span><span>&rarr;</span></button>
-                    <button class="btn btn-secondary" disabled><span>Disabled</span><span>&rarr;</span></button>
+                    <button class="btn btn-secondary"><span>Label</span><span><?php include get_template_directory() . '/resources/images/icon-arrow-right.svg'; ?></span></button>
+                    <button class="btn btn-secondary" disabled><span>Disable</span><span><?php include get_template_directory() . '/resources/images/icon-arrow-right.svg'; ?></span></button>
                 </div>
 
                 <p class="m-styleguide__section-label">Secondary with Arrow (Small)</p>
                 <div class="m-styleguide__btn-row">
-                    <button class="btn btn-secondary btn--small"><span>Label</span><span>&rarr;</span></button>
-                    <button class="btn btn-secondary btn--small" disabled><span>Disabled</span><span>&rarr;</span></button>
+                    <button class="btn btn-secondary btn--small"><span>Label</span><span><?php include get_template_directory() . '/resources/images/icon-arrow-right.svg'; ?></span></button>
+                    <button class="btn btn-secondary btn--small" disabled><span>Disable</span><span><?php include get_template_directory() . '/resources/images/icon-arrow-right.svg'; ?></span></button>
                 </div>
                 <div class="m-styleguide__code">
 <code>&lt;button class="btn btn-secondary"&gt;&lt;span&gt;Label&lt;/span&gt;&lt;span&gt;&amp;rarr;&lt;/span&gt;&lt;/button&gt;
 &lt;button class="btn btn-secondary btn--small"&gt;&lt;span&gt;Label&lt;/span&gt;&lt;span&gt;&amp;rarr;&lt;/span&gt;&lt;/button&gt;
-&lt;button class="btn btn-secondary" disabled&gt;&lt;span&gt;Disabled&lt;/span&gt;&lt;span&gt;&amp;rarr;&lt;/span&gt;&lt;/button&gt;</code>
+&lt;button class="btn btn-secondary" disabled&gt;&lt;span&gt;Disable&lt;/span&gt;&lt;span&gt;&amp;rarr;&lt;/span&gt;&lt;/button&gt;</code>
                 </div>
 
                 <p class="m-styleguide__section-label">Secondary without Arrow (Large)</p>
                 <div class="m-styleguide__btn-row">
                     <button class="btn btn-secondary-no-arrow">Label</button>
-                    <button class="btn btn-secondary-no-arrow" disabled>Disabled</button>
+                    <button class="btn btn-secondary-no-arrow" disabled>Disable</button>
                 </div>
 
                 <p class="m-styleguide__section-label">Secondary without Arrow (Small)</p>
                 <div class="m-styleguide__btn-row">
                     <button class="btn btn-secondary-no-arrow btn--small">Label</button>
-                    <button class="btn btn-secondary-no-arrow btn--small" disabled>Disabled</button>
+                    <button class="btn btn-secondary-no-arrow btn--small" disabled>Disable</button>
                 </div>
                 <div class="m-styleguide__code">
 <code>&lt;button class="btn btn-secondary-no-arrow"&gt;Label&lt;/button&gt;
 &lt;button class="btn btn-secondary-no-arrow btn--small"&gt;Label&lt;/button&gt;
-&lt;button class="btn btn-secondary-no-arrow" disabled&gt;Disabled&lt;/button&gt;</code>
+&lt;button class="btn btn-secondary-no-arrow" disabled&gt;Disable&lt;/button&gt;</code>
                 </div>
 
                 <p class="m-styleguide__section-label">Tertiary (Large)</p>
                 <div class="m-styleguide__btn-row">
-                    <button class="btn btn-tertiary"><span>Label</span><span>&rarr;</span></button>
-                    <button class="btn btn-tertiary disabled"><span>Disabled</span><span>&rarr;</span></button>
+                    <button class="btn btn-tertiary"><span>Label</span><span><?php include get_template_directory() . '/resources/images/icon-arrow-right.svg'; ?></span></button>
+                    <button class="btn btn-tertiary disabled"><span>Disable</span><span><?php include get_template_directory() . '/resources/images/icon-arrow-right.svg'; ?></span></button>
                 </div>
 
                 <p class="m-styleguide__section-label">Tertiary (Small)</p>
                 <div class="m-styleguide__btn-row">
-                    <button class="btn btn-tertiary btn--small"><span>Label</span><span>&rarr;</span></button>
-                    <button class="btn btn-tertiary btn--small disabled"><span>Disabled</span><span>&rarr;</span></button>
+                    <button class="btn btn-tertiary btn--small"><span>Label</span><span><?php include get_template_directory() . '/resources/images/icon-arrow-right.svg'; ?></span></button>
+                    <button class="btn btn-tertiary btn--small disabled"><span>Disable</span><span><?php include get_template_directory() . '/resources/images/icon-arrow-right.svg'; ?></span></button>
                 </div>
                 <div class="m-styleguide__code">
 <code>&lt;button class="btn btn-tertiary"&gt;&lt;span&gt;Label&lt;/span&gt;&lt;span&gt;&amp;rarr;&lt;/span&gt;&lt;/button&gt;
 &lt;button class="btn btn-tertiary btn--small"&gt;&lt;span&gt;Label&lt;/span&gt;&lt;span&gt;&amp;rarr;&lt;/span&gt;&lt;/button&gt;
-&lt;button class="btn btn-tertiary disabled"&gt;&lt;span&gt;Disabled&lt;/span&gt;&lt;span&gt;&amp;rarr;&lt;/span&gt;&lt;/button&gt;</code>
+&lt;button class="btn btn-tertiary disabled"&gt;&lt;span&gt;Disable&lt;/span&gt;&lt;span&gt;&amp;rarr;&lt;/span&gt;&lt;/button&gt;</code>
                 </div>
 
             </section>
@@ -554,23 +554,25 @@ if (!function_exists('sgColorItem')) {
                 </p>
 
                 <div class="m-styleguide__icon-grid">
-                    <?php foreach ($icons as $icon) :
-                        $filePath = get_template_directory() . '/resources/images/' . $icon;
+    <?php foreach ($icons as $icon) :
+        $filePath = get_template_directory() . '/resources/images/' . $icon;
+    ?>
+        <div class="m-styleguide__icon-item">
+            <div class="m-styleguide__icon-wrapper">
+                <div class="m-styleguide__icon-svg">
+                    <?php
+                    if (file_exists($filePath)) {
+                        echo file_get_contents($filePath);
+                    } else {
+                        echo '<span>Missing</span>';
+                    }
                     ?>
-                        <div class="m-styleguide__icon-item">
-                            <div class="m-styleguide__icon-svg">
-                                <?php
-                                if (file_exists($filePath)) {
-                                    echo file_get_contents($filePath);
-                                } else {
-                                    echo '<span>Missing</span>';
-                                }
-                                ?>
-                            </div>
-                            <code><?php echo esc_html($icon); ?></code>
-                        </div>
-                    <?php endforeach; ?>
                 </div>
+            </div>
+            <code><?php echo esc_html($icon); ?></code>
+        </div>
+    <?php endforeach; ?>
+</div>
 
                 <div class="m-styleguide__code">
 <code>&lt;img src="&lt;?php echo get_template_directory_uri(); ?&gt;/resources/images/icon-arrow-right.svg" alt="" width="24" height="24"&gt;
