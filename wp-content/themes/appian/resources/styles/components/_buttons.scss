@@ -17,8 +17,10 @@
   position: relative;
   letter-spacing: 0;
   cursor: pointer;
+
   font-size: var(--btn-font-size);
   line-height: var(--btn-line-height);
+
   border: var(--btn-border-width) solid transparent;
   background-color: transparent;
   transition:
@@ -52,9 +54,22 @@
     outline-offset: 0.25rem;
   }
 
+  svg {
+    width: 24px;
+    height: 24px;
+    display: block;
+
+    path {
+      stroke: currentColor;
+    }
+  }
+
+  /* BUTTON SIZES & TYPOGRAPHY  */
+
   &--small {
     --btn-font-size: 0.875rem;
     --btn-line-height: 1.4;
+
     height: 52px;
     min-width: 144px;
     padding: 16px 24px;
@@ -65,15 +80,7 @@
     }
   }
 
-  svg {
-    width: 24px;
-    height: 24px;
-    display: block;
-
-    path {
-      stroke: currentColor;
-    }
-  }
+  /* BUTTON VARIANTS */
 
   // Primary Variant
   &-primary {
@@ -171,10 +178,12 @@
     border: none;
     border-bottom: 1px solid var(--os-primary);
     border-radius: 0;
+
     height: 40px;
     min-width: 0;
     padding: 8px 0;
     gap: 0.5rem;
+
     justify-content: flex-start;
 
     @media (hover: hover) and (pointer: fine) {
