@@ -341,11 +341,13 @@ $nav-breakpoint: map-get($grid-breakpoints, xl);
     }
 
     a {
-      font-size: 0.9375rem;
-      font-weight: $font-weight-semibold;
+      font-size: 1.125rem;
+      font-weight: $font-weight-normal;
       text-decoration: none;
       color: $nav-color;
       white-space: nowrap;
+      letter-spacing: 2%;
+      line-height: 100%;
       transition: color $transition-base;
       @include focus-box($offset: 3px);
 
