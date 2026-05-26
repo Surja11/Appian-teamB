@@ -67,7 +67,6 @@ $nav-breakpoint: map-get($grid-breakpoints, xl);
 
     a {
       display: block;
-      @include focus-box;
     }
   }
 
@@ -327,7 +326,7 @@ $nav-breakpoint: map-get($grid-breakpoints, xl);
     font-weight: $font-weight-normal;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: $color-neutral-200;
+    color: $color-neutral-600;
   }
 
   &__contact-row {
