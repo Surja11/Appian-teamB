@@ -4,6 +4,7 @@ console.log('Header js loaded');
 const toggleIcon = document.getElementsByClassName('navbar__icon-container')[0];
 const main = document.getElementsByClassName('navbar__main')[0];
 const triggers = Array.from(document.getElementsByClassName('navbar__dropdown-trigger'));
+const extra = document.getElementsByClassName('navbar__extra')[0];
 
 // console.log(toggleIcon);
 // console.log(main);
@@ -14,6 +15,7 @@ toggleIcon.addEventListener('click', () => {
   const isOpen = toggleIcon.getAttribute('aria-expanded') === 'true';
   toggleIcon.setAttribute('aria-expanded', String(!isOpen));
   main.classList.toggle('navbar__main--open');
+  extra.classList.toggle('navbar__extra--open');
 });
 
 

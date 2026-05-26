@@ -1,3 +1,5 @@
+// 
+
 $nav-font-family: $font-family-sans-serif;
 $nav-font-size: 1rem;
 $nav-font-weight: $font-weight-medium;
@@ -9,7 +11,7 @@ $nav-dropdown-shadow: $box-shadow;
 $nav-gap: 2.5rem;
 $nav-z: $zindex-fixed;
 
-$nav-breakpoint: map-get($grid-breakpoints, xl); 
+$nav-breakpoint: map-get($grid-breakpoints, xl);
 
 @mixin focus-box($offset: 5px) {
   &:focus {
@@ -20,10 +22,15 @@ $nav-breakpoint: map-get($grid-breakpoints, xl);
 
 .header {
   position: relative;
-  min-height: 100svh;
+  // min-height: 100svh;
   font-family: $nav-font-family;
   color: $nav-color;
   background-color: $color-neutral-50;
+
+
+  &:has(.navbar__main--open) {
+    height: 100svh;
+  }
 
   @media (min-width: $nav-breakpoint) {
     min-height: unset;
@@ -35,8 +42,12 @@ $nav-breakpoint: map-get($grid-breakpoints, xl);
   flex-wrap: wrap;
   // align-items   : flex-start;
   align-content: flex-start;
-  height: 100%;
+  // height: 100%;
   // padding         : 19px;
+
+  &:has(.navbar__main--open) {
+    height: #{"calc(100% - 2.375rem)"} // navbar fills the header
+  }
 
   @media (min-width: $nav-breakpoint) {
     justify-content: space-between;
@@ -67,42 +78,46 @@ $nav-breakpoint: map-get($grid-breakpoints, xl);
     width: 100%;
     height: auto;
   }
-&__icon-container {
-  display: flex;
-  align-items: center;
-  background: none;
-  border: none;
-  padding: 0;
-  position: absolute;
-  top: 1.813rem;
-  right: 2.188rem;
-  cursor: pointer;
-  @include focus-box;
 
-  @media (min-width: $nav-breakpoint) {
-    display: none;
-    opacity: 0;
+  &__icon-container {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: none;
+    padding: 0;
+    position: absolute;
+    top: 1.813rem;
+    right: 2.188rem;
+    cursor: pointer;
+    @include focus-box;
+
+    @media (min-width: $nav-breakpoint) {
+      display: none;
+      opacity: 0;
+    }
+
+    &[aria-expanded="true"] {
+      .navbar__icon--open {
+        display: none;
+      }
+
+      .navbar__icon--close {
+        display: block;
+      }
+
+    }
   }
 
-  &[aria-expanded="true"] {
-    .navbar__icon--open {
+  &__icon {
+    display: block;
+    width: 14px;
+    height: 14px;
+
+    &--close {
       display: none;
     }
-
-    .navbar__icon--close {
-      display: block;
-    }
   }
-}
-&__icon {
-  display: block;
-  width: 14px;
-  height: 14px;
 
-  &--close {
-    display: none;
-  }
-}
   &__main {
     width: 100%;
     margin-top: 4.5625rem;
@@ -149,7 +164,7 @@ $nav-breakpoint: map-get($grid-breakpoints, xl);
     @media (min-width: $nav-breakpoint) {
       padding: 0;
       border-bottom: none;
-      position: relative; 
+      position: relative;
     }
 
     &:last-child {
@@ -175,7 +190,7 @@ $nav-breakpoint: map-get($grid-breakpoints, xl);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 0.5rem; 
+    gap: 0.5rem;
     width: 100%;
     padding: 0;
     border: none;
@@ -210,7 +225,7 @@ $nav-breakpoint: map-get($grid-breakpoints, xl);
 
   &__dropdown {
     display: none;
-    padding: 1.5rem 0 0 1rem; 
+    padding: 1.5rem 0 0 1rem;
     font-weight: $font-weight-normal;
 
     &--open {
@@ -219,14 +234,14 @@ $nav-breakpoint: map-get($grid-breakpoints, xl);
 
     @media (min-width: $nav-breakpoint) {
       position: absolute;
-      top: calc(100% + 0.2rem); 
+      top: calc(100% + 0.2rem);
       left: -1rem;
-      z-index: $zindex-dropdown; 
+      z-index: $zindex-dropdown;
       min-width: 220px;
       padding: 1rem;
       background-color: $nav-dropdown-bg;
       // border: 1px solid black;
-      border-bottom-left-radius: $border-radius-lg; 
+      border-bottom-left-radius: $border-radius-lg;
       border-bottom-right-radius: $border-radius-lg;
     }
   }
@@ -234,7 +249,7 @@ $nav-breakpoint: map-get($grid-breakpoints, xl);
   &__dropdown-list {
     display: flex;
     flex-direction: column;
-    gap:0.75rem;
+    gap: 0.75rem;
     list-style: none;
     padding: 0;
     margin: 0;
@@ -243,9 +258,9 @@ $nav-breakpoint: map-get($grid-breakpoints, xl);
 
   &__dropdown-link {
     display: block;
-    padding: 0.625rem 1rem; 
+    padding: 0.625rem 1rem;
     font-family: $nav-font-family;
-    font-size: $font-size-sm; 
+    font-size: $font-size-sm;
     font-weight: $font-weight-normal;
     color: $nav-color;
     text-decoration: none;
@@ -257,22 +272,27 @@ $nav-breakpoint: map-get($grid-breakpoints, xl);
 
     &:hover {
       color: $nav-hover-color;
-      background-color: $color-ultra-light-red; 
+      background-color: $color-ultra-light-red;
     }
   }
 
   &__extra {
+    display: none;
     align-self: flex-end;
-    display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
     margin-top: auto;
 
+    &--open {
+      display: flex;
+    }
+
     @media (min-width: $nav-breakpoint) {
+      display: flex;
       width: auto;
       margin-top: 0;
-      gap: 1.5rem; // 24px
+      gap: 1.5rem;
       align-self: center;
     }
   }
@@ -297,7 +317,7 @@ $nav-breakpoint: map-get($grid-breakpoints, xl);
   &__contact {
     display: flex;
     flex-direction: column;
-    gap: 0.25rem; 
+    gap: 0.25rem;
   }
 
   &__contact-label {
@@ -312,7 +332,7 @@ $nav-breakpoint: map-get($grid-breakpoints, xl);
   &__contact-row {
     display: flex;
     align-items: center;
-    gap: 0.5rem; 
+    gap: 0.5rem;
 
     img {
       flex-shrink: 0;
@@ -321,11 +341,13 @@ $nav-breakpoint: map-get($grid-breakpoints, xl);
     }
 
     a {
-      font-size: 0.9375rem;
-      font-weight: $font-weight-semibold; 
+      font-size: 1.125rem;
+      font-weight: $font-weight-normal;
       text-decoration: none;
       color: $nav-color;
       white-space: nowrap;
+      letter-spacing: 2%;
+      line-height: 100%;
       transition: color $transition-base;
       @include focus-box($offset: 3px);
 
