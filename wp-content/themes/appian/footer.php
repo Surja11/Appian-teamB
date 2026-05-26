@@ -2,61 +2,62 @@
 /**
  * The template for displaying the footer
  *
- * Contains the closing of the #content div and all content after.
- *
- * @link https://developer.wordpress.org/themes/basics/template-files/#template-partials
- *
  * @package Outside_Traineeship_Biolerplate
  */
 ?>
 
 <footer id="colophon" class="site-footer custom-footer">
     <div class="container">
-        <div class="row">
+        <div class="footer-row">
 
             <!-- ① Address + Contact + LinkedIn — first on mobile, middle on desktop -->
-            <div class="col-12 col-md-4 footer-col footer-col--address order-md-2">
-                <p class="footer-heading caption-3">ADDRESS</p>
-                <p class="body body-medium">
-                    Heffron Company, Inc.<br>
-                    4940 Nicholson Ct Ste 100,<br>
-                    Kensington, MD 20895
-                </p>
+            <div class="footer-col footer-col--address">
 
-                <p class="footer-heading caption-3 mt-8">CONTACT</p>
-                <p class="body body-medium">
-                    Phone: (301) 816-2088<br>
-                    info@heffroncompany.com
-                </p>
+                <div class="footer-address-block">
+                    <p class="footer-heading">ADDRESS</p>
+                    <p class="footer-body-text">
+                        Heffron Company, Inc.<br>
+                        4940 Nicholson Ct Ste 100,<br>
+                        Kensington, MD 20895
+                    </p>
+                </div>
 
-                <div class="mt-8">
+                <div class="footer-contact-block">
+                    <p class="footer-heading">CONTACT</p>
+                    <p class="footer-body-text">
+                        Phone: (301) 816-2088<br>
+                        info@heffroncompany.com
+                    </p>
+                </div>
+
+                <div class="footer-linkedin">
                     <a href="#" target="_blank" rel="noopener noreferrer" class="linkedin-icon" aria-label="LinkedIn">
                         <?php
                         $linkedin = get_template_directory() . '/resources/images/icon-linkedin.svg';
-                        if ( file_exists( $linkedin ) ) {
-                            echo file_get_contents( $linkedin );
-                        }
+                        if ( file_exists( $linkedin ) ) echo file_get_contents( $linkedin );
                         ?>
                     </a>
                 </div>
+
             </div>
 
             <!-- ② Explore — second on mobile, last on desktop -->
-            <div class="col-12 col-md-4 footer-col footer-col--last order-md-3">
-                <p class="footer-heading caption-3">EXPLORE</p>
-                <ul class="list-unstyled footer-links">
-                    <li><a href="#" class="subheading-1">Our Projects</a></li>
-                    <li><a href="#" class="subheading-1">Construction</a></li>
-                    <li><a href="#" class="subheading-1">Service Department</a></li>
-                    <li><a href="#" class="subheading-1">Fab Shop</a></li>
-                    <li><a href="#" class="subheading-1">Sustainability</a></li>
-                </ul>
+            <div class="footer-col footer-col--explore">
+                <div class="footer-links-block">
+                    <p class="footer-heading">EXPLORE</p>
+                    <ul class="list-unstyled footer-links">
+                        <li><a href="#">Our Projects</a></li>
+                        <li><a href="#">Construction</a></li>
+                        <li><a href="#">Service Department</a></li>
+                        <li><a href="#">Fab Shop</a></li>
+                        <li><a href="#">Sustainability</a></li>
+                    </ul>
+                </div>
             </div>
 
             <!-- ③ Subscribe + Logo — last on mobile, first on desktop -->
-            <div class="col-12 col-md-4 footer-col footer-col--subscribe order-md-1">
-                <!-- Mobile: subscribe first, logo last. Desktop: SCSS flex order pulls logo up -->
-                <p class="footer-heading caption-3">SUBSCRIBE</p>
+            <div class="footer-col footer-col--subscribe">
+                <p class="footer-heading">SUBSCRIBE</p>
                 <div class="footer-subscribe">
                     <input
                         type="email"
@@ -69,9 +70,21 @@
                         type="button"
                         aria-label="Subscribe"
                     >
-                        <span aria-hidden="true">→</span>
+                        <?php
+                        // Figma: arrow icon 14*14px — use icon-arrow-right.svg from style guide
+                        $arrow = get_template_directory() . '/resources/images/icon-arrow-right.svg';
+                        if ( file_exists( $arrow ) ) {
+                            echo file_get_contents( $arrow );
+                        } else {
+                            // Fallback: inline SVG arrow matching Figma design (14*14)
+                            echo '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M1 7H13M13 7L7 1M13 7L7 13" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>';
+                        }
+                        ?>
                     </button>
                 </div>
+
                 <img
                     src="<?php echo esc_url( get_template_directory_uri() . '/resources/images/logo-appian.svg' ); ?>"
                     alt="Appian"

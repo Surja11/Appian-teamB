@@ -1,101 +1,159 @@
 .custom-footer {
     background: var(--color-neutral-50);
-    padding-top: 3rem;
-    padding-bottom: 3rem;
 
-    // Columns 
-    .footer-col {
-        padding-top: 2rem;
-        padding-bottom: 2rem;
+    @include media-breakpoint-up(md) {
+        // Figma: exactly 1440*530
+        height: 530px;
+        // FIX: use flex on the footer itself to vertically center the row
+        display: flex;
+        align-items: center;
+    }
+
+    .container {
+        width: 100%;
+    }
+
+    // ── Footer row ────────────────────────────────────────────────────────────
+    // Figma: content starts at top 80px, dividers are 362/363px tall
+    // 530px total - 80px top - 80px bottom = 370px content area
+    .footer-row {
+        display: flex;
+        flex-direction: column;
 
         @include media-breakpoint-up(md) {
-            padding-top: 0;
-            padding-bottom: 0;
-          
-        }
+            flex-direction: row;
+            // FIX: stretch so border-right dividers match tallest column
+            align-items: stretch;
+            // Figma: divider height 362px
+            min-height: 362px;
 
+            .footer-col--subscribe { order: 1; }
+            .footer-col--address   { order: 2; }
+            .footer-col--explore   { order: 3; }
+        }
+    }
+
+    // ── Columns ───────────────────────────────────────────────────────────────
+    .footer-col {
         @include media-breakpoint-down(md) {
-            border-bottom: 1px solid var(--color-neutral-100);
+            width: 100%;
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #dedede;
 
-            &:last-child {
-                border-bottom: none;
-            }
+            &--address   { order: 1; }
+            &--explore   { order: 2; }
+            &--subscribe { order: 3; }
+
+            &:last-child { border-bottom: none; }
         }
 
+        @include media-breakpoint-up(md) {
+            flex-shrink: 0;
+            min-height: 362px; // forces dividers to full Figma height
+        }
+
+        // Figma: left 80px → divider 520px = 440px wide
         &--subscribe {
             @include media-breakpoint-up(md) {
+                width: 440px;
+                padding-left: 0;
+                padding-right: 70px;
+                border-right: 1px solid #dedede;
                 display: flex;
                 flex-direction: column;
-                padding-left: 0;              // flush with container left edge
-                border-right: 1px solid var(--color-neutral-100);
+                // FIX: align content to top, not stretched
+                justify-content: flex-start;
             }
         }
 
+        // Figma: divider 520px → divider 959px = 439px wide
         &--address {
             @include media-breakpoint-up(md) {
-                border-right: 1px solid var(--color-neutral-100);
+                width: 439px;
+                padding-left: 70px;
+                padding-right: 20px;
+                border-right: 1px solid #dedede;
             }
         }
 
-        &--last {
+        // Figma: divider 959px → 1290px = 331px wide
+        &--explore {
             @include media-breakpoint-up(md) {
+                width: 331px;
+                padding-left: 71px;
+                padding-right: 0;
                 border-right: none;
             }
         }
     }
 
-    // Logo
+    // ── Logo ──────────────────────────────────────────────────────────────────
+    // Figma: 220*85, top 79.8px, left 80px
     .footer-logo {
-        width: 180px;
+        width: 220px !important;
+        height: 85px !important;
+        max-width: 220px !important;
+        object-fit: contain;
+        object-position: left center;
         display: block;
-        margin-top: 2rem;
+        flex-shrink: 0;
+        margin-top: 2rem; // mobile only
 
         @include media-breakpoint-up(md) {
-            order: -1;
+            order: -1;     // pulls above SUBSCRIBE on desktop
             margin-top: 0;
-            margin-bottom: 2rem;
+            // Figma: gap between logo bottom and SUBSCRIBE label = 53px
+            margin-bottom: 53px;
         }
     }
 
-    // Section headings 
+    // ── Section headings ──────────────────────────────────────────────────────
     .footer-heading {
-        color: var(--color-primary-red);
-        margin-bottom: 1.25rem;
+        font-family: "General Sans", sans-serif !important;
+        font-weight: 500 !important;
+        font-size: 12px !important;
+        line-height: 150% !important;
+        letter-spacing: 0.1em !important;
+        text-transform: uppercase !important;
+        color: var(--color-primary-red) !important;
+        margin-bottom: 0; // FIX: gap handled by flex gap:12px on parent block
         display: block;
     }
 
-    // Subscribe form 
+    // Figma: subscribe section — gap 24px between label and form
+    .footer-col--subscribe .footer-heading {
+        margin-bottom: 24px;
+        width: 276px; // Figma: subscribe label width 276px
+    }
+
+    // ── Subscribe form ────────────────────────────────────────────────────────
     .footer-subscribe {
         display: grid;
-        grid-template-columns: 1fr 60px;
-        height: 50px;
-
-        @include media-breakpoint-up(md) {
-            max-width: 320px;
-        }
+        grid-template-columns: 1fr 61px;
+        height: 52px;
+        width: 380px;
+        max-width: 100%;
 
         &__input {
-            width: 100%;
-            height: 50px;
+            height: 52px;
             min-width: 0;
-            padding: 0 12px;
+            padding: 0 16px;
             margin: 0;
-            border: 1px solid var(--color-neutral-100);
+            border: 1px solid #dedede;
             border-right: none;
-            border-radius: 0;
+            border-radius: 8px 0 0 8px;
             outline: none;
             box-shadow: none;
             background: var(--color-neutral-50);
             color: var(--color-secondary);
-            font-family: inherit;
+            font-family: "General Sans", sans-serif;
             font-size: 1rem;
-            line-height: 1;
+            line-height: 1.5;
             appearance: none;
             -webkit-appearance: none;
 
-            &::placeholder {
-                color: var(--color-neutral-200);
-            }
+            &::placeholder { color: var(--color-neutral-200); }
 
             &:focus {
                 border-color: var(--color-primary-red);
@@ -105,22 +163,35 @@
         }
 
         &__btn {
-            height: 50px;
+            width: 61px;
+            height: 52px;
             padding: 0;
             margin: 0;
             border: none;
-            border-radius: 0;
+            border-radius: 0 8px 8px 0;
             background-color: var(--color-primary-red);
             color: var(--color-neutral-50);
-            font-size: 1.125rem;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
 
-            &:hover {
-                background-color: var(--color-dark-red);
+            // Figma: arrow icon 24*24px
+            svg {
+                width: 24px;
+                height: 24px;
+                display: block;
+                flex-shrink: 0;
+
+                path, line, polyline {
+                    stroke: var(--color-neutral-50);
+                }
+                [fill]:not([fill="none"]) {
+                    fill: var(--color-neutral-50);
+                }
             }
+
+            &:hover { background-color: var(--color-dark-red); }
 
             &:focus,
             &:active {
@@ -131,48 +202,102 @@
         }
     }
 
-    // Body text 
-    p.body {
-        color: var(--color-secondary);
+    // ── Address block ─────────────────────────────────────────────────────────
+    .footer-address-block {
+        display: flex;
+        flex-direction: column;
+        gap: 12px; // Figma: gap 12px between ADDRESS label and body text
+
+        @include media-breakpoint-up(md) { width: 290px; }
+    }
+
+    // ── Contact block ─────────────────────────────────────────────────────────
+    .footer-contact-block {
+        display: flex;
+        flex-direction: column;
+        gap: 12px; // Figma: gap 12px between CONTACT label and body text
+        margin-top: 40px; // Figma: 237 - (80+117) = 40px from address bottom
+
+        @include media-breakpoint-up(md) {
+            width: 290px;
+            min-height: 87px;
+        }
+    }
+
+    // ── LinkedIn ──────────────────────────────────────────────────────────────
+    // Figma: top 416px, contact bottom = 237+87 = 324px → gap = 92px
+    .footer-linkedin {
+        margin-top: 92px;
+
+        @include media-breakpoint-down(md) { margin-top: 1.5rem; }
+    }
+
+    // ── Body text ─────────────────────────────────────────────────────────────
+    // Figma: Reckless Neue, 400, 18px, 160%, #111111
+    .footer-body-text {
+        font-family: "Reckless Neue", serif;
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 160%;
+        letter-spacing: 0;
+        color: var(--color-neutral-600); // #111111
         margin-bottom: 0;
     }
 
-    // Explore links 
+    // ── Explore section ───────────────────────────────────────────────────────
+    // Figma: width 260px, gap 12px between heading and links
+    // FIX: gap:12px handles space between EXPLORE label and list
+    .footer-links-block {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+
+        @include media-breakpoint-up(md) { width: 260px; }
+    }
+
+    // Figma: width 260px, height 215px, Reckless Neue, 400, 28px, 155%
     .footer-links {
         margin-bottom: 0;
 
-        li {
-            margin-bottom: 0.75rem;
-
-            &:last-child {
-                margin-bottom: 0;
-            }
+        @include media-breakpoint-up(md) {
+            width: 260px;
+            min-height: 215px;
         }
 
+        li { margin-bottom: 0; }
+
         a {
+            font-family: "Reckless Neue", serif;
+            font-weight: 400;
+            font-size: 28px;
+            line-height: 155%;
+            letter-spacing: 0;
             text-decoration: none;
             color: var(--color-secondary);
+            display: block;
 
-            &:hover {
-                color: var(--color-primary-red);
+            @include media-breakpoint-down(md) {
+                font-size: 24px;
+                line-height: 138%;
             }
+
+            &:hover { color: var(--color-primary-red); }
         }
     }
 
-    // LinkedIn icon 
+    // ── LinkedIn icon ─────────────────────────────────────────────────────────
+    // Figma: 24*24
     .linkedin-icon {
         display: inline-block;
         opacity: 0.85;
         transition: opacity 0.2s ease;
 
         svg {
-            width: 32px;
-            height: 32px;
+            width: 24px;
+            height: 24px;
             display: block;
         }
 
-        &:hover {
-            opacity: 1;
-        }
+        &:hover { opacity: 1; }
     }
 }
