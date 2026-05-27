@@ -64,11 +64,11 @@ function outside_traineeship_biolerplate_setup() {
 	add_theme_support( 'post-thumbnails' );
 
 	// This theme uses wp_nav_menu() in one location.
-	register_nav_menus(
-		array(
-			'menu-1' => esc_html__( 'Primary', 'outside-traineeship-biolerplate' ),
-		)
-	);
+    register_nav_menus(
+        array(
+            'primary-menu' => esc_html__( 'Primary Menu', 'outside-traineeship-biolerplate' ),
+        )
+    );
 
 	/*
 		* Switch default core markup for search form, comment form, and comments
@@ -347,9 +347,105 @@ add_filter(
 	}
 );
 
-add_action(
-	'enqueue_block_editor_assets',
-	'theme_block_editor_assets'
-);
+if( function_exists('acf_add_options_page') ) {
+    acf_add_options_page(array(
+        'page_title'    => 'Global Settings',
+        'menu_title'    => 'Global Settings',
+        'menu_slug'     => 'global-settings',
+        'capability'    => 'edit_posts',
+        'redirect'      => false
+    ));
+}
+
+/**
+ * Navigation Custom Walker Implementation for BEM Styling Compliance
+ */
+/**
+ * Navigation Custom Walker Implementation for BEM Styling Compliance
+ */
+class Appian_BEM_Walker extends Walker_Nav_Menu {
+    
+    // 1. ADD THIS LINE right at the start of the class:
+    private $current_item_id;
+
+    function start_lvl(&$output, $depth = 0, $args = null) {
+        $indent = str_repeat("\t", $depth);
+        if ($depth === 0) {
+            // 2. UPDATE THIS LINE to include the dynamic id targeting attributes:
+            $output .= "\n$indent<div class=\"navbar__dropdown bg-neutral-50\" id=\"dropdown-" . esc_attr($this->current_item_id) . "\">\n$indent\t<ul class=\"navbar__dropdown-list\">\n";
+        } else {
+            $output .= "\n$indent<ul class=\"navbar__dropdown-list\">\n";
+        }
+    }
+
+    function end_lvl(&$output, $depth = 0, $args = null) {
+        $indent = str_repeat("\t", $depth);
+        if ($depth === 0) {
+            $output .= "$indent\t</ul>\n$indent</div>\n";
+        } else {
+            $output .= "$indent</ul>\n";
+        }
+    }
+
+    function start_el(&$output, $data_object, $depth = 0, $args = null, $current_object_id = 0) {
+        $item = $data_object;
+        
+        // 3. ADD THIS LINE right here to track the current processing item ID:
+        $this->current_item_id = $item->ID; 
+        
+        $indent = ($depth) ? str_repeat("\t", $depth) : '';
+        $classes = empty($item->classes) ? array() : (array) $item->classes;
+        
+        $has_children = in_array('menu-item-has-children', $classes);
+        
+        if ($depth === 0) {
+            $li_class = 'navbar__item';
+            if ($has_children) {
+                $li_class .= ' navbar__item--has-dropdown';
+            }
+        } else {
+            $li_class = 'navbar__dropdown-item';
+        }
+
+        $output .= $indent . '<li class="' . esc_attr($li_class) . '">';
+
+        $atts = array();
+        $atts['title']  = ! empty($item->attr_title) ? $item->attr_title : '';
+        $atts['target'] = ! empty($item->target)     ? $item->target     : '';
+        $atts['rel']    = ! empty($item->xfn)        ? $item->xfn        : '';
+        $atts['href']   = ! empty($item->url)        ? $item->url        : '';
+
+        $atts = apply_filters('nav_menu_link_attributes', $atts, $item, $args, $depth);
+        
+        $attributes = '';
+        foreach ($atts as $attr => $value) {
+            if (! empty($value)) {
+                $value = ('href' === $attr) ? esc_url($value) : esc_attr($value);
+                $attributes .= ' ' . $attr . '="' . $value . '"';
+            }
+        }
+
+        $title = apply_filters('the_title', $item->title, $item->ID);
+
+        if ($depth === 0 && $has_children) {
+            $dropdown_id = 'dropdown-' . $item->ID;
+            
+            $output .= '<button class="navbar__dropdown-trigger" aria-expanded="false" aria-controls="' . esc_attr($dropdown_id) . '">';
+            $output .= '<span class="navbar__link">' . $title . ' </span>';
+            $output .= '<img src="' . esc_url(get_template_directory_uri()) . '/resources/images/icon-chevron-down.svg" alt="arrow-down icon" />';
+            $output .= '</button>';
+        } else {
+            $link_class = ($depth === 0) ? 'navbar__link' : 'navbar__dropdown-link';
+            $output .= '<a class="' . $link_class . '"' . $attributes . '>';
+            $output .= $title;
+            $output .= '</a>';
+        }
+    }
+
+    function end_el(&$output, $data_object, $depth = 0, $args = null) {
+        $output .= "</li>\n";
+    }
+}
+
 
 add_action( 'enqueue_block_editor_assets', 'theme_block_editor_assets' );
