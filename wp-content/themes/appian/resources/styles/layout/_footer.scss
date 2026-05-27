@@ -1,178 +1,261 @@
+// Font Variables
+$font-family-general-sans: "General Sans", sans-serif; // For subheadings/labels
+$font-family-reckless:     "Reckless Neue", serif;     // For body content and links
+
 .custom-footer {
-    background: var(--color-neutral-50);
-    padding-top: 3rem;
-    padding-bottom: 3rem;
+    @extend .site-footer;
+    background-color: $white;
+    color: $color-neutral-600;
+}
 
-    // Columns 
-    .footer-col {
-        padding-top: 2rem;
-        padding-bottom: 2rem;
+.site-footer {
+    &__inner {
+        display: flex;
+        flex-direction: column; 
+        gap: 2.5625rem;
+        max-width: 1440px;
+        min-height: 530px; 
+        margin: 0 auto;
+        padding: 3rem 1.25rem 2rem;
 
-        @include media-breakpoint-up(md) {
-            padding-top: 0;
-            padding-bottom: 0;
-          
-        }
-
-        @include media-breakpoint-down(md) {
-            border-bottom: 1px solid var(--color-neutral-100);
-
-            &:last-child {
-                border-bottom: none;
-            }
-        }
-
-        &--subscribe {
-            @include media-breakpoint-up(md) {
-                display: flex;
-                flex-direction: column;
-                padding-left: 0;              // flush with container left edge
-                border-right: 1px solid var(--color-neutral-100);
-            }
-        }
-
-        &--address {
-            @include media-breakpoint-up(md) {
-                border-right: 1px solid var(--color-neutral-100);
-            }
-        }
-
-        &--last {
-            @include media-breakpoint-up(md) {
-                border-right: none;
-            }
+        @include media-breakpoint-up(lg) {
+            flex-direction: row;
+            padding: 5rem 5rem 5.5rem;
+            gap: 0;
+            align-items: flex-start; 
         }
     }
 
-    // Logo
-    .footer-logo {
-        width: 180px;
-        display: block;
-        margin-top: 2rem;
+    &__col {
+        display: flex;
+        flex-direction: column;
+        position: relative; 
 
-        @include media-breakpoint-up(md) {
-            order: -1;
-            margin-top: 0;
-            margin-bottom: 2rem;
-        }
-    }
-
-    // Section headings 
-    .footer-heading {
-        color: var(--color-primary-red);
-        margin-bottom: 1.25rem;
-        display: block;
-    }
-
-    // Subscribe form 
-    .footer-subscribe {
-        display: grid;
-        grid-template-columns: 1fr 60px;
-        height: 50px;
-
-        @include media-breakpoint-up(md) {
-            max-width: 320px;
-        }
-
-        &__input {
-            width: 100%;
-            height: 50px;
-            min-width: 0;
-            padding: 0 12px;
-            margin: 0;
-            border: 1px solid var(--color-neutral-100);
-            border-right: none;
-            border-radius: 0;
-            outline: none;
-            box-shadow: none;
-            background: var(--color-neutral-50);
-            color: var(--color-secondary);
-            font-family: inherit;
-            font-size: 1rem;
-            line-height: 1;
-            appearance: none;
-            -webkit-appearance: none;
-
-            &::placeholder {
-                color: var(--color-neutral-200);
-            }
-
-            &:focus {
-                border-color: var(--color-primary-red);
-                box-shadow: none;
-                outline: none;
-            }
-        }
-
-        &__btn {
-            height: 50px;
-            padding: 0;
-            margin: 0;
-            border: none;
-            border-radius: 0;
-            background-color: var(--color-primary-red);
-            color: var(--color-neutral-50);
-            font-size: 1.125rem;
-            cursor: pointer;
+        &--brand {
+            order: 4; 
             display: flex;
-            align-items: center;
-            justify-content: center;
+            flex-direction: column;
 
-            &:hover {
-                background-color: var(--color-dark-red);
+            .site-footer__subscribe {
+                order: 1;
+                margin-top: 0;
+            }
+            .site-footer__logo {
+                order: 2;
+                margin-top: 2rem;
             }
 
-            &:focus,
-            &:active {
-                background-color: var(--color-primary-red);
-                outline: none;
-                box-shadow: none;
+            @include media-breakpoint-up(lg) {
+                order: 0;
+                flex: 0 0 34.375%;
+                padding-right: 3.75rem;
+
+                .site-footer__logo {
+                    order: 1;
+                    margin-top: 0;
+                }
+                .site-footer__subscribe {
+                    order: 2;
+                    margin-top: 2rem;
+                }
+            }
+        }
+
+        &--contact {
+            order: 1; 
+            gap: 2.5625rem;
+
+            @include media-breakpoint-up(lg) {
+                flex: 0 0 34.296%;
+                gap: 0;
+                padding-left: 4.375rem;
+
+                // Uniform Left Side Divider Line (1px wide, 362px tall)
+                &::before {
+                    content: "";
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    width: 1px;
+                    height: 362px;
+                    background-color: $color-neutral-100;
+                }
+            }
+        }
+
+        &--nav {
+            order: 2; 
+            border-top: 1px solid $color-neutral-100;
+            padding-top: 2.5625rem;
+
+            @include media-breakpoint-up(lg) {
+                flex: 0 0 31.328%;
+                border-top: none;
+                padding-left: 4.375rem;
+                padding-top: 0; 
+
+                // Uniform Right Side Divider Line (1px wide, 362px tall)
+                &::before {
+                    content: "";
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    width: 1px;
+                    height: 362px;
+                    background-color: $color-neutral-100;
+                }
             }
         }
     }
 
-    // Body text 
-    p.body {
-        color: var(--color-secondary);
-        margin-bottom: 0;
+    &__contact-content {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
     }
 
-    // Explore links 
-    .footer-links {
-        margin-bottom: 0;
-
-        li {
-            margin-bottom: 0.75rem;
-
-            &:last-child {
+    &__subscribe {
+        &-thankyou {
+            .site-footer__label {
                 margin-bottom: 0;
             }
         }
+    }
+
+    &__label {
+        font-family: $font-family-general-sans; 
+        font-size: 0.75rem;                  
+        font-weight: $font-weight-semibold;  
+        letter-spacing: 0.1em;               
+        text-transform: uppercase;           
+        color: $color-primary-red;
+        margin-top: 0; 
+        margin-bottom: 0.75rem;
+        display: block;
+
+        .site-footer__col--nav & {
+            width: 260px;
+            max-width: 100%;
+        }
+    }
+
+    &__logo img {
+        width: 100%;
+        max-width: 13.75rem;
+        height: 5.3125rem;
+        display: block;
+        object-fit: contain;
+    }
+
+    &__input-group {
+        position: relative;
+        display: flex;
+        width: 380px; 
+        max-width: 100%;
+    }
+
+    &__input {
+        flex: 1;
+        height: 3.25rem;
+        padding: 0.875rem 1.5rem;
+        padding-right: 4.375rem;
+        border: 1.5px solid rgba($black, 0.68);
+        border-radius: 8px; 
+        background: transparent;
+        width: 100%;
+        box-sizing: border-box; 
+        font-family: $font-family-reckless; 
+    }
+
+    &__submit {
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 3.8125rem;
+        background: $color-primary-red;
+        border: none;
+        border-radius: 0 8px 8px 0; 
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+            filter: brightness(0) invert(1);
+            width: 24px; 
+            height: 24px;
+        }
+    }
+
+    &__text {
+        font-family: $font-family-reckless; 
+        width: 290px; 
+        max-width: 100%;
+        line-height: 1.6;
 
         a {
+            font-family: inherit;
+            color: inherit;
             text-decoration: none;
-            color: var(--color-secondary);
+            transition: color 0.2s ease, opacity 0.2s ease;
 
-            &:hover {
-                color: var(--color-primary-red);
+            &:hover, &:focus {
+                color: $color-neutral-600; 
+                opacity: 0.8; 
             }
         }
     }
 
-    // LinkedIn icon 
-    .linkedin-icon {
-        display: inline-block;
-        opacity: 0.85;
+    &__section {
+        &--address,
+        &--contact-info {
+            margin-bottom: 2rem; 
+        }
+    }
+
+    &__menu {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        width: 260px;
+        max-width: 100%;
+    }
+
+    &__link {
+        display: block;
+        text-decoration: none;
+        color: $color-neutral-600;
+        font-family: $font-family-reckless; 
+        font-size: 1.5rem;      
+        line-height: 1.55;
+        margin-bottom: 0.5rem;
+        transition: color 0.2s ease, opacity 0.2s ease;
+
+        &:hover, &:focus {
+            color: $color-neutral-600; 
+            opacity: 0.8; 
+        }
+    }
+
+    &__social {
+        display: inline-block !important; 
+        visibility: visible !important;
+        opacity: 1 !important;
+        margin-top: 2rem;
+        width: 24px;
+        height: 24px;
+        align-self: flex-start; 
         transition: opacity 0.2s ease;
 
-        svg {
-            width: 32px;
-            height: 32px;
-            display: block;
+        &:hover, &:focus {
+            opacity: 0.8 !important;
         }
 
-        &:hover {
-            opacity: 1;
+        &-icon {
+            width: 24px !important;  
+            height: 24px !important; 
+            fill: #111111 !important; // Forces the vector to inherit the dark neutral design spec color
+            display: block !important;
         }
     }
 }

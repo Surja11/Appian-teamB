@@ -1,3 +1,64 @@
-// @import something
-@import "./custom";
-@import "./module";
+// 1. PATH FIRST
+@import "settings/path";
+
+// 2. BOOTSTRAP CORE FUNCTIONS FIRST
+@import "bootstrap/scss/functions";
+
+// 3. YOUR VARIABLES (must come AFTER functions)
+@import "settings/bootstrap-variables";
+@import "settings/global-vars";
+
+// 4. BOOTSTRAP CORE SYSTEM
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/maps";
+@import "bootstrap/scss/mixins";
+
+// 5. BOOTSTRAP BASE STYLES
+@import "bootstrap/scss/root";
+@import "bootstrap/scss/reboot";
+@import "bootstrap/scss/images";
+@import "bootstrap/scss/containers";
+@import "bootstrap/scss/grid";
+@import "bootstrap/scss/helpers";
+@import "bootstrap/scss/transitions";
+@import "bootstrap/scss/accordion";
+@import "bootstrap/scss/modal";
+
+// 6. YOUR TOOLS
+@import "tools/mixins";
+@import "tools/placeholders";
+
+// 7. GENERIC
+@import "generic/fonts";
+@import "generic/icons/icons";
+
+// 8. ELEMENTS
+@import "elements/type";
+@import "elements/grids";
+@import "elements/config";
+
+// 9. LAYOUT / COMPONENTS
+@import "./layout";
+@import "./components";
+@import "modules/styleguide";
+
+// 10. UTILITIES
+@import "bootstrap/scss/utilities";
+
+// 11. YOUR CUSTOM UTILITIES MAP (IMPORTANT: after utilities import)
+$utilities: map-merge(
+  $utilities,
+  (
+    "cursor": (
+      property: cursor,
+      class: cursor,
+      responsive: true,
+      values: auto pointer grab,
+    )
+  )
+);
+
+@import "./utilities";
+
+// 12. BOOTSTRAP UTILITIES API LAST
+@import "bootstrap/scss/utilities/api";

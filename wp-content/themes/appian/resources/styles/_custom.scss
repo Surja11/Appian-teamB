@@ -1,132 +1,53 @@
-/* ==============================================
-    /**
-      * CONTENTS
-      *
-      * 1.SETTINGS
-      * Path............... Project-level path and variables.
-      * Global Vars................. Global variables
-      *
-      *
-      * 2.TOOLS
-      * Font-size............A mixin which guarantees baseline-friendly line-heights.
-      * Clearfix.............Micro clearfix mixin.
-      * Hidden...............Mixin for hiding elements.
-      * Sass MQ..............inuitcss’ default media query manager.
-      *
-      * 3.GENERIC
-      *
-      * Reboot........ //A level playing field using @necolas’ Normalize.css. used by  bootstrap
-      * fonts................ Fonts Used on site
-      * Icons - Icon used on site
-      *
-      * 4.ELEMENTS
-      * Page.................Set up our document’s default `font-size` and
-      *                      `line-height`.
-      * Headings.............Very minimal (i.e. only font-size information) for
-      *                      headings 1 through 6.
-      * Images...............Base image styles.
-      * Tables...............Simple table styles.
-      *
-      * 5.Layout
-      * header.............. Page Global Header.
-      * Footer............... Page Global Footer.
-      * main................ Page Main Content Area
-      * offcanvas................. Offcanvas Layout used on Global Component
-      * Post   ............ Default Post Layout // Wordpress
-      * Post Basic.......... Post Basic Css // Wordpress
-      * Post Restricted .................. Post Restricted. // Wordpress
-      * Block................Image-on-top-of-text object.
-      * Ratio................A container for maintaining aspect ratio of content.
-      * Crop.................Provide a cropping context for media (images, etc.).
-      * Table................Classes for manipulating `table`s.
-      * Pack.................Pack items into available horizontal space.
-      *
-      * 6.modules
-      * MODULES.............. Module to be used on Block Level
-      *
-      * 7.COMPONENTS
-      * Buttons.............. Button Component with variation
-      *
-      * 8.UTILITIES
-      * Clearfix.............Bind our clearfix onto a utility class.
-      * Widths...............Simple width helper classes.
-      * Headings.............Reassigning our heading styles to helper classes.
-      * Spacings.............Nudge bits of the DOM around with these spacing
-      *                      classes.
-      * Responsive-Spacings..Enhances the function of normal spacings for
-      *                      responsive usage.
-      * Print................Reset-like styles taken from the HTML5 Boilerplate.
-      * Hide.................Helper classes to hide content
-
-    ============================================== */
-
-// 1. Settings
 
 @import "settings/path";
-@import "bootstrap/scss/functions";
+
+
 @import "settings/bootstrap-variables";
 @import "settings/global-vars";
 
-// Bootstrap Functions
+
+@import "bootstrap/scss/functions";
 @import "bootstrap/scss/variables";
-// Include bootstrap remainder of variables
 @import "bootstrap/scss/maps";
-
-// 2. Tools : Include remainder of required parts Tools
 @import "bootstrap/scss/mixins";
-@import "tools/mixins";
-@import "tools/placeholders";
-// @import 'tools/animations';
 
-//3. GENERIC
+
 @import "bootstrap/scss/root";
-// Root scss
 @import "bootstrap/scss/reboot";
-// Normalize Scss
-@import 'generic/fonts';
-@import "generic/icons/icons";
-
-// 4. Elements
 @import "bootstrap/scss/images";
-
-/** Extra layer of bootstrap Only */
 @import "bootstrap/scss/containers";
 @import "bootstrap/scss/grid";
 @import "bootstrap/scss/helpers";
+@import "bootstrap/scss/transitions";
+
+
 @import "bootstrap/scss/accordion";
 @import "bootstrap/scss/modal";
-// @import 'bootstrap/scss/list-group';
 
-// @import 'bootstrap/scss/nav';
-// @import 'bootstrap/scss/navbar';
-// @import 'bootstrap/scss/dropdown';
 
-@import "bootstrap/scss/transitions";
-// @import 'bootstrap/scss/tables';
-// @import 'bootstrap/scss/offcanvas';
-// @import 'bootstrap/scss/accordion';
+@import "tools/mixins";
+@import "tools/placeholders";
 
-// 4. Elements
+
+@import "generic/fonts";
+@import "generic/icons/icons";
+
+
 @import "elements/type";
 @import "elements/grids";
 @import "elements/config";
 
-// 5 . Common Layout
-@import "./layout";
 
-// 6 . Common Component
+@import "./layout";
 @import "./components";
-// 6 . Modules
+
+
 @import "modules/styleguide";
 
 
-// 7. Utilities
-@import "utilities/helper";
-
 @import "bootstrap/scss/utilities";
 
-// 8. Utitlities Override
-/* stylelint-disable */
+/* CUSTOM UTILITIES OVERRIDE */
 $utilities: map-merge(
   $utilities,
   (
@@ -136,270 +57,63 @@ $utilities: map-merge(
       responsive: true,
       values: auto pointer grab,
     ),
+
     "color": (
       property: color,
       class: text,
       values: map-merge(
-          $theme-colors,
-          (
-            "white": $white,
-            "light-blue": $light-blue,
-            "midnight-blue": $midnight-blue,
-            "salmon": $salmon,
-            "greenish-blue": $greenish-blue,
-            "powder-blue": $powder-blue,
-            "rich-black": $rich-black,
-            "velvet-maroon": $velvet-maroon,
-            "red-orange": $red-orange,
-            "faded-orange": $faded-orange,
-            "light-rose": $light-rose,
-            "dirty-purple": $dirty-purple,
-            "gray": $gray-600,
-            "gray-dark": $gray-800,
-            "headline": $midnight-blue,
-
-            "primary-red": $color-primary-red,
-            "dark-red": $color-dark-red,
-            "ultra-dark-red": $color-ultra-dark-red,
-            "secondary": $color-secondary,
-            "neutral-600": $color-neutral-600,
-            "neutral-500": $color-neutral-500,
-            "neutral-400": $color-neutral-400,
-            "neutral-300": $color-neutral-300,
-            "neutral-200": $color-neutral-200,
-          )
-        ),
+        $theme-colors,
+        (
+          "white": $white,
+          "primary-red": $color-primary-red,
+          "dark-red": $color-dark-red,
+          "secondary": $color-secondary,
+          "neutral-600": $color-neutral-600,
+          "neutral-500": $color-neutral-500,
+          "neutral-400": $color-neutral-400,
+          "neutral-300": $color-neutral-300,
+          "neutral-200": $color-neutral-200
+        )
+      ),
     ),
+
     "background-color": (
       property: background-color,
       class: bg,
       values: map-merge(
-          $theme-colors,
-          (
-            "body": $body-bg,
-            "white": $white,
-            "light-blue-50": $blue-50,
-            "light-blue": $light-blue,
-            "midnight-blue": $midnight-blue,
-            "salmon": $salmon,
-            "greenish-blue": $greenish-blue,
-            "powder-blue": $powder-blue,
-            "rich-black": $rich-black,
-            "velvet-maroon": $velvet-maroon,
-            "red-orange": $red-orange,
-            "faded-orange": $faded-orange,
-            "light-rose": $light-rose,
-            "dirty-purple": $dirty-purple,
-            "grey": $gray-100,
-            "subtle": $gray-50,
-            "accent": $primary,
-            "dark": $midnight-blue,
+        $theme-colors,
+        (
+          "white": $white,
+          "primary-red": $color-primary-red,
+          "dark-red": $color-dark-red,
+          "secondary": $color-secondary,
+          "neutral-600": $color-neutral-600,
+          "neutral-500": $color-neutral-500,
+          "neutral-400": $color-neutral-400,
+          "neutral-300": $color-neutral-300,
+          "neutral-200": $color-neutral-200
+        )
+      ),
+    ),
 
-            "primary-red": $color-primary-red,
-            "dark-red": $color-dark-red,
-            "ultra-dark-red": $color-ultra-dark-red,
-            "light-red": $color-light-red,
-            "secondary": $color-secondary,
-            "secondary-dark": $color-secondary-dark,
-            "secondary-light": $color-secondary-light,
-            "secondary-ultra-light": $color-secondary-ultra-light,
-            "neutral-600": $color-neutral-600,
-            "neutral-500": $color-neutral-500,
-            "neutral-400": $color-neutral-400,
-            "neutral-300": $color-neutral-300,
-            "neutral-200": $color-neutral-200,
-            "neutral-100": $color-neutral-100,
-            "neutral-75": $color-neutral-75,
-            "ultra-light-red": $color-ultra-light-red,
-          )
-        ),
-    ),
-    "border": (
-      property: border,
-      values: (
-        null: $border-width solid $border-color,
-        0: 0,
-      ),
-    ),
-    "border-top": (
-      property: border-top,
-      values: (
-        null: $border-width solid $border-color,
-        0: 0,
-      ),
-    ),
-    "border-end": (
-      property: border-right,
-      class: border-end,
-      values: (
-        null: $border-width solid $border-color,
-        0: 0,
-      ),
-    ),
-    "border-bottom": (
-      property: border-bottom,
-      values: (
-        null: $border-width solid $border-color,
-        0: 0,
-      ),
-    ),
-    "border-start": (
-      property: border-left,
-      class: border-start,
-      values: (
-        null: $border-width solid $border-color,
-        0: 0,
-      ),
-    ),
-    "border-color": (
-      property: border-color,
-      class: border,
-      values: (
-        "white": $white,
-        "subtle": $gray-200,
-        "dark": $midnight-blue,
-        "accent": $primary,
-        "accent-alt": $greenish-blue,
-      ),
-    ),
-    "border-width": (
-      property: border-width,
-      class: border,
-      values: $border-widths,
-    ),
-    "width": (
-      property: width,
-      class: w,
-      values: (
-        25: 25%,
-        50: 50%,
-        100: 100%,
-        fit: fit-content,
-        auto: auto,
-      ),
-    ),
     "margin": (
       responsive: true,
       property: margin,
       class: m,
-      values: map-merge(
-          $spacers,
-          (
-            auto: auto,
-          )
-        ),
+      values: map-merge($spacers, (auto: auto)),
     ),
-    "margin-x": null,
-    "margin-y": null,
-    "margin-top": (
-      responsive: true,
-      property: margin-top,
-      class: mt,
-      values: map-merge(
-          $spacers,
-          (
-            auto: auto,
-          )
-        ),
-    ),
-    "margin-end": (
-      responsive: true,
-      property: margin-right,
-      class: me,
-      values: map-merge(
-          $spacers,
-          (
-            auto: auto,
-          )
-        ),
-    ),
-    "margin-bottom": (
-      responsive: true,
-      property: margin-bottom,
-      class: mb,
-      values: map-merge(
-          $spacers,
-          (
-            auto: auto,
-          )
-        ),
-    ),
-    "margin-start": (
-      responsive: true,
-      property: margin-left,
-      class: ms,
-      values: map-merge(
-          $spacers,
-          (
-            auto: auto,
-          )
-        ),
-    ),
-    // Negative margin utilities
-    "negative-margin": null,
-    "negative-margin-x": null,
-    "negative-margin-y": null,
-    "negative-margin-top": (
-      responsive: true,
-      property: margin-top,
-      class: mt,
-      values: $negative-spacers,
-    ),
-    "negative-margin-end": (
-      responsive: true,
-      property: margin-right,
-      class: me,
-      values: $negative-spacers,
-    ),
-    "negative-margin-bottom": null,
-    "negative-margin-start": null,
-    // Padding utilities
+
     "padding": (
-        responsive: true,
-        property: padding,
-        class: p,
-        values: $spacers,
-      ),
-    "padding-x": null,
-    "padding-y": null,
-    "padding-top": (
       responsive: true,
-      property: padding-top,
-      class: pt,
+      property: padding,
+      class: p,
       values: $spacers,
-    ),
-    "padding-end": (
-      responsive: true,
-      property: padding-right,
-      class: pe,
-      values: $spacers,
-    ),
-    "padding-bottom": (
-      responsive: true,
-      property: padding-bottom,
-      class: pb,
-      values: $spacers,
-    ),
-    "padding-start": (
-      responsive: true,
-      property: padding-left,
-      class: ps,
-      values: $spacers,
-    ),
-    "overflow": (
-      property: overflow,
-      values: auto hidden visible scroll clip,
     ),
   )
 );
 
-// Custom Utilities
+
 @import "./utilities";
 
-// 7. Optionally include utilities API last to generate classes based on the Sass map in `_utilities.scss`
+
 @import "bootstrap/scss/utilities/api";
-
-//8. Add cards that are used multiple times
-// @import './cards';
-
-// Don't Add anything below this.

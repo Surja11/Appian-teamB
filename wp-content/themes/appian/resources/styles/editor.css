@@ -1,0 +1,45 @@
+/* @import "tailwindcss"; */
+html :where(.wp-block) {
+  max-width: 100% !important;
+}
+
+.edit-post-visual-editor__content-area > .is-desktop-preview {
+  padding-left: 24px !important;
+  padding-right: 24px !important;
+}
+
+.editor-visual-editor {
+  background-color: white;
+  padding-left: 24px !important;
+  padding-right: 24px !important;
+  font-family: var(--os-body-font-family) !important;
+}
+
+html :where(.editor-styles-wrapper) {
+  font-family: inherit !important;
+}
+
+body.js.block-editor-page {
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen-Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif !important;
+  font-size: 13px;
+  line-height: 1.4em;
+}
+
+.interface-navigable-region.interface-interface-skeleton__sidebar,
+.interface-complementary-area__fill,
+.interface-complementary-area.editor-sidebar {
+  width: 500px !important;
+}
+
+.acf-gallery.ui-resizable.-open .acf-gallery-side,
+.acf-gallery.ui-resizable.-open .acf-gallery-side-inner {
+  width: 250px !important;
+}
+
+.acf-gallery.ui-resizable.-open .acf-gallery-main {
+  right: 250px !important;
+}
+
+.interface-navigable-region.interface-interface-skeleton__sidebar:empty {
+  display: none;
+}/*# sourceMappingURL=editor.css.map */

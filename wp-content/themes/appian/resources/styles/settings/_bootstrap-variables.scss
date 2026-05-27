@@ -5,6 +5,9 @@
 // Color system
 
 // scss-docs-start gray-color-variables
+
+@use "sass:color";
+
 $white: #fff !default;
 $gray-50: #fbf9f6 !default;
 $gray-100: #f6f5f1 !default;
@@ -369,23 +372,8 @@ $theme-colors: (
   "warning": $warning,
   "danger": $danger,
   "light": $light,
-  "dark": $dark,
-  // Custom theme colors
-  // "light-blue":     $light-blue,
-  // "midnight-blue": $midnight-blue,
-  // "salmon":         $salmon,
-  // "greenish-blue":  $greenish-blue,
-  // "powder-blue":    $powder-blue,
-  // "rich-black":     $rich-black,
-  // "velvet-maroon":  $velvet-maroon,
-  // "red-orange":     $red-orange,
-  // "faded-orange":   $faded-orange,
-  // "light-rose":     $light-rose,
-  // "dirty-purple":   $dirty-purple,
-  // "gray":       $gray-600,
-   // "gray-dark":  $gray-800,
-) !default;
-// scss-docs-end theme-colors-map
+  "dark": $dark
+);// scss-docs-end theme-colors-map
 
 // scss-docs-start theme-text-variables
 $primary-text-emphasis: shade-color($primary, 60%) !default;
@@ -527,7 +515,7 @@ $body-emphasis-color: $color-neutral-600 !default;
 $link-color: $primary !default;
 $link-decoration: underline !default;
 $link-shade-percentage: 20% !default;
-$link-hover-color: shift-color($link-color, $link-shade-percentage) !default;
+$link-hover-color: darken($link-color, 15%);
 $link-hover-decoration: null !default;
 
 $stretched-link-pseudo-element: after !default;
@@ -840,12 +828,12 @@ $table-bg-scale: -80% !default;
 
 // scss-docs-start table-loop
 $table-variants: (
-  "primary": shift-color($primary, $table-bg-scale),
-  "secondary": shift-color($secondary, $table-bg-scale),
-  "success": shift-color($success, $table-bg-scale),
-  "info": shift-color($info, $table-bg-scale),
-  "warning": shift-color($warning, $table-bg-scale),
-  "danger": shift-color($danger, $table-bg-scale),
+  "primary": $primary,
+  "secondary": $secondary,
+  "success": lighten(#198754, 10%),
+"info":    lighten(#0dcaf0, 10%),
+"warning": lighten(#ffc107, 10%),
+"danger":  lighten(#dc3545, 10%),
   "light": $light,
   "dark": $dark,
 ) !default;
