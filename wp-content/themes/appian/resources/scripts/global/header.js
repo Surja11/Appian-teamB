@@ -73,7 +73,7 @@ const header = () => {
 
   // Resettiing mobile state when resizing
   window.addEventListener('resize', () => {
-    if (window.innerWidth >= NAV_BREAKPOINT) {
+    if (window.innerWidth >= breakpoint) {
       toggleIcon.setAttribute('aria-expanded', 'false');
       main.classList.remove('navbar__main--open');
       extra.classList.remove('navbar__extra--open');
