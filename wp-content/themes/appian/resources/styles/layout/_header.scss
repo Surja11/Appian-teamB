@@ -11,7 +11,7 @@ $nav-dropdown-shadow: $box-shadow;
 $nav-gap: 2.5rem;
 $nav-z: $zindex-fixed;
 
-$nav-breakpoint: map-get($grid-breakpoints, xl);
+$nav-breakpoint: map-get($grid-breakpoints, sxl);
 
 @mixin focus-box($offset: 5px) {
   &:focus {
@@ -21,8 +21,12 @@ $nav-breakpoint: map-get($grid-breakpoints, xl);
 }
 
 .header {
-  position: relative;
-  // min-height: 100svh;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: $nav-z;
   font-family: $nav-font-family;
   color: $nav-color;
   background-color: $color-neutral-50;
@@ -234,10 +238,10 @@ $nav-breakpoint: map-get($grid-breakpoints, xl);
 
     @media (min-width: $nav-breakpoint) {
       position: absolute;
-      top: calc(100% + 0.2rem);
+      top: calc(100% + 0.3rem);
       left: -1rem;
       z-index: $zindex-dropdown;
-      min-width: 220px;
+      min-width: 16rem;
       padding: 1rem;
       background-color: $nav-dropdown-bg;
       // border: 1px solid black;
@@ -324,14 +328,17 @@ $nav-breakpoint: map-get($grid-breakpoints, xl);
     display: block;
     font-size: 0.625rem;
     font-weight: $font-weight-normal;
-    letter-spacing: 0.08em;
+    letter-spacing: 3%;
     text-transform: uppercase;
+    line-height: 14px;
+    font-weight: 500;
     color: $color-neutral-600;
   }
 
   &__contact-row {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 0.5rem;
 
     img {
@@ -355,5 +362,20 @@ $nav-breakpoint: map-get($grid-breakpoints, xl);
         color: $nav-hover-color;
       }
     }
+  }
+}
+
+
+.navbar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: #F3BABC;
+  opacity: 0.3;
+  z-index: #{$nav-z - 1}; 
+  cursor: pointer;
+
+  &--visible {
+    display: block;
   }
 }
