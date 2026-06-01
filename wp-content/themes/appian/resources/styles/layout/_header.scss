@@ -11,7 +11,7 @@ $nav-dropdown-shadow: $box-shadow;
 $nav-gap: 2.5rem;
 $nav-z: $zindex-fixed;
 
-$nav-breakpoint: map-get($grid-breakpoints, sxl);
+$nav-breakpoint: 1291px;
 
 @mixin focus-box($offset: 5px) {
   &:focus {
@@ -23,7 +23,6 @@ $nav-breakpoint: map-get($grid-breakpoints, sxl);
 .header {
 
   position: fixed;
-  top: 0;
   left: 0;
   right: 0;
   z-index: $nav-z;
@@ -158,6 +157,8 @@ $nav-breakpoint: map-get($grid-breakpoints, sxl);
       align-items: center;
       gap: $nav-gap;
     }
+
+    
   }
 
   &__item {
@@ -173,6 +174,10 @@ $nav-breakpoint: map-get($grid-breakpoints, sxl);
     &:last-child {
       border-bottom: none;
     }
+ &:hover{
+      color: $nav-hover-color;
+    }
+   
   }
 
   &__link {
@@ -185,12 +190,13 @@ $nav-breakpoint: map-get($grid-breakpoints, sxl);
     transition: color $transition-base;
     @include focus-box;
 
-    &:hover {
-      color: $nav-hover-color;
-    }
+    // &:hover {
+    //   color: $nav-hover-color;
+    // }
   }
 
   &__dropdown-trigger {
+
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -208,22 +214,34 @@ $nav-breakpoint: map-get($grid-breakpoints, sxl);
     transition: color $transition-base;
     @include focus-box;
 
+    svg {
+      flex-shrink: 0;
+      fill: $nav-color;  
+      transition: transform 0.2s ease; 
+
+    }
+
     &:hover {
       color: $nav-hover-color;
+
+      svg{
+        fill: $nav-hover-color;
+      }
     }
 
     // Rotate chevron when open
-    &[aria-expanded="true"] img {
+    &[aria-expanded="true"] svg {
       transform: rotate(180deg);
     }
 
-    img {
-      flex-shrink: 0;
-      transition: transform 0.2s ease;
-    }
+    
 
     @media (min-width: $nav-breakpoint) {
       width: auto;
+    }
+
+    .navbar__link {
+      color: inherit;
     }
   }
 
@@ -338,7 +356,7 @@ $nav-breakpoint: map-get($grid-breakpoints, sxl);
   &__contact-row {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     gap: 0.5rem;
 
     img {
