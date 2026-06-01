@@ -1,10 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
   const toggle = document.getElementById("sg-nav-toggle");
   const nav = document.getElementById("sg-nav");
+  const links = nav.querySelectorAll("a"); // Get all links
+  console.log(toggle, nav, links);
+  
 
-  if (toggle && nav) {
-    const links = nav.querySelectorAll("a"); // Get all links - only if nav exists
-
+  if (toggle && nav && links) {
     toggle.addEventListener("click", () => {
       toggle.classList.toggle("is-active");
       nav.classList.toggle("is-open");

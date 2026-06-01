@@ -46,12 +46,12 @@ add_action('acf/init', function () {
                     $js_key = "resources/scripts/modules/{$fileName}.js";
 
                     if (isset($manifest[$js_key])) {
-                        wp_enqueue_script(
+                        wp_enqueue_script_module(
                             "{$fileName}-module",
                             get_template_directory_uri() . '/public/' . $manifest[$js_key]['file'],
                             [],
                             null,
-                            true
+                            []
                         );
                     }
 
