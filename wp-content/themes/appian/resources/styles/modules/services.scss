@@ -1,0 +1,228 @@
+// Import Bootstrap mixins and variables
+@import '../custom';
+
+// Services Block Styles
+.services-block {
+  width: 100%;
+  margin: 0;
+  
+  .services-container {
+    // Using Bootstrap utilities: d-flex flex-column flex-md-row w-100
+    gap: 0; // No gap between cards
+    height: auto;
+    width: 100%;
+    
+    // Mobile
+    @include media-breakpoint-down(md) {
+      flex-direction: column;
+      width: 100%;
+      max-width: 375px;
+      margin: 0 auto;
+    }
+    
+    @include media-breakpoint-up(md) {
+      // Tablet and Desktop
+      flex-direction: row;
+      height: 43.75rem;
+      gap: 0;
+      width: 100%;
+      max-width: none;
+    }
+  }
+}
+
+.service-card {
+  // Using Bootstrap utilities: position-relative overflow-hidden
+  flex: 1;
+  border-radius: 0;
+  cursor: pointer;
+  width: 100%;
+  max-width: 375px;
+  min-height: 30rem;
+  margin: 0 auto;
+  
+  @include media-breakpoint-up(md) {
+    width: 50%;
+    max-width: none;
+    min-height: 43.75rem;
+    flex: 1;
+    margin: 0;
+  }
+  
+  // Background image and overlay
+  &__background {
+    // Using Bootstrap utilities: position-absolute w-100 h-100
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    
+    img {
+      // Using Bootstrap utilities: w-100 h-100
+      object-fit: cover;
+      object-position: center top;
+      width: 100%;
+      height: 100%;
+    }
+  }
+  
+  &__overlay {
+    // Using Bootstrap utilities: position-absolute w-100 h-100
+    top: 0;
+    left: 0;
+    background: var(--overlay-50);
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+  }
+  
+  // Content container
+  &__content {
+    // Using Bootstrap utilities: h-100 text-white
+    z-index: 3;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0 0 0 1.75rem;
+    
+    @include media-breakpoint-up(md) {
+      padding: 5.5rem 0 0 5rem;
+    }
+  }
+
+  // Main title
+  &__title {
+    // All typography styling handled by .h1 class
+    color: var(--color-neutral-50);
+  }
+}
+
+// Construction card - title first on mobile, label first on desktop
+.service-card--construction {
+  .service-card__title {
+    padding-top: 3rem; // mobile: space above title
+    margin-top: 0;
+
+    @include media-breakpoint-up(md) {
+      padding-top: 0;
+      margin-top: 1.5rem; // desktop: space between label and title
+    }
+  }
+
+  .service-card__label {
+    padding-top: 1rem;
+
+    @include media-breakpoint-up(md) {
+      padding-top: 0;
+    }
+  }
+}
+
+// Service card - label first on both mobile and desktop
+.service-card--service {
+  .service-card__label {
+    padding-top: 3rem; // mobile: space above label as it shows first
+
+    @include media-breakpoint-up(md) {
+      padding-top: 0;
+    }
+  }
+
+  .service-card__title {
+    margin-top: 1rem; // mobile: gap after label
+    padding-top: 0;
+
+    @include media-breakpoint-up(md) {
+      padding-top: 0;
+      margin-top: 1.5rem; // space between label and title
+    }
+  }
+}
+
+.service-card {
+  position: relative;
+  
+  // Arrow button
+  .btn {
+    position: absolute;
+    bottom: 2rem;
+    right: 1.75rem;
+    width: 52px;
+    height: 52px;
+    min-width: auto;
+    padding: 16px;
+    
+    top: auto;
+    left: auto;
+    margin: 0;
+    transform: none;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--os-primary);
+    border: none;
+    border-radius: var(--btn-border-radius);
+    display: flex;
+    z-index: 10;
+    
+    // Tablet
+    @include media-breakpoint-up(md) {
+      bottom: 2.25rem;
+      right: 2.75rem;
+      width: 60px;
+      height: 60px;
+      padding: 18px;
+    }
+    
+    // Desktop
+    @include media-breakpoint-up(lg) {
+      bottom: 3rem;
+      right: 3.75rem;
+      width: 68px;
+      height: 68px;
+      padding: 22px;
+    }
+    
+    // Arrow icon styling
+    svg {
+      width: 20px;
+      height: 20px;
+      stroke: var(--color-neutral-50);
+      
+      @include media-breakpoint-up(md) {
+        width: 22px;
+        height: 22px;
+      }
+      
+      @include media-breakpoint-up(lg) {
+        width: 24px;
+        height: 24px;
+      }
+    }
+  }
+}
+
+// Animation for cards entrance
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.services-block {
+  .service-card {
+    animation: slideInUp 0.6s ease-out;
+    
+    &:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+  }
+}
