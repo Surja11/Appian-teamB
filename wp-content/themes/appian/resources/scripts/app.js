@@ -7,4 +7,5 @@ import.meta.glob('../fonts/**');
 
 import './global/header.js';
 
+import 'bootstrap/js/src/collapse';
 

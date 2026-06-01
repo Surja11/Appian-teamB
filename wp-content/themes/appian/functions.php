@@ -162,7 +162,7 @@ add_action('widgets_init', 'outside_traineeship_biolerplate_widgets_init');
 function outside_traineeship_biolerplate_scripts()
 {
     wp_enqueue_style('app-css', vite_assets('resources/styles/app.scss'), true, null,);
-    wp_enqueue_script('app-js', vite_assets('resources/scripts/app.js'), [''], null, true);
+     wp_enqueue_script_module('app-js', vite_assets ('resources/scripts/app.js'), [''], null, []);
 }
 add_action('wp_enqueue_scripts', 'outside_traineeship_biolerplate_scripts', 2);
 
@@ -254,12 +254,12 @@ function theme_assets()
     }
 
     // JS
-    wp_enqueue_script(
+    wp_enqueue_script_module(
         'theme-app',
         get_template_directory_uri() . '/public/' . $entry['file'],
         [],
         null,
-        true
+        []
     );
 }
 
@@ -364,6 +364,8 @@ if (function_exists('acf_add_options_page')) {
         'redirect'      => false
     ));
 }
+
+
 
 /**
  * Navigation Custom Walker Implementation for BEM Styling Compliance
