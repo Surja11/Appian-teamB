@@ -3,9 +3,10 @@ $footer  = get_field('footer', 'option');
 
 $address = $footer['address'] ?? [];
 $contact = $footer['contact'] ?? [];
-$phone   = $contact['phone_number'] ?? ''; 
+$phone  = $contact['phone_number'] ?? ''; 
+$fax = $contact['fax_number']??[];
 $explore = $footer['explore'] ?? [];
-$logo    = $footer['logo'] ?? null;
+$logo = $footer['logo'] ?? null;
 ?>
 
 <footer id="colophon" class="site-footer custom-footer" role="contentinfo">
@@ -78,36 +79,63 @@ $logo    = $footer['logo'] ?? null;
                             </section>
                         <?php endif; ?>
 
-                        <section class="footer-contact-block" aria-label="Contact Information">
-                            <p class="footer-heading">
-                                <?php echo esc_html(!empty($contact['contact_title']) ? $contact['contact_title'] : 'CONTACT'); ?>
-                            </p>
-                            
-                            <div class="footer-content-serif">
-                                <?php 
-                                $phone_str = is_array($phone) ? ($phone['phone_number'] ?? $phone['value'] ?? '') : $phone;
-                                if (!empty($phone_str)) : 
-                                    $clean_phone = preg_replace('/[^0-9]/', '', $phone_str);
-                                    if (strlen($clean_phone) == 10) {
-                                        $phone_output = '(' . substr($clean_phone, 0, 3) . ') ' . substr($clean_phone, 3, 3) . '-' . substr($clean_phone, 6);
-                                    } else {
-                                        $phone_output = $phone_str;
-                                    }
-                                ?>
-                                    <p>Phone: <a href="tel:<?php echo esc_attr($clean_phone); ?>" class="footer-interactive-link"><?php echo esc_html($phone_output); ?></a></p>
-                                <?php endif; ?>
+                  <section class="footer-contact-block" aria-label="Contact Information">
+    <p class="footer-heading">
+        <?php echo esc_html(!empty($contact['contact_title']) ? $contact['contact_title'] : 'CONTACT'); ?>
+    </p>
 
-                                <p>Fax: <span class="fax-text-muted footer-interactive-link" style="cursor: pointer;" onclick="alert('Fax: (301) 816-2177');">(301)-816-2177</span></p>
+    <div class="footer-content-serif">
+        <?php
+        $phone_label = $phone['phone_eyebrow'] ?? 'Phone';
+        $phone_str = is_array($phone) ? ($phone['phone_number'] ?? '') : '';
 
-                                <?php if (!empty($contact['email'])) : ?>
-                                    <p>
-                                        <a href="mailto:<?php echo esc_attr($contact['email']); ?>" class="footer-interactive-link footer-email-link">
-                                            <?php echo esc_html($contact['email']); ?>
-                                        </a>
-                                    </p>
-                                <?php endif; ?>
-                            </div>
-                        </section>
+        if (!empty($phone_str)) :
+            $clean_phone = preg_replace('/[^0-9]/', '', $phone_str);
+
+            if (strlen($clean_phone) === 10) {
+                $phone_output = '(' . substr($clean_phone, 0, 3) . ') ' . substr($clean_phone, 3, 3) . '-' . substr($clean_phone, 6);
+            } else {
+                $phone_output = $phone_str;
+            }
+        ?>
+            <p>
+                <?php echo esc_html($phone_label); ?>:
+                <a href="tel:<?php echo esc_attr($clean_phone); ?>" class="footer-interactive-link">
+                    <?php echo esc_html($phone_output); ?>
+                </a>
+            </p>
+        <?php endif; ?>
+
+        <?php
+        $fax_label = $fax['fax_eyebrow'] ?? 'Fax';
+        $fax_number = is_array($fax) ? ($fax['fax_number'] ?? '') : '';
+
+        if (!empty($fax_number)) :
+            $clean_fax = preg_replace('/[^0-9]/', '', $fax_number);
+
+            if (strlen($clean_fax) === 10) {
+                $fax_output = '(' . substr($clean_fax, 0, 3) . ') ' . substr($clean_fax, 3, 3) . '-' . substr($clean_fax, 6);
+            } else {
+                $fax_output = $fax_number;
+            }
+        ?>
+            <p>
+                <?php echo esc_html($fax_label); ?>:
+                <span class="fax-text-muted footer-interactive-link" style="cursor: pointer;">
+                    <?php echo esc_html($fax_output); ?>
+                </span>
+            </p>
+        <?php endif; ?>
+
+        <?php if (!empty($contact['email'])) : ?>
+            <p>
+                <a href="mailto:<?php echo esc_attr($contact['email']); ?>" class="footer-interactive-link footer-email-link">
+                    <?php echo esc_html($contact['email']); ?>
+                </a>
+            </p>
+        <?php endif; ?>
+    </div>
+</section>
                     </div>
 
                     <div class="linkedin-wrapper">
