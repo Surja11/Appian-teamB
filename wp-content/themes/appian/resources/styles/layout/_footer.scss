@@ -260,12 +260,47 @@ $primary: $color-primary-red !default;
         gap: 40px; 
     }
 
-    .footer-address-block,
+    // Keep the contact block styles and any shared margins
+  // Perfectly balance the contact block to hit exactly 290x117px
     .footer-contact-block {
         margin: 0;
+        width: 290px;
+        box-sizing: border-box;
 
         .footer-heading {
             margin-bottom: 12px; 
+        }
+
+        .footer-content-serif {
+            width: 100%;
+            line-height: 1.5; /* Lock stable line-height footprint */
+            gap: 4px;          /* Adjusted gap to add exactly 5px of vertical layout height */
+
+            .footer-interactive-link {
+                display: inline-block;
+                max-width: 100%;
+                word-break: break-all;
+            }
+        }
+    }
+    // Separate the address block to give it the specific width, height, and line-height fixes
+    .footer-address-block {
+        margin: 0;
+        width: 290px;
+        height: 117px;
+        box-sizing: border-box;
+
+        .footer-heading {
+            margin-bottom: 12px; 
+        }
+
+        .footer-content-serif {
+            line-height: 1.45; /* Adjusted slightly to cleanly fit the 117px height layout boundary */
+            
+            p.fax-text-muted {
+                max-width: 100%;
+                word-wrap: break-word;
+            }
         }
     }
 
@@ -317,7 +352,7 @@ $primary: $color-primary-red !default;
         margin-bottom: 0;
 
         @include media-breakpoint-up(md) {
-            margin-top: 53px; 
+            margin-top: 60px; 
         }
         @include media-breakpoint-down(md) {
             margin-top: 2rem;
@@ -328,11 +363,13 @@ $primary: $color-primary-red !default;
             width: 24px;
             height: 24px;
             opacity: 0.8;
+            border-radius: 5px; 
+            overflow: hidden;   
             transition: opacity 0.15s ease-in-out;
 
             .linkedin-icon-svg {
-                width: 24px;  
-                height: 24px; 
+                width: 100%; 
+                height: 100%; 
                 display: block;
                 
                 path {
@@ -363,7 +400,9 @@ $primary: $color-primary-red !default;
         
         li {
             margin: 0;
-            line-height: 1; 
+            display: flex; /* Ensures the li conforms perfectly to a fixed layout height */
+            height: 38.2px; /* Uniform height allocation per list row to hit the math target */
+            align-items: center;
         }
         
         li a.explore-link {
@@ -371,7 +410,7 @@ $primary: $color-primary-red !default;
             font-family: $font-family-heading; 
             font-weight: $font-weight-normal; 
             font-size: 28px;
-            line-height: 1.15; 
+            line-height: 1.365; /* Expands the internal text baseline footprint cleanly */
             color: #111111; 
             display: inline-block;
             width: fit-content;
