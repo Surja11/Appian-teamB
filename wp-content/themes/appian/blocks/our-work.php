@@ -79,6 +79,7 @@ $chevron = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="h
             $image_url = is_array($image) ? ($image['url'] ?? '') : $image;
             $image_alt = is_array($image) ? ($image['alt'] ?? $title) : $title;
         ?>
+        
             <div
                 class="our-work__tab-pane<?php echo $is_active ? ' active' : ''; ?>"
                 id="<?php echo esc_attr($tab_id); ?>-content"
