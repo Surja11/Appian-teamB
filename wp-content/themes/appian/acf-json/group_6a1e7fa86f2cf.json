@@ -1,48 +1,27 @@
 {
-    "key": "group_6a0d9ff086ae7",
-    "title": "Our Work",
+    "key": "group_6a1e7fa86f2cf",
+    "title": "Services",
     "fields": [
         {
-            "key": "field_6a0da10555889",
-            "label": "Our Work",
-            "name": "our_work",
+            "key": "field_6a1e7fa8a5591",
+            "label": "Services",
+            "name": "services",
             "aria-label": "",
             "type": "group",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
-                "width": "100",
+                "width": "",
                 "class": "",
                 "id": ""
             },
-            "layout": "block",
+            "layout": "table",
             "sub_fields": [
                 {
-                    "key": "field_6a0da13c3100d",
-                    "label": "our work header",
-                    "name": "our_work_header",
-                    "aria-label": "",
-                    "type": "text",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "maxlength": "",
-                    "allow_in_bindings": 0,
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": ""
-                },
-                {
-                    "key": "field_6a0da1583100e",
-                    "label": "tab",
-                    "name": "tab",
+                    "key": "field_6a1e800dfc0f9",
+                    "label": "Active Departments",
+                    "name": "active_departments",
                     "aria-label": "",
                     "type": "repeater",
                     "instructions": "",
@@ -53,7 +32,7 @@
                         "class": "",
                         "id": ""
                     },
-                    "layout": "row",
+                    "layout": "table",
                     "pagination": 0,
                     "min": 0,
                     "max": 0,
@@ -62,53 +41,9 @@
                     "rows_per_page": 20,
                     "sub_fields": [
                         {
-                            "key": "field_6a0da1cb3100f",
-                            "label": "Tab title",
-                            "name": "work-heading",
-                            "aria-label": "",
-                            "type": "text",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "default_value": "",
-                            "maxlength": "",
-                            "allow_in_bindings": 0,
-                            "placeholder": "",
-                            "prepend": "",
-                            "append": "",
-                            "parent_repeater": "field_6a0da1583100e"
-                        },
-                        {
-                            "key": "field_6a0da22231010",
-                            "label": "title",
-                            "name": "title",
-                            "aria-label": "",
-                            "type": "text",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "default_value": "",
-                            "maxlength": "",
-                            "allow_in_bindings": 0,
-                            "placeholder": "",
-                            "prepend": "",
-                            "append": "",
-                            "parent_repeater": "field_6a0da1583100e"
-                        },
-                        {
-                            "key": "field_6a0da29231011",
-                            "label": "content",
-                            "name": "content",
+                            "key": "field_6a1e80386a490",
+                            "label": "Department Eyebrow",
+                            "name": "department_eyebrow",
                             "aria-label": "",
                             "type": "wysiwyg",
                             "instructions": "",
@@ -125,12 +60,34 @@
                             "toolbar": "full",
                             "media_upload": 1,
                             "delay": 0,
-                            "parent_repeater": "field_6a0da1583100e"
+                            "parent_repeater": "field_6a1e800dfc0f9"
                         },
                         {
-                            "key": "field_6a0da2a531012",
-                            "label": "image",
-                            "name": "image",
+                            "key": "field_6a1e80623300c",
+                            "label": "Department Name",
+                            "name": "department_name",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "parent_repeater": "field_6a1e800dfc0f9"
+                        },
+                        {
+                            "key": "field_6a1e80733300d",
+                            "label": "Department Image",
+                            "name": "department_image",
                             "aria-label": "",
                             "type": "image",
                             "instructions": "",
@@ -152,7 +109,26 @@
                             "mime_types": "",
                             "allow_in_bindings": 0,
                             "preview_size": "medium",
-                            "parent_repeater": "field_6a0da1583100e"
+                            "parent_repeater": "field_6a1e800dfc0f9"
+                        },
+                        {
+                            "key": "field_6a1e80cc3300f",
+                            "label": "Department Link",
+                            "name": "department_link",
+                            "aria-label": "",
+                            "type": "url",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "parent_repeater": "field_6a1e800dfc0f9"
                         }
                     ]
                 }
@@ -164,7 +140,7 @@
             {
                 "param": "block",
                 "operator": "==",
-                "value": "acf\/our-work"
+                "value": "acf\/services"
             }
         ]
     ],
@@ -180,5 +156,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1780381412
+    "modified": 1780395909
 }
