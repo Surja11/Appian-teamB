@@ -13,10 +13,9 @@ $nav-z: $zindex-fixed;
 
 $nav-breakpoint: 1291px;
 
-@mixin focus-box($offset: 5px) {
-  &:focus {
-    outline: 1px solid $nav-color;
-    outline-offset: $offset;
+@mixin active-element {
+  &:active {
+   color: $nav-color;
   }
 }
 
@@ -91,7 +90,7 @@ $nav-breakpoint: 1291px;
     top: 1.813rem;
     right: 2.188rem;
     cursor: pointer;
-    @include focus-box;
+    @include active-element();
 
     @media (min-width: $nav-breakpoint) {
       display: none;
@@ -188,7 +187,7 @@ $nav-breakpoint: 1291px;
     text-transform: capitalize;
     color: $nav-color;
     transition: color $transition-base;
-    @include focus-box;
+    @include active-element;
 
     // &:hover {
     //   color: $nav-hover-color;
@@ -212,7 +211,7 @@ $nav-breakpoint: 1291px;
     text-align: left;
     cursor: pointer;
     transition: color $transition-base;
-    @include focus-box;
+    @include active-element;
 
     svg {
       flex-shrink: 0;
@@ -257,7 +256,7 @@ $nav-breakpoint: 1291px;
     @media (min-width: $nav-breakpoint) {
       position: absolute;
       top: calc(100% + 0.3rem);
-      left: -1rem;
+      left: -3.31px;
       z-index: $zindex-dropdown;
       min-width: 16rem;
       padding: 1rem;
@@ -290,7 +289,7 @@ $nav-breakpoint: 1291px;
     transition:
       color $transition-base,
       background-color $transition-base;
-    @include focus-box($offset: 2px);
+    @include active-element;
 
     &:hover {
       color: $nav-hover-color;
@@ -322,7 +321,7 @@ $nav-breakpoint: 1291px;
   &__social {
     display: flex;
     align-items: center;
-    @include focus-box;
+    @include active-element;
 
     img {
       display: block;
@@ -374,7 +373,7 @@ $nav-breakpoint: 1291px;
       letter-spacing: 2%;
       line-height: 100%;
       transition: color $transition-base;
-      @include focus-box($offset: 3px);
+      @include active-element;
 
       &:hover {
         color: $nav-hover-color;

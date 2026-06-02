@@ -21,9 +21,9 @@ const header = () => {
   // Dropdown triggers
   triggers.forEach(trigger => {
     trigger.addEventListener('click', () => {
-      const isOpen     = trigger.getAttribute('aria-expanded') === 'true';
+      const isOpen = trigger.getAttribute('aria-expanded') === 'true';
       const dropdownId = trigger.getAttribute('aria-controls');
-      const dropdown   = document.getElementById(dropdownId);
+      const dropdown = document.getElementById(dropdownId);
 
       // Close all other dropdowns
       triggers.forEach(other => {
@@ -33,6 +33,27 @@ const header = () => {
           document.getElementById(otherId).classList.remove('navbar__dropdown--open');
         }
       });
+
+
+      // Close dropdown when focus leaves the navbar item
+      const parentItem = trigger.closest('.navbar__item--has-dropdown');
+      parentItem.addEventListener('focusout', (e) => {
+        // relatedTarget is the element receiving focus
+        // If it's still inside the same parent item, do nothing
+        if (parentItem.contains(e.relatedTarget)) return;
+
+
+        trigger.setAttribute('aria-expanded', 'false');
+        const dropdownId = trigger.getAttribute('aria-controls');
+        document.getElementById(dropdownId)?.classList.remove('navbar__dropdown--open');
+
+
+        // if no dropdown opens hides overlay
+        if (!document.querySelector('.navbar__dropdown--open')) {
+          overlay.classList.remove('navbar-overlay--visible');
+        }
+      });
+
 
       // Toggle clicked dropdown
       trigger.setAttribute('aria-expanded', String(!isOpen));
