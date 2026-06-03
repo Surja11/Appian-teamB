@@ -1,6 +1,6 @@
 <div class="header">
   <nav class="navbar nav-text">
-
+  <div class="navbar__top">
     <div class="navbar__logo-container">
       <a href="<?php echo esc_url(home_url('/')); ?>" aria-label="Go to homepage">
         <?php
@@ -31,6 +31,7 @@
         class="navbar__icon navbar__icon--close"
         alt="cross icon" />
     </button>
+  </div>
 
     <div class="navbar__main" id="navbar-main">
       <?php

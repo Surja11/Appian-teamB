@@ -41,23 +41,31 @@ $nav-breakpoint: 1291px;
 
   &:has(.navbar__main--open) {
     height: 100svh;
+    overflow: hidden;
   }
-
   @media (min-width: $nav-breakpoint) {
     min-height: unset;
+    // No height override on desktop
+    &:has(.navbar__main--open) {
+      height: unset;
+      overflow: unset;
+    }
   }
 }
 
 .navbar {
   display: flex;
   flex-wrap: wrap;
+  overflow-y: auto;
   // align-items   : flex-start;
   align-content: flex-start;
   // height: 100%;
   // padding         : 19px;
 
   &:has(.navbar__main--open) {
-    height: #{"calc(100% - 2.375rem)"} // navbar fills the header
+  flex-flow: column;
+
+    height: #{"calc(100% - 3.625rem)"} // navbar fills the header
   }
 
   @media (min-width: $nav-breakpoint) {
@@ -66,6 +74,13 @@ $nav-breakpoint: 1291px;
     align-content: center;
     $nav-gap: clamp(1rem, 3vw, 2.5rem);
     height: unset;
+  }
+  &__top{
+    position: relative;
+    width: 100%;
+    @media (min-width: $nav-breakpoint) {
+      width: max-content;      
+    }
   }
 
   &__logo-container {
@@ -80,6 +95,7 @@ $nav-breakpoint: 1291px;
       display: block;
     }
   }
+
 
   &__logo {
     display: block;
@@ -96,8 +112,17 @@ $nav-breakpoint: 1291px;
     border: none;
     padding: 0;
     position: absolute;
-    top: 1.813rem;
-    right: 2.188rem;
+    right: 0;
+    top: 0;
+    // left: 0;
+    bottom: 0;
+    margin: auto;
+    width: 24px;
+    height:24px;
+
+    // margin: auto;
+    // top: 1.813rem;
+    // right: 2.188rem;
     cursor: pointer;
     @include focus-box;
 
@@ -406,3 +431,5 @@ $nav-breakpoint: 1291px;
     display: block;
   }
 }
+
+
