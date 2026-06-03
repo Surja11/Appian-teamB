@@ -1,3 +1,4 @@
+
 $nav-font-family: $font-family-sans-serif;
 $nav-font-size: 1rem;
 $nav-font-weight: $font-weight-medium;
@@ -16,7 +17,6 @@ $nav-breakpoint: 1291px;
     outline: 1px solid $nav-color;
     outline-offset: $offset;
   }
-
   &:focus:not(:focus-visible) {
     outline: none;
   }
@@ -28,24 +28,28 @@ $nav-breakpoint: 1291px;
   }
 }
 
-.header {
+body:has(.navbar__main--open) {
+  overflow: hidden;
+  overflow: hidden;
+  position: fixed;      
+  width: 100%;          
+}
 
-  position: fixed;
-  left: 0;
-  right: 0;
+.header {
+  // position: fixed;
+  width: 100vw;
+  // left: 0;
   z-index: $nav-z;
   font-family: $nav-font-family;
   color: $nav-color;
   background-color: $color-neutral-50;
 
-
   &:has(.navbar__main--open) {
     height: 100svh;
     overflow: hidden;
   }
+
   @media (min-width: $nav-breakpoint) {
-    min-height: unset;
-    // No height override on desktop
     &:has(.navbar__main--open) {
       height: unset;
       overflow: unset;
@@ -55,31 +59,34 @@ $nav-breakpoint: 1291px;
 
 .navbar {
   display: flex;
-  flex-wrap: wrap;
-  overflow-y: auto;
-  // align-items   : flex-start;
   align-content: flex-start;
-  // height: 100%;
-  // padding         : 19px;
+  flex-wrap: wrap;
+
 
   &:has(.navbar__main--open) {
-  flex-flow: column;
+    height: 100%;        
 
-    height: #{"calc(100% - 3.625rem)"} // navbar fills the header
+    flex-direction: column;
+    flex-wrap: nowrap;
+    overflow: hidden;   
   }
 
   @media (min-width: $nav-breakpoint) {
+    flex-wrap: wrap;
     justify-content: space-between;
-    // align-items    : center;
     align-content: center;
-    $nav-gap: clamp(1rem, 3vw, 2.5rem);
     height: unset;
+    overflow: unset;
+    gap: clamp(1rem, 3vw, 2.5rem);
   }
-  &__top{
+
+  &__top {
     position: relative;
     width: 100%;
+    flex-shrink: 0;    
+
     @media (min-width: $nav-breakpoint) {
-      width: max-content;      
+      width: max-content;
     }
   }
 
@@ -95,7 +102,6 @@ $nav-breakpoint: 1291px;
       display: block;
     }
   }
-
 
   &__logo {
     display: block;
@@ -114,39 +120,31 @@ $nav-breakpoint: 1291px;
     position: absolute;
     right: 0;
     top: 0;
-    // left: 0;
     bottom: 0;
     margin: auto;
     width: 24px;
-    height:24px;
-
-    // margin: auto;
-    // top: 1.813rem;
-    // right: 2.188rem;
+    height: 24px;
     cursor: pointer;
     @include focus-box;
 
     @media (min-width: $nav-breakpoint) {
       display: none;
-      opacity: 0;
     }
 
     &[aria-expanded="true"] {
       .navbar__icon--open {
         display: none;
       }
-
       .navbar__icon--close {
         display: block;
       }
-
     }
   }
 
   &__icon {
     display: block;
-    width: 14px;
-    height: 14px;
+    width: 100%;
+    height: 100%;
 
     &--close {
       display: none;
@@ -160,9 +158,14 @@ $nav-breakpoint: 1291px;
 
     &--open {
       display: block;
-      // padding-top: 2rem;
-      border-bottom: 1px solid $nav-border-color;
-      // margin-top : 1.5rem;
+      flex: 1;             
+      overflow-y: auto;    
+      min-height: 0;       
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      &::-webkit-scrollbar {
+        display: none;
+      }
     }
 
     @media (min-width: $nav-breakpoint) {
@@ -172,6 +175,9 @@ $nav-breakpoint: 1291px;
       padding-top: 0;
       border-top: none;
       margin-top: 0;
+      flex: unset;
+      overflow-y: unset;
+      min-height: unset;
     }
   }
 
@@ -190,8 +196,6 @@ $nav-breakpoint: 1291px;
       align-items: center;
       gap: $nav-gap;
     }
-
-
   }
 
   &__item {
@@ -211,7 +215,6 @@ $nav-breakpoint: 1291px;
     &:hover {
       color: $nav-hover-color;
     }
-
   }
 
   &__link {
@@ -222,15 +225,12 @@ $nav-breakpoint: 1291px;
     text-transform: capitalize;
     color: $nav-color;
     transition: color $transition-base;
+
     @include focus-box;
     @include active-element;
-    // &:hover {
-    //   color: $nav-hover-color;
-    // }
   }
 
   &__dropdown-trigger {
-
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -251,8 +251,7 @@ $nav-breakpoint: 1291px;
     svg {
       flex-shrink: 0;
       fill: $nav-color;
-      transition: transform 0.2s ease;
-
+      transition: transform 0.3s ease;
     }
 
     &:hover {
@@ -263,12 +262,9 @@ $nav-breakpoint: 1291px;
       }
     }
 
-    // Rotate chevron when open
     &[aria-expanded="true"] svg {
       transform: rotate(180deg);
     }
-
-
 
     @media (min-width: $nav-breakpoint) {
       width: auto;
@@ -296,7 +292,6 @@ $nav-breakpoint: 1291px;
       min-width: 16rem;
       padding: 1rem;
       background-color: $nav-dropdown-bg;
-      // border: 1px solid black;
       border-bottom-left-radius: $border-radius-lg;
       border-bottom-right-radius: $border-radius-lg;
     }
@@ -311,7 +306,6 @@ $nav-breakpoint: 1291px;
     margin: 0;
   }
 
-
   &__dropdown-link {
     display: block;
     padding: 0.625rem 1rem;
@@ -321,9 +315,7 @@ $nav-breakpoint: 1291px;
     color: $nav-color;
     text-decoration: none;
     white-space: nowrap;
-    transition:
-      color $transition-base,
-      background-color $transition-base;
+    transition: color $transition-base,background-color $transition-base;
     @include focus-box($offset: 2px);
 
     &:hover {
@@ -333,23 +325,31 @@ $nav-breakpoint: 1291px;
   }
 
   &__extra {
+  
     display: none;
-    align-self: flex-end;
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    margin-top: auto;
 
-    &--open {
-      display: flex;
-    }
+   
+  &--open {
+    display: flex;
+    flex-shrink: 0;
+    background-color: $color-neutral-50;
+    padding: 16px 0 20px 0;
+  }
 
+
+   
     @media (min-width: $nav-breakpoint) {
       display: flex;
       width: auto;
       margin-top: 0;
       gap: 1.5rem;
       align-self: center;
+      border-top: none;
+      padding: 0;
+      background-color: transparent;
     }
   }
 
@@ -364,12 +364,12 @@ $nav-breakpoint: 1291px;
       height: 24px;
     }
 
+  
     @media (min-width: $nav-breakpoint) {
       display: none;
     }
   }
 
-  // Contact block
   &__contact {
     display: flex;
     flex-direction: column;
@@ -379,11 +379,10 @@ $nav-breakpoint: 1291px;
   &__contact-label {
     display: block;
     font-size: 0.625rem;
-    font-weight: $font-weight-normal;
-    letter-spacing: 3%;
+    font-weight: 500;
+    letter-spacing: 0.03em;
     text-transform: uppercase;
     line-height: 14px;
-    font-weight: 500;
     color: $color-neutral-600;
   }
 
@@ -405,7 +404,7 @@ $nav-breakpoint: 1291px;
       text-decoration: none;
       color: $nav-color;
       white-space: nowrap;
-      letter-spacing: 2%;
+      letter-spacing: 0.02em;
       line-height: 100%;
       transition: color $transition-base;
       @include focus-box($offset: 3px);
@@ -416,7 +415,6 @@ $nav-breakpoint: 1291px;
     }
   }
 }
-
 
 .navbar-overlay {
   display: none;
@@ -431,5 +429,4 @@ $nav-breakpoint: 1291px;
     display: block;
   }
 }
-
 
