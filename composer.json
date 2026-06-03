@@ -1,6 +1,6 @@
 {
   "require": {
-    "pantheon-systems/terminus": "^4.2.2"
+    "pantheon-systems/terminus": "^4.3.0"
   },
   "scripts": {
     "post-install-cmd": [
