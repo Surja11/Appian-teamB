@@ -118,7 +118,7 @@ $logo = $footer['logo'] ?? null;
                                         $fax_output = $fax_number;
                                     }
                                 ?>
-                                    <p>
+                                    <!-- <p> cjhdcldsbhc -->
                                         <?php echo esc_html($fax_label); ?>:
                                         <a href="fax:<?php echo esc_attr($clean_fax); ?>"
                                             class="fax-text-muted footer-interactive-link">
