@@ -36,13 +36,18 @@ body:has(.navbar__main--open) {
 }
 
 .header {
-  position: sticky;
-  width: 100vw;
-  // left: 0;
+  position: fixed;
+  background-color: $color-neutral-50; // change from sticky to fixed
+  // top: 0;
+  left: 0;
+  width:100vw;
+  // margin-top: -100%;
   z-index: $nav-z;
-  font-family: $nav-font-family;
-  color: $nav-color;
-  background-color: $color-neutral-50;
+  transition: transform 0.3s ease;
+
+  &--hidden {
+    transform: translateY(-100%);
+  }
 
   &:has(.navbar__main--open) {
     height: 100svh;
@@ -342,7 +347,7 @@ body:has(.navbar__main--open) {
     display: flex;
     flex-shrink: 0;
     background-color: $color-neutral-50;
-    padding: 16px 0 20px 0;
+    padding: 16px 0 56px 0;
   }
 
 

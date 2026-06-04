@@ -127,15 +127,16 @@ $logo = $footer['logo'] ?? null;
                                     </p>
                                 <?php endif; ?>
 
-                                <?php if (!empty($contact['email'])) : ?>
-                                    <p>
-                                        <a href="mailto:<?php echo esc_attr($contact['email']); ?>" class="footer-interactive-link footer-email-link">
-                                            <?php echo esc_html($contact['email']); ?>
-                                        </a>
-                                    </p>
-                                <?php endif; ?>
-                            </div>
-                        </section>
+
+        <?php if (!empty($contact['email'])) : ?>
+            <p>
+                <a href="mailto:<?php echo esc_attr($contact['email']); ?>" class="footer-interactive-link footer-email-link">
+                    <?php echo esc_html($contact['email']); ?>
+                </a>
+            </p>
+        <?php endif; ?>
+    </div>
+</section>
                     </div>
 
                     <div class="linkedin-wrapper">
