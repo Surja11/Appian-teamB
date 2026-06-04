@@ -49,7 +49,6 @@ body:has(.navbar__main--open) {
     transform: translateY(-100%);
   }
 
-
   &:has(.navbar__main--open) {
     height: 100svh;
     overflow: hidden;
