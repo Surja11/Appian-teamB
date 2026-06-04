@@ -1,3 +1,38 @@
-.leadspace{
-    color: yellow
+@import '../common';
+
+.home-leadspace{
+    height: 500px;
+
+    &__outer-eclipse{
+        border-radius: 1131.22px;
+        position: relative;
+        z-index: 10;
+        height: 744px;
+        width: 744px;
+        border: 2px solid black;
+        left: 50%;
+        transform: translateX(-50%);
+          margin-top: -300px; 
+        
+    }
+
+
+    &__inner-eclipse{
+        border-radius: 1131.22px;
+        position: absolute;
+        top: -15px;
+        z-index: 10;
+        height: 100%;
+        width: 100%;
+        border: 2px solid black;
+        overflow: hidden;
+    }
+
+    &__video{
+        width: 100%;
+        height: 100%;
+        border-radius: inherit;
+        object-fit: cover;
+    }
+
 }
