@@ -8,7 +8,7 @@ $nav-border-color: $color-neutral-100;
 $nav-dropdown-bg: $color-neutral-50;
 $nav-dropdown-shadow: $box-shadow;
 $nav-gap: 2.5rem;
-$nav-z: $zindex-fixed;
+$nav-z: 100;
 
 $nav-breakpoint: 1291px;
 
@@ -36,7 +36,7 @@ body:has(.navbar__main--open) {
 }
 
 .header {
-  // position: fixed;
+  position: sticky;
   width: 100vw;
   // left: 0;
   z-index: $nav-z;
@@ -78,6 +78,7 @@ body:has(.navbar__main--open) {
     height: unset;
     overflow: unset;
     gap: clamp(1rem, 3vw, 2.5rem);
+    z-index: $nav-z;
   }
 
   &__top {
@@ -143,8 +144,8 @@ body:has(.navbar__main--open) {
 
   &__icon {
     display: block;
-    width: 100%;
-    height: 100%;
+    width: 14px;
+    height: 14px;
 
     &--close {
       display: none;
@@ -158,9 +159,12 @@ body:has(.navbar__main--open) {
 
     &--open {
       display: block;
-      flex: 1;             
+      flex: 1;  
+      
+    // letting the overflow happen when there are more items in menu
       overflow-y: auto;    
-      min-height: 0;       
+      min-height: 0;  
+    // hiding the scrollbar 
       scrollbar-width: none;
       -ms-overflow-style: none;
       &::-webkit-scrollbar {
@@ -176,6 +180,8 @@ body:has(.navbar__main--open) {
       border-top: none;
       margin-top: 0;
       flex: unset;
+
+      // removing the overflow and min-height in big screen
       overflow-y: unset;
       min-height: unset;
     }
@@ -207,7 +213,7 @@ body:has(.navbar__main--open) {
       border-bottom: none;
       position: relative;
     }
-
+// removing border-bottoom of last child in mobile view
     &:last-child {
       border-bottom: none;
     }
@@ -239,12 +245,12 @@ body:has(.navbar__main--open) {
     padding: 0;
     border: none;
     background: transparent;
+    cursor: pointer;
     font-family: $nav-font-family;
     font-size: $nav-font-size;
     font-weight: $nav-font-weight;
     color: $nav-color;
     text-align: left;
-    cursor: pointer;
     transition: color $transition-base;
     @include focus-box;
 
@@ -420,7 +426,7 @@ body:has(.navbar__main--open) {
   display: none;
   position: fixed;
   inset: 0;
-  background-color: #F3BABC;
+  background-color: $color-light-red;
   opacity: 0.3;
   z-index: #{$nav-z - 1};
   cursor: pointer;
