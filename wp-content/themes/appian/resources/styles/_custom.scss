@@ -60,7 +60,7 @@
 
     ============================================== */
 
-// 1. Settings
+// Settings
 
 @import "settings/path";
 @import "bootstrap/scss/functions";
@@ -69,16 +69,14 @@
 
 // Bootstrap Functions
 @import "bootstrap/scss/variables";
-// Include bootstrap remainder of variables
 @import "bootstrap/scss/maps";
 
-// 2. Tools : Include remainder of required parts Tools
 @import "bootstrap/scss/mixins";
 @import "tools/mixins";
 @import "tools/placeholders";
 // @import 'tools/animations';
 
-//3. GENERIC
+// Generic
 @import "bootstrap/scss/root";
 // Root scss
 @import "bootstrap/scss/reboot";
@@ -86,10 +84,8 @@
 @import 'generic/fonts';
 @import "generic/icons/icons";
 
-// 4. Elements
 @import "bootstrap/scss/images";
 
-/** Extra layer of bootstrap Only */
 @import "bootstrap/scss/containers";
 @import "bootstrap/scss/grid";
 @import "bootstrap/scss/helpers";
@@ -106,28 +102,27 @@
 // @import 'bootstrap/scss/offcanvas';
 // @import 'bootstrap/scss/accordion';
 
-// 4. Elements
+// Elements
 @import "elements/type";
 @import "elements/grids";
 @import "elements/config";
+@import "elements/grid-custom";
 
-// 5 . Common Layout
+// Common Layout
 @import "./layout";
 
-// 6 . Common Component
+// Common Component
 @import "./components";
-// 6 . Modules
+// Modules
 @import "modules/styleguide";
 // @import "modules/our-story";
 
 
-// 7. Utilities
+// Utilities
 @import "utilities/helper";
 
 @import "bootstrap/scss/utilities";
 
-// 8. Utitlities Override
-/* stylelint-disable */
 $utilities: map-merge(
   $utilities,
   (
@@ -403,4 +398,3 @@ $utilities: map-merge(
 //8. Add cards that are used multiple times
 // @import './cards';
 
-// Don't Add anything below this.

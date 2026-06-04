@@ -1,7 +1,3 @@
-// Variables
-// Variables should follow the `$component-state-property-size` formula for
-// consistent naming. Ex: $nav-link-disabled-color and $modal-content-box-shadow-xs.
-
 // Color system
 
 // scss-docs-start gray-color-variables
@@ -360,6 +356,17 @@ $light: $color-neutral-75 !default;
 $dark: $color-neutral-600 !default;
 // scss-docs-end theme-color-variables
 
+$gray-50: $color-neutral-50 !default;    // #ffffff
+$gray-100: $color-neutral-75 !default;   // #e9e9e9  
+$gray-200: $color-neutral-100 !default;  // #dedede
+$gray-300: $color-neutral-200 !default;  // #7c7c7c
+$gray-400: $color-neutral-300 !default;  // #393939
+$gray-500: $color-neutral-400 !default;  // #292929
+$gray-600: $color-neutral-500 !default;  // #1c1c1c
+$gray-700: $color-neutral-600 !default;  // #111111
+$gray-800: $color-secondary !default;    // #101922
+$gray-900: $color-secondary-dark !default; // #0c131a
+
 // scss-docs-start theme-colors-map
 $theme-colors: (
   "primary": $primary,
@@ -458,9 +465,6 @@ $variable-prefix: os- !default; // Deprecated in v5.2.0 for the shorter `$prefix
 $prefix: $variable-prefix !default;
 
 // Gradient
-// The gradient which is added to components if `$enable-gradients` is `true`
-// This gradient is also added to elements with `.bg-gradient`
-// scss-docs-start variable-gradient
 $gradient: linear-gradient(
   180deg,
   rgba($white, 0.15),
@@ -469,31 +473,31 @@ $gradient: linear-gradient(
 // scss-docs-end variable-gradient
 
 // Spacing
-// Control the default styling of most Bootstrap elements by modifying these
-// variables. Mostly focused on spacing.
-// You can add more entries to the $spacers map, should you need more variation.
-
 // scss-docs-start spacer-variables-maps
 $spacer: 1rem !default;
 
 $spacers: (
   0: 0,
-  1: $spacer * 0.25,
-  2: $spacer * 0.5,
-  3: $spacer * 0.75,
-  4: $spacer * 1,
-  6: $spacer * 1.5,
-  7: $spacer * 1.75,
-  8: $spacer * 2,
-  10: $spacer * 2.5,
-  12: $spacer * 3,
-  16: $spacer * 4,
-  20: $spacer * 5,
-  24: $spacer * 6,
-  28: $spacer * 7,
-  30: $spacer * 7.5,
-  34: $spacer * 8.5,
+  1: $spacer * 0.25,    // 4px
+  2: $spacer * 0.5,     // 8px    
+  3: $spacer * 0.75,    // 12px 
+  4: $spacer * 1,       // 16px 
+  5: $spacer * 1.25,    // 20px
+  6: $spacer * 1.5,     // 24px
+  7: $spacer * 1.75,    // 28px
+  8: $spacer * 2,       // 32px  
+  10: $spacer * 2.5,    // 40px
+  12: $spacer * 3,      // 48px
+  16: $spacer * 4,      // 64px
+  20: $spacer * 5,      // 80px
+  24: $spacer * 6,      // 96px
+  28: $spacer * 7,      // 112px
+  30: $spacer * 7.5,    // 120px
+  34: $spacer * 8.5,    // 136px
 ) !default;
+
+// Negative spacers (for negative margins)
+$negative-spacers: if($enable-negative-margins, negativify-map($spacers), null) !default;
 // scss-docs-end spacer-variables-maps
 
 // Position
@@ -508,8 +512,6 @@ $position-values: (
 // scss-docs-end position-map
 
 // Body
-// Settings for the `<body>` element.
-
 $body-text-align: null !default;
 $body-color: $color-neutral-500 !default;
 $body-bg: $color-neutral-50 !default;
@@ -544,13 +546,11 @@ $icon-link-icon-transform: translate3d(0.25em, 0, 0) !default;
 // scss-docs-end icon-link-variables
 
 // Paragraphs
-// Style p element.
 
 $paragraph-margin-bottom: 1rem !default;
 
 // Grid breakpoints
 // Define the minimum dimensions at which your layout will change,
-// adapting to different screen sizes, for use in media queries.
 
 // scss-docs-start grid-breakpoints
 $grid-breakpoints: (
@@ -558,9 +558,8 @@ $grid-breakpoints: (
   sm: 576px,
   md: 768px,
   lg: 1025px,
-  xl: 1200px,
-  // sxl: 1291px,
-  xxl: 1400px,
+  xl: 1200px,  
+  xxl: 1440px,  
 ) !default;
 // scss-docs-end grid-breakpoints
 
@@ -575,8 +574,8 @@ $grid-breakpoints: (
 $container-max-widths: (
   md: 720px,
   lg: 960px,
-  xl: 1140px,
-  xxl: 1440px,
+  xl: 1140px,   
+  xxl: 1440px, 
 ) !default;
 // scss-docs-end container-max-widths
 
@@ -586,15 +585,15 @@ $container-max-widths: (
 // Set the number of columns and specify the width of the gutters.
 
 $grid-columns: 12 !default;
-$grid-gutter-width: 2rem !default;
+
+// Mobile: 24px gutter, Desktop: 40px gutter
+$grid-gutter-width: 1.5rem !default;
 $grid-row-columns: 6 !default;
 
 // Container padding
-
 $container-padding-x: $grid-gutter-width !default;
 
 // Components
-// Define common padding and border radius sizes and more.
 
 // scss-docs-start border-variables
 $border-width: 1px !default;
@@ -603,7 +602,7 @@ $border-widths: (
   2: 2px,
 ) !default;
 $border-style: solid !default;
-$border-color: $gray-300 !default;
+$border-color: $color-neutral-100 !default;
 $border-color-translucent: rgba($black, 0.175) !default;
 // scss-docs-end border-variables
 
@@ -619,10 +618,11 @@ $border-radius-pill: 50rem !default;
 $border-radius-2xl: $border-radius-xxl !default; // Deprecated in v5.3.0
 // fusv-enable
 
-// scss-docs-start box-shadow-variables
-$box-shadow: 0 0.5rem 1rem rgba($black, 0.15) !default;
-$box-shadow-sm: 0 0.125rem 0.25rem rgba($black, 0.075) !default;
-$box-shadow-lg: 0 1rem 3rem rgba($black, 0.175) !default;
+// scss-docs-start box-shadow-variables  
+// Align Bootstrap shadows with your custom design system
+$box-shadow: 0px 4px 32px 0px rgba($black, 0.1) !default;
+$box-shadow-sm: 0 2px 8px 0 rgba($black, 0.08) !default;
+$box-shadow-lg: 0 8px 48px 0 rgba($black, 0.15) !default;
 $box-shadow-inset: inset 0 1px 2px rgba($black, 0.075) !default;
 // scss-docs-end box-shadow-variables
 
@@ -678,7 +678,7 @@ $font-family-code: var(--#{$prefix}font-monospace) !default;
 // $font-size-root affects the value of `rem`, which is used for as well font sizes, paddings, and margins
 // $font-size-base affects the font size of the body text
 $font-size-root: null !default;
-$font-size-base: 1rem !default; // Assumes the browser default, typically `16px`
+$font-size-base: 1rem !default;
 $font-size-sm: $font-size-base * 0.875 !default;
 $font-size-lg: $font-size-base * 1.25 !default;
 
@@ -717,11 +717,11 @@ $font-sizes: (
 
 // scss-docs-start headings-variables
 $headings-margin-bottom: $spacer * 0.5 !default;
-$headings-font-family: null !default;
+$headings-font-family: $font-family-heading !default;
 $headings-font-style: null !default;
-$headings-font-weight: 600 !default;
+$headings-font-weight: $font-weight-bold !default;
 $headings-line-height: 1.2 !default;
-$headings-color: inherit !default;
+$headings-color: $color-neutral-600 !default;
 // scss-docs-end headings-variables
 
 // scss-docs-start display-headings
@@ -890,7 +890,7 @@ $btn-padding-x: $input-btn-padding-x !default;
 $btn-font-family: $input-btn-font-family !default;
 $btn-font-size: $input-btn-font-size !default;
 $btn-line-height: $input-btn-line-height !default;
-$btn-white-space: null !default; // Set to `nowrap` to prevent text wrapping
+$btn-white-space: null !default;
 
 $btn-padding-y-sm: $input-btn-padding-y-sm !default;
 $btn-padding-x-sm: $input-btn-padding-x-sm !default;
@@ -902,7 +902,7 @@ $btn-font-size-lg: $input-btn-font-size-lg !default;
 
 $btn-border-width: $input-btn-border-width !default;
 
-$btn-font-weight: $font-weight-normal !default;
+$btn-font-weight: $font-weight-medium !default;
 $btn-box-shadow:
   inset 0 1px 0 rgba($white, 0.15),
   0 1px 1px rgba($black, 0.075) !default;
@@ -913,13 +913,12 @@ $btn-active-box-shadow: inset 0 3px 5px rgba($black, 0.125) !default;
 
 $btn-link-color: var(--#{$prefix}link-color) !default;
 $btn-link-hover-color: var(--#{$prefix}link-hover-color) !default;
-$btn-link-disabled-color: $gray-600 !default;
+$btn-link-disabled-color: $color-neutral-200 !default;
 $btn-link-focus-shadow-rgb: to-rgb($color-primary-red) !default;
 
-// Allows for customizing button radius independently from global border radius
-$btn-border-radius: var(--#{$prefix}border-radius) !default;
-$btn-border-radius-sm: var(--#{$prefix}border-radius-sm) !default;
-$btn-border-radius-lg: var(--#{$prefix}border-radius-lg) !default;
+$btn-border-radius: 0 !default;
+$btn-border-radius-sm: 0 !default;
+$btn-border-radius-lg: 0 !default;
 
 $btn-transition:
   color 0.15s ease-in-out,
@@ -1437,7 +1436,7 @@ $pagination-hover-color: var(--#{$prefix}link-hover-color) !default;
 $pagination-hover-bg: var(--#{$prefix}tertiary-bg) !default;
 $pagination-hover-border-color: var(
   --#{$prefix}border-color
-) !default; // Todo in v6: remove this?
+) !default;
 
 $pagination-active-color: $component-active-color !default;
 $pagination-active-bg: $component-active-bg !default;
@@ -1878,8 +1877,6 @@ $kbd-padding-x: 0.375rem !default;
 $kbd-font-size: $code-font-size !default;
 $kbd-color: var(--#{$prefix}body-bg) !default;
 $kbd-bg: var(--#{$prefix}body-color) !default;
-$nested-kbd-font-weight: null !default; // Deprecated in v5.2.0, removing in v6
+$nested-kbd-font-weight: null !default;
 
 $pre-color: null !default;
-
-// @import "variables-dark"; // TODO: can be removed safely in v6, only here to avoid breaking changes in v5.3
