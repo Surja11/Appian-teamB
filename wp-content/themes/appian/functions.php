@@ -326,6 +326,13 @@ function theme_block_editor_assets()
         }
     }
 
+     // Enqueue app styles in editor
+    wp_enqueue_style(
+        'theme-app-styles',
+        vite_assets('resources/styles/app.scss'),
+        [],
+        null
+    );
     // Enqueue JS
     wp_enqueue_script(
         'theme-editor-js',
@@ -343,17 +350,6 @@ add_filter('body_class', function ($classes) {
     }
     return $classes;
 });
-
-add_filter(
-    'block_editor_settings_all',
-    function ($settings) {
-        $appStyles = vite_assets('resources/styles/app.scss');
-        $settings['styles'][] = array(
-            'css' => "@import url('{$appStyles}')",
-        );
-        return $settings;
-    }
-);
 
 if (function_exists('acf_add_options_page')) {
     acf_add_options_page(array(
@@ -485,5 +481,24 @@ class Appian_BEM_Walker extends Walker_Nav_Menu
     }
 }
 
+
+add_action('wp_head', function () {
+    $fonts = [
+        'RecklessNeue-Bold.woff',
+        'RecklessNeue-Book.woff',
+        'RecklessNeue-Medium.woff',
+        'GeneralSans-Regular.woff',
+        'GeneralSans-Medium.woff',
+        'GeneralSans-Italic.woff',
+        'GeneralSans-MediumItalic.woff',
+    ];
+
+    foreach ($fonts as $font) {
+        $url = vite_assets('resources/fonts/' . $font);
+        if ($url) {
+            echo '<link rel="preload" href="' . esc_url($url) . '" as="font" type="font/woff" crossorigin="anonymous">' . "\n";
+        }
+    }
+}, 1);
 
 add_action('enqueue_block_editor_assets', 'theme_block_editor_assets');
