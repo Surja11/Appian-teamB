@@ -11,7 +11,7 @@ h6,
 .h4,
 .h5,
 .h6 {
-  font-family: $font-family-heading;
+  font-family: $headings-font-family;
   overflow-wrap: normal;
   margin-top: 0;
   letter-spacing: normal;
@@ -97,7 +97,7 @@ h6,
 
 // Display Headings
 .display-1 {
-  font-family: $font-family-heading;
+  font-family: $headings-font-family;
   font-size: 3rem; // 48px (Mobile)
   line-height: 1.1; // 110%
   font-weight: 700; // Bold
@@ -110,7 +110,7 @@ h6,
 }
 
 .display-2 {
-  font-family: $font-family-heading;
+  font-family: $headings-font-family;
   font-size: 2.5rem; // 40px (Mobile)
   line-height: 0.9; // 90%
   font-weight: 400; // Book / Regular
@@ -125,7 +125,7 @@ h6,
 
 // Subheadings
 .subheading-0 {
-  font-family: $font-family-heading;
+  font-family: $headings-font-family;
   font-size: 1.5rem; // 24px (Mobile)
   line-height: 1.38; // 138%
   font-weight: 400; // Book / Regular
@@ -138,7 +138,7 @@ h6,
 }
 
 .subheading-1 {
-  font-family: $font-family-heading;
+  font-family: $headings-font-family;
   font-size: 1.5rem; // 24px (Mobile)
   line-height: 1.38; // 138%
   font-weight: 500; // Medium
@@ -151,7 +151,7 @@ h6,
 }
 
 .subheading-2 {
-  font-family: $font-family-heading;
+  font-family: $headings-font-family;
   font-size: 1.5rem; // 24px (Mobile)
   line-height: 1.38; // 138%
   font-weight: 500; // Medium
@@ -164,7 +164,7 @@ h6,
 }
 
 .subheading-3 {
-  font-family: $font-family-heading;
+  font-family: $headings-font-family;
   font-size: 1.125rem; // 18px (Mobile)
   line-height: 1.6; // 160%
   font-weight: 400; // Book / Regular

@@ -10,6 +10,7 @@ add_action('acf/init', function () {
             'styleguide' => 'Style Guide', 
             'our-story' => 'Our Story',
             'services' => 'Services',
+            'our-history' => 'Our History',
         ];
 
         foreach ($boilerplateModules as $key => $mModule) {

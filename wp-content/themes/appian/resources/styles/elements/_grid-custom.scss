@@ -1,0 +1,80 @@
+:root {
+  // Mobile gutters (24px)
+  --bs-gutter-x: 1.5rem; // 24px
+  --bs-gutter-y: 0;
+  
+  // Desktop gutters (40px) 
+  @include media-breakpoint-up(xl) {
+    --bs-gutter-x: 2.5rem; // 40px
+  }
+}
+
+.row {
+  --bs-gutter-x: 1.5rem; // 24px mobile base
+  --bs-gutter-y: 0;
+  
+  margin-left: calc(var(--bs-gutter-x) * -0.5);
+  margin-right: calc(var(--bs-gutter-x) * -0.5);
+  margin-top: calc(var(--bs-gutter-y) * -1);
+  
+  // Desktop responsive gutters
+  @include media-breakpoint-up(xl) {
+    --bs-gutter-x: 2.5rem; // 40px
+  }
+}
+
+.row > * {
+  padding-left: calc(var(--bs-gutter-x) * 0.5);
+  padding-right: calc(var(--bs-gutter-x) * 0.5);
+  margin-top: var(--bs-gutter-y);
+}
+
+.g-mobile {
+  --bs-gutter-x: 1.5rem; // 24px - Mobile gutter
+}
+
+.g-desktop {
+  --bs-gutter-x: 2.5rem; // 40px - Desktop gutter  
+}
+
+.gx-mobile {
+  --bs-gutter-x: 1.5rem; // 24px - Mobile gutter (horizontal only)
+}
+
+.gx-desktop {
+  --bs-gutter-x: 2.5rem; // 40px - Desktop gutter (horizontal only)
+}
+
+.container {
+  // Mobile: 28px margins 
+  @media (max-width: 574.98px) {
+    padding-left: 1.75rem; // 28px
+    padding-right: 1.75rem; // 28px
+  }
+  
+  // Desktop (1200-1400)
+  @include media-breakpoint-up(xl) {
+    max-width: calc(100% - 10rem); // 160px total margin
+  }
+  
+  // Desktop Wide (1440+): Auto margins
+  @include media-breakpoint-up(xxl) {
+    max-width: 1440px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media (max-width: 574.98px) {
+  .row-cols-mobile-4 > * {
+    flex: 0 0 auto;
+    width: 25%; // 4 columns
+  }
+}
+
+@include media-breakpoint-up(xl) {
+  .row-cols-desktop-12 > * {
+    flex: 0 0 auto;  
+    width: 8.333333%; // 12 columns
+  }
+}
