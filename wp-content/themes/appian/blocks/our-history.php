@@ -33,6 +33,7 @@ $history_items = get_field( 'history_items' );
  * Our History Block  - Frontend
  */
 ?>
+<?php if ( $history_items ) : ?> 
 
 <section id="our-history-block" class="our-history-block">
     <!-- Section Header -->
@@ -57,7 +58,9 @@ $history_items = get_field( 'history_items' );
                 ?>
 
                 <!-- History Item <?php echo $year; ?> -->
+                 <?php if ( $year ) : ?>
                 <div class="history-card" data-year="<?php echo $year; ?>">
+                    <?php endif; ?>
                     <div class="history-card__year"><?php echo $year; ?></div>
                     <div class="history-card__image-wrapper">
                         <?php if ( $img_url ) : ?>
@@ -66,6 +69,7 @@ $history_items = get_field( 'history_items' );
                              class="history-card__image" />
                         <?php endif; ?>
                     </div>
+                    <?php if ( $content ) : ?>
                     <div class="history-card__content">
                         <p class="history-card__excerpt">
                             <?php echo esc_html( $excerpt ); ?>
@@ -81,8 +85,9 @@ $history_items = get_field( 'history_items' );
                             Continue Reading
                         </button>
                     </div>
+                    <?php endif; ?>
                 </div>
-
+                 
                 <?php if ( $index < count( $history_items ) - 1 ) : ?>
                 <!-- Divider Line <?php echo $index + 1; ?> -->
                 <div class="timeline-divider" aria-hidden="true"></div>
@@ -108,3 +113,4 @@ $history_items = get_field( 'history_items' );
     <?php get_template_part('template-parts/history-modal'); ?>
 
 </section>
+<?php endif; ?>
