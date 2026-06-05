@@ -15,6 +15,9 @@ if ( $cta_link && is_array( $cta_link ) ) {
 }
 
 ?>
+
+<?php if ( $caption || $main_text || $link_url ) : ?>
+
 <!-- section for text content  with cta. using grid structure from bootstrap for styling that alighns content to right -->
 <section class="cta-content container px-7 px-md-20">
     <div class="row g-6">
@@ -23,18 +26,23 @@ if ( $cta_link && is_array( $cta_link ) ) {
     <div class="col col-lg-7 offset-lg-4 ps-lg-0 pe-lg-0 cta-content-column">
 
      <!-- caption of the section styled via caption-1 utility as given in styleguide-->
+        <?php if ( $caption ) : ?>
         <p class="cta-content__caption caption-1">
                 <?php echo esc_html( $caption ); ?>
             </p>
+        <?php endif; ?>
 
              <!-- text content with CTA button -->
             <div class="cta-content__body d-flex flex-column gap-12 pt-3 pt-lg-8">
+                <?php if ( $main_text ) : ?>
                 <h5 class="cta-content__text m-0">
                     <?php 
                     echo wp_kses_post( $main_text ); 
                     ?>
                 </h5>
+                <?php endif; ?>
 
+                <?php if ( $link_url && $link_title ) : ?>
                 <a href="<?php echo $link_url; ?>" 
                    target="<?php echo $link_target; ?>" 
                    <?php echo $link_target === '_blank' ? 'rel="noopener noreferrer"' : ''; ?>
@@ -48,8 +56,12 @@ if ( $cta_link && is_array( $cta_link ) ) {
                         </svg>
                     </div>
                 </a>
+                <?php endif; ?>
             </div>
         </div>
 
     </div>
 </section>
+<?php endif; ?>
+
+
