@@ -1,0 +1,267 @@
+@import '../common';
+
+.testimonial-section {
+    background-image: url('../../images/bg-texture.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding-top: $spacer * 5;       // 80px — was 40px ($spacer * 2.5)
+    padding-bottom: $spacer * 3;    // 48px — was 40px
+    padding-left: $spacer * 1.75;   // 28px — was 16px ($spacer * 1)
+    padding-right: $spacer * 1.75;  
+    display: flex;
+    justify-content: center;
+
+    @include media-breakpoint-up(lg) {
+        min-height: 726px;
+        padding: 0;
+    }
+}
+
+// MOBILE 
+.testimonial-card {
+    width: 375px;
+    max-width: 375px;
+    min-height: 613px;
+    max-height: 613px;
+    overflow: hidden; 
+    position: relative;
+    background-color: transparent;
+    box-sizing: border-box;
+
+    padding-top: $spacer * 5;
+    padding-left: $spacer * 3.8125;
+    padding-right: $spacer * 1.75;
+    padding-bottom: $spacer * 3;
+
+    .testimonial-line {
+        position: absolute;
+        top: $spacer * 5;
+        left: $spacer * 1.75;
+        width: 1px;
+        bottom: $spacer * 10;
+        background-color: var(--color-neutral-100);
+    }
+
+    .quote-icon-wrapper {
+        width: 33px;
+        height: 24px;
+        margin-bottom: $spacer * 1.5;
+
+        svg {
+            width: 33px;
+            height: 24px;
+
+            path {
+                fill: var(--color-primary-red);
+            }
+        }
+    }
+
+    h5 {
+        color: var(--color-neutral-600);
+        width: 286px;
+        margin-bottom: $spacer * 3;
+    }
+
+    .author-meta {
+        .caption-2:first-child {
+            color: var(--color-neutral-100) !important;     
+            text-transform: uppercase !important;   
+            margin-bottom: $spacer * 0.25 !important;
+            width: 150px !important;
+        }
+
+        .caption-2 {
+            color: var(--color-neutral-200) !important;     
+            text-transform: none !important;  
+            margin-top: 0 !important;
+            margin-bottom: 0 !important;
+            width: 150px !important;
+            text-transform: none !important; 
+        }
+    }
+
+    .slider-controls {
+        position: relative;
+        display: flex;
+        justify-content: flex-end;
+        gap: $spacer * 0.9375;
+        margin-top: $spacer * 4;
+    }
+
+    .slider-btn {
+        width: 48px;
+        height: 48px;
+        background-color: var(--color-primary-red);
+        border: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+        cursor: pointer;
+        transition: $btn-transition;
+
+        img {
+            width: 14px;
+            height: 14px;
+            filter: brightness(0) invert(1);
+        }
+
+        &:hover {
+            background-color: var(--color-dark-red);
+        }
+    }
+}
+
+// DESKTOP 
+@include media-breakpoint-up(lg) {
+
+    .testimonial-section {
+        .container {
+            max-width: 1440px;
+            padding: 0;
+        }
+
+        .row {
+            min-height: 726px;
+            margin: 0;
+            height: 726px;
+        }
+    }
+
+    .testimonial-left {
+        position: relative;
+        display: block !important;
+        padding: 0 !important;
+
+        .testimonial-logo {
+        position: absolute;
+        top: $spacer * 11.25;       // 180px
+        left: $spacer * 9.375;      // 150px
+        width: 194px;               // 156 + 38
+        height: 47px;               
+        display: flex;
+        align-items: center;
+        margin-left: 0; 
+
+    svg:first-child {
+        width: 156px !important;    // vector
+        height: 21px !important;
+        flex-shrink: 0;
+    }
+
+    svg:last-child {
+        width: 38px !important;     // vector-2
+        height: 47px !important;
+        flex-shrink: 0;
+    }
+}
+        .testimonial-line {
+            position: absolute;
+            top: $spacer * 11.25;       
+            left: $spacer * 26.9375;    
+            width: 1px;
+            height: 366px;
+            background-color: var(--color-neutral-100);
+        }
+    }
+
+    .testimonial-right {
+    position: relative;
+    height: 726px;
+    padding: 0;
+    overflow: visible;
+
+    .quote-icon-wrapper {
+        position: absolute;
+        top: $spacer * 11.25;           
+        left: -$spacer * 12.5;          
+        width: 41px;
+        height: 30px;
+
+        svg {
+            width: 41px;
+            height: 30px;
+            display: block; 
+
+            path {
+                fill: var(--color-primary-red);
+            }
+        }
+    }
+
+    h5 {
+       position: absolute;
+       top: $spacer * 15.125;          // 242px (180px + 30px + 32px = 242px)
+       left: -$spacer * 12.5;
+       width: 730px;
+       right: auto;
+       margin: 0;
+       color: var(--color-neutral-600);
+    }
+
+    .author-meta {
+        position: absolute;
+        top: $spacer * 31.25;           // 500px
+        left: -$spacer * 12.5;
+
+        .caption-2:first-child {
+            color: var(--color-neutral-100) !important;     // #DEDEDE 
+            text-transform: uppercase !important;  
+            width: 139px !important;
+            white-space: nowrap;
+            margin-bottom: $spacer * 0.25 !important;
+        }
+
+        .caption-2 {
+            color: var(--color-neutral-200) !important;     // #7C7C7C 
+            text-transform: none !important;  
+            margin-top: 0 !important;
+            margin-bottom: 0 !important;
+            width: 150px !important;
+            text-transform: none !important; 
+        }
+    }
+
+    .slider-progress {
+    position: absolute;
+    bottom: $spacer * 2.9375;
+    right: $spacer * 5;
+    display: flex;
+    align-items: center;
+    gap: $spacer;
+
+    .progress-current {
+        font-family: $font-family-sans-serif;
+        font-weight: $font-weight-normal;
+        font-size: 1.125rem;            
+        line-height: 1.5;              
+        color: var(--color-neutral-200);
+    }
+
+    .progress-total {
+        font-family: $font-family-sans-serif;
+        font-weight: $font-weight-normal;
+        font-size: 1.125rem;           
+        line-height: 1.5;               
+        color: var(--color-neutral-200);
+    }
+
+    .progress-bar-wrapper {
+        width: 64px;                   
+        height: 1px;
+        background-color: var(--color-neutral-100);
+        position: relative;
+
+        .progress-bar-fill {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 1px;
+            width: 24px;                
+            background-color: var(--color-primary-red);
+        }
+    }
+}
+    }
+}

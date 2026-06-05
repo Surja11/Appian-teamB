@@ -18,13 +18,16 @@ $primary: $color-primary-red !default;
         padding-top: 80px;
         padding-left: 80px;
         padding-right: 80px;
-        padding-bottom: 0;
+        padding-bottom: 205px;
     }
 
-    @include media-breakpoint-down(md) {
-        padding: 40px 24px;
-        height: auto;
-    }
+  @include media-breakpoint-down(md) {
+    width: 100%;
+    max-width: 375px;
+    min-height: 1077px;
+    padding: 40px 24px;
+    overflow-x: hidden;
+}
 
     .footer-blueprint-container {
         width: 100%;
@@ -88,20 +91,22 @@ $primary: $color-primary-red !default;
                 border-left: 1px solid #dedede;
                 padding-left: 70px;
                 width: 379px; 
-                margin-right: 79px; 
+                margin-right: 79px;
                 height: 100%;
                 flex-shrink: 0;
             }
         }
-
         &--last {
-            @include media-breakpoint-up(md) {
-                border-left: 1px solid #dedede;
-                padding-left: 70px;
-                flex: 1;
-                height: 100%;
-            }
-        }
+    @include media-breakpoint-up(md) {
+        border-left: 1px solid #dedede;
+        padding-left: 70px;
+        margin-right: 150px;
+        flex: none;
+        flex-shrink: 0;
+        height: 100%;
+        width: 260px; 
+    }
+}
     }
 
     .footer-left-layout-engine {
@@ -117,7 +122,8 @@ $primary: $color-primary-red !default;
             }
             .footer-logo-wrapper {
                 order: 2; 
-                margin-top: 2rem;
+                margin-top: 32px;
+                margin-bottom: 32px;
             }
         }
     }
@@ -200,6 +206,12 @@ $primary: $color-primary-red !default;
         height: 52px; 
         margin: 0;
 
+        @include media-breakpoint-down(md) {
+        width: 319px;
+        height: 52px;
+        max-width: 100%;
+    }
+
         &__input {
             width: 100%;
             height: 100%;
@@ -277,9 +289,9 @@ $primary: $color-primary-red !default;
             gap: 4px;          /* Adjusted gap to add exactly 5px of vertical layout height */
 
             .footer-interactive-link {
-                display: inline-block;
-                max-width: 100%;
-                word-break: break-all;
+                display: inline;
+                white-space: nowrap;
+                word-break: normal;
             }
         }
     }
@@ -352,7 +364,7 @@ $primary: $color-primary-red !default;
         margin-bottom: 0;
 
         @include media-breakpoint-up(md) {
-            margin-top: 60px; 
+            margin-top: 57px; 
         }
         @include media-breakpoint-down(md) {
             margin-top: 2rem;
