@@ -50,50 +50,50 @@
     <!-- test -->
 
     <!-- Extra Information Block (Dynamic with Field Fallbacks) -->
+
+    <?php
+    $linkedin        = get_field('linkedin_url', 'option');
+    $emergency_label = get_field('emergency_label', 'option');
+    $phone           = get_field('phone_number', 'option');
+    $clean_phone     = preg_replace('/[^0-9]/', '', $phone);
+    $valid_phone     = $phone && strlen($clean_phone) >= 7;
+    ?>
+
+    <?php if ( $linkedin || $emergency_label || $valid_phone ) : ?>
     <div class="navbar__extra">
-      <?php
-      $linkedin = get_field('linkedin_url', 'option');
-      $linkedin_url = $linkedin ? $linkedin : '#';
-      ?>
+      <?php if ( $linkedin ) : ?>
       <a
-        href="<?php echo esc_url($linkedin_url); ?>"
+        href="<?php echo esc_url($linkedin); ?>"
         class="navbar__social"
         aria-label="Visit our LinkedIn page"
         target="_blank"
         rel="noopener noreferrer">
         <img src="<?php echo esc_url(get_template_directory_uri()); ?>/resources/images/icon-linkedin.svg" alt="LinkedIn Profile" />
       </a>
+      <?php endif; ?>
 
+      <?php if ( $emergency_label || $valid_phone ) : ?>
       <div class="navbar__contact">
+        <?php if ( $emergency_label ) : ?>
         <span class="navbar__contact-label">
-          <?php
-          $emergency_label = get_field('emergency_label', 'option');
-          echo esc_html($emergency_label ? $emergency_label : '24/7 emergency services');
-          ?>
+          <?php echo esc_html($emergency_label); ?>
         </span>
+        <?php endif; ?>
+
+        <?php if ( $valid_phone ) : ?>
         <div class="navbar__contact-row">
           <div class="navbar__img-container">
             <img src="<?php echo esc_url(get_template_directory_uri()); ?>/resources/images/icon-phone.svg" alt="" aria-hidden="true" />
           </div>
-          <?php
-          $phone = get_field('phone_number', 'option');
-
-          // FIX: Clean the phone input string down to numeric characters only
-          $clean_phone = preg_replace('/[^0-9]/', '', $phone);
-
-          // FIX: Ensure the numeric value is long enough to actually represent a legitimate phone format (minimum 7 digits)
-          if ($phone && strlen($clean_phone) >= 7) :
-          ?>
-            <a href="tel:<?php echo esc_attr($clean_phone); ?>" aria-label="Call us at <?php echo esc_attr($phone); ?>">
-              <?php echo esc_html($phone); ?>
-            </a>
-          <?php else: ?>
-            <!-- Hardcoded safe design backup to handle blank inputs or partial text values like "365" -->
-            <a href="tel:3018162088" aria-label="Call us at (301) 816-2088">(301) 816-2088</a>
-          <?php endif; ?>
+          <a href="tel:<?php echo esc_attr($clean_phone); ?>" aria-label="Call us at <?php echo esc_attr($phone); ?>">
+            <?php echo esc_html($phone); ?>
+          </a>
         </div>
+        <?php endif; ?>
       </div>
+      <?php endif; ?>
     </div>
+    <?php endif; ?>
   </nav>
 </div>
 <div class="navbar-overlay" id="navbar-overlay" aria-hidden="true"></div>
