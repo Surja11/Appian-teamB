@@ -53,7 +53,7 @@ jobs:
           echo "StrictHostKeyChecking no" >> "$HOME/.ssh/config"
           mkdir -p $HOME/.terminus/plugins
           composer install
-          composer self-update 2.8.4
+          #composer self-update 2.8.4
           ./vendor/bin/terminus self:plugin:install terminus-build-tools-plugin
           #composer create-project --no-dev -n -d $HOME/.terminus/plugins pantheon-systems/terminus-build-tools-plugin:^2.0.0-beta17
 
