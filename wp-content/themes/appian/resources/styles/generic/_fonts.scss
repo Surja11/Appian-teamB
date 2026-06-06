@@ -4,7 +4,7 @@
   src: url("@fonts/GeneralSans-Regular.woff") format("woff");
   font-weight: 400;
   font-style: normal;
-  font-display: block;
+  font-display: swap;
 }
 
 @font-face {
@@ -12,7 +12,7 @@
   src: url("@fonts/GeneralSans-Italic.woff") format("woff");
   font-weight: 400;
   font-style: italic;
-  font-display: block;
+  font-display: swap;
 }
 
 @font-face {
@@ -20,7 +20,7 @@
   src: url("@fonts/GeneralSans-Medium.woff") format("woff");
   font-weight: 500;
   font-style: normal;
-  font-display: block;
+  font-display: swap;
 }
 
 @font-face {
@@ -28,7 +28,7 @@
   src: url("@fonts/GeneralSans-MediumItalic.woff") format("woff");
   font-weight: 500;
   font-style: italic;
-  font-display: block;
+  font-display: swap;
 }
 
 @font-face {
@@ -36,7 +36,7 @@
   src: url("@fonts/RecklessNeue-Book.woff") format("woff");
   font-weight: 400;
   font-style: normal;
-  font-display: block;
+  font-display: swap;
 }
 
 @font-face {
@@ -44,7 +44,7 @@
   src: url("@fonts/RecklessNeue-Medium.woff") format("woff");
   font-weight: 500;
   font-style: normal;
-  font-display: block;
+  font-display: swap;
 }
 
 @font-face {
@@ -52,5 +52,5 @@
   src: url("@fonts/RecklessNeue-Bold.woff") format("woff");
   font-weight: 700;
   font-style: normal;
-  font-display: block;
+  font-display: swap;
 }

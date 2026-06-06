@@ -261,12 +261,13 @@
 
   &:disabled,
   &[disabled] {
-    background: $gray-400;
-    background-color: $gray-400;
+    background: $gray-300 !important;       
+    background-color: $gray-300 !important;
     border: none;
-    color: $white;
+    color: $white !important;
     cursor: not-allowed;
-    opacity: 1;
+    opacity: 0.65 !important;               
+    pointer-events: none;                    
   }
 
   // Arrow navigation variant
