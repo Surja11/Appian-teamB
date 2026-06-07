@@ -1,7 +1,7 @@
 @import '../custom';
 
 
-// using clamp for fluid padding top and botto.
+// using clamp for fluid padding top and bottom.
 .cta-content {
     padding-top: clamp(7.5rem, 6.1796rem + 5.6338vw, 11.25rem);
     padding-bottom: clamp(7.5rem, 6.1796rem + 5.6338vw, 11.25rem);
@@ -14,50 +14,88 @@
 
 
     &__text {
-        text-transform: capitalize;
         color: $color-neutral-600;
-    }
-}
+
+        @include media-breakpoint-up(lg) {
+            text-transform: capitalize;
+
+        }
+
+        span {
+            position: relative;
+            display: inline;
+            width: 44px;
+
+            @include media-breakpoint-up(lg) {
+                width: 72px;
+            }
+
+            &::after {
+                content: "";
+                position: absolute;
+                bottom: -3px;
+                left: -7px;
+                z-index: -1;
+                width: 150%;
+                height: 140%;
+                background: url('../../images/text-overlay-smal.svg') center / cover no-repeat;
 
 
-// using before to create a line before our content
-.cta-content-column {
-    position: relative;
+                @include media-breakpoint-up(lg) {
+                    // Desktop — background-clip text effect
+                    background: url('../../images/text-overlay.svg') center/contain no-repeat;
+                    left: -6px;
+                    width: 137%;
+                    height: 140%;
+                    bottom: -6px;
 
-    &::before {
-        content: "";
-        height: 100%;
-        border-right: 1px solid $color-neutral-100;
-        position: absolute;
-        left: -5.5625rem;
-    }
-}
-
-
-// using after pseudo element to place the highligh image
-.cta-content__date {
-    position: relative;
-
-    &::after {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: -6;
-        z-index: -1;
-        width: 140%;
-        height: 100%;
-        background: url('/wp-content/themes/appian/resources/images/text-overlay.png') no-repeat center / 100% 100%;
-
-        @include media-breakpoint-up(xxl) {
-            left: -9;
-            width: 145%;
+                }
+            }
         }
 
     }
 
 
-}
+    // using before to create a line before our content
+    &-column {
+        position: relative;
 
+        &::before {
+            content: "";
+            height: 100%;
+            border-right: 1px solid $color-neutral-100;
+            position: absolute;
+            left: -4.3125rem;
+        }
+    }
+
+
+
+
+    // using after pseudo element to place the highligh image
+    // &__date {
+    //     position: relative;
+
+    //     &::after {
+    //         content: "";
+    //         position: absolute;
+    //         bottom: 0;
+    //         left: -6;
+    //         z-index: -1;
+    //         width: 140%;
+    //         height: 100%;
+    //         background: url('/wp-content/themes/appian/resources/images/text-overlay.png') no-repeat center / 100% 100%;
+
+    //         @include media-breakpoint-up(xxl) {
+    //             left: -9;
+    //             width: 145%;
+    //         }
+
+    //     }
+
+
+    // }
+}
 
 // styling the CTA button
 .btn--cta {
