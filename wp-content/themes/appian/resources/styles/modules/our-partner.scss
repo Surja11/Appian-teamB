@@ -274,16 +274,857 @@
 
 @import '../common';
 
+
+// @mixin edge-row-selector($columns) {
+//   $side-margin: clamp(1.75rem, 0.6056rem + 4.8826vw, 5rem);
+
+//   position: relative;
+
+//   // First row — top border
+//   &:nth-child(-n + #{$columns}) {
+//     border-top: 0.0625rem solid $color-neutral-200;
+
+//     &::after {
+//       box-sizing: border-box;
+//       content: "";
+//       position: absolute;
+//       bottom: 100%;
+//       right: -1px;
+//       width: 0;
+//       height: $side-margin;
+//       border-right: 0.0625rem solid $color-neutral-200;
+//     }
+//   }
+
+//   // First cell of every row — left border + left corner extension
+//   &:nth-child(#{$columns}n + 1) {
+//     border-left: 0.0625rem solid $color-neutral-200;
+
+//     &::before {
+//       box-sizing: border-box;
+//       content: "";
+//       position: absolute;
+//       top: -1px;
+//       right: 100%;
+//       border-top: 0.0625rem solid $color-neutral-200;
+//       width: $side-margin;
+//       height: $side-margin;
+//     }
+//   }
+
+//   // Last cell of every row (not first row, not last row) — right extension downward
+//   &:nth-child(#{$columns}n):not(:nth-child(-n + #{$columns})):not(:nth-last-child(-n + #{$columns})) {
+//     &::after {
+//       box-sizing: border-box;
+//       content: "";
+//       position: absolute;
+//       height: 100%;
+//       top: -1px;
+//       left: 100%;
+//       border-top: 0.0625rem solid $color-neutral-200;
+//       width: $side-margin;
+//     }
+//   }
+
+//   // Last cell of first row — right extension (top area only)
+//   &:nth-child(#{$columns}):nth-child(-n + #{$columns}) {
+//     &::before {
+//       box-sizing: border-box;
+//       content: "";
+//       position: absolute;
+//       top: -1px;
+//       left: 100%;
+//       width: $side-margin;
+//       height: 0;
+//       border-top: 0.0625rem solid $color-neutral-200;
+//     }
+//   }
+
+//   // Last row — bottom border + bottom extension on every cell
+//   &:nth-last-child(-n + #{$columns}) {
+//     border-bottom: 0.0625rem solid $color-neutral-200;
+
+//     &::after {
+//       box-sizing: border-box;
+//       content: "";
+//       position: absolute;
+//       border-left: 0.0625rem solid $color-neutral-200;
+//       border-top: 0.0625rem solid $color-neutral-200;
+//       height: $side-margin;
+//       top: 100%;
+//       left: -1px;
+//       width: 100%;
+//     }
+//   }
+
+//   // Last row middle cells — downward tick on right edge via ::before
+//   &:nth-last-child(-n + #{$columns}):not(:nth-child(#{$columns}n + 1)):not(:nth-child(#{$columns}n)) {
+//     &::before {
+//       box-sizing: border-box;
+//       content: "";
+//       position: absolute;
+//       top: 100%;
+//       right: -1px;
+//       width: 0;
+//       height: $side-margin;
+//       border-right: 0.0625rem solid $color-neutral-200;
+//     }
+//   }
+
+//   // Last cell — bottom-right corner + downward tick on right gutter
+//   &:last-child {
+//     &::after {
+//       box-sizing: border-box;
+//       content: "";
+//       position: absolute;
+//       top: 0;
+//       left: 100%;
+//       width: $side-margin;
+//       height: calc(100% + #{$side-margin}); // ← extends down to draw the tick
+//       border-top: 0.0625rem solid $color-neutral-200;
+//       border-bottom: 0.0625rem solid $color-neutral-200;
+//       border-right: 0.0625rem solid $color-neutral-200; // ← right edge of gutter + tick
+//     }
+//   }
+
+//   // Left gutter on first cell of last row — extended down for tick
+//   &:nth-child(#{$columns}n + 1):nth-last-child(-n + #{$columns}) {
+//     &::before {
+//       box-sizing: border-box;
+//       content: "";
+//       position: absolute;
+//       top: 0;
+//       right: 100%;
+//       width: $side-margin;
+//       height: calc(100% + #{$side-margin}); // ← extends down to draw the tick
+//       border-top: 0.0625rem solid $color-neutral-200;
+//       border-bottom: 0.0625rem solid $color-neutral-200;
+//       border-right: 0.0625rem solid $color-neutral-200; // ← right edge is the tick line
+//     }
+//   }
+
+//   // Right gutter on last cell of last row — extended down for tick
+//   &:nth-child(#{$columns}n):nth-last-child(-n + #{$columns}) {
+//     &::after {
+//       box-sizing: border-box;
+//       content: "";
+//       position: absolute;
+//       top: 0;
+//       left: 100%;
+//       width: $side-margin;
+//       height: calc(100% + #{$side-margin}); // ← extends down to draw the tick
+//       border-top: 0.0625rem solid $color-neutral-200;
+//       border-bottom: 0.0625rem solid $color-neutral-200;
+//     }
+//   }
+// }
+
+
+
+// @mixin edge-row-selector($columns) {
+//   $side-margin: clamp(1.75rem, 0.6056rem + 4.8826vw, 5rem);
+
+//   position: relative;
+//   overflow: visible !important;
+
+//   // ── FIRST ROW ──────────────────────────────────────────────────────────────
+
+//   &:nth-child(-n + #{$columns}) {
+//     border-top: 0.0625rem solid $color-neutral-200;
+//   }
+
+//   // Upward tick — first-row cells excluding last — ::after free here
+//   &:nth-child(-n + #{$columns}):not(:nth-child(#{$columns}n)) {
+//     &::after {
+//       box-sizing: border-box;
+//       content: "";
+//       position: absolute;
+//       bottom: 100%;
+//       right: -1px;
+//       width: 100%;
+//       height: $side-margin;
+//       border-right: 0.0625rem solid $color-neutral-200;
+//       border-left : 0.5px solid $color-neutral-200;
+//     }
+//   }
+
+//   // First-row last cell — ::before right-gutter top, ::after upward tick
+//   &:nth-child(#{$columns}):nth-child(-n + #{$columns}) {
+//     &::before {
+//       box-sizing: border-box;
+//       content: "";
+//       position: absolute;
+//       top: -1px;
+//       left: 100%;
+//       width: $side-margin;
+//       height: 0;
+//       border-top: 0.0625rem solid $color-neutral-200;
+//     }
+//     &::after {
+//       box-sizing: border-box;
+//       content: "";
+//       position: absolute;
+//       bottom: 100%;
+//       right: -1px;
+//       width: 0;
+//       height: $side-margin;
+//       border-right: 0.0625rem solid $color-neutral-200;
+//     }
+//   }
+
+//   // ── ALL ROWS: FIRST CELL ────────────────────────────────────────────────────
+
+//   &:nth-child(#{$columns}n + 1) {
+//     border-left: 0.0625rem solid $color-neutral-200;
+//   }
+
+//   // Top-left corner bracket — first cell, middle rows only
+//   // (first-row first cell and last-row first cell handled separately)
+//   &:nth-child(#{$columns}n + 1):not(:nth-child(-n + #{$columns})):not(:nth-last-child(-n + #{$columns})) {
+//     &::before {
+//       box-sizing: border-box;
+//       content: "";
+//       position: absolute;
+//       top: -1px;
+//       right: 100%;
+//       border-top: 0.0625rem solid $color-neutral-200;
+//       width: $side-margin;
+//       height: $side-margin;
+//     }
+//   }
+
+//   // First-row first cell — ::before top-left corner
+//   &:first-child {
+//     &::before {
+//       box-sizing: border-box;
+//       content: "";
+//       position: absolute;
+//       top: -1px;
+//       right: 100%;
+//       border-top: 0.0625rem solid $color-neutral-200;
+//       width: $side-margin;
+//       height: $side-margin;
+//     }
+//   }
+
+//   // ── MIDDLE ROWS: LAST CELL ──────────────────────────────────────────────────
+
+//   &:nth-child(#{$columns}n):not(:nth-child(-n + #{$columns})):not(:nth-last-child(-n + #{$columns})) {
+//     &::after {
+//       box-sizing: border-box;
+//       content: "";
+//       position: absolute;
+//       height: 0;
+//       top: -1px;
+//       left: 100%;
+//       border-top: 0.0625rem solid $color-neutral-200;
+//       width: $side-margin;
+//     }
+//   }
+
+//   // ── LAST ROW ────────────────────────────────────────────────────────────────
+
+//   &:nth-last-child(-n + #{$columns}) {
+//     border-bottom: 0.0625rem solid $color-neutral-200;
+//   }
+
+//   // CELL TYPE A — First cell of last row
+//   // ::before = left gutter (full height + tick via border-right)
+//   // ::after  = bottom horizontal extension
+//   &:nth-child(#{$columns}n + 1):nth-last-child(-n + #{$columns}) {
+//     &::before {
+//       box-sizing: border-box;
+//       content: "";
+//       position: absolute;
+//       top: 0;
+//       right: 100%;
+//       width: $side-margin;
+//       height: calc(100% + #{$side-margin});
+//       border-top: 0.0625rem solid $color-neutral-200;
+//       border-bottom: 0.0625rem solid $color-neutral-200;
+//       border-right: 0.0625rem solid $color-neutral-200;
+//     }
+//     &::after {
+//       box-sizing: border-box;
+//       content: "";
+//       position: absolute;
+//       top: 100%;
+//       left: -1px;
+//       width: calc(100% + 1px);
+//       height: $side-margin;
+//       border-left: 0.0625rem solid $color-neutral-200;
+//       border-top: 0.0625rem solid $color-neutral-200;
+//     }
+//   }
+
+//   // CELL TYPE B — Middle cells of last row (not first, not last)
+//   // ::before = downward tick on right edge
+//   // ::after  = bottom horizontal extension
+//   &:nth-last-child(-n + #{$columns}):not(:nth-child(#{$columns}n + 1)):not(:nth-child(#{$columns}n)) {
+//     &::before {
+//       box-sizing: border-box;
+//       content: "";
+//       position: absolute;
+//       top: 100%;
+//       right: -1px;
+//       width: 0;
+//       height: $side-margin;
+//       border-right: 0.0625rem solid $color-neutral-200;
+//     }
+//     &::after {
+//       box-sizing: border-box;
+//       content: "";
+//       position: absolute;
+//       top: 100%;
+//       left: -1px;
+//       width: calc(100% + 1px);
+//       height: $side-margin;
+//       border-left: 0.0625rem solid $color-neutral-200;
+//       border-top: 0.0625rem solid $color-neutral-200;
+//     }
+//   }
+
+//   // CELL TYPE C — Last cell of last row (last-child)
+//   // ::before = downward tick on right edge
+//   // ::after  = bottom extension + right gutter (width spans into gutter, border-right closes it)
+//   &:last-child {
+//     &::before {
+//       box-sizing: border-box;
+//       content: "";
+//       position: absolute;
+//       top: 100%;
+//       right: -1px;
+//       width: 0;
+//       height: $side-margin;
+//       border-right: 0.0625rem solid $color-neutral-200;
+//     }
+//     &::after {
+//       box-sizing: border-box;
+//       content: "";
+//       position: absolute;
+//       top: 100%;
+//       left: -1px;
+//       width: calc(100% + #{$side-margin} + 1px);
+//       height: $side-margin;
+//       border-left: 0.0625rem solid $color-neutral-200;
+//       border-top: 0.0625rem solid $color-neutral-200;
+//       border-right: 0.0625rem solid $color-neutral-200;
+//     }
+//   }
+// }
+// // @mixin edge-row-selector($columns) {
+// //   $side-margin: clamp(1.75rem, 0.6056rem + 4.8826vw, 5rem);
+
+// //   position: relative;
+
+// //   // First row — top border
+// //   &:nth-child(-n + #{$columns}) {
+// //     border-top: 0.0625rem solid $color-neutral-200;
+
+// //     // Every first-row cell gets an upward tick on the right edge
+// //     &::after {
+// //       box-sizing: border-box;
+// //       content: "";
+// //       position: absolute;
+// //       bottom: 100%;
+// //       right: -1px;
+// //       width: 0;
+// //       height: $side-margin;
+// //       border-right: 0.0625rem solid $color-neutral-200;
+// //     }
+// //   }
+
+// //   // First cell of every row — left border + left corner extension
+// //   &:nth-child(#{$columns}n + 1) {
+// //     border-left: 0.0625rem solid $color-neutral-200;
+
+// //     &::before {
+// //       box-sizing: border-box;
+// //       content: "";
+// //       position: absolute;
+// //       top: -1px;
+// //       right: 100%;
+// //       border-top: 0.0625rem solid $color-neutral-200;
+// //       width: $side-margin;
+// //       height: $side-margin;
+// //     }
+// //   }
+
+// //   // Last cell of every row (not first row) — right extension downward
+// //   &:nth-child(#{$columns}n):not(:nth-child(-n + #{$columns})) {
+// //     &::after {
+// //       box-sizing: border-box;
+// //       content: "";
+// //       position: absolute;
+// //       height: 100%;
+// //       top: -1px;
+// //       left: 100%;
+// //       border-top: 0.0625rem solid $color-neutral-200;
+// //       width: $side-margin;
+// //     }
+// //   }
+
+// //   // Last cell of first row — right extension (top area only)
+// //   &:nth-child(#{$columns}):nth-child(-n + #{$columns}) {
+// //     &::before {
+// //       box-sizing: border-box;
+// //       content: "";
+// //       position: absolute;
+// //       top: -1px;
+// //       left: 100%;
+// //       width: $side-margin;
+// //       height: 0;
+// //       border-top: 0.0625rem solid $color-neutral-200;
+// //     }
+// //   }
+
+// //   // Last row — bottom border + bottom extension on every cell
+// //   &:nth-last-child(-n + #{$columns}) {
+// //     border-bottom: 0.0625rem solid $color-neutral-200;
+
+// //     &::after {
+// //       box-sizing: border-box;
+// //       content: "";
+// //       position: absolute;
+// //       border-left: 0.0625rem solid $color-neutral-200;
+// //       border-top: 0.0625rem solid $color-neutral-200;
+// //       height: $side-margin;
+// //       top: 100%;
+// //       left: -1px;
+// //       width: 100%;
+// //     }
+// //   }
+
+// //   // Last row — downward tick on right edge (excludes first cell, its ::before is taken)
+// //   &:nth-last-child(-n + #{$columns}):not(:nth-child(#{$columns}n + 1)) {
+// //     &::before {
+// //       box-sizing: border-box;
+// //       content: "";
+// //       position: absolute;
+// //       top: 100%;
+// //       right: -1px;
+// //       width: 0;
+// //       height: $side-margin;
+// //       border-right: 0.0625rem solid $color-neutral-200;
+// //     }
+// //   }
+
+// //   // Last cell — bottom-right corner
+// //   &:last-child {
+// //     &::after {
+// //       box-sizing: border-box;
+// //       content: "";
+// //       position: absolute;
+// //       border-top: 0.0625rem solid $color-neutral-200;
+// //       height: $side-margin;
+// //       top: 100%;
+// //       left: 100%;
+// //       width: $side-margin;
+// //     }
+// //   }
+
+// //   // Left gutter on first cell of last row
+// //   &:nth-child(#{$columns}n + 1):nth-last-child(-n + #{$columns}) {
+// //     &::before {
+// //       box-sizing: border-box;
+// //       content: "";
+// //       position: absolute;
+// //       top: 0;
+// //       right: 100%;
+// //       width: $side-margin;
+// //       height: 100%;
+// //       border-top: 0.0625rem solid $color-neutral-200;
+// //       border-bottom: 0.0625rem solid $color-neutral-200;
+// //     }
+// //   }
+
+// //   // Right gutter on last cell of last row
+// //   &:nth-child(#{$columns}n):nth-last-child(-n + #{$columns}) {
+// //     &::after {
+// //       box-sizing: border-box;
+// //       content: "";
+// //       position: absolute;
+// //       top: 0;
+// //       left: 100%;
+// //       width: $side-margin;
+// //       height: 100%;
+// //       border-top: 0.0625rem solid $color-neutral-200;
+// //       border-bottom: 0.0625rem solid $color-neutral-200;
+// //     }
+// //   }
+// // }
+
+// // @mixin edge-row-selector($columns) {
+// //   $side-margin: clamp(1.75rem, 0.6056rem + 4.8826vw, 5rem);
+
+// //   position: relative;
+
+// //   // First row — top border
+// //   &:nth-child(-n + #{$columns}) {
+// //     border-top: 0.0625rem solid $color-neutral-200;
+
+// //     //Every first-row cell gets an upward tick on the right edge
+// //     &::after {
+// //       box-sizing: border-box;
+// //       content: "";
+// //       position: absolute;
+// //       bottom: 100%;
+// //       right: -1px;
+// //       width: 0;
+// //       height: $side-margin;
+// //       border-right: 0.0625rem solid $color-neutral-200;
+// //     }
+// //   }
+
+// //   // First cell of every row — left border + left corner extension
+// //   &:nth-child(#{$columns}n + 1) {
+// //     border-left: 0.0625rem solid $color-neutral-200;
+
+
+// //     &::before {
+// //       box-sizing: border-box;
+// //       content: "";
+// //       position: absolute;
+// //       top: -1px;
+// //       right: 100%;
+// //       border-top: 0.0625rem solid $color-neutral-200;
+// //       width: $side-margin;
+// //       height: $side-margin;
+// //     }
+
+
+// //   }
+
+// //   // Last cell of every row (not first row) — right extension downward
+// //   &:nth-child(#{$columns}n):not(:nth-child(-n + #{$columns})) {
+// //     &::after {
+// //       box-sizing: border-box;
+// //       content: "";
+// //       position: absolute;
+// //       height: 100%;
+// //       top: -1px;
+// //       left: 100%;
+// //       border-top: 0.0625rem solid $color-neutral-200;
+// //       width: $side-margin;
+// //     }
+// //   }
+
+// //   // Last cell of first row — right extension (top area only, ::after already draws tick)
+// //   &:nth-child(#{$columns}):nth-child(-n + #{$columns}) {
+// //     &::before {
+// //       box-sizing: border-box;
+// //       content: "";
+// //       position: absolute;
+// //       top: -1px;
+// //       left: 100%;
+// //       width: $side-margin;
+// //       height: 0;
+// //       border-top: 0.0625rem solid $color-neutral-200;
+// //     }
+// //   }
+
+// //   // First cell of first row — left extension (top area only, ::before already draws corner)
+// // &:nth-child(#{$columns}n + 1):nth-last-child(-n + #{$columns}) {
+// //   &::after {
+// //     box-sizing: border-box;
+// //     content: "";
+// //     position: absolute;
+// //     top: -1px;
+// //     left: 100%;
+// //     width: $side-margin;
+// //     height: 100px;
+// //     border-bottom: 0.0625rem solid $color-neutral-200;
+// //   }
+// // }
+
+// //   // Last row — bottom extension downward on every cell
+// //   &:nth-last-child(-n + #{$columns}) {
+// //     &::after {
+// //       box-sizing: border-box;
+// //       content: "";
+// //       position: absolute;
+// //       border-left: 0.0625rem solid $color-neutral-200;
+// //       border-top: 0.0625rem solid $color-neutral-200;
+// //       border-bottom: none;
+// //       height: $side-margin;
+// //       top: 100%;
+// //       left: -1px;
+// //       width: 100%;
+// //     }
+// //   }
+
+// //   // Last cell — bottom-right corner
+// //   &:last-child {
+// //     &::after {
+// //       box-sizing: border-box;
+// //       content: "";
+// //       position: absolute;
+// //       border-top: 0.0625rem solid $color-neutral-200;
+// //       height: $side-margin;
+// //       top: 100%;
+// //       left: 100%;
+// //       width: $side-margin;
+// //     }
+// //   }
+
+// //  // Left gutter on first cell of last row (full row)
+// //   &:nth-child(#{$columns}n + 1):nth-last-child(-n + #{$columns}) {
+// //     &::before {
+// //       box-sizing: border-box;
+// //       content: "";
+// //       position: absolute;
+// //       top: 0;
+// //       right: 100%;
+// //       width: $side-margin;
+// //       height: 100%;
+// //       border-top: 0.0625rem solid $color-neutral-200;
+// //       border-bottom: 0.0625rem solid $color-neutral-200;
+// //     }
+// //   }
+
+// //   // Right gutter on last cell of last row (full row)
+// //   &:nth-child(#{$columns}n):nth-last-child(-n + #{$columns}) {
+// //     &::after {
+// //       box-sizing: border-box;
+// //       content: "";
+// //       position: absolute;
+// //       top: 0;
+// //       left: 100%;
+// //       width: $side-margin;
+// //       height: 100%;
+// //       border-top: 0.0625rem solid $color-neutral-200;
+// //       border-bottom: 0.0625rem solid $color-neutral-200;
+// //     }
+// //   }
+
+// //   &:nth-last-child(-n + #{$columns}) {
+// //   border-bottom: 0.0625rem solid $color-neutral-200;
+
+// //   // Every last-row cell gets a downward tick on the right edge
+// //   &::after {
+// //     box-sizing: border-box;
+// //     content: "";
+// //     position: absolute;
+// //     top: 100%;        // ← anchor to bottom edge (vs bottom: 100% for top row)
+// //     right: -1px;
+// //     width: 0;
+// //     height: $side-margin;
+// //     border-right: 0.0625rem solid $color-neutral-200;
+// //   }
+// // }
+// // }
+
+// // .our-partner {
+// //   $side-margin: clamp(1.75rem, 0.6056rem + 4.8826vw, 5rem);
+// //   $columns: 2;
+// //   padding-inline: $side-margin;
+
+// //   .row {
+// //     .col {
+// //       padding-right: 0 !important;
+// //       padding-left: 0 !important;
+// //       padding: 0 !important;
+// //     }
+
+// //     max-width: 100%;
+// //   }
+
+// //   .grid-block {
+// //     border-inline: 0.0625rem solid $color-neutral-200;
+// //     height: $side-margin;
+
+// //     &::after{
+// //       content: "";
+// //       position: absolute;
+// //       top: 0;
+// //       left: 0;
+// //       width: 100%;
+// //       height: 100%;
+// //       border-top: 0.0625rem solid $color-neutral-200;
+// //       border-bottom: 0.0625rem solid $color-neutral-200;
+// //     }
+// //   }
+
+// //   &__heading {
+// //     margin-bottom: 4rem;
+
+// //     @include media-breakpoint-up(xl) {
+// //       margin-bottom: 5.5rem;
+// //     }
+// //   }
+
+// //   &__partner-collection {
+// //     overflow: visible;
+// //     display: flex;
+// //     align-items: center;
+// //     justify-content: center;
+// //   }
+
+// //   &__single-partner {
+// //     position: relative;
+// //     display: grid;
+// //     place-items: center;
+// //     border-right: 0.0625rem solid $color-neutral-200;
+// //     border-bottom: 0.0625rem solid $color-neutral-200;
+
+// //     min-height: 100px;
+// //     padding: 1.5rem;
+
+// //     @include edge-row-selector($columns);
+// //   }
+
+// //   &__img-container {
+// //     width: 159.5px;
+// //     height: 100px;
+// //     display: grid;
+// //     place-items: center;
+
+// //     img {
+// //       width: 100%;
+// //       height: 100%;
+// //       object-fit: cover;
+// //     }
+// //   }
+// // }
+
+// // @include media-breakpoint-up(xl) {
+// //   .our-partner {
+// //     $side-margin: clamp(1.75rem, 0.6056rem + 4.8826vw, 5rem);
+// //     $columns: 4;
+
+// //     &__partner-collection {
+// //       .row {
+// //         grid-template-columns: repeat($columns, 1fr);
+// //       }
+// //     }
+
+// //     &__single-partner {
+// //       min-height: 166px;
+// //       padding: 2.5rem;
+// //       object-fit: cover;
+
+// //       @include edge-row-selector($columns);
+// //     }
+
+// //     &__img-container {
+// //       img {
+// //         max-width: 240px;
+// //         max-height: 100px;
+// //       }
+// //     }
+// //   }
+// // }
+
+// .our-partner {
+//   $side-margin: clamp(1.75rem, 0.6056rem + 4.8826vw, 5rem);
+//   $columns: 2;
+//   padding-inline: $side-margin;
+
+//   .row {
+//     .col {
+//       padding-right: 0 !important;
+//       padding-left: 0 !important;
+//       padding: 0 !important;
+//     }
+//     max-width: 100%;
+//   }
+
+//   // ← .grid-block block deleted entirely
+
+//   &__heading {
+//     margin-bottom: 4rem;
+
+//     @include media-breakpoint-up(xl) {
+//       margin-bottom: 5.5rem;
+//     }
+//   }
+
+//   &__partner-collection {
+//     overflow: visible;
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//   }
+
+//   &__single-partner {
+//     position: relative;
+//     display: grid;
+//     place-items: center;
+//     border-right: 0.0625rem solid $color-neutral-200;
+//     border-bottom: 0.0625rem solid $color-neutral-200;
+
+//     min-height: 100px;
+//     padding: 1.5rem;
+
+//     @include edge-row-selector($columns);
+//   }
+
+//   &__img-container {
+//     width: 159.5px;
+//     height: 100px;
+//     display: grid;
+//     place-items: center;
+
+//     img {
+//       width: 100%;
+//       height: 100%;
+//       object-fit: cover;
+//     }
+//   }
+// }
+
+// @include media-breakpoint-up(xl) {
+//   .our-partner {
+//     $side-margin: clamp(1.75rem, 0.6056rem + 4.8826vw, 5rem);
+//     $columns: 4;
+
+//     &__partner-collection {
+//       .row {
+//         grid-template-columns: repeat($columns, 1fr);
+//       }
+//     }
+
+//     &__single-partner {
+//       min-height: 166px;
+//       padding: 2.5rem;
+//       object-fit: cover;
+
+//       @include edge-row-selector($columns);
+//     }
+
+//     &__img-container {
+//       img {
+//         max-width: 240px;
+//         max-height: 100px;
+//       }
+//     }
+//   }
+// }
+
+
+
+
+
+
+
+@import '../common';
+
 @mixin edge-row-selector($columns) {
   $side-margin: clamp(1.75rem, 0.6056rem + 4.8826vw, 5rem);
 
   position: relative;
+  overflow: visible !important;
 
-  // First row — top border
+  // ── FIRST ROW ────────────────────────────────────────────────────────────
+
+  // Top border on all first-row cells
   &:nth-child(-n + #{$columns}) {
     border-top: 0.0625rem solid $color-neutral-200;
+    overflow: visible !important;
+  }
 
-    // Every first-row cell gets an upward tick on the right edge
+  // Upward tick — first-row cells excluding last — ::after
+  &:nth-child(-n + #{$columns}):not(:nth-child(#{$columns}n)) {
     &::after {
       box-sizing: border-box;
       content: "";
@@ -296,152 +1137,225 @@
     }
   }
 
-  // First cell of every row — left border + left corner extension
+  // First-row last cell — ::before right gutter top line, ::after upward tick
+  &:nth-child(#{$columns}):nth-child(-n + #{$columns}) {
+    overflow: visible !important;
+    &::before {
+      box-sizing: border-box;
+      content: "";
+      position: absolute;
+      bottom: 100%;
+      left: 100%;
+      width: $side-margin;
+      height: $side-margin;
+      border-bottom: 0.0625rem solid $color-neutral-200;
+      border-left : 0.0625rem solid $color-neutral-200;
+    }
+    &::after {
+      box-sizing: border-box;
+      content: "";
+      position: absolute;
+      bottom: 100%;
+      right: -1px;
+      width: 0;
+      height: $side-margin;
+      border-right: 0.0625rem solid $color-neutral-200;
+    }
+  }
+
+  // ── ALL ROWS: FIRST CELL ──────────────────────────────────────────────────
+
+  // Left border on all first cells
   &:nth-child(#{$columns}n + 1) {
     border-left: 0.0625rem solid $color-neutral-200;
+    overflow: visible !important;
+  }
 
+  // Top-left corner bracket — first cell of middle rows only
+  &:nth-child(#{$columns}n + 1):not(:nth-child(-n + #{$columns})):not(:nth-last-child(-n + #{$columns})) {
     &::before {
       box-sizing: border-box;
       content: "";
       position: absolute;
       top: -1px;
       right: 100%;
-      border-top: 0.0625rem solid $color-neutral-200;
       width: $side-margin;
       height: $side-margin;
+      border-top: 0.0625rem solid $color-neutral-200;
     }
-  }
 
-  // Last cell of every row (not first row) — right extension downward
-  &:nth-child(#{$columns}n):not(:nth-child(-n + #{$columns})):not(:nth-child(4)) {
-    &::after {
+    &::after{
       box-sizing: border-box;
       content: "";
       position: absolute;
-      height: 100%;
-      top: -1px;
-      left: 100%;
-      border-top: 0.0625rem solid $color-neutral-200;
+      top: 100%;
+      right: 100%;
       width: $side-margin;
+      height: $side-margin;
+      border-top: 0.0625rem solid $color-neutral-200;
+      border-right: 0.0625 solid $color-neutral-200;
     }
   }
 
-  // Last cell of first row — right extension (top area only, ::after already draws tick)
-  &:nth-child(#{$columns}):nth-child(-n + #{$columns}) {
+  // First cell of first row — ::before top-left corner
+  &:first-child {
+    overflow: visible !important;
     &::before {
       box-sizing: border-box;
       content: "";
       position: absolute;
+      bottom: 100%;
+      right: 100%;
+      width: $side-margin;
+      height: $side-margin;
+      border-bottom: 0.0625rem solid $color-neutral-200;
+      border-right: 0.0625rem solid $color-neutral-200;
+    }
+  }
+
+  // ── MIDDLE ROWS: LAST CELL ────────────────────────────────────────────────
+
+  // Right gutter line — last cell of middle rows only
+  &:nth-child(#{$columns}n):not(:nth-child(-n + #{$columns})):not(:nth-last-child(-n + #{$columns})) {
+    overflow: visible !important;
+    &::after {
+      box-sizing: border-box;
+      content: "";
+      position: absolute;
       top: -1px;
       left: 100%;
       width: $side-margin;
-      height: 0;
+      height: calc(100% + 1px);
       border-top: 0.0625rem solid $color-neutral-200;
     }
   }
 
-  // Last row — bottom extension downward on every cell
+  // ── LAST ROW ──────────────────────────────────────────────────────────────
+
+  // Bottom border on all last-row cells
   &:nth-last-child(-n + #{$columns}) {
-    &::after {
-      box-sizing: border-box;
-      content: "";
-      position: absolute;
-      border-left: 0.0625rem solid $color-neutral-200;
-      border-top: 0.0625rem solid $color-neutral-200;
-      border-bottom: none;
-      height: $side-margin;
-      top: 100%;
-      left: -1px;
-      width: 100%;
-    }
+    border-bottom: 0.0625rem solid $color-neutral-200;
+    overflow: visible !important;
   }
 
-  // Last cell — bottom-right corner
-  &:last-child {
-    &::after {
-      box-sizing: border-box;
-      content: "";
-      position: absolute;
-      border-top: 0.0625rem solid $color-neutral-200;
-      height: $side-margin;
-      top: 100%;
-      left: 100%;
-      width: $side-margin;
-    }
-  }
-
-  // Left gutter on first cell of last row (full row)
+  // CELL TYPE A — First cell of last row
+  // ::before = left gutter full height + downward tick (border-right)
+  // ::after  = bottom horizontal extension
   &:nth-child(#{$columns}n + 1):nth-last-child(-n + #{$columns}) {
     &::before {
       box-sizing: border-box;
       content: "";
       position: absolute;
-      top: 0;
+      top: 100%;
       right: 100%;
       width: $side-margin;
-      height: 100%;
+      height: $side-margin;
       border-top: 0.0625rem solid $color-neutral-200;
-      border-bottom: 0.0625rem solid $color-neutral-200;
+      // border-bottom: 0.0625rem solid $color-neutral-200;
+      border-right: 0.0625rem solid $color-neutral-200;
     }
-  }
-
-  // Right gutter on last cell of last row (full row)
-  &:nth-child(#{$columns}n):nth-last-child(-n + #{$columns}) {
     &::after {
       box-sizing: border-box;
       content: "";
       position: absolute;
-      top: 0;
-      left: 100%;
-      width: $side-margin;
-      height: 100%;
+      top: 100%;
+      left: -1px;
+      width: calc(100% + 1px);
+      height: $side-margin;
+      border-left: 0.0625rem solid $color-neutral-200;
       border-top: 0.0625rem solid $color-neutral-200;
-      border-bottom: 0.0625rem solid $color-neutral-200;
+    }
+  }
+
+  // CELL TYPE B — Middle cells of last row (not first, not last column)
+  &:nth-last-child(-n + #{$columns}):not(:nth-child(#{$columns}n + 1)):not(:nth-child(#{$columns}n)) {
+    overflow: visible !important;
+    &::before {
+      box-sizing: border-box;
+      content: "";
+      position: absolute;
+      top: 100%;
+      right: -1px;
+      width: 0;
+      height: $side-margin;
+      border-right: 0.0625rem solid $color-neutral-200;
+    }
+    &::after {
+      box-sizing: border-box;
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: -1px;
+      width: calc(100% + 1px);
+      height: $side-margin;
+      border-left: 0.0625rem solid $color-neutral-200;
+      border-top: 0.0625rem solid $color-neutral-200;
+    }
+  }
+
+  // CELL TYPE C — Last cell of last row
+  // ::before = downward tick on right edge
+  // ::after  = bottom extension spanning full width + right gutter
+  &:last-child {
+    overflow: visible !important;
+    &::before {
+      box-sizing: border-box;
+      content: "";
+      position: absolute;
+      top: 100%;
+      right: -1px;
+      width: 0;
+      height: $side-margin;
+      border-right: 0.0625rem solid $color-neutral-200;
+    }
+    &::after {
+      box-sizing: border-box;
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: -1px;
+      width: calc(100% + #{$side-margin} + 1px);
+      height: $side-margin;
+      border-left: 0.0625rem solid $color-neutral-200;
+      border-top: 0.0625rem solid $color-neutral-200;
+      border-right: 0.0625rem solid $color-neutral-200;
     }
   }
 }
-
 .our-partner {
   $side-margin: clamp(1.75rem, 0.6056rem + 4.8826vw, 5rem);
   $columns: 2;
   padding-inline: $side-margin;
+  overflow: visible !important;
+  contain: none !important;
+
+  *[class*="col"],
+  .row,
+  &__partner-collection {
+    overflow: visible !important;
+    contain: none !important;
+    clip-path: none !important;
+  }
 
   .row {
-    .col {
-      padding-right: 0 !important;
-      padding-left: 0 !important;
-      padding: 0 !important;
-    }
-
     max-width: 100%;
-  }
+    overflow: visible !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    contain: none !important;
 
-  .grid-block {
-    border-inline: 0.0625rem solid $color-neutral-200;
-    height: $side-margin;
-
-    &::after{
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border-top: 0.0625rem solid $color-neutral-200;
-      border-bottom: 0.0625rem solid $color-neutral-200;
-    }
-  }
-
-  &__heading {
-    margin-bottom: 4rem;
-
-    @include media-breakpoint-up(xl) {
-      margin-bottom: 5.5rem;
+    .col,
+    [class*="col-"] {
+      padding: 0 !important;
+      overflow: visible !important;
+      contain: none !important;
+      clip-path: none !important;
     }
   }
 
   &__partner-collection {
-    overflow: visible;
+    overflow: visible !important;
+    contain: none !important;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -451,14 +1365,46 @@
     position: relative;
     display: grid;
     place-items: center;
+    overflow: visible !important;
+    contain: none !important;
+    clip-path: none !important;
     border-right: 0.0625rem solid $color-neutral-200;
     border-bottom: 0.0625rem solid $color-neutral-200;
-
     min-height: 100px;
     padding: 1.5rem;
 
     @include edge-row-selector($columns);
+
+     &--cta{
+    &:before{
+      box-sizing: border-box;
+      content: "";
+      position: absolute;
+      top: -1px;
+      left: 100%;
+      width: $side-margin;
+      height: $side-margin;
+      border-top: 0.0625rem solid $color-neutral-200;
+
+    }
+
+    &:after{
+    
+      box-sizing: border-box;
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 100%;
+      width: $side-margin;
+      height:$side-margin;
+      border-top: 0.0625rem solid $color-neutral-200;
+      border-left: 0.0625rem solid $color-neutral-200;
+
+    }
+  
+    }
   }
+  
 
   &__img-container {
     width: 159.5px;
@@ -472,6 +1418,8 @@
       object-fit: cover;
     }
   }
+
+ 
 }
 
 @include media-breakpoint-up(xl) {
@@ -479,8 +1427,24 @@
     $side-margin: clamp(1.75rem, 0.6056rem + 4.8826vw, 5rem);
     $columns: 4;
 
+    *[class*="col"],
+    .row {
+      overflow: visible !important;
+      contain: none !important;
+      clip-path: none !important;
+    }
+
+    .row {
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+    }
+
     &__partner-collection {
+      overflow: visible !important;
+      contain: none !important;
+
       .row {
+        overflow: visible !important;
         grid-template-columns: repeat($columns, 1fr);
       }
     }
@@ -488,7 +1452,9 @@
     &__single-partner {
       min-height: 166px;
       padding: 2.5rem;
-      object-fit: cover;
+      overflow: visible !important;
+      contain: none !important;
+      clip-path: none !important;
 
       @include edge-row-selector($columns);
     }

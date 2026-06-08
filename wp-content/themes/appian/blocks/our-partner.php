@@ -9,7 +9,7 @@
     </div>
 
     <!-- Top decorative border row -->
-    <div class="grid-block" aria-hidden="true"></div>
+    <!-- <div class="grid-block" aria-hidden="true"></div> -->
 
     <div class="our-partner__partner-collection">
         <div class="row g-0"">
@@ -112,6 +112,6 @@
     </div>
 
     <!-- Bottom decorative border row -->
-    <div class="grid-block" aria-hidden="true"></div>
+    <!-- <div class="grid-block" aria-hidden="true"></div> -->
 
 </section>
