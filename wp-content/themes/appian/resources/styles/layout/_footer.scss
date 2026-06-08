@@ -1,42 +1,35 @@
 $primary: $color-primary-red !default;
 
 .custom-footer {
-    background-color: #FFFFFF; 
-    border-top: 1px solid #dedede;
+    background-color: $color-neutral-50;       
+    border-top: $border-width solid $color-neutral-100; 
     width: 100%;
     box-sizing: border-box;
-    text-align: left;
-    color: #111111;
+    overflow-x: hidden;                       
+    color: $color-neutral-600;                 
     font-family: $font-family-heading;
-    margin-top: 5rem; 
-    
-    @include media-breakpoint-up(md) {
-        width: 1440px;
-        height: 530px;
-        margin-left: auto;
-        margin-right: auto;
-        padding-top: 80px;
-        padding-left: 80px;
-        padding-right: 80px;
-        padding-bottom: 205px;
+    margin-top: 5rem;         // 80px
+
+    @include media-breakpoint-up(lg) {
+        padding-top: 5rem;        // 80px
+        padding-left: 5rem;       // 80px
+        padding-right: 5rem;      // 80px
+        padding-bottom: 5rem;     // 80px 
     }
 
-  @include media-breakpoint-down(md) {
-    width: 100%;
-    max-width: 375px;
-    min-height: 1077px;
-    padding: 40px 24px;
-    overflow-x: hidden;
-}
+    @include media-breakpoint-up(xxl) {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    @include media-breakpoint-down(lg) {
+        padding: 2.5rem 1.75rem; // 40px 28px 
+    }
 
     .footer-blueprint-container {
+        max-width: 1440px;
         width: 100%;
         box-sizing: border-box;
-
-        @include media-breakpoint-up(md) {
-            width: 1210px;
-            height: 362px;
-        }
     }
 
     .footer-blueprint-row {
@@ -44,11 +37,11 @@ $primary: $color-primary-red !default;
         flex-direction: column;
         width: 100%;
 
-        @include media-breakpoint-up(md) {
+        @include media-breakpoint-up(lg) {
             flex-direction: row;
-            height: 100%;
             align-items: flex-start;
             justify-content: flex-start;
+            gap: 0; 
         }
     }
 
@@ -56,74 +49,67 @@ $primary: $color-primary-red !default;
         width: 100%;
         box-sizing: border-box;
 
-        @include media-breakpoint-down(md) {
-            padding-top: 2rem;
+        // Mobile: stacked with dividers
+        @include media-breakpoint-down(lg) {
+            padding-top: 2rem;     // 32px
             padding-bottom: 2rem;
-            border-bottom: 1px solid #dedede;
+            border-bottom: $border-width solid $color-neutral-100;
 
             &:last-child {
                 border-bottom: none;
                 padding-bottom: 0;
             }
 
-            &--address {
-                order: 1; 
-            }
-            &--last {
-                order: 2; 
-            }
-            &--subscribe {
-                order: 3; 
-            }
+            &--address { order: 1; }
+            &--last    { order: 2; }
+            &--subscribe { order: 3; }
         }
 
         &--subscribe {
-            @include media-breakpoint-up(md) {
-                width: 380px;
-                height: 100%;
-                margin-right: 60px;
-                flex-shrink: 0;
+            @include media-breakpoint-up(lg) {
+                flex: 0 0 23.75rem;
+                width: 23.75rem;
+                box-sizing: content-box;
+                padding-right: 3.75rem;
             }
         }
 
         &--address {
-            @include media-breakpoint-up(md) {
-                border-left: 1px solid #dedede;
-                padding-left: 70px;
-                width: 379px; 
-                margin-right: 79px;
-                height: 100%;
-                flex-shrink: 0;
-            }
-        }
-        &--last {
-    @include media-breakpoint-up(md) {
-        border-left: 1px solid #dedede;
-        padding-left: 70px;
-        margin-right: 150px;
-        flex: none;
-        flex-shrink: 0;
-        height: 100%;
-        width: 260px; 
+            @include media-breakpoint-up(lg) {
+                flex: 0 0 27.375rem;
+                width: 27.375rem;
+                box-sizing: border-box;
+                border-left: $border-width solid $color-neutral-100;
+                padding-left: 4.3125rem;
+        padding-right: 4.9375rem;
     }
-}
+        }
+
+      &--last {
+    @include media-breakpoint-up(lg) {
+        flex: 0 1 16.25rem;
+        max-width: 16.25rem;
+        box-sizing: border-box;
+        border-left: $border-width solid $color-neutral-100;
+        padding-left: 4.375rem;
+        align-self: stretch;
+    }
+  }
     }
 
     .footer-left-layout-engine {
         display: flex;
         flex-direction: column;
         width: 100%;
-        height: 100%;
-        justify-content: flex-start;
 
-        @include media-breakpoint-down(md) {
-            .footer-subscribe-wrapper {
-                order: 1; 
-            }
+        @include media-breakpoint-down(lg) {
+            align-self: stretch;
+
+            .footer-subscribe-wrapper { order: 1; }
             .footer-logo-wrapper {
-                order: 2; 
-                margin-top: 32px;
-                margin-bottom: 32px;
+                order: 2;
+                margin-top: 2rem;   // 32px
+                margin-bottom: 2rem;
             }
         }
     }
@@ -133,8 +119,6 @@ $primary: $color-primary-red !default;
         display: flex;
         flex-direction: column;
         width: 100%;
-        height: 100%;
-        justify-content: flex-start;
     }
 
     .footer-logo-wrapper {
@@ -154,46 +138,45 @@ $primary: $color-primary-red !default;
     .footer-subscribe-wrapper {
         width: 100%;
         max-width: 380px;
+        margin-top: 0;
 
-        @include media-breakpoint-up(md) {
-            margin-top: 53px; 
+        @include media-breakpoint-up(lg) {
+            margin-top: 3.3125rem; // 48px 
         }
-        @include media-breakpoint-down(md) {
-            margin-top: 0; 
+
+        @include media-breakpoint-down(lg) {
+            margin-top: 0;
+            max-width: 100%;                   
         }
 
         .thank-you-msg {
-            display: none; 
-            color: $primary; 
+            display: none;
+            color: $primary;
             font-size: 12px;
-            font-weight: 500 !important;      
-            text-transform: uppercase;        
-            letter-spacing: 1.2px;            
+            font-weight: $font-weight-medium;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
             margin: 0;
             line-height: 1.5;
-            font-family: $font-family-sans-serif; 
+            font-family: $font-family-sans-serif;
         }
 
         &.is-submitted {
             .label-text,
-            .footer-subscribe {
-                display: none !important;
-            }
-            .thank-you-msg {
-                display: block !important;
-            }
+            .footer-subscribe { display: none !important; }
+            .thank-you-msg    { display: block !important; }
         }
     }
 
     .footer-heading {
-        font-family: $font-family-sans-serif; 
-        color: $primary; 
+        font-family: $font-family-sans-serif;
+        color: $primary;
         font-size: 12px;
-        font-weight: $font-weight-medium;    
+        font-weight: $font-weight-medium;
         text-transform: uppercase;
-        letter-spacing: 1.2px; 
+        letter-spacing: 1.2px;
         margin-top: 0;
-        margin-bottom: 12px; 
+        margin-bottom: 0.5rem; // 12px
         display: block;
         line-height: 1.5;
     }
@@ -202,38 +185,37 @@ $primary: $color-primary-red !default;
         display: flex;
         position: relative;
         align-items: center;
-        width: 380px;
-        height: 52px; 
+        width: 23.75rem;
+        max-width: 23.75rem;
+        height: 3.25rem;
         margin: 0;
+        flex-shrink: 0;
 
-        @include media-breakpoint-down(md) {
-        width: 319px;
-        height: 52px;
-        max-width: 100%;
+        @include media-breakpoint-down(lg) {
+        width: 19.9375rem;   
+        max-width: 100%;     
+        height: 3.25rem;     
     }
 
         &__input {
             width: 100%;
             height: 100%;
-            padding-left: 24px;
-            padding-right: 76px;
-            border: 1.5px solid rgba(0, 0, 0, 0.6);
+            padding-left: 1.5rem;  
+            padding-right: 76px;                 
+            border: 1.5px solid rgba($color-neutral-600, 0.6);
+            
             border-radius: 8px;
             outline: none;
             box-shadow: none;
             background: transparent;
-            color: #111111;
+            color: $color-neutral-600;
             font-size: 16px;
             box-sizing: border-box;
-            font-family: $font-family-sans-serif; 
+            font-family: $font-family-sans-serif;
             transition: border-color 0.15s ease-in-out;
 
-            &::placeholder {
-                color: rgba(0, 0, 0, 0.4);
-            }
-            &:focus {
-                border-color: $primary; 
-            }
+            &::placeholder { color: rgba($color-neutral-600, 0.4); }
+            &:focus        { border-color: $primary; }
         }
 
         &__btn {
@@ -247,7 +229,7 @@ $primary: $color-primary-red !default;
             border: none;
             border-top-right-radius: 8px;
             border-bottom-right-radius: 8px;
-            background-color: $primary; 
+            background-color: $primary;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -255,38 +237,47 @@ $primary: $color-primary-red !default;
             transition: background-color 0.15s ease-in-out;
 
             .subscribe-arrow-svg {
-                width: 24px; 
+                width: 24px;
                 height: 24px;
                 display: block;
             }
 
-            &:hover, &:focus {
-                background-color: darken($primary, 8%); 
-            }
+            &:hover,
+            &:focus { background-color: $color-dark-red; } 
         }
     }
 
     .footer-info-group {
         display: flex;
         flex-direction: column;
-        gap: 40px; 
+        gap: 2.5rem; // 40px
     }
 
-    // Keep the contact block styles and any shared margins
-  // Perfectly balance the contact block to hit exactly 290x117px
-    .footer-contact-block {
-        margin: 0;
-        width: 290px;
+    .footer-contact-block,
+    .footer-address-block {
+        margin: 0;       
+        width: 100%;   
+        max-width: 100%;      
         box-sizing: border-box;
 
-        .footer-heading {
-            margin-bottom: 12px; 
-        }
+        .footer-heading { margin-bottom: 0.75rem; } // 12px
+    }
 
+    .footer-address-block {
         .footer-content-serif {
-            width: 100%;
-            line-height: 1.5; /* Lock stable line-height footprint */
-            gap: 4px;          /* Adjusted gap to add exactly 5px of vertical layout height */
+            line-height: 1.45;
+
+            p.fax-text-muted {
+                max-width: 100%;
+                word-wrap: break-word;
+            }
+        }
+    }
+
+    .footer-contact-block {
+        .footer-content-serif {
+            line-height: 1.5;
+            gap: 0.1875rem; // 4px
 
             .footer-interactive-link {
                 display: inline;
@@ -295,63 +286,38 @@ $primary: $color-primary-red !default;
             }
         }
     }
-    // Separate the address block to give it the specific width, height, and line-height fixes
-    .footer-address-block {
-        margin: 0;
-        width: 290px;
-        height: 117px;
-        box-sizing: border-box;
-
-        .footer-heading {
-            margin-bottom: 12px; 
-        }
-
-        .footer-content-serif {
-            line-height: 1.45; /* Adjusted slightly to cleanly fit the 117px height layout boundary */
-            
-            p.fax-text-muted {
-                max-width: 100%;
-                word-wrap: break-word;
-            }
-        }
-    }
 
     .footer-content-serif {
-        font-family: $font-family-heading; 
-        color: #111111;
+        font-family: $font-family-heading;
+        color: $color-neutral-600;
         font-size: 18px;
-        line-height: 1.6;    
+        line-height: 1.6;
         margin: 0;
         display: flex;
         flex-direction: column;
-        gap: 4px; 
+        gap: 0.25rem; // 4px
 
         p {
             margin: 0;
-            font-weight: $font-weight-normal; 
-        }
-
-        .company-name-bold {
-            font-weight: $font-weight-medium !important; 
-        }
-
-        .fax-text-muted {
             font-weight: $font-weight-normal;
         }
+
+        .company-name-bold { font-weight: $font-weight-medium !important; }
+        .fax-text-muted    { font-weight: $font-weight-normal; }
     }
 
     .footer-interactive-link {
-        color: #111111;
+        color: $color-neutral-600;
         text-decoration: none;
         transition: color 0.15s ease-in-out;
 
-        &:hover, &:focus {
-            text-decoration: underline;
-        }
+        &:hover,
+        &:focus { text-decoration: underline; }
 
         &.footer-email-link {
-            &:hover, &:focus {
-                color: $primary; 
+            &:hover,
+            &:focus {
+                color: $primary;
                 text-decoration: none;
             }
         }
@@ -361,76 +327,79 @@ $primary: $color-primary-red !default;
         height: 24px;
         display: flex;
         align-items: center;
-        margin-bottom: 0;
 
-        @include media-breakpoint-up(md) {
-            margin-top: 57px; 
+        @include media-breakpoint-up(lg) {
+            margin-top: 4rem; // 64px 
         }
-        @include media-breakpoint-down(md) {
-            margin-top: 2rem;
+        @include media-breakpoint-down(lg) {
+            margin-top: 2rem;  // 32px
         }
-        
+
         .linkedin-link {
             display: inline-flex;
             width: 24px;
             height: 24px;
             opacity: 0.8;
-            border-radius: 5px; 
-            overflow: hidden;   
+            border-radius: 5px;
+            overflow: hidden;
             transition: opacity 0.15s ease-in-out;
 
             .linkedin-icon-svg {
-                width: 100%; 
-                height: 100%; 
+                width: 100%;
+                height: 100%;
                 display: block;
-                
-                path {
-                    fill: #111111; 
-                }
+
+                path { fill: $color-neutral-600; }
             }
 
-            &:hover, &:focus {
-                opacity: 1;
-            }
+            &:hover,
+            &:focus { opacity: 1; }
         }
     }
 
     .footer-layout-absorber {
-        @include media-breakpoint-up(md) {
+        @include media-breakpoint-up(lg) {
             flex: 1;
         }
     }
 
     .footer-links {
         list-style: none;
+        align-items: flex-start;
         padding: 0;
         margin: 0;
         display: flex;
         flex-direction: column;
-        gap: 6px;        
-        width: 260px;    
-        
+        gap: 0.125rem;
+        width: fit-content;
+        min-width: 16.25rem;
+        align-items: flex-start;
+
         li {
             margin: 0;
-            display: flex; /* Ensures the li conforms perfectly to a fixed layout height */
-            height: 38.2px; /* Uniform height allocation per list row to hit the math target */
+            display: flex;
             align-items: center;
+            height: 2.3875rem; // 38.2px
         }
-        
+
         li a.explore-link {
             text-decoration: none;
-            font-family: $font-family-heading; 
-            font-weight: $font-weight-normal; 
+            font-family: $font-family-heading;
+            font-weight: $font-weight-normal;
             font-size: 28px;
-            line-height: 1.365; /* Expands the internal text baseline footprint cleanly */
-            color: #111111; 
+            line-height: 1.365;
+            color: $color-neutral-600;
             display: inline-block;
             width: fit-content;
+            white-space: nowrap; 
             transition: color 0.15s ease-in-out;
 
-            &:hover, &:focus {
-                color: $primary; 
-            }
-        }
+    @include media-breakpoint-down(lg) {
+        font-size: 24px;
+    }
+
+    &:hover,
+    &:focus { color: $primary; }
+ }
     }
 }
