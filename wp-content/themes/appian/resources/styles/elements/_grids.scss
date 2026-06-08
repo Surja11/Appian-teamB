@@ -1,20 +1,32 @@
 :root {
-  // Mobile (Viewport < 575px)
-  --grid-side-gutter: 1.75rem; // 28px side margin
-  --grid-gutter: 1.5rem; // 24px column gap
+  --grid-side-gutter: 1.75rem;
+  --grid-gutter: 1.5rem;
+}
 
-  @media (min-width: 576px) {
+@media (min-width: 576px) {
+  :root {
     --grid-side-gutter: 2rem;
   }
+}
 
-  @include media-breakpoint-up(lg) {
+@include media-breakpoint-up(lg) {
+  :root {
     --grid-side-gutter: 4rem;
     --grid-gutter: 2rem;
   }
+}
 
-  // media
-  @include media-breakpoint-up(xxl) {
-    --grid-side-gutter: 8.4375rem; // 135px
+@include media-breakpoint-up(xl) {
+  :root {
+    --grid-side-gutter: 5rem;   // 80px
+    --grid-gutter: 2.5rem;      // 40px
+  }
+}
+
+// From 1440px — container centers itself, no fixed side padding needed
+@media (min-width: 1441px) {
+  :root {
+    --grid-side-gutter: 0px;   // padding removed, auto margin takes over
   }
 }
 
@@ -28,13 +40,12 @@
 }
 
 .container {
-  // Desktop Wide
-  @include media-breakpoint-up(xxl) {
-    max-width: 1440px;
-  }
+  max-width: 1441px;   // centering kicks in at 1440px+
 }
 
 .row {
+
+   --bs-gutter-x: var(--grid-gutter);
   margin-right: calc(var(--grid-gutter) * -0.5);
   margin-left: calc(var(--grid-gutter) * -0.5);
 
