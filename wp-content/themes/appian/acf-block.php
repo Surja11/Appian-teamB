@@ -12,6 +12,7 @@ add_action('acf/init', function () {
             'services' => 'Services',
             'our-history' => 'Our History',
             'slider-testimonial' => 'Slider Testimonial',
+            'arrow-testimonial' => 'Arrow Testimonial',
         ];
 
         foreach ($boilerplateModules as $key => $mModule) {
