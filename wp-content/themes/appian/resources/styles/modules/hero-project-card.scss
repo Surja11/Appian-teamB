@@ -22,7 +22,7 @@
         position: absolute;
         inset: 0;
         z-index: 0;
-        // background-image: url('../../images/hero-image.png');
+        background-image: url('../../images/hero-image.png');
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -66,17 +66,18 @@
         width: 1.25rem;
         height: 1.25rem;
         border-radius: 50%;
-        background-color: $color-neutral-50;
-        font-family: $font-family-sans-serif;
+        background-color: $gray-25;
+        font-family: $font-family-display;
         font-weight: $font-weight-bold;
         font-size: 0.6875rem;
         line-height: 1;
-        color: #003f2e;
+        color: $dark-green;
         flex-shrink: 0;
     }
 
     &__category-text {
-        color: $color-neutral-50;
+        color: $gray-25;
+        padding-right: 0.801rem;
     }
 
     &__content {
@@ -92,12 +93,12 @@
     }
 
     &__title {
-        color: $color-neutral-50;
+        color: $gray-25;
         margin: 0;
     }
 
     &__subtitle {
-        color: $color-neutral-50;
+        color: $gray-25;
         margin: 0;
     }
 
@@ -122,7 +123,7 @@
     }
 
     &__read-more-text {
-        color: $color-neutral-50;
+        color: $gray-25;
         margin-top: 0.3125rem;
     }
 
@@ -147,10 +148,42 @@
         }
     }
 
+    @include media-breakpoint-up(md) {
+        @include media-breakpoint-down(lg) {
+            min-height: 22rem;
+
+            &__link {
+                min-height: 22rem;
+            }
+        }
+    }
+
+    @include media-breakpoint-up(lg) {
+        @include media-breakpoint-down(xl) {
+            min-height: 24rem;
+
+            &__link {
+                min-height: 24rem;
+            }
+        }
+    }
+
+    @include media-breakpoint-up(xl) {
+        @include media-breakpoint-down(xxl) {
+            min-height: 26rem;
+
+            &__link {
+                min-height: 26rem;
+            }
+        }
+    }
+
     @include media-breakpoint-up(xxl) {
-        width: 19.4375rem;
+        width: auto; 
         min-height: 28.5rem;
         flex-shrink: 0;
+        padding-top: 0.625rem;
+        padding-bottom: 0.625rem;
 
         &__link {
             min-height: 28.5rem;

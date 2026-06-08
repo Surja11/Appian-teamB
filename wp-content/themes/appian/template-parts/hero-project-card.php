@@ -16,24 +16,24 @@ $card_link      = $card['page_link'] ?? '#';
 <article class="hero-project-card">
     <a class="hero-project-card__link" href="<?php echo esc_url($card_link); ?>">
 
-        <div class="hero-project-card__image-wrap" style="background-image: url('<?php echo esc_url($card_image['url']); ?>');"></div>
+        <div class="hero-project-card__image-wrap" <?php if ($card_image && isset($card_image['url'])) : ?>style="background-image: url('<?php echo esc_url($card_image['url']); ?>');"<?php endif; ?>></div>
         <div class="hero-project-card__overlay"></div>
         <div class="hero-project-card__hover-overlay"></div>
 
         <div class="hero-project-card__category">
             <span class="hero-project-card__category-icon" aria-hidden="true">i</span>
-            <span class="hero-project-card__category-text hero-project-card__category-text--full d-xl-none">
+            <span class="hero-project-card__category-text hero-project-card__category-text--full body-xsmall d-xl-none">
                 <?php echo esc_html($category); ?>
             </span>
-            <span class="hero-project-card__category-text hero-project-card__category-text--short d-none d-xl-block">
+            <span class="hero-project-card__category-text hero-project-card__category-text--short body-xsmall d-none d-xl-block">
                 <?php echo esc_html($category_short); ?>
             </span>
         </div>
 
         <div class="hero-project-card__content">
-            <h3 class="hero-project-card__title"><?php echo esc_html($title); ?></h3>
+            <h3 class="hero-project-card__title h6"><?php echo esc_html($title); ?></h3>
             <?php if ($subtitle) : ?>
-                <p class="hero-project-card__subtitle"><?php echo esc_html($subtitle); ?></p>
+                <p class="hero-project-card__subtitle body-xsmall"><?php echo esc_html($subtitle); ?></p>
             <?php endif; ?>
         </div>
 
@@ -46,7 +46,7 @@ $card_link      = $card['page_link'] ?? '#';
                 width="24"
                 height="24"
             >
-            <span class="hero-project-card__read-more-text">read more</span>
+            <span class="hero-project-card__read-more-text body-xsmall">read more</span>
         </div>
 
     </a>
