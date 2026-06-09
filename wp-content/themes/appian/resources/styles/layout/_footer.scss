@@ -8,13 +8,13 @@ $primary: $color-primary-red !default;
     overflow-x: hidden;                       
     color: $color-neutral-600;                 
     font-family: $font-family-heading;
-    margin-top: 5rem;         // 80px
+    margin-top: 5rem;         
 
     @include media-breakpoint-up(lg) {
-        padding-top: 5rem;        // 80px
-        padding-left: 5rem;       // 80px
-        padding-right: 5rem;      // 80px
-        padding-bottom: 5rem;     // 80px 
+        padding-top: 5rem;        
+        padding-left: 5rem;       
+        padding-right: 5rem;     
+        padding-bottom: 5.625rem;
     }
 
     @include media-breakpoint-up(xxl) {
@@ -23,13 +23,15 @@ $primary: $color-primary-red !default;
     }
 
     @include media-breakpoint-down(lg) {
-        padding: 2.5rem 1.75rem; // 40px 28px 
+       padding: 3rem 1.75rem 2.875rem;; 
     }
 
     .footer-blueprint-container {
         max-width: 1440px;
         width: 100%;
         box-sizing: border-box;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .footer-blueprint-row {
@@ -49,25 +51,19 @@ $primary: $color-primary-red !default;
         width: 100%;
         box-sizing: border-box;
 
-        // Mobile: stacked with dividers
-        @include media-breakpoint-down(lg) {
-            padding-top: 2rem;     // 32px
-            padding-bottom: 2rem;
-            border-bottom: $border-width solid $color-neutral-100;
+@include media-breakpoint-down(lg) {
+    padding-top: 0;
+    padding-bottom: 0 !important;
+    border-bottom: none;
 
-            &:last-child {
-                border-bottom: none;
-                padding-bottom: 0;
-            }
-
-            &--address { order: 1; }
-            &--last    { order: 2; }
-            &--subscribe { order: 3; }
-        }
+    &--address { order: 1; padding-bottom: 2.5rem; border-bottom: $border-width solid $color-neutral-100; }
+    &--last    { order: 2; padding-top: 3.125rem; padding-bottom: 2.25rem !important; border-bottom: $border-width solid $color-neutral-100; }
+   &--subscribe { order: 3; padding-top: 2.5625rem; padding-bottom: 0; }
+}
 
         &--subscribe {
             @include media-breakpoint-up(lg) {
-                flex: 0 0 23.75rem;
+                flex: 0 1 23.75rem;
                 width: 23.75rem;
                 box-sizing: content-box;
                 padding-right: 3.75rem;
@@ -78,21 +74,25 @@ $primary: $color-primary-red !default;
             @include media-breakpoint-up(lg) {
                 flex: 0 0 27.375rem;
                 width: 27.375rem;
+                max-width: 27.375rem;
                 box-sizing: border-box;
                 border-left: $border-width solid $color-neutral-100;
                 padding-left: 4.3125rem;
-        padding-right: 4.9375rem;
+                padding-right: 4.9375rem;
+                overflow: hidden;
     }
         }
 
       &--last {
     @include media-breakpoint-up(lg) {
         flex: 0 1 16.25rem;
+        width: 16.25rem;
         max-width: 16.25rem;
         box-sizing: border-box;
         border-left: $border-width solid $color-neutral-100;
         padding-left: 4.375rem;
         align-self: stretch;
+        overflow: visible;
     }
   }
     }
@@ -108,8 +108,8 @@ $primary: $color-primary-red !default;
             .footer-subscribe-wrapper { order: 1; }
             .footer-logo-wrapper {
                 order: 2;
-                margin-top: 2rem;   // 32px
-                margin-bottom: 2rem;
+                margin-top: 2.5625rem;;   
+                margin-bottom: 0;
             }
         }
     }
@@ -118,13 +118,23 @@ $primary: $color-primary-red !default;
     .footer-right-layout-engine {
         display: flex;
         flex-direction: column;
-        width: 100%;
+         width: 16.25rem; 
+
+           @include media-breakpoint-up(lg) {
+        width: 18.125rem; 
+    }
     }
 
     .footer-logo-wrapper {
         width: 220px;
         height: 85px;
         display: block;
+
+         @include media-breakpoint-down(lg) {
+        width: 319px;
+        height: 123px;
+    }
+
     }
 
     .footer-logo {
@@ -139,9 +149,12 @@ $primary: $color-primary-red !default;
         width: 100%;
         max-width: 380px;
         margin-top: 0;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        overflow: hidden;
 
         @include media-breakpoint-up(lg) {
-            margin-top: 3.3125rem; // 48px 
+            margin-top: 3.3125rem; 
         }
 
         @include media-breakpoint-down(lg) {
@@ -176,10 +189,17 @@ $primary: $color-primary-red !default;
         text-transform: uppercase;
         letter-spacing: 1.2px;
         margin-top: 0;
-        margin-bottom: 0.5rem; // 12px
+        margin-bottom: 0.75rem; 
         display: block;
         line-height: 1.5;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    max-width: 100%;
+     @include media-breakpoint-down(lg) {
+        margin-bottom: 0.75rem; 
     }
+    }
+
 
     .footer-subscribe {
         display: flex;
@@ -250,7 +270,7 @@ $primary: $color-primary-red !default;
     .footer-info-group {
         display: flex;
         flex-direction: column;
-        gap: 2.5rem; // 40px
+        gap: 2.5rem; 
     }
 
     .footer-contact-block,
@@ -260,32 +280,41 @@ $primary: $color-primary-red !default;
         max-width: 100%;      
         box-sizing: border-box;
 
-        .footer-heading { margin-bottom: 0.75rem; } // 12px
+        .footer-heading { margin-bottom: 0.75rem; } 
+        @include media-breakpoint-down(lg) {
+        min-height: 6.9375rem;
+    }
     }
 
     .footer-address-block {
-        .footer-content-serif {
-            line-height: 1.45;
+    .footer-content-serif {
+        line-height: 1.5;
+        gap: 0.375rem; 
 
-            p.fax-text-muted {
-                max-width: 100%;
-                word-wrap: break-word;
-            }
-        }
-    }
-
-    .footer-contact-block {
-        .footer-content-serif {
+        p.fax-text-muted {
+            max-width: 100%;
+            word-wrap: break-word;
             line-height: 1.5;
-            gap: 0.1875rem; // 4px
-
-            .footer-interactive-link {
-                display: inline;
-                white-space: nowrap;
-                word-break: normal;
-            }
         }
     }
+}
+
+  .footer-contact-block {
+    .footer-content-serif {
+        line-height: 1.6;
+        gap: 0;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        min-width: 0;
+
+        .footer-interactive-link {
+            display: inline;
+            white-space: normal;
+            word-break: break-all;
+            overflow-wrap: break-word;
+        }
+    }
+}
 
     .footer-content-serif {
         font-family: $font-family-heading;
@@ -295,7 +324,10 @@ $primary: $color-primary-red !default;
         margin: 0;
         display: flex;
         flex-direction: column;
-        gap: 0.25rem; // 4px
+        gap: 0.25rem;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        min-width: 0;
 
         p {
             margin: 0;
@@ -329,10 +361,10 @@ $primary: $color-primary-red !default;
         align-items: center;
 
         @include media-breakpoint-up(lg) {
-            margin-top: 4rem; // 64px 
+             margin-top: 3.8125rem;
         }
         @include media-breakpoint-down(lg) {
-            margin-top: 2rem;  // 32px
+            margin-top: 2.3125rem;
         }
 
         .linkedin-link {
@@ -365,21 +397,24 @@ $primary: $color-primary-red !default;
 
     .footer-links {
         list-style: none;
-        align-items: flex-start;
         padding: 0;
         margin: 0;
+        margin-top: 0 !important;
         display: flex;
         flex-direction: column;
+        flex-wrap: wrap;
         gap: 0.125rem;
         width: fit-content;
         min-width: 16.25rem;
+        max-height: 21.5rem;
         align-items: flex-start;
+        overflow: hidden;
 
         li {
             margin: 0;
             display: flex;
             align-items: center;
-            height: 2.3875rem; // 38.2px
+            min-height: 2.5875rem;
         }
 
         li a.explore-link {
@@ -390,8 +425,11 @@ $primary: $color-primary-red !default;
             line-height: 1.365;
             color: $color-neutral-600;
             display: inline-block;
-            width: fit-content;
-            white-space: nowrap; 
+            width: 100%;
+            max-width: 100%;
+            white-space: normal;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
             transition: color 0.15s ease-in-out;
 
     @include media-breakpoint-down(lg) {
