@@ -16,7 +16,16 @@
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="profile" href="https://gmpg.org/xfn/11">
-
+	<style>
+		main {
+			padding-top: 72px !important;
+		}
+		@media (min-width: 1291px) {
+			main {
+				padding-top: 74px !important;
+			}
+		}
+	</style>
 	<?php wp_head(); ?>
 </head>
 
