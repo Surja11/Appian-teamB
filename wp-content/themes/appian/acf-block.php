@@ -12,8 +12,12 @@ add_action('acf/init', function () {
             'services' => 'Services',
             'our-history' => 'Our History',
             'slider-testimonial' => 'Slider Testimonial',
+<<<<<<< HEAD
             'hero-projects'      => 'Hero Projects',
             'arrow-testimonial' => 'Arrow Testimonial',
+=======
+            'our-partner'=>'Our Partner',
+>>>>>>> 16a6d8d (AB:37 added our partners module)
         ];
 
         foreach ($boilerplateModules as $key => $mModule) {

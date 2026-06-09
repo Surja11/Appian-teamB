@@ -4,9 +4,9 @@
     background-image: url('../../images/bg-texture.png');
     background-size: cover;
     background-repeat: no-repeat;
-    padding-top: $spacer * 5;       // 80px — was 40px ($spacer * 2.5)
-    padding-bottom: $spacer * 3;    // 48px — was 40px
-    padding-left: $spacer * 1.75;   // 28px — was 16px ($spacer * 1)
+    padding-top: $spacer * 5;       
+    padding-bottom: $spacer * 3;    
+    padding-left: $spacer * 1.75;   
     padding-right: $spacer * 1.75;  
     display: flex;
     justify-content: center;
@@ -22,8 +22,8 @@
     width: 375px;
     max-width: 375px;
     min-height: 613px;
-    max-height: 613px;
-    overflow: hidden; 
+    max-height: none;
+    overflow: visible; 
     position: relative;
     background-color: transparent;
     box-sizing: border-box;
@@ -136,22 +136,22 @@
 
         .testimonial-logo {
         position: absolute;
-        top: $spacer * 11.25;       // 180px
-        left: $spacer * 9.375;      // 150px
-        width: 194px;               // 156 + 38
+        top: $spacer * 11.25;    
+        left: $spacer * 9.375;      
+        width: 194px;               
         height: 47px;               
         display: flex;
         align-items: center;
         margin-left: 0; 
 
     svg:first-child {
-        width: 156px !important;    // vector
+        width: 156px !important;    
         height: 21px !important;
         flex-shrink: 0;
     }
 
     svg:last-child {
-        width: 38px !important;     // vector-2
+        width: 38px !important;     
         height: 47px !important;
         flex-shrink: 0;
     }
@@ -170,14 +170,14 @@
     position: relative;
     height: 726px;
     padding: 0;
-    overflow: visible;
+    overflow: hidden;
 
-    .quote-icon-wrapper {
-        position: absolute;
-        top: $spacer * 11.25;           
-        left: -$spacer * 12.5;          
-        width: 41px;
-        height: 30px;
+    // .quote-icon-wrapper {
+    //     position: absolute;
+    //     top: $spacer * 11.25;           
+    //     left: -$spacer * 12.5;          
+    //     width: 41px;
+    //     height: 30px;
 
         svg {
             width: 41px;
@@ -187,26 +187,26 @@
             path {
                 fill: var(--color-primary-red);
             }
-        }
+         }
     }
 
-    h5 {
-       position: absolute;
-       top: $spacer * 15.125;          // 242px (180px + 30px + 32px = 242px)
-       left: -$spacer * 12.5;
-       width: 730px;
-       right: auto;
-       margin: 0;
-       color: var(--color-neutral-600);
-    }
+    // h5 {
+    //    position: absolute;
+    //    top: $spacer * 15.125;          
+    //    left: -$spacer * 12.5;
+    //    width: 730px;
+    //    right: auto;
+    //    margin: 0;
+    //    color: var(--color-neutral-600);
+    // }
 
-    .author-meta {
-        position: absolute;
-        top: $spacer * 31.25;           // 500px
-        left: -$spacer * 12.5;
+    // .author-meta {
+    //     position: absolute;
+    //     top: $spacer * 31.25;          
+    //     left: -$spacer * 12.5;
 
         .caption-2:first-child {
-            color: var(--color-neutral-100) !important;     // #DEDEDE 
+            color: var(--color-neutral-100) !important;     
             text-transform: uppercase !important;  
             width: 139px !important;
             white-space: nowrap;
@@ -214,13 +214,13 @@
         }
 
         .caption-2 {
-            color: var(--color-neutral-200) !important;     // #7C7C7C 
+            color: var(--color-neutral-200) !important;     
             text-transform: none !important;  
             margin-top: 0 !important;
             margin-bottom: 0 !important;
             width: 150px !important;
             text-transform: none !important; 
-        }
+         }
     }
 
     .slider-progress {
@@ -263,5 +263,37 @@
         }
     }
 }
+    
+.testimonial-swiper-mobile{
+    overflow: hidden;
+}
+.testimonial-swiper-desktop {
+      position: absolute;
+    top: 0;
+    left: -$spacer * 12.5;
+    width: calc(100% + #{$spacer * 12.5});
+    height: 100%;
+
+    .swiper-slide {
+        height: 726px;
+        
+        .quote-icon-wrapper {
+            position: absolute;
+            top: $spacer * 11.25;
+            left: 0;
+        }
+
+        h5 {
+            position: absolute;
+            top: $spacer * 15.125;
+            left: 0;
+            width: 730px;
+        }
+
+        .author-meta {
+            position: absolute;
+            top: $spacer * 31.25;
+            left: 0;
+        }
     }
 }

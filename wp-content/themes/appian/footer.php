@@ -122,7 +122,7 @@ $logo = $footer['logo'] ?? null;
                                 <p>
                                     <?php echo esc_html($fax_label); ?>:
                                     <a
-                                        href="fax:<?php echo esc_attr($clean_fax); ?>"
+                                        href="tel:<?php echo esc_attr($clean_fax); ?>"
                                         class="footer-interactive-link">
                                         <?php echo esc_html($fax_output); ?>
                                     </a>
@@ -159,16 +159,20 @@ $logo = $footer['logo'] ?? null;
             <nav class="footer-col footer-col--last" aria-label="Footer Navigation Links">
                 <div class="footer-right-layout-engine">
                     <?php if (!empty($explore['explore_title'])) : ?>
-                        <p class="footer-heading"><?php echo esc_html($explore['explore_title']); ?></p>
+                        <span class="footer-heading"><?php echo esc_html($explore['explore_title']); ?></span>
                     <?php endif; ?>
 
                     <?php if (!empty($explore['explore_items'])) : ?>
                         <ul class="footer-links">
                             <?php foreach ($explore['explore_items'] as $item) : ?>
                                 <li>
-                                    <a href="<?php echo esc_url($item['explore_link'] ?? '#'); ?>" class="explore-link">
-                                        <?php echo esc_html($item['explore_label']); ?>
-                                    </a>
+                                   <a href="<?php echo esc_url($item['explore_link']['url'] ?? '#'); ?>" 
+   <?php if (!empty($item['explore_link']['target'])) : ?>
+       target="<?php echo esc_attr($item['explore_link']['target']); ?>"
+   <?php endif; ?>
+   class="explore-link">
+    <?php echo esc_html($item['explore_label']); ?>
+</a>
                                 </li>
                             <?php endforeach; ?>
                         </ul>
