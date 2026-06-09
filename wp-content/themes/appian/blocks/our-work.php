@@ -33,7 +33,7 @@ $chevron = '<svg class="our-work__chevron" width="24" height="24" viewBox="0 0 2
 
 
 <!-- our work section -->
-<section class="our-work pt-16 pb-16 ps-7 pe-7 ps-lg-65 pe-lg-60 pt-lg-27 pb-lg-27 d-flex flex-column justify-content-center">
+<section class="our-work pt-16 pb-16 ps-7 pe-7 ps-lg-65 pe-lg-55 pt-lg-27 pb-lg-27 d-flex flex-column justify-content-center">
     <!-- texture overlay that covers entire our-work section -->
     <div class="our-work__overlay"></div>
 
@@ -56,7 +56,7 @@ $chevron = '<svg class="our-work__chevron" width="24" height="24" viewBox="0 0 2
             <?php foreach ($tabs as $index => $tab) :
                 $tab_id    = 'tab' . ($index + 1);
                 $is_active = ($index === 0);
-                $tab_name     = $tab['work-heading'] ?? ('Tab ' . ($index + 1));
+                $tab_name     = explode(' ',$tab['work-heading'])[0] ?? ('Tab ' . ($index + 1));
             ?>
                 <li class="our-work__tab-item" role="presentation">
                     <button
@@ -96,9 +96,9 @@ $chevron = '<svg class="our-work__chevron" width="24" height="24" viewBox="0 0 2
                     <?php if ($image_url) : ?>
                         <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($image_alt); ?>">
                     <?php endif; ?>
-                    <div class="our-work__tab-text d-flex flex-column">
-                        <?php if ($title) : ?><h3><?php echo esc_html($title); ?></h3><?php endif; ?>
-                        <?php if ($content) : ?><div class="body body-large"><?php echo wp_kses_post($content); ?></div><?php endif; ?>
+                    <div class="our-work__tab-text d-flex flex-column ">
+                        <?php if ($title) : ?><h3 class="pb-6 mb-0"><?php echo esc_html($title); ?></h3><?php endif; ?>
+                        <?php if ($content) : ?><div class="body body-large pb-12"><?php echo wp_kses_post($content); ?></div><?php endif; ?>
                     </div>
                 </div>
             </div>
@@ -139,7 +139,7 @@ $chevron = '<svg class="our-work__chevron" width="24" height="24" viewBox="0 0 2
                     id="<?php echo esc_attr($collapse_id); ?>"
                     class="accordion-collapse collapse<?php echo $is_active ? ' show' : ''; ?>"
                     data-bs-parent="#accordionExample">
-                    <div class="accordion__body pt-4 pb-5 d-flex flex-column">
+                    <div class="accordion__body pt-4 d-flex flex-column">
                         <?php if ($image_url) : ?>
                             <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($image_alt); ?>">
                         <?php endif; ?>
