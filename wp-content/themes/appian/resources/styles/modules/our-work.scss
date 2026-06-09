@@ -51,7 +51,8 @@ $tab-font-size: 0.875rem;
 
 
   &__tab-link {
-    border: 1px solid $color-primary-red;
+    outline: 1px solid $color-primary-red;
+    border: transparent;
     color: $primary;
     background-color: $color-neutral-50;
     font-weight: $font-weight-medium;
@@ -63,6 +64,7 @@ $tab-font-size: 0.875rem;
 
     &:hover:not(.active) {
       background-color: $gray-100;
+      outline: 1px solid $color-primary-red;
     }
 
 
@@ -130,6 +132,13 @@ $tab-font-size: 0.875rem;
 
     &-item {
       border: none !important;
+      &:last-child{
+        padding-bottom: 0 !important;
+      }
+
+      &:first-child{
+        padding-bottom: $spacer * 1.25 !important;
+      }
     }
 
     &-button {
@@ -142,6 +151,8 @@ $tab-font-size: 0.875rem;
       line-height: 140%;
       padding-top: 1.125rem;
       padding-bottom: 1.125rem;
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
 
       // Removing bootstrap's default chevron
       &::after {
@@ -204,6 +215,12 @@ $tab-font-size: 0.875rem;
     }
   }
 }
+
+.body-large{
+ line-height: 1.5 !important;
+}
+
+
 
 
 // Responsive visibility
