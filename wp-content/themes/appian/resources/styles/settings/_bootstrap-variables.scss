@@ -2,6 +2,7 @@
 
 // scss-docs-start gray-color-variables
 $white: #fff !default;
+$gray-25: #fffdf9 !default;
 $gray-50: #fbf9f6 !default;
 $gray-100: #f6f5f1 !default;
 $gray-200: #dbdad7 !default;
@@ -74,6 +75,7 @@ $salmon-300: #fea889 !default;
 $greenish-blue: #217381 !default;
 $powder-blue: #96e5df !default;
 $rich-black: #02394c !default;
+$dark-green: #003f2e !default;
 $velvet-maroon: #773849 !default;
 $red-orange: #ea483b !default;
 $faded-orange: #ff814a !default;
@@ -674,6 +676,7 @@ $font-family-monospace:
   SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
   monospace !default;
 $font-family-heading: "Reckless Neue", serif !default;
+$font-family-display: "Red Hat Display", sans-serif !default;
 // stylelint-enable value-keyword-case
 $font-family-base: var(--#{$prefix}font-sans-serif) !default;
 $font-family-code: var(--#{$prefix}font-monospace) !default;

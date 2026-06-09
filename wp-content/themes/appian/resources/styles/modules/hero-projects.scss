@@ -1,0 +1,153 @@
+@import '../custom';
+
+.hero-projects {
+    background-color: $white;
+    padding-top: $spacer * 4;
+    padding-bottom: $spacer * 4;
+
+    &__inner {
+        display: flex;
+        flex-direction: column;
+        gap: $spacer * 0.625;
+    }
+
+    &__title-block {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    &__title {
+        color: $color-neutral-600;
+        text-align: center;
+        margin: 0 0 $spacer 0;
+    }
+
+    &__divider {
+        img {
+            display: block;
+            width: 7.5rem;
+            height: 0.3125rem;
+        }
+    }
+
+    &__cards {
+        display: flex;
+        flex-direction: column;
+        gap: $spacer * 0.75;
+        padding-top: $spacer * 2.5;
+        padding-left: $spacer * 1.75;  
+        padding-right: $spacer * 1.75; 
+    }
+
+    &__feature-image {
+        width: 100%;
+        height: 14.25rem;
+        border-radius: 0.625rem;
+        background-size: 500%;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    // Tablet grid layout (md: 768px+) - 2 cards per row 
+    @include media-breakpoint-up(md) {
+        @include media-breakpoint-down(lg) {
+            &__cards {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: $spacer;
+                padding-top: $spacer * 2.5;
+            }
+            
+            &__feature-image {
+                grid-column: span 1;
+                height: 22rem;
+            }
+        }
+    }
+
+    // Large tablet grid layout (lg: 1025px+) - 3 cards per row
+    @include media-breakpoint-up(lg) {
+        @include media-breakpoint-down(xl) {
+            &__cards {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: $spacer * 1.25;
+                padding-top: $spacer * 2.5;
+            }
+            
+            &__feature-image {
+                grid-column: span 1;
+                height: 24rem;
+            }
+        }
+    }
+
+    // Desktop grid layout (xl: 1200px+) - 4 cards per row 
+    @include media-breakpoint-up(xl) {
+        @include media-breakpoint-down(xxl) {
+            &__cards {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: $spacer * 1.5;
+                padding-top: $spacer * 2.5;
+            }
+            
+            &__feature-image {
+                grid-column: span 1;
+                height: 26rem;
+            }
+        }
+    }
+
+    // XXL layout
+    @include media-breakpoint-up(xxl) {
+        padding-top: $spacer * 6.25;
+        padding-bottom: $spacer * 6.25;
+
+        &__inner {
+            max-width: 1440px;
+            margin: 0 auto;
+            gap: 0;
+        }
+
+        &__title-block {
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        &__title {
+            margin: 0 0 $spacer 0;
+        }
+
+        &__divider {
+            img {
+                width: 14.375rem;
+                height: 0.5625rem;
+            }
+        }
+
+        &__cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            column-gap: 0.75rem; // 12px horizontal gap
+            row-gap: 0rem;
+            
+            // XXL layout padding  
+            padding-top: $spacer * 5;
+            padding-right: $spacer * 5;
+            padding-bottom: $spacer * 0.625;
+            padding-left: $spacer * 5;
+        }
+
+        // Featured image positioning
+        .hero-projects__feature-image {
+            grid-column: span 2;
+            width: 100%;
+            height: 28.5rem;
+            background-size: 250%;
+            border-radius: 0.625rem;
+            margin: 0.625rem 0;
+        }
+    }
+}
