@@ -1,0 +1,410 @@
+ @import '../common';
+
+
+@mixin reset-overflow {
+  contain: none !important;
+  overflow: visible !important;
+  clip-path: none !important;
+}
+
+@mixin make-pseudo($w, $h, $top: auto, $bottom: auto, $right: auto, $left: auto, $borders: ()) {
+  content: "";
+  width: $w;
+  box-sizing: border-box;
+  position: absolute;
+  height: $h;
+  top: $top;
+  bottom: $bottom;
+  right: $right;
+  left: $left;
+  @each $prop, $val in $borders {
+    #{$prop}: 0.0625rem solid $val;
+  }
+}
+
+@mixin left-corner-tick($w, $h, $color) {
+  &::before {
+    @include make-pseudo(
+      $w, $h,
+      $bottom: 100%, 
+      $right: 100%,
+      $borders: (border-bottom: $color, border-right: $color)
+    );
+  }
+}
+
+@mixin right-corner-tick($w, $h, $color) {
+  &::before {
+    @include make-pseudo(
+      $w, $h,
+      $bottom: 100%,
+      $left: 100%,
+      $borders: (border-bottom: $color, border-left: $color)
+    );
+  }
+}
+
+@mixin tick-going-up($w, $h, $color) {
+  &::after {
+    @include make-pseudo(
+      0, $h,
+      $bottom: 100%,
+      $right: -1px,
+      $borders: (border-right: $color)
+    );
+  }
+}
+
+// for bottom direction
+@mixin tick-going-down($w, $h, $color) {
+  &::before {
+    @include make-pseudo(
+      0, $h,
+      $top: 100%, $right: -1px,
+      $borders: (border-right: $color)
+    );
+  }
+}
+
+@mixin extend-bottom($w, $h, $color, $extra: 0px) {
+  &::after {
+    @include make-pseudo(
+      calc(100% + #{$extra} + 1px), $h,
+      $top: 100%,
+      $left: -1px,
+      $borders: (border-left: $color, border-top: $color)
+    );
+  }
+}
+
+
+.our-partner {
+  $tick-w: clamp(1.75rem, 0.6056rem + 4.8826vw, 5rem);
+  $tick-h: clamp(1.75rem, 1.1338rem + 2.6291vw, 3.5rem);
+  $border-col: $color-neutral-100;
+  $cols: 2;
+
+  padding-bottom: 4.75rem;
+  padding-inline: $tick-w;
+  @include reset-overflow;
+
+  @include media-breakpoint-up(xl){
+    padding-bottom: 8.5rem;
+  }
+
+  *[class*="col"],
+  &__partner-collection,
+  .row {
+    @include reset-overflow;
+  }
+
+  .row {
+    position: relative;
+    max-width: 100%;
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+    @include reset-overflow;
+
+    .col,
+    [class*="col-"] {
+      @include reset-overflow;
+      padding: 0 !important;
+    }
+
+    &::before {
+      @include make-pseudo(
+        $tick-w, $tick-h,
+        $top: 100%, $left: 100%,
+        $borders: (border-top: $border-col, border-left: $border-col)
+      );
+    }
+
+    &::after {
+      @include make-pseudo(
+        $tick-w, $tick-h,
+        $top: 100%,
+        $right: 100%,
+        $borders: (border-top: $border-col, border-right: $border-col)
+      );
+    }
+  }
+
+  &__heading {
+    margin-bottom: 5.75rem;
+
+    @include media-breakpoint-up(xl) {
+      margin-bottom: 9rem;
+    }
+  }
+
+  &__partner-collection {
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    @include reset-overflow;
+  }
+
+  &__single-partner {
+    border-bottom: 0.0625rem solid $border-col;
+    position: relative;
+    aspect-ratio: 159.5/100;
+    display: grid;
+    border-right: 0.0625rem solid $border-col;
+    min-height: 100px;
+    place-items: center;
+    padding: 1.5rem;
+    min-width: 159.5px;
+    @include reset-overflow;
+
+    // first item in every row
+    &:nth-child(#{$cols}n + 1) {
+      border-left: 0.0625rem solid $border-col;
+      overflow: visible !important;
+
+      &::before {
+        @include make-pseudo(
+          $tick-w, $tick-h,
+          $bottom: 100%, $right: 100%,
+          $borders: (border-bottom: $border-col)
+        );
+      }
+    }
+
+    // last item in every row
+    &:nth-child(#{$cols}n) {
+      overflow: visible !important;
+
+      &::before {
+        @include make-pseudo(
+          $tick-w, $tick-h,
+          $bottom: 100%,
+          $left: 100%,
+          $borders: (border-bottom: $border-col)
+        );
+      }
+    }
+
+    // first row items
+    &:nth-child(-n + #{$cols}) {
+      overflow: visible !important;
+      border-top: 0.0625rem solid $border-col;
+    }
+
+    &:nth-child(-n + #{$cols}):not(:nth-child(#{$cols}n)),
+    &:nth-child(#{$cols}):nth-child(-n + #{$cols}) {
+      @include tick-going-up($tick-w, $tick-h, $border-col);
+    }
+
+    // last row
+    &:nth-last-child(-n + #{$cols}) {
+      overflow: visible !important;
+      border-bottom: 0.0625rem solid $border-col;
+    }
+
+    // last row - first cell
+    &:nth-child(#{$cols}n + 1):nth-last-child(-n + #{$cols}) {
+      &::before {
+        @include make-pseudo(
+          $tick-w, calc(100% + #{$tick-h}),
+          $top: 0, $right: 100%,
+          $borders: (border-top: $border-col, border-right: $border-col, border-bottom: $border-col)
+        );
+      }
+      @include extend-bottom($tick-w, $tick-h, $border-col);
+    }
+
+    // last row middle ones
+    &:nth-last-child(-n + #{$cols}):not(:nth-child(#{$cols}n + 1)):not(:nth-child(#{$cols}n)) {
+      overflow: visible !important;
+      @include tick-going-down($tick-w, $tick-h, $border-col);
+      @include extend-bottom($tick-w, $tick-h, $border-col);
+    }
+
+    // very last cell
+    &:last-child {
+      overflow: visible !important;
+      @include tick-going-down($tick-w, $tick-h, $border-col);
+      @include extend-bottom($tick-w, $tick-h, $border-col, $tick-w);
+
+      &::after {
+        border-right: 0.0625rem solid $border-col;
+      }
+    }
+
+    // the view all button cell
+    &--cta::after {
+      @include make-pseudo(
+        $tick-w, $tick-h,
+        $top: 100%,
+        $left: -1px,
+        $borders: (border-left: $border-col)
+      );
+    }
+
+    // fix for first cell corner
+    &:first-child::before {
+      content: "" !important;
+      position: absolute !important;
+      box-sizing: border-box !important;
+      display: block !important;
+      right: 100% !important;
+      bottom: 100% !important;
+      height: $tick-h !important;
+      width: $tick-w !important;
+      border-bottom: 0.0625rem solid $border-col !important;
+      border-right: 0.0625rem solid $border-col !important;
+    }
+  }
+
+  &__img-container {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    place-items: center;
+
+    img {
+      height: 100%;
+      object-fit: cover;
+      width: 100%;
+    }
+  }
+}
+
+// lock to 2 cols below xl so it never goes 3
+@include media-breakpoint-down(lg) {
+  .our-partner {
+    &__single-partner {
+      flex: 0 0 50% !important;
+      max-width: 50% !important;
+      min-width: 0 !important;
+      width: 50% !important;
+    }
+  }
+}
+
+
+@include media-breakpoint-up(xl) {
+  .our-partner {
+    $tick-w: clamp(1.75rem, 0.6056rem + 4.8826vw, 5rem);
+    $tick-h: clamp(1.75rem, 1.1338rem + 2.6291vw, 3.5rem);
+    $border-col: $color-neutral-100;
+    $cols: 4;
+
+    *[class*="col"],
+    .row {
+      @include reset-overflow;
+    }
+
+    .row {
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+    }
+
+    &__partner-collection {
+      @include reset-overflow;
+
+      .row {
+        overflow: visible !important;
+        flex-wrap: wrap;
+        grid-template-columns: repeat($cols, 1fr);
+      }
+    }
+
+    &__single-partner {
+      flex: 0 0 25% !important;
+      aspect-ratio: 320/166;
+      width: 25% !important;
+      min-width: 0 !important;
+      max-width: 25% !important;
+      padding: 2.5rem;
+      min-height: 0 !important;
+      @include reset-overflow;
+
+      &:nth-child(#{$cols}n + 1) {
+        overflow: visible !important;
+        border-left: 0.0625rem solid $border-col;
+        @include left-corner-tick($tick-w, $tick-h, $border-col);
+      }
+
+      // leftover ticks from mobile 2col - hide them
+      &:nth-child(2n):not(:nth-child(4n)):not(:nth-child(4n+1))::before {
+        display: none;
+      }
+
+      &:nth-child(4n) {
+        overflow: visible !important;
+        @include right-corner-tick($tick-w, $tick-h, $border-col);
+      }
+
+      &:nth-child(-n + #{$cols}) {
+        border-top: 0.0625rem solid $border-col;
+        overflow: visible !important;
+      }
+
+      &:nth-child(-n + #{$cols}):not(:nth-child(#{$cols}n)),
+      &:nth-child(#{$cols}):nth-child(-n + #{$cols}) {
+        @include tick-going-up($tick-w, $tick-h, $border-col);
+      }
+
+      &:nth-last-child(-n + #{$cols}) {
+        overflow: visible !important;
+        border-bottom: 0.0625rem solid $border-col;
+      }
+
+      &:nth-child(#{$cols}n + 1):nth-last-child(-n + #{$cols}) {
+        &::before {
+          @include make-pseudo(
+            $tick-w, calc(100% + #{$tick-h}),
+            $top: 0, $right: 100%,
+            $borders: (border-top: $border-col, border-bottom: $border-col, border-right: $border-col)
+          );
+        }
+        @include extend-bottom($tick-w, $tick-h, $border-col);
+      }
+
+      &:nth-last-child(-n + #{$cols}):not(:nth-child(#{$cols}n + 1)):not(:nth-child(#{$cols}n)) {
+        @include tick-going-down($tick-w, $tick-h, $border-col);
+
+        &::after {
+          @include make-pseudo(
+            calc(100% + 1px), $tick-h,
+            $top: 100%,
+            $left: -1px,
+            $borders: (border-left: $border-col)
+          );
+        }
+      }
+
+      &:last-child {
+        @include tick-going-down($tick-w, $tick-h, $border-col);
+        @include extend-bottom($tick-w, $tick-h, $border-col, $tick-w);
+
+        &::after {
+          border-right: 0.0625rem solid $border-col;
+        }
+      }
+
+      // right side gutter tick for all 4th cells
+      &:nth-child(#{$cols}n)::before {
+        display: block !important;
+        content: "";
+        position: absolute;
+        left: 100%;
+        top: -1px;
+        box-sizing: border-box;
+        width: $tick-w;
+        height: calc(100% + 1px);
+        border-top: 0.0625rem solid $border-col;
+      }
+    }
+
+    &__img-container img {
+      max-height: 100%;
+      max-width: 100%;
+    }
+  }
+}
+
+.btn-tertiary{
+  border-bottom: none !important;
+}
