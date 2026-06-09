@@ -21,6 +21,10 @@
   z-index: 0;
 }
 
+.c-testimonial__arrow svg path {
+    fill: currentColor;
+}
+
 .c-testimonial__inner {
   position: relative;
   z-index: 1;
@@ -188,24 +192,19 @@
 
   .c-testimonial__person-img {
     display: block;
-  width: 74rem; /* keeps your 1184 target clean */
-
-  margin-inline: auto;
-
-  aspect-ratio: 1184 / 862;
-
-  object-fit: cover;
-  object-position: bottom center;
+    width: 74rem; /* keeps your 1184 target clean */
+    margin-inline: auto;
+    aspect-ratio: 1184 / 862;
+    object-fit: cover;
+    object-position: bottom center;
   }
 
   .c-testimonial__label-wrap {
     position: absolute;
-
-  top: 8.375rem; /* 134px from red line reference */
-  right: 20rem; /* 320px gap from right edge */
-
-  max-width: 11.875rem;
-  text-align: center;
+    top: 8.375rem; /* 134px from red line reference */
+    right: 20rem; /* 320px gap from right edge */
+    max-width: 11.875rem;
+    text-align: center;
   }
 
   .c-testimonial__arrow {
