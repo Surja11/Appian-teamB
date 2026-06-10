@@ -36,6 +36,7 @@ $history_items = get_field( 'history_items' );
 <?php if ( $history_items ) : ?> 
 
 <section id="our-history-block" class="our-history-block">
+    <div class="our-history-block__overlay"></div>
     <!-- Section Header -->
     <div class="our-history__header text-center">
         <h2 class="our-history__title">Our History</h2>
@@ -54,6 +55,7 @@ $history_items = get_field( 'history_items' );
                     $img_url = $image ? esc_url( $image['url'] )  : '';
                     $img_alt = $image ? esc_attr( $image['alt'] ) : esc_attr( $year );
                     $excerpt = our_history_get_excerpt( $content );
+                    $gallery = ! empty( $item['image_gallery'] ) ? $item['image_gallery'] : [];
 
                 ?>
 
@@ -69,6 +71,19 @@ $history_items = get_field( 'history_items' );
                              class="history-card__image" />
                         <?php endif; ?>
                     </div>
+
+                     <?php if ( ! empty( $gallery ) ) : ?>
+                    <div class="history-card__gallery">
+                        <?php foreach ( $gallery as $gallery_image ) : ?>
+                        <div class="history-card__gallery-item">
+                            <img src="<?php echo esc_url( $gallery_image['url'] ); ?>"
+                                 alt="<?php echo ! empty( $gallery_image['alt'] ) ? esc_attr( $gallery_image['alt'] ) : esc_attr( $year ); ?>"
+                                 class="history-card__gallery-image" />
+                        </div>
+                        <?php endforeach; ?>
+                    </div>
+                    <?php endif; ?>
+
                     <?php if ( $content ) : ?>
                     <div class="history-card__content">
                         <p class="history-card__excerpt">

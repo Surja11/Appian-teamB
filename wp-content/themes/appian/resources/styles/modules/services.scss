@@ -3,31 +3,76 @@
 .services-block {
   width: 100%;
   margin: 0 auto;
-  max-width: 1440px;
 
   .services-container {
     gap: 0;
     height: auto;
     width: 100%;
 
-    @include media-breakpoint-down(md) {
+    @media (max-width: 374px) {
       flex-direction: column;
       width: 100%;
       max-width: 375px;
       margin: 0 auto;
     }
 
+    @media (min-width: 375px) and (max-width: 767px) {
+      flex-direction: column;
+      width: 100%;
+      max-width: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    @include media-breakpoint-down(md) {
+      flex-direction: column;
+    }
+
+    // Tablet (md: 768px+): Side by side layout
     @include media-breakpoint-up(md) {
+      @include media-breakpoint-down(lg) {
+        flex-direction: row;
+        min-height: 35rem;
+        height: auto;
+        gap: 0;
+        width: 100%;
+        max-width: none;
+      }
+    }
+
+    // Large tablet (lg: 1025px+)
+    @include media-breakpoint-up(lg) {
+      @include media-breakpoint-down(xl) {
+        flex-direction: row;
+        min-height: 43.75rem;
+        height: auto;
+        gap: 0;
+        width: 100%;
+        max-width: none;
+      }
+    }
+
+    // Desktop (xl: 1200px+)
+    @include media-breakpoint-up(xl) {
+      @include media-breakpoint-down(xxl) {
+        flex-direction: row;
+        min-height: 46rem;
+        height: auto;
+        gap: 0;
+        width: 100%;
+        max-width: none;
+      }
+    }
+
+    // XXL screens (1400px+)
+    @include media-breakpoint-up(xxl) {
       flex-direction: row;
-      min-height: 35rem;
+      min-height: 50rem;
       height: auto;
       gap: 0;
       width: 100%;
       max-width: none;
-    }
-
-    @include media-breakpoint-up(lg) {
-      min-height: 43.75rem;
+      margin: 0;
     }
   }
 }
@@ -46,16 +91,53 @@
   flex-direction: column;
   justify-content: space-between;
 
-  @include media-breakpoint-up(md) {
-    width: 50%;
+  // Mobile/Small tablet
+  @media (min-width: 375px) and (max-width: 767px) {
+    width: 100%;
     max-width: none;
-    min-height: 35rem;
-    flex: 1;
     margin: 0;
   }
 
+  // Tablet (md: 768px+)
+  @include media-breakpoint-up(md) {
+    @include media-breakpoint-down(lg) {
+      width: 50%;
+      max-width: none;
+      min-height: 35rem;
+      flex: 1;
+      margin: 0;
+    }
+  }
+
+  // Large tablet (lg: 1025px+)
   @include media-breakpoint-up(lg) {
-    min-height: 43.75rem;
+    @include media-breakpoint-down(xl) {
+      width: 50%;
+      max-width: none;
+      min-height: 43.75rem;
+      flex: 1;
+      margin: 0;
+    }
+  }
+
+  // Desktop (xl: 1200px+)
+  @include media-breakpoint-up(xl) {
+    @include media-breakpoint-down(xxl) {
+      width: 50%;
+      max-width: none;
+      min-height: 46rem;
+      flex: 1;
+      margin: 0;
+    }
+  }
+
+  // XXL screens (1400px+)
+  @include media-breakpoint-up(xxl) {
+    width: 50%;
+    max-width: none;
+    min-height: 50rem;
+    flex: 1;
+    margin: 0;
   }
 
   &__background {
@@ -65,17 +147,13 @@
     z-index: 1;
     width: 100%;
     height: 100%;
-    overflow: hidden;
 
     img {
-      object-fit: cover;
-      object-position: center center;
       width: 100%;
       height: 100%;
-
-      @include media-breakpoint-up(xxl) {
-        object-fit: contain;
-      }
+      object-fit: cover;
+      object-position: center;
+      display: block;
     }
   }
 
@@ -96,16 +174,35 @@
     padding: 3rem 0 0 1.75rem;
     overflow: visible;
 
+    // Tablet (md: 768px+)
     @include media-breakpoint-up(md) {
-      padding: 3.5rem 0 0 2.75rem;
+      @include media-breakpoint-down(lg) {
+        padding: 3.5rem 0 0 2.75rem;
+      }
     }
 
+    // Large tablet (lg: 1025px+)
     @include media-breakpoint-up(lg) {
-      padding: 5.5rem 0 0 5rem;
+      @include media-breakpoint-down(xl) {
+        padding: 5.5rem 0 0 5rem;
+      }
+    }
+
+    // Desktop (xl: 1200px+)
+    @include media-breakpoint-up(xl) {
+      @include media-breakpoint-down(xxl) {
+        padding: 6rem 0 0 5.5rem;
+      }
+    }
+
+    // XXL screens (1400px+)
+    @include media-breakpoint-up(xxl) {
+      padding: 7rem 0 0 6rem;
     }
   }
 
   &__top-content {
+    // Tablet and above: column layout
     @include media-breakpoint-up(md) {
       flex-direction: column;
     }
@@ -123,16 +220,40 @@
     text-overflow: ellipsis;
     margin-bottom: 0;
 
+    // Tablet (md: 768px+)
     @include media-breakpoint-up(md) {
-      padding-right: 3.5rem;
-      -webkit-line-clamp: 4;
-      line-clamp: 4;
+      @include media-breakpoint-down(lg) {
+        padding-right: 3.5rem;
+        -webkit-line-clamp: 4;
+        line-clamp: 4;
+      }
     }
 
+    // Large tablet (lg: 1025px+)
     @include media-breakpoint-up(lg) {
-      padding-right: 5rem;
-      -webkit-line-clamp: 3;
-      line-clamp: 3;
+      @include media-breakpoint-down(xl) {
+        padding-right: 5rem;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+      }
+    }
+
+    // Desktop (xl: 1200px+)
+    @include media-breakpoint-up(xl) {
+      @include media-breakpoint-down(xxl) {
+        padding-right: 5.5rem;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+        font-size: 1.125rem;
+      }
+    }
+
+    // XXL screens (1400px+)
+    @include media-breakpoint-up(xxl) {
+      padding-right: 6rem;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      font-size: 1.25rem;
     }
   }
 
@@ -147,15 +268,38 @@
     text-overflow: ellipsis;
     margin-bottom: 0;
 
+    // Tablet (md: 768px+)
     @include media-breakpoint-up(md) {
-      padding-right: 3.5rem;
-      margin-bottom: 1.5rem;
-
-
+      @include media-breakpoint-down(lg) {
+        padding-right: 3.5rem;
+        margin-bottom: 1.5rem;
+      }
     }
 
+    // Large tablet (lg: 1025px+)
     @include media-breakpoint-up(lg) {
-      padding-right: 5rem;
+      @include media-breakpoint-down(xl) {
+        padding-right: 5rem;
+        margin-bottom: 1.5rem;
+      }
+    }
+
+    // Desktop (xl: 1200px+)
+    @include media-breakpoint-up(xl) {
+      @include media-breakpoint-down(xxl) {
+        padding-right: 5.5rem;
+        margin-bottom: 2rem;
+        font-size: 0.95rem;
+      }
+    }
+
+    // XXL screens (1400px+)
+    @include media-breakpoint-up(xxl) {
+      padding-right: 6rem;
+      margin-bottom: 2.5rem;
+      font-size: 1rem;
+      -webkit-line-clamp: 3;
+      line-clamp: 3;
     }
   }
 
@@ -180,18 +324,42 @@
     display: flex;
     z-index: 10;
 
+    // Tablet (md: 768px+)
     @include media-breakpoint-up(md) {
-      margin: 2.25rem 2.25rem 2.25rem auto;
-      width: 56px;
-      height: 56px;
-      padding: 18px;
+      @include media-breakpoint-down(lg) {
+        margin: 2.25rem 2.25rem 2.25rem auto;
+        width: 56px;
+        height: 56px;
+        padding: 18px;
+      }
     }
 
+    // Large tablet (lg: 1025px+)
     @include media-breakpoint-up(lg) {
-      margin: 3rem 3.75rem 3rem auto;
-      width: 68px;
-      height: 68px;
-      padding: 22px;
+      @include media-breakpoint-down(xl) {
+        margin: 3rem 3.75rem 3rem auto;
+        width: 68px;
+        height: 68px;
+        padding: 22px;
+      }
+    }
+
+    // Desktop (xl: 1200px+)
+    @include media-breakpoint-up(xl) {
+      @include media-breakpoint-down(xxl) {
+        margin: 3.5rem 4rem 3.5rem auto;
+        width: 72px;
+        height: 72px;
+        padding: 24px;
+      }
+    }
+
+    // XXL screens (1400px+)
+    @include media-breakpoint-up(xxl) {
+      margin: 4rem 4.5rem 4rem auto;
+      width: 80px;
+      height: 80px;
+      padding: 28px;
     }
 
     svg {
@@ -199,14 +367,34 @@
       height: 20px;
       stroke: var(--color-neutral-50);
 
+      // Tablet (md: 768px+)
       @include media-breakpoint-up(md) {
-        width: 22px;
-        height: 22px;
+        @include media-breakpoint-down(lg) {
+          width: 22px;
+          height: 22px;
+        }
       }
 
+      // Large tablet (lg: 1025px+)
       @include media-breakpoint-up(lg) {
-        width: 24px;
-        height: 24px;
+        @include media-breakpoint-down(xl) {
+          width: 24px;
+          height: 24px;
+        }
+      }
+
+      // Desktop (xl: 1200px+)
+      @include media-breakpoint-up(xl) {
+        @include media-breakpoint-down(xxl) {
+          width: 26px;
+          height: 26px;
+        }
+      }
+
+      // XXL screens (1400px+)
+      @include media-breakpoint-up(xxl) {
+        width: 28px;
+        height: 28px;
       }
     }
   }

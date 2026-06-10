@@ -2,6 +2,7 @@
 
 // scss-docs-start gray-color-variables
 $white: #fff !default;
+$gray-25: #fffdf9 !default;
 $gray-50: #fbf9f6 !default;
 $gray-100: #f6f5f1 !default;
 $gray-200: #dbdad7 !default;
@@ -74,6 +75,7 @@ $salmon-300: #fea889 !default;
 $greenish-blue: #217381 !default;
 $powder-blue: #96e5df !default;
 $rich-black: #02394c !default;
+$dark-green: #003f2e !default;
 $velvet-maroon: #773849 !default;
 $red-orange: #ea483b !default;
 $faded-orange: #ff814a !default;
@@ -378,19 +380,19 @@ $theme-colors: (
   "light": $light,
   "dark": $dark,
   // Custom theme colors
-  // "light-blue":     $light-blue,
-  // "midnight-blue": $midnight-blue,
-  // "salmon":         $salmon,
-  // "greenish-blue":  $greenish-blue,
-  // "powder-blue":    $powder-blue,
-  // "rich-black":     $rich-black,
-  // "velvet-maroon":  $velvet-maroon,
-  // "red-orange":     $red-orange,
-  // "faded-orange":   $faded-orange,
-  // "light-rose":     $light-rose,
-  // "dirty-purple":   $dirty-purple,
-  // "gray":       $gray-600,
-   // "gray-dark":  $gray-800,
+  "light-blue":     $light-blue,
+  "midnight-blue": $midnight-blue,
+  "salmon":         $salmon,
+  "greenish-blue":  $greenish-blue,
+  "powder-blue":    $powder-blue,
+  "rich-black":     $rich-black,
+  "velvet-maroon":  $velvet-maroon,
+  "red-orange":     $red-orange,
+  "faded-orange":   $faded-orange,
+  "light-rose":     $light-rose,
+  "dirty-purple":   $dirty-purple,
+  "gray":       $gray-600,
+   "gray-dark":  $gray-800,
 ) !default;
 // scss-docs-end theme-colors-map
 
@@ -491,9 +493,13 @@ $spacers: (
   16: $spacer * 4,      // 64px
   20: $spacer * 5,      // 80px
   24: $spacer * 6,      // 96px
+  27: $spacer *6.838125, // 109.4px
   28: $spacer * 7,      // 112px
   30: $spacer * 7.5,    // 120px
   34: $spacer * 8.5,    // 136px
+  55: $spacer *13.75,  //220px
+  60: $spacer * 15,     //240px
+  65: $spacer *   16.25 //260px
 ) !default;
 
 // Negative spacers (for negative margins)
@@ -671,6 +677,7 @@ $font-family-monospace:
   SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
   monospace !default;
 $font-family-heading: "Reckless Neue", serif !default;
+$font-family-display: "Red Hat Display", sans-serif !default;
 // stylelint-enable value-keyword-case
 $font-family-base: var(--#{$prefix}font-sans-serif) !default;
 $font-family-code: var(--#{$prefix}font-monospace) !default;

@@ -1,13 +1,14 @@
 import Swiper from 'swiper';
 import { Navigation } from 'swiper/modules';
 import 'swiper/css';
+import 'swiper/css/navigation';
 
 const initTestimonialSlider = () => {
 
     // Mobile swiper
     const mobileSwiper = new Swiper('.testimonial-swiper-mobile', {
         modules: [Navigation],
-        loop: false,                   
+        loop: false,
         navigation: {
             prevEl: '.btn-prev-mobile',
             nextEl: '.btn-next-mobile',
@@ -16,12 +17,7 @@ const initTestimonialSlider = () => {
 
     // Desktop swiper
     const desktopSwiper = new Swiper('.testimonial-swiper-desktop', {
-        modules: [Navigation],
-        loop: false,                    
-        navigation: {
-            prevEl: '.btn-prev-desktop', 
-            nextEl: '.btn-next-desktop',
-        },
+        loop: false,
         on: {
             slideChange: function() {
                 const current = document.querySelector('.progress-current');
@@ -38,6 +34,20 @@ const initTestimonialSlider = () => {
             }
         }
     });
+
+    // Make progress bar clickable on desktop
+    const progressBarWrapper = document.querySelector('.progress-bar-wrapper');
+    if (progressBarWrapper) {
+        progressBarWrapper.addEventListener('click', (e) => {
+            const rect = progressBarWrapper.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            const ratio = clickX / rect.width;
+            const total = desktopSwiper.slides.length;
+            const targetIndex = Math.round(ratio * (total - 1));
+            desktopSwiper.slideTo(targetIndex);
+        });
+    }
+
 };
 
 export default initTestimonialSlider;

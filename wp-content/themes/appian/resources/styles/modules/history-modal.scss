@@ -16,6 +16,7 @@
     animation: fadeIn 0.3s ease forwards;
     pointer-events: auto;
 
+    // Tablet and above
     @include media-breakpoint-up(md) {
         padding: map-get($spacers, 30) map-get($spacers, 20) map-get($spacers, 24) map-get($spacers, 20);
         align-items: center;
@@ -46,7 +47,66 @@
         display: none;
     }
 
+    // Above mobile to small screens (377px-575px)
+    @media (min-width: 377px) and (max-width: 575px) {
+        max-width: 100vw;
+        width: 100vw;
+        min-height: 100vh;
+        height: auto;
+        overflow: visible;
+        margin: 0;
+    }
+
+    // Small screens (sm: 576px-767px) 
+    @include media-breakpoint-up(sm) {
+        @include media-breakpoint-down(md) {
+            max-width: 100vw;
+            width: 100vw;
+            min-height: 100vh;
+            height: auto;
+            overflow: visible;
+            margin: 0;
+        }
+    }
+
+    // Small tablet (md: 768px-1024px)
     @include media-breakpoint-up(md) {
+        @include media-breakpoint-down(lg) {
+            max-width: 90vw;
+            width: 90vw;
+            min-height: unset;
+            height: 85vh;
+            max-height: 600px;
+            overflow: hidden;
+        }
+    }
+
+    // Large tablet (lg: 1025px-1199px)
+    @include media-breakpoint-up(lg) {
+        @include media-breakpoint-down(xl) {
+            max-width: 85vw;
+            width: 85vw;
+            min-height: unset;
+            height: 75vh;
+            max-height: 650px;
+            overflow: hidden;
+        }
+    }
+
+    // Desktop (xl: 1200px-1439px)
+    @include media-breakpoint-up(xl) {
+        @include media-breakpoint-down(xxl) {
+            max-width: 82vw;
+            width: 82vw;
+            min-height: unset;
+            height: 70vh;
+            max-height: 700px;
+            overflow: hidden;
+        }
+    }
+
+    // XXL (1440px+)
+    @include media-breakpoint-up(xxl) {
         max-width: 80rem;
         min-height: unset;
         height: 46.25rem;
@@ -74,6 +134,13 @@
     padding: 0;
 
     @include media-breakpoint-up(md) {
+        top: map-get($spacers, 5);
+        right: map-get($spacers, 5);
+        width: map-get($spacers, 6);
+        height: map-get($spacers, 6);
+    }
+
+    @include media-breakpoint-up(xxl) {
         top: map-get($spacers, 6);
         right: map-get($spacers, 6);
         width: map-get($spacers, 8);
@@ -87,10 +154,15 @@
         fill: $white;
 
         @include media-breakpoint-up(md) {
-            width: map-get($spacers, 8);
-            height: map-get($spacers, 8);
+            width: map-get($spacers, 6);
+            height: map-get($spacers, 6);
             stroke: $color-neutral-600;
             fill: $color-neutral-600;
+        }
+
+        @include media-breakpoint-up(xxl) {
+            width: map-get($spacers, 8);
+            height: map-get($spacers, 8);
         }
 
         path {
@@ -114,7 +186,56 @@
     width: 100%;
     height: auto;
 
+    // Above mobile to small screens (377px-575px) - vertical layout
+    @media (min-width: 377px) and (max-width: 575px) {
+        flex-direction: column;
+        height: auto;
+        overflow: visible;
+    }
+
+    @include media-breakpoint-up(sm) {
+        @include media-breakpoint-down(md) {
+            flex-direction: column;
+            height: auto;
+            overflow: visible;
+        }
+    }
+
+    // Small tablet (md: 768px-1024px)
     @include media-breakpoint-up(md) {
+        @include media-breakpoint-down(lg) {
+            flex-direction: row;
+            height: 85vh;
+            max-height: 600px;
+            overflow: hidden;
+            align-items: center;
+        }
+    }
+
+    // Large tablet (lg: 1025px-1199px)
+    @include media-breakpoint-up(lg) {
+        @include media-breakpoint-down(xl) {
+            flex-direction: row;
+            height: 75vh;
+            max-height: 650px;
+            overflow: hidden;
+            align-items: center;
+        }
+    }
+
+    // Desktop (xl: 1200px-1439px)
+    @include media-breakpoint-up(xl) {
+        @include media-breakpoint-down(xxl) {
+            flex-direction: row;
+            height: 70vh;
+            max-height: 700px;
+            overflow: hidden;
+            align-items: center;
+        }
+    }
+
+    // XXL (1440px+)
+    @include media-breakpoint-up(xxl) {
         flex-direction: row;
         height: 46.25rem;
         overflow: hidden;
@@ -127,7 +248,53 @@
     width: 100%;
     height: 16.25rem;
 
+    // Above mobile to small screens (377px-575px)
+    @media (min-width: 377px) and (max-width: 575px) {
+        width: 100%;
+        height: 40vh;
+        min-height: 350px;
+        max-height: 450px;
+    }
+
+    // Small screens (sm: 576px-767px)
+    @include media-breakpoint-up(sm) {
+        @include media-breakpoint-down(md) {
+            width: 100%;
+            height: 42vh;
+            min-height: 380px;
+            max-height: 480px;
+        }
+    }
+
+    // Small tablet (md: 768px-1024px)
     @include media-breakpoint-up(md) {
+        @include media-breakpoint-down(lg) {
+            width: 45%;
+            height: 100%;
+            overflow: hidden;
+        }
+    }
+
+    // Large tablet (lg: 1025px-1199px)
+    @include media-breakpoint-up(lg) {
+        @include media-breakpoint-down(xl) {
+            width: 47%;
+            height: 100%;
+            overflow: hidden;
+        }
+    }
+
+    // Desktop (xl: 1200px-1439px)
+    @include media-breakpoint-up(xl) {
+        @include media-breakpoint-down(xxl) {
+            width: 48%;
+            height: 100%;
+            overflow: hidden;
+        }
+    }
+
+    // XXL (1440px+)
+    @include media-breakpoint-up(xxl) {
         width: 38.75rem;
         height: 100%;
         overflow: hidden;
@@ -138,8 +305,16 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center;
+    object-position: top center;
     display: block;
+    background-color: $color-neutral-100;
+    
+    @include media-breakpoint-up(sm) {
+        @include media-breakpoint-down(md) {
+            object-fit: cover;
+            object-position: center center;
+        }
+    }
 }
 
 .history-modal__nav {
@@ -172,8 +347,8 @@
     pointer-events: auto;
     transition: background-color 0.2s ease, opacity 0.2s ease;
 
-    width: map-get($spacers, 12);
-    height: map-get($spacers, 12);
+    width: 3rem; 
+    height: 3rem;
     padding: 0.875rem;
 
     svg {
@@ -181,7 +356,7 @@
         pointer-events: none;
         fill: none;
         stroke: none;
-        width: 1.25rem;
+        width: 1.25rem; 
         height: 1.25rem;
 
         path {
@@ -200,13 +375,13 @@
     }
 
     &--sm {
-        width: 2.25rem;
-        height: 2.25rem;
-        padding: 0.625rem;
+        width: 3rem;
+        height: 3rem;
+        padding: 0.875rem;
 
         svg {
-            width: 1rem;
-            height: 1rem;
+            width: 1.25rem;
+            height: 1.25rem;
         }
     }
 }
@@ -217,9 +392,98 @@
     overflow-x: hidden;
     box-sizing: border-box;
 
+    @media (min-width: 377px) and (max-width: 575px) {
+        width: 100%;
+        padding: map-get($spacers, 10) map-get($spacers, 7) map-get($spacers, 10);
+        overflow-x: hidden;
+        box-sizing: border-box;
+    }
+
+    @include media-breakpoint-up(sm) {
+        @include media-breakpoint-down(md) {
+            width: 100%;
+            padding: map-get($spacers, 10) map-get($spacers, 7) map-get($spacers, 10);
+            overflow-x: hidden;
+            box-sizing: border-box;
+        }
+    }
+
+    // Small tablet (md: 768px-1024px)
     @include media-breakpoint-up(md) {
+        @include media-breakpoint-down(lg) {
+            flex: 1;
+            padding: 1.5rem 1.5rem 1.5rem 2rem;
+            overflow-y: auto;
+            height: 100%;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+
+            scrollbar-width: thin;
+            scrollbar-color: rgba($color-primary-red, 0.3) transparent;
+            &::-webkit-scrollbar {
+                width: 4px;
+            }
+            &::-webkit-scrollbar-thumb {
+                background-color: rgba($color-primary-red, 0.3);
+                border-radius: 2px;
+            }
+        }
+    }
+
+    // Large tablet (lg: 1025px-1199px)
+    @include media-breakpoint-up(lg) {
+        @include media-breakpoint-down(xl) {
+            flex: 1;
+            padding: 2rem 2rem 2rem 2.5rem;
+            overflow-y: auto;
+            height: 100%;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+
+            scrollbar-width: thin;
+            scrollbar-color: rgba($color-primary-red, 0.3) transparent;
+            &::-webkit-scrollbar {
+                width: 4px;
+            }
+            &::-webkit-scrollbar-thumb {
+                background-color: rgba($color-primary-red, 0.3);
+                border-radius: 2px;
+            }
+        }
+    }
+
+    // Desktop (xl: 1200px-1439px)
+    @include media-breakpoint-up(xl) {
+        @include media-breakpoint-down(xxl) {
+            flex: 1;
+            padding: 2.5rem 2.5rem 2.5rem 3rem;
+            overflow-y: auto;
+            height: 100%;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+
+            scrollbar-width: thin;
+            scrollbar-color: rgba($color-primary-red, 0.3) transparent;
+            &::-webkit-scrollbar {
+                width: 4px;
+            }
+            &::-webkit-scrollbar-thumb {
+                background-color: rgba($color-primary-red, 0.3);
+                border-radius: 2px;
+            }
+        }
+    }
+
+    // XXL (1440px+)
+    @include media-breakpoint-up(xxl) {
         flex: 1;
-        padding: map-get($spacers, 30) 6.8125rem map-get($spacers, 24) 9.4375rem;
+        padding: 8rem 6.8125rem map-get($spacers, 24) 9.4375rem;
         overflow-y: auto;
         height: 100%;
         box-sizing: border-box;
@@ -233,6 +497,30 @@
             background-color: rgba($color-primary-red, 0.3);
             border-radius: 2px;
         }
+    }
+}
+
+.history-modal__content-wrapper {
+    @include media-breakpoint-down(md) {
+        width: 100%;
+    }
+
+    // Middle screens (768px-1439px)
+    @include media-breakpoint-up(md) {
+        @include media-breakpoint-down(xxl) {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            min-height: auto;
+            justify-content: center;
+            height: 100%;
+        }
+    }
+
+    // XXL (1440px+)
+    @include media-breakpoint-up(xxl) {
+        width: 100%;
     }
 }
 
