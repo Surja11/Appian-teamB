@@ -106,9 +106,12 @@
         padding-bottom: $spacer * 6.25;
 
         &__inner {
-            max-width: 1440px;
-            margin: 0 auto;
+            max-width: none;
+            width: 100%;
+            margin: 0;
             gap: 0;
+            padding-left: 80px;
+            padding-right: 80px;
         }
 
         &__title-block {
@@ -130,14 +133,13 @@
         &__cards {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            column-gap: 0.75rem; // 12px horizontal gap
-            row-gap: 0rem;
+            column-gap: 0.75rem;
+            row-gap: 0.625rem;
             
-            // XXL layout padding  
             padding-top: $spacer * 5;
-            padding-right: $spacer * 5;
+            padding-right: 0;
             padding-bottom: $spacer * 0.625;
-            padding-left: $spacer * 5;
+            padding-left: 0;
         }
 
         // Featured image positioning

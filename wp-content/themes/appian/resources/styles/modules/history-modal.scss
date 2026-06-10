@@ -483,7 +483,7 @@
     // XXL (1440px+)
     @include media-breakpoint-up(xxl) {
         flex: 1;
-        padding: map-get($spacers, 7) 6.8125rem map-get($spacers, 24) 9.4375rem;
+        padding: 8rem 6.8125rem map-get($spacers, 24) 9.4375rem;
         overflow-y: auto;
         height: 100%;
         box-sizing: border-box;
