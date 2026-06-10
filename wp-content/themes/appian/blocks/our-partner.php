@@ -21,9 +21,7 @@ if ( ! empty( $valid_partners ) ) :
             <source media="(min-width: 1200px)" srcset="<?php echo get_template_directory_uri(); ?>/resources/images/divider.svg">
             <img src="<?php echo get_template_directory_uri(); ?>/resources/images/divider-small.svg" alt="divider line">
         </picture>
-    </div>
-
-   
+    </div
 
     <div class="our-partner__partner-collection">
         <div class="row g-0"">
@@ -32,13 +30,11 @@ if ( ! empty( $valid_partners ) ) :
                 $logo = $partner['partner_logo']; 
             ?>
 
-            <div class="our-partner__single-partner  col-6 col-xl-3">
+            <div class="our-partner__single-partner  col-6 col-x3">
                 <div class="our-partner__img-container">
                     <img
                         src="<?php echo esc_url( $logo['url'] ); ?>"
                         alt="<?php echo esc_attr( $logo['alt'] ); ?>"
-                        <?php if ( ! empty( $logo['width'] ) ) : ?>width="<?php echo esc_attr( $logo['width'] ); ?>"<?php endif; ?>
-                        <?php if ( ! empty( $logo['height'] ) ) : ?>height="<?php echo esc_attr( $logo['height'] ); ?>"<?php endif; ?>
                     >
                 </div>
             </div>
@@ -52,8 +48,7 @@ if ( ! empty( $valid_partners ) ) :
         </div>
     </div>
 
-   
 
 </section>
 
-<?php endif;?>
+<?php endif; ?>
