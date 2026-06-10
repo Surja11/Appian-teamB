@@ -1,55 +1,55 @@
 @import '../common';
 
+// ─── Section ──────────────────────────────────────────────────────────────────
 .testimonial-section {
     background-image: url('../../images/bg-texture.png');
     background-size: cover;
-    background-repeat: no-repeat;
-    padding-top: $spacer * 5;       
-    padding-bottom: $spacer * 3;    
-    padding-left: $spacer * 1.75;   
-    padding-right: $spacer * 1.75;  
+    background-repeat: repeat;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: $spacer * 1.75;
+    padding-right: $spacer * 1.75;
     display: flex;
     justify-content: center;
 
     @include media-breakpoint-up(lg) {
-        min-height: 726px;
+        min-height: 45.375rem; // 726px
         padding: 0;
     }
 }
 
-// MOBILE 
+// ─── MOBILE ───────────────────────────────────────────────────────────────────
 .testimonial-card {
-    width: 375px;
-    max-width: 375px;
-    min-height: 613px;
-    max-height: none;
-    overflow: visible; 
+    // No hardcoded width — the card grows with padding inside the section
+    min-height: 38.3125rem; // 613px
+    max-height: 38.3125rem;
+    overflow: visible;
     position: relative;
     background-color: transparent;
     box-sizing: border-box;
 
-    padding-top: $spacer * 5;
-    padding-left: $spacer * 3.8125;
-    padding-right: $spacer * 1.75;
-    padding-bottom: $spacer * 3;
+    padding-top: $spacer * 3;
+    padding-left: 2.0625rem;
+    padding-right: 0.875rem;
+    padding-bottom: $spacer * 1.5;
 
     .testimonial-line {
         position: absolute;
         top: $spacer * 5;
-        left: $spacer * 1.75;
-        width: 1px;
+        left: 0;
+        width: 0.0625rem; // 1px — hairline, keep as rem
         bottom: $spacer * 10;
         background-color: var(--color-neutral-100);
     }
 
     .quote-icon-wrapper {
-        width: 33px;
-        height: 24px;
+        width: 2.0625rem;   // 33px
+        height: 1.5rem;     // 24px
         margin-bottom: $spacer * 1.5;
 
         svg {
-            width: 33px;
-            height: 24px;
+            width: 2.0625rem;
+            height: 1.5rem;
 
             path {
                 fill: var(--color-primary-red);
@@ -58,26 +58,25 @@
     }
 
     h5 {
+        // No hardcoded width — let it fill the padded column naturally
         color: var(--color-neutral-600);
-        width: 286px;
         margin-bottom: $spacer * 3;
     }
 
     .author-meta {
         .caption-2:first-child {
-            color: var(--color-neutral-100) !important;     
-            text-transform: uppercase !important;   
+            color: var(--color-neutral-100) !important;
+            text-transform: uppercase !important;
             margin-bottom: $spacer * 0.25 !important;
-            width: 150px !important;
+            // No hardcoded width — content dictates it
         }
 
         .caption-2 {
-            color: var(--color-neutral-200) !important;     
-            text-transform: none !important;  
+            color: var(--color-neutral-200) !important;
+            text-transform: none !important;
             margin-top: 0 !important;
             margin-bottom: 0 !important;
-            width: 150px !important;
-            text-transform: none !important; 
+            // No hardcoded width
         }
     }
 
@@ -90,8 +89,8 @@
     }
 
     .slider-btn {
-        width: 48px;
-        height: 48px;
+        width: 3rem;    // 48px
+        height: 3rem;   // 48px
         background-color: var(--color-primary-red);
         border: none;
         display: flex;
@@ -101,199 +100,221 @@
         cursor: pointer;
         transition: $btn-transition;
 
+        &:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
         img {
-            width: 14px;
-            height: 14px;
+            width: 0.875rem;  // 14px
+            height: 0.875rem; // 14px
             filter: brightness(0) invert(1);
         }
 
-        &:hover {
+        &:hover:not(:disabled) {
             background-color: var(--color-dark-red);
         }
     }
 }
 
-// DESKTOP 
+// ─── Mobile swiper container ──────────────────────────────────────────────────
+.testimonial-swiper-mobile {
+    overflow: hidden;
+
+    .swiper-wrapper {
+        display: flex;
+        // transition applied by JS on init
+    }
+
+    .swiper-slide {
+        flex: 0 0 100%;
+        min-width: 0; // prevent flex blowout
+    }
+}
+
+// ─── DESKTOP ──────────────────────────────────────────────────────────────────
 @include media-breakpoint-up(lg) {
 
     .testimonial-section {
+        overflow: hidden; 
+
         .container {
-            max-width: 1440px;
+            max-width: 90rem; // 1440px
             padding: 0;
         }
 
         .row {
-            min-height: 726px;
+            min-height: 45.375rem; // 726px
             margin: 0;
-            height: 726px;
+            height: 45.375rem;
         }
     }
 
+    // ── Left column ───────────────────────────────────────────────────────────
     .testimonial-left {
         position: relative;
         display: block !important;
         padding: 0 !important;
+        width: 32.5625rem;  // 530px — up to and including the divider line area
+        flex-shrink: 0;
 
         .testimonial-logo {
-        position: absolute;
-        top: $spacer * 11.25;    
-        left: $spacer * 9.375;      
-        width: 194px;               
-        height: 47px;               
-        display: flex;
-        align-items: center;
-        margin-left: 0; 
+            position: absolute;
+            top: $spacer * 11.25;       // 180px
+            left: $spacer * 9.375;      // 150px
+            // No hardcoded width — flex handles it
+            height: 2.9375rem;          // 47px
+            display: flex;
+            align-items: center;
+            gap: 0; // logos sit flush, no gap
 
-    svg:first-child {
-        width: 156px !important;    
-        height: 21px !important;
-        flex-shrink: 0;
-    }
+            svg:first-child {
+                width: 9.75rem !important;      // 156px
+                height: 1.3125rem !important;   // 21px
+                flex-shrink: 0;
+            }
 
-    svg:last-child {
-        width: 38px !important;     
-        height: 47px !important;
-        flex-shrink: 0;
-    }
-}
+            svg:last-child {
+                width: 2.375rem !important;     // 38px
+                height: 2.9375rem !important;   // 47px
+                flex-shrink: 0;
+            }
+        }
+
         .testimonial-line {
             position: absolute;
-            top: $spacer * 11.25;       
-            left: $spacer * 26.9375;    
-            width: 1px;
-            height: 366px;
+            top: $spacer * 11.25;       // 180px
+            left: $spacer * 26.9375;    // 431px
+            width: 0.0625rem;           // 1px
+            // Height flows to fill — tie it to bottom so it doesn't need a px value
+            bottom: $spacer * 11.25;
             background-color: var(--color-neutral-100);
         }
     }
 
+    // ── Right column ──────────────────────────────────────────────────────────
     .testimonial-right {
-    position: relative;
-    height: 726px;
-    padding: 0;
-    overflow: hidden;
-
-    // .quote-icon-wrapper {
-    //     position: absolute;
-    //     top: $spacer * 11.25;           
-    //     left: -$spacer * 12.5;          
-    //     width: 41px;
-    //     height: 30px;
+       position: relative;
+       height: 45.375rem;
+       padding-left: 0;  // 89px — clears the vertical line
+       flex: 1;
+       padding-right: 0;
+       overflow: hidden;
 
         svg {
-            width: 41px;
-            height: 30px;
-            display: block; 
+            width: 2.5625rem;   // 41px
+            height: 1.875rem;   // 30px
+            display: block;
 
             path {
                 fill: var(--color-primary-red);
             }
-         }
-    }
-
-    // h5 {
-    //    position: absolute;
-    //    top: $spacer * 15.125;          
-    //    left: -$spacer * 12.5;
-    //    width: 730px;
-    //    right: auto;
-    //    margin: 0;
-    //    color: var(--color-neutral-600);
-    // }
-
-    // .author-meta {
-    //     position: absolute;
-    //     top: $spacer * 31.25;          
-    //     left: -$spacer * 12.5;
+        }
 
         .caption-2:first-child {
-            color: var(--color-neutral-100) !important;     
-            text-transform: uppercase !important;  
-            width: 139px !important;
+            color: var(--color-neutral-100) !important;
+            text-transform: uppercase !important;
             white-space: nowrap;
             margin-bottom: $spacer * 0.25 !important;
         }
 
         .caption-2 {
-            color: var(--color-neutral-200) !important;     
-            text-transform: none !important;  
+            color: var(--color-neutral-200) !important;
+            text-transform: none !important;
             margin-top: 0 !important;
             margin-bottom: 0 !important;
-            width: 150px !important;
-            text-transform: none !important; 
-         }
-    }
-
-    .slider-progress {
-    position: absolute;
-    bottom: $spacer * 2.9375;
-    right: $spacer * 5;
-    display: flex;
-    align-items: center;
-    gap: $spacer;
-
-    .progress-current {
-        font-family: $font-family-sans-serif;
-        font-weight: $font-weight-normal;
-        font-size: 1.125rem;            
-        line-height: 1.5;              
-        color: var(--color-neutral-200);
-    }
-
-    .progress-total {
-        font-family: $font-family-sans-serif;
-        font-weight: $font-weight-normal;
-        font-size: 1.125rem;           
-        line-height: 1.5;               
-        color: var(--color-neutral-200);
-    }
-
-    .progress-bar-wrapper {
-        width: 64px;                   
-        height: 1px;
-        background-color: var(--color-neutral-100);
-        position: relative;
-
-        .progress-bar-fill {
-            position: absolute;
-            left: 0;
-            top: 0;
-            height: 1px;
-            width: 24px;                
-            background-color: var(--color-primary-red);
         }
     }
-}
-    
-.testimonial-swiper-mobile{
-    overflow: hidden;
-}
-.testimonial-swiper-desktop {
-      position: absolute;
-    top: 0;
-    left: -$spacer * 12.5;
-    width: calc(100% + #{$spacer * 12.5});
-    height: 100%;
 
-    .swiper-slide {
-        height: 726px;
+    // ── Desktop swiper ────────────────────────────────────────────────────────
+    .testimonial-swiper-desktop {
+        position: absolute;
+        top: 0;
+        left: 0;  // -200px — bleeds into left column
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+
+        .swiper-wrapper {
+            display: flex;
+            height: 100%;
+            // transition applied by JS on init
+        }
+
+        .swiper-slide {
+            flex: 0 0 100%;
+            min-width: 0;
+            height: 45.375rem; // 726px
+            position: relative;
+            overflow: visible;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            padding-top: $spacer * 11.25;  // 180px — aligns with logo top
+
+ .quote-icon-wrapper {
+    position: static;
+    margin-bottom: 2rem !important;  // 32px
+    top: $spacer * 11.25;
+    left: 0;
+}
+
+h5 {
+    position: static;
+    top: $spacer * 15.125;
+    left: 0;
+    max-width: 45.625rem;
+    margin: 0;
+    color: var(--color-neutral-600);
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+.author-meta {
+    position: static;
+    margin-top: 3.9375rem !important;  // 63px
+    top: auto;
+    bottom: $spacer * 5;
+    left: 0;
+}
         
-        .quote-icon-wrapper {
-            position: absolute;
-            top: $spacer * 11.25;
-            left: 0;
+        }
+    }
+
+    // ── Progress bar ──────────────────────────────────────────────────────────
+    .slider-progress {
+        position: absolute;
+        bottom: $spacer * 2.9375;   // 47px
+        right: $spacer * 5;         // 80px
+        display: flex;
+        align-items: center;
+        gap: $spacer;
+
+        .progress-current,
+        .progress-total {
+            font-family: $font-family-sans-serif;
+            font-weight: $font-weight-normal;
+            font-size: 1.125rem;    // 18px — already rem, kept
+            line-height: 1.5;
+            color: var(--color-neutral-200);
         }
 
-        h5 {
-            position: absolute;
-            top: $spacer * 15.125;
-            left: 0;
-            width: 730px;
-        }
+        .progress-bar-wrapper {
+            width: 4rem;            // 64px
+            height: 0.0625rem;      // 1px
+            background-color: var(--color-neutral-100);
+            position: relative;
+            cursor: pointer;        // clickable — matches JS handler
 
-        .author-meta {
-            position: absolute;
-            top: $spacer * 31.25;
-            left: 0;
+            .progress-bar-fill {
+                position: absolute;
+                left: 0;
+                top: 0;
+                height: 0.0625rem;  // 1px
+                width: 1.5rem;          // JS sets this as a percentage
+                background-color: var(--color-primary-red);
+                transition: width 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+            }
         }
     }
 }

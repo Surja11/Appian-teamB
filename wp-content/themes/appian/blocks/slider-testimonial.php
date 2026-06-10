@@ -57,7 +57,7 @@ endif;
     <div class="container d-none d-lg-block">
         <div class="row">
 
-            <div class="col-lg-6 testimonial-left">
+            <div class="testimonial-left">
                 <div class="testimonial-logo">
                     <?php testimonial_render_logo($logo_1); ?>
                     <?php testimonial_render_logo($logo_2); ?>
@@ -65,7 +65,7 @@ endif;
                 <div class="testimonial-line"></div>
             </div>
 
-            <div class="col-lg-6 testimonial-right">
+            <div class="testimonial-right">
                 <div class="swiper testimonial-swiper-desktop">
                     <div class="swiper-wrapper">
                         <?php foreach ($testimonials as $slide) : ?>
