@@ -19,6 +19,15 @@ class OurHistoryModule {
                 this.updateButtonStates();
             });
         }
+        
+        // Update button states on window resize to handle responsive layout 
+        window.addEventListener('resize', () => {
+            // Use debounce to avoid excessive calls
+            clearTimeout(this.resizeTimeout);
+            this.resizeTimeout = setTimeout(() => {
+                this.updateButtonStates();
+            }, 250);
+        });
     }
 
     bindTimelineNavigation() {
@@ -59,9 +68,27 @@ class OurHistoryModule {
 
         const scrollLeft = this.scrollContainer.scrollLeft;
         const maxScroll = this.scrollContainer.scrollWidth - this.scrollContainer.clientWidth;
+        
+        // Add a small tolerance to handle rounding issues on different screen sizes
+        const tolerance = 1;
 
-        this.prevBtn.disabled = scrollLeft <= 0;
-        this.nextBtn.disabled = scrollLeft >= maxScroll;
+        // Previous button - disable at start
+        this.prevBtn.disabled = scrollLeft <= tolerance;
+        
+        // Next button - disable at end
+        this.nextBtn.disabled = scrollLeft >= (maxScroll - tolerance);
+        
+        if (this.prevBtn.disabled) {
+            this.prevBtn.classList.add('disabled');
+        } else {
+            this.prevBtn.classList.remove('disabled');
+        }
+        
+        if (this.nextBtn.disabled) {
+            this.nextBtn.classList.add('disabled');
+        } else {
+            this.nextBtn.classList.remove('disabled');
+        }
     }
 }
 

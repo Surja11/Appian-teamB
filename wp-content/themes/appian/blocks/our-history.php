@@ -36,6 +36,7 @@ $history_items = get_field( 'history_items' );
 <?php if ( $history_items ) : ?> 
 
 <section id="our-history-block" class="our-history-block">
+    <div class="our-history-block__overlay"></div>
     <!-- Section Header -->
     <div class="our-history__header text-center">
         <h2 class="our-history__title">Our History</h2>

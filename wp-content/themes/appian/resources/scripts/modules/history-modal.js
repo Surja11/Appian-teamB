@@ -24,70 +24,54 @@ class HistoryModalModule {
                 e.stopPropagation();
                 this.openModal(btn.getAttribute('data-history-id'));
             });
+                    });
+
+        document.querySelectorAll('.history-card').forEach(card => {
+            card.addEventListener('click', (e) => {
+                if (e.target.closest('.history-card__read-more')) return;
+                const historyId = card.getAttribute('data-year');
+                if (historyId) this.openModal(historyId);
+            });
         });
 
         if (this.modal) this.bindModalEvents();
     }
 
     getHistoryData(historyId) {
-        const card = document.querySelector(`.history-card[data-year="${historyId}"]`);
-        if (!card) return null;
+    const card = document.querySelector(`.history-card[data-year="${historyId}"]`);
+    if (!card) return null;
 
-        const year        = card.querySelector('.history-card__year');
-        const fullContent = card.querySelector('.history-card__full-content');
-        const excerpt     = card.querySelector('.history-card__excerpt');
+    const year        = card.querySelector('.history-card__year');
+    const fullContent = card.querySelector('.history-card__full-content');
+    const excerpt     = card.querySelector('.history-card__excerpt');
 
-        let images = [];
+    let images = [];
 
-        const dataImages = card.getAttribute('data-images');
-        if (dataImages) {
-            try {
-                images = JSON.parse(dataImages).filter(Boolean);
-            } catch (e) { }
-        }
+    // Feature image
+    const primarySrc = card.querySelector('.history-card__image')?.getAttribute('src');
+    if (primarySrc) images.push(primarySrc);
 
-        if (!images.length) {
-            const primarySrc = card.querySelector('.history-card__image')?.getAttribute('src');
+    // Gallery images
+    const galleryImgs = card.querySelectorAll('.history-card__gallery-item img');
+    galleryImgs.forEach(img => {
+        if (img.src) images.push(img.src);
+    });
 
-            const DUMMY_EXTRA_IMAGES = {
-                '1922': [
-                    '/wp-content/themes/appian/resources/images/history-1928.png',
-                    '/wp-content/themes/appian/resources/images/history-1929.png',
-                ],
-                '1928': [
-                    '/wp-content/themes/appian/resources/images/history-1922.png',
-                    '/wp-content/themes/appian/resources/images/history-1929.png',
-                ],
-                '1929': [
-                    '/wp-content/themes/appian/resources/images/history-1922.png',
-                    '/wp-content/themes/appian/resources/images/history-1928.png',
-                ],
-            };
-
-            if (primarySrc) {
-                images = [primarySrc, ...(DUMMY_EXTRA_IMAGES[historyId] || [])];
-            }
-        }
-
-        if (!images.length) {
-            images.push(`/wp-content/themes/appian/resources/images/history-${historyId}.png`);
-        }
-
-        let content = '';
-        if (fullContent && fullContent.innerHTML.trim()) {
-            content = fullContent.innerHTML.trim();
-        } else if (excerpt) {
-            content = `<p>${excerpt.textContent.trim()}</p>`;
-        } else {
-            content = `<p>No content available.</p>`;
-        }
-
-        return {
-            year:   year ? year.textContent.trim() : historyId,
-            images,
-            text:   content,
-        };
+    let content = '';
+    if (fullContent && fullContent.innerHTML.trim()) {
+        content = fullContent.innerHTML.trim();
+    } else if (excerpt) {
+        content = `<p>${excerpt.textContent.trim()}</p>`;
+    } else {
+        content = `<p>No content available.</p>`;
     }
+
+    return {
+        year:   year ? year.textContent.trim() : historyId,
+        images,
+        text:   content,
+    };
+}
 
     openModal(historyId) {
         if (!this.modal) return;

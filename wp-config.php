@@ -175,6 +175,8 @@ if (!defined('WP_DEBUG') && isset($_ENV['PANTHEON_ENVIRONMENT'])) {
 define('AUTOPTIMIZE_CACHE_CHILD_DIR','/uploads/autoptimize/');
 define('AUTOPTIMIZE_CACHEFILE_PREFIX','aggregated_');
 
+define('EWWW_IMAGE_OPTIMIZER_WEBP', true);
+define('EWWW_IMAGE_OPTIMIZER_WEBP_FORCE', true);
 /* That's all, stop editing! Happy Pressing. */
 
 /** Absolute path to the WordPress directory. */
