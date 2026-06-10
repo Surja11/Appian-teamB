@@ -1,4 +1,3 @@
-
 $nav-font-family: $font-family-sans-serif;
 $nav-font-size: 1rem;
 $nav-font-weight: $font-weight-medium;
@@ -7,10 +6,11 @@ $nav-hover-color: $color-primary-red;
 $nav-border-color: $color-neutral-100;
 $nav-dropdown-bg: $color-neutral-50;
 $nav-dropdown-shadow: $box-shadow;
-$nav-gap: 2.5rem;
+$nav-items-gap:clamp(0.9375rem, -6.875rem + 10.4167vw, 2.5rem);
+$nav-gap: clamp(0.9375rem, -20.15625rem + 28.125vw, 5.15625rem);
 $nav-z: 100;
 
-$nav-breakpoint: 1291px;
+$nav-breakpoint: 1200px;
 
 @mixin focus-box($offset: 5px) {
   &:focus-visible {
@@ -28,25 +28,36 @@ $nav-breakpoint: 1291px;
   }
 }
 
+
+
 body:has(.navbar__main--open) {
   overflow: hidden;
-  overflow: hidden;
-  position: fixed;      
-  width: 100%;          
+  position: fixed;
+  width: 100%;
+}
+
+main{
+  padding-top:4.375rem;
+  @media (min-width: $nav-breakpoint){
+    padding-top: 5.625rem;
+  }
 }
 
 .header {
   position: fixed;
-  background-color: $color-neutral-50; // change from sticky to fixed
-  // top: 0;
+  background-color: $color-neutral-50;
   left: 0;
-  width:100vw;
-  // margin-top: -100%;
+  top: 0;
+  width: 100%;
   z-index: $nav-z;
   transition: transform 0.3s ease;
 
   &--hidden {
     transform: translateY(-100%);
+  }
+
+  &:not(&--hidden) {
+    transform: translateY(0);
   }
 
   &:has(.navbar__main--open) {
@@ -58,6 +69,8 @@ body:has(.navbar__main--open) {
     &:has(.navbar__main--open) {
       height: unset;
       overflow: unset;
+
+      
     }
   }
 }
@@ -67,32 +80,32 @@ body:has(.navbar__main--open) {
   align-content: flex-start;
   flex-wrap: wrap;
 
-
   &:has(.navbar__main--open) {
-    height: 100%;        
-
+    height: 100%;
     flex-direction: column;
     flex-wrap: nowrap;
-    overflow: hidden;   
+    overflow: hidden;
   }
 
   @media (min-width: $nav-breakpoint) {
     flex-wrap: wrap;
-    justify-content: space-between;
-    align-content: center;
-    height: unset;
-    overflow: unset;
-    gap: clamp(1rem, 3vw, 2.5rem);
+    align-items: center;          
+    justify-content: flex-start !important;  
+    max-width: 1440px;
+    gap:$nav-gap !important;
     z-index: $nav-z;
+    margin: auto;
   }
 
   &__top {
     position: relative;
     width: 100%;
-    flex-shrink: 0;    
+    flex-shrink: 0;
 
     @media (min-width: $nav-breakpoint) {
       width: max-content;
+      flex-shrink: 0;   
+      flex-grow: 0;
     }
   }
 
@@ -118,18 +131,18 @@ body:has(.navbar__main--open) {
   }
 
   &__icon-container {
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
     display: flex;
     align-items: center;
     background: none;
     border: none;
     padding: 0;
-    position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
     margin: auto;
-    width: 24px;
-    height: 24px;
     cursor: pointer;
     @include focus-box;
 
@@ -149,8 +162,8 @@ body:has(.navbar__main--open) {
 
   &__icon {
     display: block;
-    width: 14px;
-    height: 14px;
+    width: 100%;
+    height: 100%;
 
     &--close {
       display: none;
@@ -159,17 +172,15 @@ body:has(.navbar__main--open) {
 
   &__main {
     width: 100%;
-    margin-top: 4.5625rem;
+    margin-top: 5.03125rem;
     display: none;
+    
 
     &--open {
       display: block;
-      flex: 1;  
-      
-    // letting the overflow happen when there are more items in menu
-      overflow-y: auto;    
-      min-height: 0;  
-    // hiding the scrollbar 
+      flex: 1;
+      overflow-y: auto;
+      min-height: 0;
       scrollbar-width: none;
       -ms-overflow-style: none;
       &::-webkit-scrollbar {
@@ -180,13 +191,13 @@ body:has(.navbar__main--open) {
     @media (min-width: $nav-breakpoint) {
       display: flex;
       align-items: center;
+      justify-content: space-between;
       width: auto;
       padding-top: 0;
       border-top: none;
       margin-top: 0;
-      flex: unset;
-
-      // removing the overflow and min-height in big screen
+      flex: 1 1 0;     
+      min-width: 0;     
       overflow-y: unset;
       min-height: unset;
     }
@@ -205,7 +216,9 @@ body:has(.navbar__main--open) {
     @media (min-width: $nav-breakpoint) {
       flex-direction: row;
       align-items: center;
-      gap: $nav-gap;
+      gap: $nav-items-gap;
+      flex-wrap: wrap;       
+
     }
   }
 
@@ -218,7 +231,7 @@ body:has(.navbar__main--open) {
       border-bottom: none;
       position: relative;
     }
-// removing border-bottoom of last child in mobile view
+
     &:last-child {
       border-bottom: none;
     }
@@ -326,7 +339,7 @@ body:has(.navbar__main--open) {
     color: $nav-color;
     text-decoration: none;
     white-space: nowrap;
-    transition: color $transition-base,background-color $transition-base;
+    transition: color $transition-base, background-color $transition-base;
     @include focus-box($offset: 2px);
 
     &:hover {
@@ -336,22 +349,18 @@ body:has(.navbar__main--open) {
   }
 
   &__extra {
-  
     display: none;
     align-items: center;
     justify-content: space-between;
     width: 100%;
 
-   
-  &--open {
-    display: flex;
-    flex-shrink: 0;
-    background-color: $color-neutral-50;
-    padding: 16px 0 56px 0;
-  }
+    &--open {
+      display: flex;
+      flex-shrink: 0;
+      background-color: $color-neutral-50;
+      padding: 1rem 0 1.25rem 0;
+    }
 
-
-   
     @media (min-width: $nav-breakpoint) {
       display: flex;
       width: auto;
@@ -361,6 +370,7 @@ body:has(.navbar__main--open) {
       border-top: none;
       padding: 0;
       background-color: transparent;
+      flex-shrink: 0;    
     }
   }
 
@@ -375,7 +385,6 @@ body:has(.navbar__main--open) {
       height: 24px;
     }
 
-  
     @media (min-width: $nav-breakpoint) {
       display: none;
     }
@@ -399,8 +408,8 @@ body:has(.navbar__main--open) {
 
   &__contact-row {
     display: flex;
-    align-items: center;
     justify-content: flex-start;
+    align-items: center;
     gap: 0.5rem;
 
     img {
@@ -428,10 +437,10 @@ body:has(.navbar__main--open) {
 }
 
 .navbar-overlay {
+  background-color: $color-light-red;
   display: none;
   position: fixed;
   inset: 0;
-  background-color: $color-light-red;
   opacity: 0.3;
   z-index: #{$nav-z - 1};
   cursor: pointer;
@@ -440,4 +449,3 @@ body:has(.navbar__main--open) {
     display: block;
   }
 }
-

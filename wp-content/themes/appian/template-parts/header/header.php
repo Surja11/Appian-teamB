@@ -13,7 +13,7 @@
             src="<?php echo esc_url(get_template_directory_uri()); ?>/resources/images/logo-appian.svg"
             class="navbar__logo"
             alt="website logo icon" />
-        <?php endif; ?>
+      <?php endif; ?>
       </a>
     </div>
 
