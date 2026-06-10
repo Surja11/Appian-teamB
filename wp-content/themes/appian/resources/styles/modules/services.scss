@@ -213,12 +213,21 @@
     padding-right: 1.75rem;
     word-break: break-word;
     display: -webkit-box;
+    font-size: clamp(2.5rem, 1.9718rem + 2.2535vw, 4rem) !important;
     -webkit-line-clamp: 6;
     line-clamp: 6;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
     margin-bottom: 0;
+
+    @media (min-width: 767px) and (max-width: 832px) {
+      font-size: clamp(2.2rem, 1.8rem + 1.5vw, 2.8rem) !important;
+      padding-right: 2.5rem;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+      hyphens: none;
+    }
 
     // Tablet (md: 768px+)
     @include media-breakpoint-up(md) {
