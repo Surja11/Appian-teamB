@@ -6,6 +6,7 @@ const header = () => {
   const triggers = Array.from(document.getElementsByClassName("navbar__dropdown-trigger"));
   const extra = document.getElementsByClassName("navbar__extra")[0];
   const overlay = document.getElementById("navbar-overlay");
+  ;
 
   const breakpoint = 1291;
 
@@ -25,9 +26,13 @@ const header = () => {
     const parentItem = trigger.closest(".navbar__item--has-dropdown");
 
 
-    // opening targeted dropdown
+
+    let closeTimer = null;
+
+
+    // opening target dropdown
     const openDropdown = () => {
-      // closing all the dropdowns 
+      clearTimeout(closeTimer);
       triggers.forEach((other) => {
         if (other !== trigger) {
           other.setAttribute("aria-expanded", "false");
@@ -43,35 +48,38 @@ const header = () => {
       }
     };
 
-    // closing dropdown
+    // closing the dropdown
     const closeDropdown = () => {
       trigger.setAttribute("aria-expanded", "false");
       dropdown.classList.remove("navbar__dropdown--open");
-
       if (!document.querySelector(".navbar__dropdown--open")) {
         overlay.classList.remove("navbar-overlay--visible");
       }
     };
 
-    // Mouse events
-    parentItem.addEventListener("mouseenter", openDropdown);
-    parentItem.addEventListener("mouseleave", closeDropdown);
+    // using timeout since we have small gap below the dropdown button and the dropdown box so that it won't close immediately
+    parentItem.addEventListener("mouseenter", () => {
+      clearTimeout(closeTimer);
+      openDropdown();
+    });
 
+    parentItem.addEventListener("mouseleave", () => {
+      closeTimer = setTimeout(closeDropdown, 150);
+    });
 
     parentItem.addEventListener("focusin", (e) => {
-  if (e.target === trigger || parentItem.contains(e.target)) {
-    openDropdown();
-  }
-});
+      if (e.target === trigger || parentItem.contains(e.target)) {
+        openDropdown();
+      }
+    });
 
-parentItem.addEventListener("focusout", (e) => {
-  // if the focus is still in the dropdown we return
-  if (parentItem.contains(e.relatedTarget)) 
-    return;
-  closeDropdown();
-});
+    parentItem.addEventListener("focusout", (e) => {
+      if (parentItem.contains(e.relatedTarget))
+        return;
+      closeDropdown();
+    });
 
-    
+
   });
 
   // closing dropdown when clicking outside
@@ -84,7 +92,7 @@ parentItem.addEventListener("focusout", (e) => {
       });
       overlay.classList.remove("navbar-overlay--visible");
     }
-  });
+  })
 
   // Closing dropdown when clicking overlay
   overlay.addEventListener("click", () => {
@@ -96,11 +104,11 @@ parentItem.addEventListener("focusout", (e) => {
     overlay.classList.remove("navbar-overlay--visible");
   });
 
- 
+
   const header = document.querySelector(".header");
 
   // Reset mobile state when resizing
-  window.addEventListener("resize", () => { 
+  window.addEventListener("resize", () => {
 
     if (window.innerWidth >= breakpoint) {
       toggleIcon.setAttribute("aria-expanded", "false");
@@ -137,7 +145,7 @@ parentItem.addEventListener("focusout", (e) => {
       return;
     }
 
-  
+
     if (!scrollingUp) {
       header?.classList.add("header--hidden");
       console.log('it should hide')
@@ -146,9 +154,9 @@ parentItem.addEventListener("focusout", (e) => {
 
 
     header.classList.remove("header--hidden");
-  
-   
-    
+
+
+
   });
 };
 
