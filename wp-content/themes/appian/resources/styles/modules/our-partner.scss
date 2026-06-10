@@ -1,0 +1,181 @@
+
+@import '../common';
+
+.our-partner-wrapper{
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.our-partner {
+  
+  $padding-sm: 1.8125rem;
+  $padding-xl: 5rem;
+  $tick-h-sm: 1.75rem;
+  $tick-h-xl: 3.5rem;
+  $row-h-sm: 100px;
+  $row-h-xl: 166px;
+  $row-w-sm: 160px;
+  $row-w-xl: 320px;
+  $cols-sm: 2;
+  $cols-xl: 4;
+  $border-col: $color-neutral-100;
+
+  padding-top: 3rem;
+  padding-bottom: 4.75rem;
+  // max-width: 1440px;
+
+  @include media-breakpoint-up(xl) {
+    padding-top: 5rem;
+    padding-bottom: 8.5rem;
+  }
+
+  &__heading {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 4rem;
+
+    @include media-breakpoint-up(xl) {
+      margin-bottom: 5.5rem;
+    }
+  }
+
+  &__grid-wrapper {
+    position: relative;
+    overflow: hidden;
+    padding: $tick-h-sm $padding-sm;
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: $tick-h-sm;
+      pointer-events: none;
+      background-image: linear-gradient(to right, $border-col 1px, transparent 1px);
+      background-repeat: repeat-x;
+      background-size: calc((100% - #{$padding-sm * 2}) / #{$cols-sm}) 100%;
+    }
+
+    &::before {
+      top: 0;
+      background-position: #{$padding-sm} 0;
+    }
+
+    &::after {
+      bottom: 0;
+      background-position: #{$padding-sm} 0;
+    }
+
+    @include media-breakpoint-up(xl) {
+      padding: $tick-h-xl $padding-xl;
+
+      &::before,
+      &::after {
+        height: $tick-h-xl;
+        background-size: calc((100% - #{$padding-xl * 2}) / #{$cols-xl}) 100%;
+      }
+
+      &::before {
+        background-position: #{$padding-xl} 0;
+      }
+
+      &::after {
+        background-position: #{$padding-xl} 0;
+      }
+    }
+  }
+
+  &__partner-grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(#{$cols-sm}, 1fr);
+    grid-auto-rows: $row-h-sm;
+    border-top:  0.0625rem solid $border-col;
+    border-left: 0.0625rem solid $border-col;
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      top: -$tick-h-sm;
+      bottom: -$tick-h-sm;
+      width: $padding-sm;
+      pointer-events: none;
+      background-image: linear-gradient(to bottom, $border-col 1px, transparent 1px);
+      background-repeat: repeat-y;
+      background-size: 100% $row-h-sm;
+    }
+
+    &::before {
+      left: -$padding-sm;
+      background-position: 0 #{$tick-h-sm};
+    }
+
+    &::after {
+      right: -$padding-sm;
+      background-position: 0 #{$tick-h-sm};
+    }
+
+    @include media-breakpoint-up(xl) {
+      grid-template-columns: repeat(#{$cols-xl}, 1fr);
+      grid-auto-rows: $row-h-xl;
+
+      &::before,
+      &::after {
+        top: -$tick-h-xl;
+        bottom: -$tick-h-xl;
+        width: $padding-xl;
+        background-size: 100% $row-h-xl;
+      }
+
+      &::before {
+        left: -$padding-xl;
+        background-position: 0 #{$tick-h-xl};
+      }
+
+      &::after {
+        right: -$padding-xl;
+        background-position: 0 #{$tick-h-xl};
+      }
+    }
+  }
+
+  &__single-partner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: clamp(10rem, 6.4789rem + 15.0235vw, 20rem);
+    min-height: 0;
+    border-right:  0.0625rem solid $border-col;
+    border-bottom: 0.0625rem solid $border-col;
+
+
+    &--cta {
+      padding: 1rem;
+    }
+  }
+
+  &__img-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+
+    img {
+      display: block;
+      max-height: 100%;
+      max-width: 100%;
+      object-fit: contain;
+    }
+  }
+}
+
+.btn-tertiary {
+  border-bottom: none !important;
+}
