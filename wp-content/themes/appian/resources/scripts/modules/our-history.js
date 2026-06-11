@@ -47,7 +47,7 @@ class OurHistoryModule {
     scrollTimeline(direction) {
         if (!this.scrollContainer) return;
 
-        const scrollAmount = 400;
+        const scrollAmount = 550;
         const currentScroll = this.scrollContainer.scrollLeft;
 
         if (direction === 'prev') {
