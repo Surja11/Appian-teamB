@@ -16,17 +16,22 @@ $video_url    = $video ? esc_url( $video['url'] ) : '';
 
 <!-- outer ellipse -->
     <div class="home-leadspace__outer-ellipse">
-
-    <!-- the scrolling arc -->
-        <span class="home-leadspace__scroll-ellipse"></span>
+         <span class="home-leadspace__scroll-ellipse"></span>
 
         <!-- inner ellipse -->
         <div class="home-leadspace__inner-ellipse">
+
+                  <!-- the scrolling arc -->
+       
+
+
             <?php if ( $video_url ) : ?>
+                <div class="video-container">
             <video autoplay muted loop playsinline class="home-leadspace__video" preload="auto">
                 <source src="<?php echo $video_url; ?>" type="video/mp4">
                 Your browser does not support the HTML video tag.
             </video>
+                </div>
             <?php endif; ?>
 
             <!-- overlay -->
@@ -34,7 +39,8 @@ $video_url    = $video ? esc_url( $video['url'] ) : '';
 
 
             <!-- text content -->
-            <div class="home-leadspace__text-content d-flex flex-column position-absolute">
+             <div class="text-container">
+            <div class="home-leadspace__text-content d-flex flex-column">
                 <?php if ( $eyebrow_text ) : ?>
                 <div class="home-leadspace__eyebrow">
                     <span class="body body-small-all text-capitalize">
@@ -56,6 +62,7 @@ $video_url    = $video ? esc_url( $video['url'] ) : '';
                 </div>
 
             </div>
+             </div>
         </div>
     </div>
     </div>

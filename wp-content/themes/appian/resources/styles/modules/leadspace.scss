@@ -38,6 +38,7 @@
         border-radius: 100%;
         border: 0.5rem solid transparent;
         border-left-color: $color-primary-red;
+        border-top-color: $color-primary-red;
         will-change: transform;
         transition: transform 500ms ease-in-out;
         pointer-events: none;
@@ -46,31 +47,32 @@
 
     &__inner-ellipse {
         border-radius: 50%;
-        position: absolute;
+        position: relative;
         top: -15px;
         z-index: 10;
         height: 100%;
         width: 100%;
         overflow: hidden;
     }
-
+   
     &__video {
         width: 100%;
         height: 100%;
         border-radius: inherit;
         object-fit: cover;
+        @include media-breakpoint-up(lg){
+            height: 160%;
+            object-fit: contain;
+        }
     }
 
     &__text-content {
         z-index: 20;
         color: $color-neutral-50;
-        position: absolute;
         gap: 2rem;
 
-        // mobile: fixed distance from ellipse left edge
-        left: 50%;
-        transform: translateX(-50%);
-        bottom: 213px;
+        // left: 50%;
+        // transform: translateX(-50%);
         max-width: clamp(318px, calc(318px + (832 - 318) * ((100vw - 375px) / (1440 - 375))), 832px);
         text-align: center;
 
@@ -108,12 +110,27 @@
     }
 
     &__overlay {
-        // position: absolute;
+        position: absolute;
         // inset: 0;
         background: linear-gradient(to top, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0));
         opacity: 40%;
         pointer-events: none;
         z-index: 15;
+        height: 100%;
+        width: 100%;
 
     }
 }
+
+ .video-container{
+        position: absolute;
+        height: 100%
+    }
+    .text-container{
+        position: relative;
+        bottom: 200px;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        height: 100%;
+    }
