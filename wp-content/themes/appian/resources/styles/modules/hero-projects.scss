@@ -84,7 +84,7 @@
 
     &__feature-image {
         border-radius: 0.625rem;
-        background-size: cover;
+        background-size: 250%;
         background-position: center;
         background-repeat: no-repeat;
         height: clamp(14.25rem, 20vw, 28.5rem);
@@ -102,7 +102,7 @@
         
         @include media-breakpoint-up(xl) {
             grid-column: span 2;
-            height: 28.5rem;
+            height: 28.5rem; // 456px
         }
     }
 }
