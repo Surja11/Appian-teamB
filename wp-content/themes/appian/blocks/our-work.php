@@ -5,6 +5,16 @@ $tabs = $our_work['tab'] ?? [];
 
 if (empty($tabs)) return;
 
+$valid_tabs = array_values(array_filter($tabs, function ($tab) {
+    $name = trim($tab['work-heading'] ?? '');
+    $title = trim($tab['title'] ?? '');
+    $content = trim($tab['content'] ?? '');
+    $image  = $tab['image'] ?? null;
+    $has_image = is_array($image) ? !empty($image['url']) : !empty($image);
+
+    return !empty($name) && ($title || $content || $has_image);
+}));
+
 
 // chevron-right-icon for accordion
 $chevron = '<svg class="our-work__chevron" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -33,7 +43,7 @@ $chevron = '<svg class="our-work__chevron" width="24" height="24" viewBox="0 0 2
 
 
 <!-- our work section -->
-<section class="our-work pt-16 pb-16 ps-7 pe-7 ps-lg-65 pe-lg-55 pt-lg-27 pb-lg-27 d-flex flex-column justify-content-center">
+<section class="our-work pt-16 pb-16 ps-7 pe-7 ps-xl-65 pe-xl-55 pt-xl-27 pb-xl-27 d-flex flex-column justify-content-center">
     <!-- texture overlay that covers entire our-work section -->
     <div class="our-work__overlay"></div>
 
@@ -43,20 +53,25 @@ $chevron = '<svg class="our-work__chevron" width="24" height="24" viewBox="0 0 2
         <picture>
             <source
                 media="(min-width: 1200px)"
-                srcset="<?php echo get_template_directory_uri(); ?>/resources/images/divider.svg">       
+                srcset="<?php echo get_template_directory_uri(); ?>/resources/images/divider.svg">
             <img
                 src="<?php echo get_template_directory_uri(); ?>/resources/images/divider-small.svg"
                 alt="">
         </picture>
     </div>
 
+
+
     <!-- tabs for large screens -->
     <div class="our-work__tabs-container">
         <ul class="our-work__tabs d-none d-xl-flex justify-content-center list-unstyled mb-0" id="ourWorkTabs" role="tablist">
-            <?php foreach ($tabs as $index => $tab) :
-                $tab_id    = 'tab' . ($index + 1);
+            <?php foreach ($valid_tabs as $index => $tab) :
+                $tab_id = 'tab' . ($index + 1);
                 $is_active = ($index === 0);
-                $tab_name     = explode(' ',$tab['work-heading'])[0] ?? ('Tab ' . ($index + 1));
+                $tab_name = explode(' ', $tab['work-heading'])[0] ?? ('Tab ' . ($index + 1));
+                if (empty($tab_name)) {
+                    continue;
+                }
             ?>
                 <li class="our-work__tab-item" role="presentation">
                     <button
@@ -77,14 +92,17 @@ $chevron = '<svg class="our-work__chevron" width="24" height="24" viewBox="0 0 2
     <!-- tab content for large screens -->
     <div class="our-work__tab-content d-none d-xl-block" id="ourWorkTabContent">
         <!-- fetching repeater data from backend -->
-        <?php foreach ($tabs as $index => $tab) :
+        <?php foreach ($valid_tabs as $index => $tab) :
             $tab_id = 'tab' . ($index + 1);
             $is_active = ($index === 0);
-            $title = $tab['title']   ?? '';
+            $title = $tab['title'] ?? '';
             $content = $tab['content'] ?? '';
-            $image = $tab['image']   ?? null;
+            $image = $tab['image'] ?? null;
             $image_url = is_array($image) ? ($image['url'] ?? '') : $image;
-            $image_alt = is_array($image) ? ($image['alt'] ?? $title) : $title;
+            $image_alt = is_array($image) ? (empty($image['alt']) ? $title:$image['alt']) : $title;
+            if (empty($title) && empty($content) && empty($image)) {
+                continue;
+            }
         ?>
 
             <div
@@ -92,7 +110,7 @@ $chevron = '<svg class="our-work__chevron" width="24" height="24" viewBox="0 0 2
                 id="<?php echo esc_attr($tab_id); ?>-content"
                 role="tabpanel"
                 aria-labelledby="<?php echo esc_attr($tab_id); ?>-tab">
-                <div class="our-work__tab-body pt-4 pb-5 p-lg-0 d-flex flex-row-reverse justify-content-center align-items-center">
+                <div class="our-work__tab-body pt-4 pb-5 p-xl-0 d-flex flex-row-reverse justify-content-center align-items-center">
                     <?php if ($image_url) : ?>
                         <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($image_alt); ?>">
                     <?php endif; ?>
@@ -109,15 +127,19 @@ $chevron = '<svg class="our-work__chevron" width="24" height="24" viewBox="0 0 2
     <div class="accordion d-xl-none pt-9" id="accordionExample">
 
         <!-- fetching from backend  -->
-        <?php foreach ($tabs as $index => $tab) :
+        <?php foreach ($valid_tabs as $index => $tab) :
             $collapse_id = 'collapse' . ($index + 1);
             $is_active = ($index === 0);
             $name = $tab['work-heading'] ?? ('Tab ' . ($index + 1));
             $title = $tab['title'] ?? '';
             $content = $tab['content'] ?? '';
             $image = $tab['image'] ?? null;
-            $image_url   = is_array($image) ? ($image['url'] ?? '') : $image;
-            $image_alt = is_array($image) ? ($image['alt'] ?? $title) : $title;
+            $image_url = is_array($image) ? ($image['url'] ?? '') : $image;
+            $image_alt = is_array($image) ? (empty($image['alt']) ? $title : $image['alt']) : $title;
+
+            if (empty($name) || (empty($title) && empty($content) && empty($image))) {
+                continue;
+            }
         ?>
             <div class="accordion-item pb-6">
                 <h2 class="accordion-header">
