@@ -186,7 +186,7 @@
     width: 100%;
     height: auto;
 
-    // Above mobile to small screens (377px-575px) - vertical layout
+    // Above mobile to small screens (377px-575px)
     @media (min-width: 377px) and (max-width: 575px) {
         flex-direction: column;
         height: auto;
@@ -578,5 +578,33 @@
 
     &:last-child {
         margin-bottom: 0 !important;
+    }
+}
+// Close button styling when no images
+.history-modal__close--no-image {
+    svg {
+        stroke: $color-neutral-600 !important;
+        fill: $color-neutral-600 !important;
+
+        path {
+            stroke: $color-neutral-600 !important;
+            fill: $color-neutral-600 !important;
+        }
+    }
+
+    &:hover {
+        svg,
+        svg path {
+            stroke: $color-primary-red !important;
+            fill: $color-primary-red !important;
+        }
+    }
+}
+
+@include media-breakpoint-down(md) {
+    .history-modal--no-image {
+        .history-modal__text-section {
+            padding-top: map-get($spacers, 16) !important;
+        }
     }
 }
