@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
         tabButtons.forEach((btn, i) => {
             btn.classList.remove("active");
             btn.setAttribute("aria-selected", "false");
+            btn.setAttribute("tabindex", "-1");
         });
 
         // removing all active tab panes
@@ -32,6 +33,8 @@ document.addEventListener("DOMContentLoaded", function () {
         if (tabButtons[index]) {
             tabButtons[index].classList.add("active");
             tabButtons[index].setAttribute("aria-selected", "true");
+            tabButtons[index].setAttribute("tabindex", "0"); 
+            tabButtons[index].focus(); 
         }
 
         // adding active to corresponding pane
