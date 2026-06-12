@@ -3,17 +3,30 @@
 .hero-project-card {
     position: relative;
     width: 100%;
-    min-height: 28.5rem;
+    height: 456px !important; 
+    min-height: 456px !important;
+    max-height: 456px !important;
     border-radius: 0.625rem;
     border: 0.0625rem solid $color-neutral-50;
     overflow: hidden;
+
+    @media (max-width: 375px) {
+        width: 319px !important;
+        max-width: 319px !important;
+    }
+    
+    @media (min-width: 1440px) {
+        width: 311px !important;
+        max-width: 311px !important;
+    }
 
     &__link {
         display: block;
         position: relative;
         width: 100%;
-        height: 100%;
-        min-height: 28.5rem;
+        height: 456px !important;
+        min-height: 456px !important;
+        max-height: 456px !important;
         text-decoration: none;
         color: inherit;
     }
@@ -127,7 +140,31 @@
         margin-top: 0.3125rem;
     }
 
-    &:hover {
+    // Accessibility
+    &__link:focus {
+        outline: 3px solid $color-primary-red;
+        outline-offset: 2px;
+        border-radius: 0.625rem;
+    }
+
+    &__link:focus-visible {
+        outline: 3px solid $color-primary-red;
+        outline-offset: 2px;
+        border-radius: 0.625rem;
+    }
+
+    &:focus-within {
+        .hero-project-card__link {
+            outline: 3px solid $color-primary-red;
+            outline-offset: 2px;
+            border-radius: 0.625rem;
+        }
+    }
+
+    &:hover,
+    &:focus-within,
+    &__link:focus,
+    &__link:focus-visible {
         .hero-project-card__image-wrap {
             opacity: 0;
             transition: opacity 0.5s ease 0.3s;
@@ -145,54 +182,6 @@
             opacity: 1;
             transform: translateY(0);
             transition-delay: 0.3s;
-        }
-    }
-
-    @include media-breakpoint-up(md) {
-        @include media-breakpoint-down(lg) {
-            min-height: 22rem;
-
-            &__link {
-                min-height: 22rem;
-            }
-        }
-    }
-
-    @include media-breakpoint-up(lg) {
-        @include media-breakpoint-down(xl) {
-            min-height: 24rem;
-
-            &__link {
-                min-height: 24rem;
-            }
-        }
-    }
-
-    @include media-breakpoint-up(xl) {
-        @include media-breakpoint-down(xxl) {
-            min-height: 26rem;
-
-            &__link {
-                min-height: 26rem;
-            }
-        }
-    }
-
-    @include media-breakpoint-up(xxl) {
-        width: auto; 
-        min-height: 28.5rem;
-        flex-shrink: 0;
-        padding-top: 0.625rem;
-        padding-bottom: 0.625rem;
-
-        &__link {
-            min-height: 28.5rem;
-        }
-
-        &:hover {
-            .hero-project-card__content {
-                bottom: 6.875rem;
-            }
         }
     }
 }
