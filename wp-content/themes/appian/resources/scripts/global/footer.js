@@ -1,52 +1,79 @@
+document.addEventListener('DOMContentLoaded', function () {
 
-        document.addEventListener('DOMContentLoaded', function() {
-            var subscribeForm = document.querySelector('.footer-subscribe');
-            var subscribeWrapper = document.querySelector('.footer-subscribe-wrapper');
-            var emailInput = document.querySelector('.footer-subscribe__input');
+    var subscribeWrapper = document.querySelector('.custom-footer__subscribe');
+    var subscribeForm    = document.querySelector('.custom-footer__form');
+    var emailInput       = document.querySelector('.custom-footer__input');
+    var errorEl          = document.querySelector('.custom-footer__input-error');
+    var thankYou         = document.querySelector('.custom-footer__thank-you');
 
-            var submittedEmails = ['test@heffroncompany.com', 'admin@heffroncompany.com'];
+    if (!subscribeForm || !subscribeWrapper || !emailInput) return;
 
-            if (subscribeForm && subscribeWrapper && emailInput) {
-                subscribeForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    var emailValue = emailInput.value.trim().toLowerCase();
+    var submittedEmails = JSON.parse(localStorage.getItem('footer_subscribed_emails') || '[]');
 
-                    if (emailValue === "") {
-                        alert("Error: Email field is required.");
-                        emailInput.focus();
-                        return;
-                    }
 
-                    if (!emailInput.checkValidity()) {
-                        emailInput.reportValidity();
-                        return;
-                    }
+    function showError(msg) {
+        if (errorEl) {
+            errorEl.textContent = msg;
+            errorEl.setAttribute('aria-live', 'polite');
+        }
+        emailInput.focus();
+    }
 
-                    var emailParts = emailValue.split('@');
-                    var localPart = emailParts[0] || "";
+    function clearError() {
+        if (errorEl) errorEl.textContent = '';
+    }
 
-                    if (localPart.length > 64) {
-                        alert("Error: The local part of the email address (before the @ symbol) cannot exceed 64 characters.");
-                        emailInput.focus();
-                        return;
-                    }
+    emailInput.addEventListener('input', clearError);
 
-                    // Validate the complete email address limit (RFC specification)
-                    if (emailValue.length > 254) {
-                        alert("Error: The total email address cannot exceed 254 characters.");
-                        emailInput.focus();
-                        return;
-                    }
+  
+    subscribeForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        clearError();
 
-                    if (submittedEmails.indexOf(emailValue) !== -1) {
-                        alert("Error: This email address is already subscribed.");
-                        emailInput.focus();
-                        return;
-                    }
+        var emailValue = emailInput.value.trim().toLowerCase();
 
-                    submittedEmails.push(emailValue);
-                    subscribeWrapper.classList.add('is-submitted');
-                });
-            }
-        });
-    
+        if (emailValue === '') {
+            showError('Email field is required.');
+            return;
+        }
+
+  
+        if (!emailInput.checkValidity()) {
+            showError('Please enter a valid email address.');
+            return;
+        }
+
+   
+        var localPart = emailValue.split('@')[0] || '';
+        if (localPart.length > 64) {
+            showError('The part before @ cannot exceed 64 characters.');
+            return;
+        }
+
+        if (emailValue.length > 254) {
+            showError('The email address cannot exceed 254 characters.');
+            return;
+        }
+        if (submittedEmails.indexOf(emailValue) !== -1) {
+            showError('This email address is already subscribed.');
+            return;
+        }
+
+        submittedEmails.push(emailValue);
+        localStorage.setItem('footer_subscribed_emails', JSON.stringify(submittedEmails));
+
+     
+        var label = subscribeWrapper.querySelector('.custom-footer__label');
+        var form  = subscribeWrapper.querySelector('.custom-footer__form');
+        var error = subscribeWrapper.querySelector('.custom-footer__input-error');
+        var thanks = subscribeWrapper.querySelector('.custom-footer__thank-you');
+
+        if (label) label.style.display = 'none';
+        if (form)  form.style.display  = 'none';
+        if (error) error.style.display = 'none';
+        if (thanks) {
+            thanks.style.display = 'block';
+        }
+    });
+
+});

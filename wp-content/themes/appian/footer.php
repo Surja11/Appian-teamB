@@ -3,182 +3,158 @@ $footer  = get_field('footer', 'option');
 
 $address = $footer['address'] ?? [];
 $contact = $footer['contact'] ?? [];
-$phone  = $contact['phone_number'] ?? '';
-$fax = $contact['fax_number'] ?? [];
+$phone   = $contact['phone_number'] ?? '';
+$fax     = $contact['fax_number'] ?? [];
 $explore = $footer['explore'] ?? [];
-$logo = $footer['logo'] ?? null;
+$logo    = $footer['logo'] ?? null;
 ?>
 
-<footer id="colophon" class="site-footer custom-footer" role="contentinfo">
-    <div class="footer-blueprint-container">
-        <div class="footer-blueprint-row">
+<footer class="custom-footer">
+    <div class="row-wrapper container">
+        <div class="row custom-footer__row">
 
-            <div class="footer-col footer-col--subscribe">
-                <div class="footer-left-layout-engine">
+            <div class="col-12 col-lg-4 custom-footer__col custom-footer__col--brand">
 
-                    <?php if (!empty($logo['url'])) : ?>
-                        <div class="footer-logo-wrapper">
-                            <a href="<?php echo esc_url(home_url('/')); ?>" aria-label="Go to homepage">
-                                <img
-                                    src="<?php echo esc_url($logo['url']); ?>"
-                                    alt="<?php echo esc_attr($logo['alt'] ?? 'Company Logo'); ?>"
-                                    class="footer-logo">
-                            </a>
-                        </div>
+                <?php if (!empty($logo['url'])) : ?>
+                    <a href="<?php echo esc_url(home_url('/')); ?>" class="custom-footer__logo" aria-label="Go to homepage">
+                        <img
+                            src="<?php echo esc_url($logo['url']); ?>"
+                            alt="<?php echo esc_attr($logo['alt'] ?? 'Logo'); ?>">
+                    </a>
+                <?php endif; ?>
+
+                <div class="custom-footer__subscribe">
+                    <?php if (!empty($footer['subscribe'])) : ?>
+                        <label class="custom-footer__label" for="footer-email">
+                            <?php echo esc_html($footer['subscribe']); ?>
+                        </label>
                     <?php endif; ?>
 
-                    <section class="footer-subscribe-wrapper" aria-label="Newsletter Subscription">
-                        <?php if (!empty($footer['subscribe'])) : ?>
-                            <p class="footer-heading label-text"><?php echo esc_html($footer['subscribe']); ?></p>
-                        <?php endif; ?>
-
-                        <form class="footer-subscribe" novalidate>
+                    <form class="custom-footer__form" novalidate>
+                        <div class="custom-footer__input-group">
                             <input
+                                id="footer-email"
                                 type="email"
-                                class="footer-subscribe__input"
+                                class="custom-footer__input"
                                 placeholder="Email *"
                                 aria-label="Email address for subscription"
                                 required>
-                            <button class="footer-subscribe__btn" type="submit" aria-label="Submit subscription">
-                                <svg class="subscribe-arrow-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                                    <polyline points="12 5 19 12 12 19"></polyline>
-                                </svg>
+                            <button class="custom-footer__submit" type="submit" aria-label="Submit subscription">
+                               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M5 12H19M13 18L19 12L13 6" stroke="white" stroke-width="2" stroke-miterlimit="5.75877" stroke-linecap="square"/>
+</svg>
+
                             </button>
-                        </form>
+                        </div>
+                    </form>
 
-                        <p class="thank-you-msg"><?php echo !empty($footer['thank_you_msg']) ? esc_html($footer['thank_you_msg']) : 'THANK YOU FOR SUBSCRIPTION'; ?></p>
-                    </section>
-
+                    <p class="custom-footer__thank-you"><?php echo !empty($footer['thank_you_msg']) ? esc_html($footer['thank_you_msg']) : 'THANK YOU FOR SUBSCRIPTION'; ?></p>
                 </div>
+
             </div>
 
-            <div class="footer-col footer-col--address">
-                <div class="footer-middle-layout-engine">
+            <div class="col-12 col-lg-4 custom-footer__col custom-footer__col--contact">
 
-                    <div class="footer-info-group">
-                        <?php if (!empty($address['address_title']) || !empty($address['company_name']) || !empty($address['street_address']) || !empty($address['city']) || !empty($address['state_abbrevation']) || !empty($address['zip'])) : ?>
-                            <section class="footer-address-block" aria-label="<?php echo esc_attr($address['address_title'] ?? 'Address'); ?>">
-                                <p class="footer-heading">
-                                    <?php echo esc_html($address['address_title'] ?? 'Address'); ?>
-                                </p>
+                <?php if (!empty($address['address_title']) || !empty($address['company_name']) || !empty($address['street_address'])) : ?>
+                    <div class="custom-footer__section custom-footer__section--address">
+                        <span class="custom-footer__label">
+                            <?php echo esc_html($address['address_title'] ?? 'Address'); ?>
+                        </span>
+                        <address class="custom-footer__text">
+                            <?php if (!empty($address['company_name'])) : ?>
+                                <?php echo esc_html($address['company_name']); ?><br>
+                            <?php endif; ?>
+                            <?php echo esc_html($address['street_address'] ?? ''); ?><br>
+                            <?php echo esc_html($address['city'] ?? ''); ?>,
+                            <?php echo esc_html($address['state_abbrevation'] ?? ''); ?>
+                            <?php echo esc_html($address['zip'] ?? ''); ?>
+                        </address>
+                    </div>
+                <?php endif; ?>
 
-                                <div class="footer-content-serif">
-                                    <?php if (!empty($address['company_name'])) : ?>
-                                        <p class="company-name"><?php echo esc_html($address['company_name']); ?></p>
-                                    <?php endif; ?>
-
-                                    <p class="fax-text-muted">
-                                        <?php echo esc_html($address['street_address'] ?? ''); ?><br>
-                                        <?php echo esc_html($address['city'] ?? ''); ?>,
-                                        <?php echo esc_html($address['state_abbrevation'] ?? ''); ?>
-                                        <?php echo esc_html($address['zip'] ?? ''); ?>
-                                    </p>
-
-                                </div>
-                            </section>
+                <div class="custom-footer__section custom-footer__section--contact-info">
+                    <span class="custom-footer__label">
+                        <?php echo esc_html($contact['contact_title'] ?? 'Contact'); ?>
+                    </span>
+                    <p class="custom-footer__text">
+                        <?php
+                        $phone_label = $phone['phone_eyebrow'] ?? 'Phone';
+                        $phone_str   = is_array($phone) ? ($phone['phone_number'] ?? '') : '';
+                        if (!empty($phone_str)) :
+                            $clean_phone  = preg_replace('/[^0-9]/', '', $phone_str);
+                            $phone_output = strlen($clean_phone) === 10
+                                ? '(' . substr($clean_phone, 0, 3) . ') ' . substr($clean_phone, 3, 3) . '-' . substr($clean_phone, 6)
+                                : $phone_str;
+                        ?>
+                            <a href="tel:<?php echo esc_attr($clean_phone); ?>">
+                                <?php echo esc_html($phone_label); ?>: <?php echo esc_html($phone_output); ?>
+                            </a><br>
                         <?php endif; ?>
 
-                        <section class="footer-contact-block" aria-label="Contact Information">
-                            <p class="footer-heading">
-                                <?php echo esc_html(!empty($contact['contact_title']) ? $contact['contact_title'] : 'CONTACT'); ?>
-                            </p>
+                        <?php
+                        $fax_label  = $fax['fax_eyebrow'] ?? 'Fax';
+                        $fax_number = is_array($fax) ? ($fax['fax_number'] ?? '') : '';
+                        if (!empty($fax_number)) :
+                            $clean_fax  = preg_replace('/[^0-9]/', '', $fax_number);
+                            $fax_output = strlen($clean_fax) === 10
+                                ? '(' . substr($clean_fax, 0, 3) . ') ' . substr($clean_fax, 3, 3) . '-' . substr($clean_fax, 6)
+                                : $fax_number;
+                        ?>
+                            <a href="tel:<?php echo esc_attr($clean_fax); ?>">
+                                <?php echo esc_html($fax_label); ?>: <?php echo esc_html($fax_output); ?>
+                            </a><br>
+                        <?php endif; ?>
 
-                            <div class="footer-content-serif">
-                                <?php
-                                $phone_label = $phone['phone_eyebrow'] ?? 'Phone';
-                                $phone_str = is_array($phone) ? ($phone['phone_number'] ?? '') : '';
-
-                                if (!empty($phone_str)) :
-                                    $clean_phone = preg_replace('/[^0-9]/', '', $phone_str);
-
-                                    if (strlen($clean_phone) === 10) {
-                                        $phone_output = '(' . substr($clean_phone, 0, 3) . ') ' . substr($clean_phone, 3, 3) . '-' . substr($clean_phone, 6);
-                                    } else {
-                                        $phone_output = $phone_str;
-                                    }
-                                ?>
-                                    <p>
-                                        <?php echo esc_html($phone_label); ?>:
-                                        <a href="tel:<?php echo esc_attr($clean_phone); ?>" class="footer-interactive-link">
-                                            <?php echo esc_html($phone_output); ?>
-                                        </a>
-                                    </p>
-                                <?php endif; ?>
-
-                                <?php
-                                $fax_label = $fax['fax_eyebrow'] ?? 'Fax';
-                                $fax_number = is_array($fax) ? ($fax['fax_number'] ?? '') : '';
-
-                                if (!empty($fax_number)) :
-                                    $clean_fax = preg_replace('/[^0-9]/', '', $fax_number);
-
-                                    if (strlen($clean_fax) === 10) {
-                                        $fax_output = '(' . substr($clean_fax, 0, 3) . ') ' . substr($clean_fax, 3, 3) . '-' . substr($clean_fax, 6);
-                                    } else {
-                                        $fax_output = $fax_number;
-                                    }
-                                ?>
-                                <p>
-                                    <?php echo esc_html($fax_label); ?>:
-                                    <a
-                                        href="tel:<?php echo esc_attr($clean_fax); ?>"
-                                        class="footer-interactive-link">
-                                        <?php echo esc_html($fax_output); ?>
-                                    </a>
-                                </p>
-                                <?php endif; ?>
-
-
-        <?php if (!empty($contact['email'])) : ?>
-            <p>
-                <a href="mailto:<?php echo esc_attr($contact['email']); ?>" class="footer-interactive-link footer-email-link">
-                    <?php echo esc_html($contact['email']); ?>
-                </a>
-            </p>
-        <?php endif; ?>
-    </div>
-</section>
-                    </div>
-
-                    <div class="linkedin-wrapper">
-                        <a href="<?php echo !empty($footer['linkedin_url']) ? esc_url($footer['linkedin_url']) : '#'; ?>"
-                            target="_blank" rel="noopener noreferrer"
-                            class="linkedin-link" aria-label="Visit our LinkedIn page">
-                            <img
-                                src="<?php echo esc_url(get_template_directory_uri() . '/resources/images/icon-linkedin.svg'); ?>"
-                                alt="LinkedIn"
-                                class="linkedin-icon-svg">
-                        </a>
-                    </div>
-
-                    <div class="footer-layout-absorber"></div>
+                        <?php if (!empty($contact['email'])) : ?>
+                            <a href="mailto:<?php echo esc_attr($contact['email']); ?>">
+                                <?php echo esc_html($contact['email']); ?>
+                            </a>
+                        <?php endif; ?>
+                    </p>
                 </div>
+
+                <?php if (!empty($footer['linkedin_url'])) : ?>
+                    <a href="<?php echo esc_url($footer['linkedin_url']); ?>"
+                       target="_blank" rel="noopener noreferrer"
+                       class="custom-footer__social"
+                       aria-label="Visit our LinkedIn page">
+                        <img
+                            src="<?php echo esc_url(get_template_directory_uri() . '/resources/images/icon-linkedin.svg'); ?>"
+                            alt="LinkedIn"
+                            width="24"
+                            height="24">
+                    </a>
+                <?php endif; ?>
+
             </div>
 
-            <nav class="footer-col footer-col--last" aria-label="Footer Navigation Links">
-                <div class="footer-right-layout-engine">
+            <?php if (!empty($explore['explore_items'])) : ?>
+                <div class="col-12 col-lg-4 custom-footer__col custom-footer__col--nav">
+
                     <?php if (!empty($explore['explore_title'])) : ?>
-                        <span class="footer-heading"><?php echo esc_html($explore['explore_title']); ?></span>
+                        <span class="custom-footer__label" id="footer-nav-label">
+                            <?php echo esc_html($explore['explore_title']); ?>
+                        </span>
                     <?php endif; ?>
 
-                    <?php if (!empty($explore['explore_items'])) : ?>
-                        <ul class="footer-links">
+                    <nav aria-labelledby="footer-nav-label">
+                        <ul class="custom-footer__menu">
                             <?php foreach ($explore['explore_items'] as $item) : ?>
                                 <li>
-                                   <a href="<?php echo esc_url($item['explore_link']['url'] ?? '#'); ?>" 
-   <?php if (!empty($item['explore_link']['target'])) : ?>
-       target="<?php echo esc_attr($item['explore_link']['target']); ?>"
-   <?php endif; ?>
-   class="explore-link">
-    <?php echo esc_html($item['explore_label']); ?>
-</a>
+                                    <a href="<?php echo esc_url($item['explore_link']['url'] ?? '#'); ?>"
+                                       <?php if (!empty($item['explore_link']['target'])) : ?>
+                                           target="<?php echo esc_attr($item['explore_link']['target']); ?>"
+                                       <?php endif; ?>
+                                       class="custom-footer__link subheading-0">
+                                        <?php echo esc_html($item['explore_label']); ?>
+                                    </a>
                                 </li>
                             <?php endforeach; ?>
                         </ul>
-                    <?php endif; ?>
+                    </nav>
+
                 </div>
-            </nav>
+            <?php endif; ?>
 
         </div>
     </div>
@@ -186,5 +162,4 @@ $logo = $footer['logo'] ?? null;
 
 <?php wp_footer(); ?>
 </body>
-
 </html>
