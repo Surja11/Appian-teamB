@@ -27,49 +27,68 @@ endif;
             <div class="timeline-cards-wrapper">
                 
                 <?php foreach ( (array) $history_items as $index => $item ) :
-
-                    $year    = esc_html( $item['title'] );
-                    $content = $item['content'];
-                    $image   = $item['feature_image'];
-                    $img_url = $image ? esc_url( $image['url'] )  : '';
-                    $img_alt = $image ? esc_attr( $image['alt'] ) : esc_attr( $year );
-                    $excerpt = our_history_get_excerpt( $content );
-                    $gallery = ! empty( $item['image_gallery'] ) ? $item['image_gallery'] : [];
-
+                    // Safely extract data with fallbacks
+                    $year    = !empty( $item['title'] ) ? esc_html( $item['title'] ) : '';
+                    $content = !empty( $item['content'] ) ? $item['content'] : '';
+                    $image   = !empty( $item['feature_image'] ) ? $item['feature_image'] : null;
+                    $img_url = $image ? esc_url( $image['url'] ) : '';
+                    $img_alt = $image && !empty( $image['alt'] ) ? esc_attr( $image['alt'] ) : ($year ? esc_attr( $year ) : 'History image');
+                    $excerpt = $content ? our_history_get_excerpt( $content ) : '';
+                    $gallery = !empty( $item['image_gallery'] ) ? $item['image_gallery'] : [];
+                    
+                    // Skip completely empty items
+                    if (empty($year) && empty($content) && empty($img_url) && empty($gallery)) {
+                        continue;
+                    }
+                    
+                    // Generate unique ID for modal
+                    $unique_id = $year ? $year : 'item-' . ($index + 1);
                 ?>
 
-                <div class="history-card" data-year="<?php echo $year; ?>">
+                <!-- History Item <?php echo $year ? $year : 'Item ' . ($index + 1); ?> -->
+                <div class="history-card" data-year="<?php echo esc_attr($unique_id); ?>">
+                    
+                    <!-- Year/Title - Only show if exists -->
+                    <?php if ( $year ) : ?>
                     <div class="history-card__year"><?php echo $year; ?></div>
+                    <?php endif; ?>
+                    
+                    <!-- Image Section - Only show if image exists -->
+                    <?php if ( $img_url ) : ?>
                     <div class="history-card__image-wrapper">
-                        <?php if ( $img_url ) : ?>
                         <img src="<?php echo $img_url; ?>" 
                              alt="<?php echo $img_alt; ?>" 
                              class="history-card__image" />
-                        <?php endif; ?>
                     </div>
+                    <?php endif; ?>
 
-                    <?php if ( ! empty( $gallery ) ) : ?>
+                    <!-- Gallery Section - Only show if gallery exists -->
+                    <?php if ( !empty( $gallery ) ) : ?>
                     <div class="history-card__gallery">
                         <?php foreach ( $gallery as $gallery_image ) : ?>
-                        <div class="history-card__gallery-item">
-                            <img src="<?php echo esc_url( $gallery_image['url'] ); ?>"
-                                 alt="<?php echo ! empty( $gallery_image['alt'] ) ? esc_attr( $gallery_image['alt'] ) : esc_attr( $year ); ?>"
-                                 class="history-card__gallery-image" />
-                        </div>
+                            <?php if ( !empty( $gallery_image['url'] ) ) : ?>
+                            <div class="history-card__gallery-item">
+                                <img src="<?php echo esc_url( $gallery_image['url'] ); ?>"
+                                     alt="<?php echo !empty( $gallery_image['alt'] ) ? esc_attr( $gallery_image['alt'] ) : esc_attr( $year ); ?>"
+                                     class="history-card__gallery-image" />
+                            </div>
+                            <?php endif; ?>
                         <?php endforeach; ?>
                     </div>
                     <?php endif; ?>
 
+                    <!-- Content Section - Only show if content exists -->
                     <?php if ( $content ) : ?>
                     <div class="history-card__content">
                         <p class="history-card__excerpt">
                             <?php echo esc_html( $excerpt ); ?>
                         </p>
+                        <!-- Hidden full content for modal -->
                         <div class="history-card__full-content" style="display: none;">
                             <?php echo wp_kses_post( $content ); ?>
                         </div>
                         <button class="btn btn-link history-card__read-more" 
-                                data-history-id="<?php echo $year; ?>"
+                                data-history-id="<?php echo esc_attr($unique_id); ?>"
                                 data-bs-toggle="modal" 
                                 data-bs-target="#historyModal">
                             Continue Reading

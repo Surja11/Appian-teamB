@@ -24,7 +24,7 @@ class HistoryModalModule {
                 e.stopPropagation();
                 this.openModal(btn.getAttribute('data-history-id'));
             });
-                    });
+        });
 
         document.querySelectorAll('.history-card').forEach(card => {
             card.addEventListener('click', (e) => {
@@ -38,41 +38,45 @@ class HistoryModalModule {
     }
 
     getHistoryData(historyId) {
-    const card = document.querySelector(`.history-card[data-year="${historyId}"]`);
-    if (!card) return null;
+        const card = document.querySelector(`.history-card[data-year="${historyId}"]`);
+        if (!card) return null;
 
-    const year        = card.querySelector('.history-card__year');
-    const fullContent = card.querySelector('.history-card__full-content');
-    const excerpt     = card.querySelector('.history-card__excerpt');
+        const year        = card.querySelector('.history-card__year');
+        const fullContent = card.querySelector('.history-card__full-content');
+        const excerpt     = card.querySelector('.history-card__excerpt');
 
-    let images = [];
+        let images = [];
 
-    // Feature image
-    const primarySrc = card.querySelector('.history-card__image')?.getAttribute('src');
-    if (primarySrc) images.push(primarySrc);
+        // Feature image
+        const primarySrc = card.querySelector('.history-card__image')?.getAttribute('src');
+        if (primarySrc) images.push(primarySrc);
 
-    // Gallery images
-    const galleryImgs = card.querySelectorAll('.history-card__gallery-item img');
-    galleryImgs.forEach(img => {
-        if (img.src) images.push(img.src);
-    });
+        // Gallery images
+        const galleryImgs = card.querySelectorAll('.history-card__gallery-item img');
+        galleryImgs.forEach(img => {
+            if (img.src) images.push(img.src);
+        });
 
-    let content = '';
-    if (fullContent && fullContent.innerHTML.trim()) {
-        content = fullContent.innerHTML.trim();
-    } else if (excerpt) {
-        content = `<p>${excerpt.textContent.trim()}</p>`;
-    } else {
-        content = `<p>No content available.</p>`;
+        let content = '';
+        let hasContent = false;
+        
+        if (fullContent && fullContent.innerHTML.trim()) {
+            content = fullContent.innerHTML.trim();
+            hasContent = true;
+        } else if (excerpt && excerpt.textContent.trim()) {
+            content = `<p>${excerpt.textContent.trim()}</p>`;
+            hasContent = true;
+        }
+
+        return {
+            year: year ? year.textContent.trim() : null,
+            images,
+            text: content,
+            hasYear: !!year,
+            hasImages: images.length > 0,
+            hasContent: hasContent
+        };
     }
-
-    return {
-        year:   year ? year.textContent.trim() : historyId,
-        images,
-        text:   content,
-    };
-}
-
     openModal(historyId) {
         if (!this.modal) return;
         this.currentId    = historyId;
@@ -89,16 +93,48 @@ class HistoryModalModule {
         const data = this.getHistoryData(this.currentId);
         if (!data) return;
 
+        const modalImageSection = this.modal.querySelector('.history-modal__image-section');
         const modalImage = document.getElementById('history-modal-image');
         const modalYear  = document.getElementById('history-modal-year');
         const modalText  = document.getElementById('history-modal-text');
 
-        if (modalImage) {
-            modalImage.src = data.images[this.currentImage] || '';
-            modalImage.alt = `Historical image from ${data.year}`;
+        // Hide entire image section if no images
+        if (data.hasImages && modalImageSection) {
+            modalImageSection.style.display = '';
+            if (modalImage) {
+                modalImage.src = data.images[this.currentImage] || '';
+                modalImage.alt = `Historical image from ${data.year || 'history'}`;
+            }
+
+            const closeBtn = this.modal.querySelector('.history-modal__close');
+            if (closeBtn) {
+                closeBtn.classList.remove('history-modal__close--no-image');
+            }
+            this.modal.classList.remove('history-modal--no-image');
+        } else if (modalImageSection) {
+            modalImageSection.style.display = 'none';
+            const closeBtn = this.modal.querySelector('.history-modal__close');
+            if (closeBtn) {
+                closeBtn.classList.add('history-modal__close--no-image');
+            }
+            this.modal.classList.add('history-modal--no-image');
         }
-        if (modalYear) modalYear.textContent = data.year;
-        if (modalText) modalText.innerHTML   = data.text;
+
+        // Hide if no year
+        if (data.hasYear && modalYear && data.year) {
+            modalYear.textContent = data.year;
+            modalYear.style.display = '';
+        } else if (modalYear) {
+            modalYear.style.display = 'none';
+        }
+
+        // Hide if no content
+        if (data.hasContent && modalText && data.text) {
+            modalText.innerHTML = data.text;
+            modalText.style.display = '';
+        } else if (modalText) {
+            modalText.style.display = 'none';
+        }
 
         this.updateNavState(data);
     }
