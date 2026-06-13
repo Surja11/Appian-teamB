@@ -513,7 +513,6 @@
             flex-direction: column;
             flex-shrink: 0;
             min-height: auto;
-            justify-content: center;
             height: 100%;
         }
     }
@@ -580,7 +579,6 @@
         margin-bottom: 0 !important;
     }
 }
-// Close button styling when no images
 .history-modal__close--no-image {
     svg {
         stroke: $color-neutral-600 !important;

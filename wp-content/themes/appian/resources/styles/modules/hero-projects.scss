@@ -84,25 +84,28 @@
 
     &__feature-image {
         border-radius: 0.625rem;
-        background-size: 250%;
+        background-size: 250%; // Default 250% 
         background-position: center;
         background-repeat: no-repeat;
-        height: clamp(14.25rem, 20vw, 28.5rem);
         
         @include media-breakpoint-down(sm) {
             height: 14.25rem;
+            background-size: 500%;
         }
         
+        // above 375px to below 1440px
         @include media-breakpoint-up(sm) {
             @include media-breakpoint-down(xl) {
                 grid-column: span 1;
-                height: clamp(18rem, 25vw, 24rem);
+                height: 28.5rem; // 456px
+                background-size: 375%;
             }
         }
         
         @include media-breakpoint-up(xl) {
             grid-column: span 2;
             height: 28.5rem; // 456px
+            background-size: 250%;
         }
     }
 }
