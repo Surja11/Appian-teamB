@@ -1,5 +1,13 @@
 $primary: $color-primary-red !default;
 
+body {
+    overflow-x: hidden;
+}
+
+// .container{
+//     max-width: 100% !important;
+// }
+
 .custom-footer {
     background-color: $color-neutral-50;
     border-top: $border-width solid $color-neutral-100;
@@ -14,13 +22,22 @@ $primary: $color-primary-red !default;
         padding-bottom: 5.5rem;
     }
 
-    @include media-breakpoint-up(xxl){
-        margin:auto;
+    .container {
+        @include media-breakpoint-up(xl) {
+            @include media-breakpoint-down(xxl) {
+                padding-left: 0;
+                padding-right: 0;
+            }
+        }
     }
 
-    &row-wrapper{
+    // @include media-breakpoint-up(xxl){
+    //     margin:auto;
+    // }
 
-    }
+    // &row-wrapper{
+
+    // }
 
     &__row {
         // row-gap: 2.5625rem;
@@ -41,7 +58,7 @@ $primary: $color-primary-red !default;
         // padding: 2.5625rem 0;
 
         &--contact {
-            padding-bottom:2.5625rem;
+            padding-bottom: 2.5625rem;
             border-top: none;
             position: relative;
             order: 1;
@@ -52,13 +69,13 @@ $primary: $color-primary-red !default;
                 border-top: none;
                 order: 0;
                 gap: 0;
-                padding-left: 88px !important;
+                padding-left: 5.5rem !important;
 
                 &::before {
                     content: "";
                     position: absolute;
                     top: 0;
-                    left: 24px;
+                    left: 1.5rem;
                     height: 100%;
                     border-right: 1px solid $color-neutral-100;
                 }
@@ -67,7 +84,7 @@ $primary: $color-primary-red !default;
 
         &--brand {
             order: 3;
-            padding:2.5625rem 0rem;
+            padding: 2.5625rem 0rem;
 
             @include media-breakpoint-up(lg) {
                 order: 0;
@@ -96,7 +113,7 @@ $primary: $color-primary-red !default;
                     content: "";
                     position: absolute;
                     top: 0;
-                    left: 24px;
+                    left: 1.5rem;
                     height: 100%;
                     border-right: 1px solid $color-neutral-100;
                 }
@@ -108,7 +125,7 @@ $primary: $color-primary-red !default;
     &__label {
         font-family: $font-family-sans-serif;
         color: $color-primary-red;
-        font-size: 12px;
+        font-size: 0.75rem;
         font-weight: $font-weight-medium;
         text-transform: uppercase;
         letter-spacing: 1.2px;
@@ -167,23 +184,24 @@ $primary: $color-primary-red !default;
         width: 319px;
 
         @include media-breakpoint-up(lg) {
-            width: 350px;
+            width: clamp(19.375rem, 7.5875rem + 18.4vw, 23.6875rem);
         }
-        @include media-breakpoint-up(xl) {
+
+        @include media-breakpoint-up(xxl) {
             width: 381px;
         }
     }
 
     &__input {
         flex: 1;
-        width: 80%;
+        width: 100%;
         height: 3.25rem;
         padding: 0.875rem 4.375rem 0.875rem 1.5rem;
         border: 1.5px solid rgba($color-neutral-600, 0.68);
         border-radius: 8px;
         background: transparent;
         color: $color-neutral-600;
-        font-size: 16px;
+        font-size: 1rem;
         font-family: $font-family-sans-serif;
         outline: none;
         transition: border-color 0.2s ease-in-out;
@@ -231,7 +249,7 @@ $primary: $color-primary-red !default;
     &__thank-you {
         display: none;
         color: $color-primary-red;
-        font-size: 12px;
+        font-size: 0.75rem;
         font-weight: $font-weight-medium;
         text-transform: uppercase;
         letter-spacing: 1.2px;
@@ -255,7 +273,7 @@ $primary: $color-primary-red !default;
         margin: 0;
         font-style: normal;
         font-family: $font-family-heading;
-        font-size: 18px;
+        font-size: 1.25rem;
         line-height: 1.6;
         color: $color-neutral-600;
 
@@ -317,17 +335,17 @@ $primary: $color-primary-red !default;
         display: inline-block;
         transition: color 0.2s ease-in-out;
 
-        font-size: 24px;
+        font-size: 1.5rem;
         line-height: 138%;
         letter-spacing: 0;
 
         @include media-breakpoint-up(sm) {
-            font-size: 26px;
+            font-size: 1.625rem;
             line-height: 145%;
         }
 
         @include media-breakpoint-up(lg) {
-            font-size: 28px;
+            font-size: 1.75rem;
             line-height: 155%;
         }
 

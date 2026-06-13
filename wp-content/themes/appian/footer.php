@@ -48,6 +48,7 @@ $logo    = $footer['logo'] ?? null;
                         </div>
                     </form>
 
+                    <div class="custom-footer__input-error caption-3 pt-3" role="alert"></div>
                     <p class="custom-footer__thank-you"><?php echo !empty($footer['thank_you_msg']) ? esc_html($footer['thank_you_msg']) : 'THANK YOU FOR SUBSCRIPTION'; ?></p>
                 </div>
 
