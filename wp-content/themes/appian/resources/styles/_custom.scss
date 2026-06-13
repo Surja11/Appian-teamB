@@ -398,3 +398,10 @@ $utilities: map-merge(
 //8. Add cards that are used multiple times
 // @import './cards';
 
+body.page {
+    .entry-title, 
+    .page-title, 
+    header.entry-header h1 { 
+        display: none !important; 
+    }
+}
