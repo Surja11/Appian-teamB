@@ -6,7 +6,7 @@ $nav-hover-color: $color-primary-red;
 $nav-border-color: $color-neutral-100;
 $nav-dropdown-bg: $color-neutral-50;
 $nav-dropdown-shadow: $box-shadow;
-$nav-items-gap:clamp(0.9375rem, -6.875rem + 10.4167vw, 2.5rem);
+$nav-items-gap: clamp(0.625rem, calc(-8.75rem + 12.5vw), 2.5rem);
 $nav-gap: clamp(0.9375rem, -20.15625rem + 28.125vw, 5.15625rem);
 $nav-z: 100;
 
@@ -93,8 +93,11 @@ main{
     justify-content: flex-start !important;  
     max-width: 1440px;
     gap:$nav-gap !important;
+
     z-index: $nav-z;
     margin: auto;
+
+
   }
 
   &__top {
@@ -217,9 +220,16 @@ main{
       flex-direction: row;
       align-items: center;
       gap: $nav-items-gap;
-      flex-wrap: wrap;       
+      flex-wrap: wrap;    
+      
 
     }
+
+    @media (min-width: 1370px) and (max-width: 1438px) {
+   
+        gap: clamp(2rem, calc(-21.25rem + 3.125vw), 2.25rem) !important;
+    
+}
   }
 
   &__item {
@@ -238,6 +248,15 @@ main{
 
     &:hover {
       color: $nav-hover-color;
+    }
+
+    &.current-menu-item,
+    &.current-page-ancestor,
+    &.current-menu-ancestor {
+        .navbar__link,
+        .navbar__dropdown-trigger {
+            color: $nav-hover-color;
+        }
     }
   }
 

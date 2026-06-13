@@ -1,10 +1,10 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-    var subscribeWrapper = document.querySelector('.custom-footer__subscribe');
-    var subscribeForm    = document.querySelector('.custom-footer__form');
-    var emailInput       = document.querySelector('.custom-footer__input');
-    var errorEl          = document.querySelector('.custom-footer__input-error');
-    var thankYou         = document.querySelector('.custom-footer__thank-you');
+    let subscribeWrapper = document.getElementsByClassName('custom-footer__subscribe')[0];
+    let subscribeForm= document.getElementsByClassName('custom-footer__form')[0];
+    let emailInput= document.getElementsByClassName('custom-footer__input')[0];
+    let errorDiv= document.getElementsByClassName('custom-footer__input-error')[0];
+    let thankYou= document.querySelector('custom-footer__thank-you');
 
     if (!subscribeForm || !subscribeWrapper || !emailInput) return;
 
@@ -12,15 +12,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     function showError(msg) {
-        if (errorEl) {
-            errorEl.textContent = msg;
-            errorEl.setAttribute('aria-live', 'polite');
+        if (errorDiv) {
+            errorDiv.textContent = msg;
         }
         emailInput.focus();
     }
 
     function clearError() {
-        if (errorEl) errorEl.textContent = '';
+        if (errorDiv) 
+        {errorDiv.textContent = '';}
     }
 
     emailInput.addEventListener('input', clearError);
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
         e.preventDefault();
         clearError();
 
-        var emailValue = emailInput.value.trim().toLowerCase();
+        let emailValue = emailInput.value.trim().toLowerCase();
 
         if (emailValue === '') {
             showError('Email field is required.');
@@ -44,8 +44,8 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
    
-        var localPart = emailValue.split('@')[0] || '';
-        if (localPart.length > 64) {
+        let name = emailValue.split('@')[0] || '';
+        if (name.length > 64) {
             showError('The part before @ cannot exceed 64 characters.');
             return;
         }
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
         if (submittedEmails.indexOf(emailValue) !== -1) {
-            showError('This email address is already subscribed.');
+            showError('This email address has already subscribed.');
             return;
         }
 
@@ -63,10 +63,10 @@ document.addEventListener('DOMContentLoaded', function () {
         localStorage.setItem('footer_subscribed_emails', JSON.stringify(submittedEmails));
 
      
-        var label = subscribeWrapper.querySelector('.custom-footer__label');
-        var form  = subscribeWrapper.querySelector('.custom-footer__form');
-        var error = subscribeWrapper.querySelector('.custom-footer__input-error');
-        var thanks = subscribeWrapper.querySelector('.custom-footer__thank-you');
+        let label = subscribeWrapper.querySelector('.custom-footer__label');
+        let form  = subscribeWrapper.querySelector('.custom-footer__form');
+        let error = subscribeWrapper.querySelector('.custom-footer__input-error');
+        let thanks = subscribeWrapper.querySelector('.custom-footer__thank-you');
 
         if (label) label.style.display = 'none';
         if (form)  form.style.display  = 'none';
