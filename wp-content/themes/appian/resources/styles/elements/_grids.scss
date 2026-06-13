@@ -23,13 +23,6 @@
   }
 }
 
-// From 1440px — container centers itself, no fixed side padding needed
-@media (min-width: 1441px) {
-  :root {
-    --grid-side-gutter: 0px;   // padding removed, auto margin takes over
-  }
-}
-
 .container,
 .container-fluid {
   width: 100%;
@@ -39,8 +32,16 @@
   margin-left: auto;
 }
 
-.container {
-  max-width: 1441px;   // centering kicks in at 1440px+
+// From 1441px — container centers itself, no fixed side padding needed
+@media (min-width: 1441px) {
+  :root {
+    --grid-side-gutter: 0px;   // padding removed, auto margin takes over
+  }
+
+  .container {
+    max-width: 1440px !important; // Cap at 1440 so margins are visible at 1441+
+    margin-inline: auto !important;
+  }
 }
 
 .row {
