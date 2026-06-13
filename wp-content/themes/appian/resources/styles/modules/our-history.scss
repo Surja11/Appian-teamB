@@ -28,13 +28,23 @@ section#our-history-block,
         position: relative;
     }
 
+    @media (min-width: 481px) and (max-width: 575px) {
+        padding: $spacer * 5 0;
+        width: 100%;
+        max-width: none;
+        height: auto;
+    }
+
     @include media-breakpoint-up(sm) {
         @include media-breakpoint-down(md) {
-            @media (min-width: 375px) and (max-width: 767px) {
-                padding: $spacer * 4 $spacer * 1.75 $spacer * 4.813;
+            @media (min-width: 576px) and (max-width: 767px) {
+                padding: $spacer * 5 0;
+                width: 100%;
+                max-width: none;
+                height: auto;
             }
             
-            @media not all and (min-width: 375px) and (max-width: 767px) {
+            @media not all and (min-width: 481px) and (max-width: 767px) {
                 padding: $spacer * 4 $spacer * 3 $spacer * 4.813;
             }
         }
@@ -63,10 +73,21 @@ section#our-history-block,
         padding-left: 1.5rem;
         padding-right: 1.5rem;
 
+        @media (min-width: 481px) and (max-width: 767px) {
+            margin-bottom: $spacer * 6.375;
+            padding-left: 40px;
+            padding-right: 40px;
+        }
+
         @include media-breakpoint-up(md) {
             margin-bottom: $spacer * 6.375;
             padding-left: 80px;
             padding-right: 80px;
+        }
+
+        @media (min-width: 768px) and (max-width: 1024px) {
+            padding-left: 60px;
+            padding-right: 60px;
         }
 
         .our-history__title {
@@ -113,6 +134,26 @@ section#our-history-block,
             overflow-x: visible;
             overflow-y: visible;
             
+            @media (min-width: 481px) and (max-width: 767px) {
+                overflow-x: auto;
+                overflow-y: hidden;
+                scroll-behavior: smooth;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+                width: 100%;
+                
+                padding-left: 40px;
+                padding-right: 0;
+
+                -webkit-mask-image: linear-gradient(to right, transparent 40px, #000 40px);
+                mask-image: linear-gradient(to right, transparent 40px, #000 40px);
+
+                &::-webkit-scrollbar {
+                    display: none;
+                }
+            }
+            
             @include media-breakpoint-up(md) {
                 overflow-x: auto;
                 overflow-y: hidden;
@@ -133,7 +174,13 @@ section#our-history-block,
                 }
             }
 
-            @media (max-width: 1440px) and (min-width: 768px) {
+            @media (min-width: 768px) and (max-width: 1024px) {
+                padding-left: 60px;
+                -webkit-mask-image: linear-gradient(to right, transparent 60px, #000 60px);
+                mask-image: linear-gradient(to right, transparent 60px, #000 60px);
+            }
+
+            @media (min-width: 1025px) and (max-width: 1440px) {
                 padding-left: 80px;
                 -webkit-mask-image: linear-gradient(to right, transparent 80px, #000 80px);
                 mask-image: linear-gradient(to right, transparent 80px, #000 80px);
@@ -146,10 +193,12 @@ section#our-history-block,
             align-items: center;
             width: 100%;
 
-            @media (min-width: 375px) and (max-width: 767px) {
+            @media (min-width: 481px) and (max-width: 767px) {
+                flex-direction: row;
                 align-items: flex-start;
-                padding-left: 0;
-                padding-right: 0;
+                width: max-content;
+                padding-left: 0 !important;
+                padding-right: 40px !important;
             }
 
             @include media-breakpoint-up(md) {
@@ -160,7 +209,11 @@ section#our-history-block,
                 padding-right: calc((100vw - 90rem) / 2 + 80px) !important;
             }
 
-            @media (max-width: 1440px) and (min-width: 768px) {
+            @media (min-width: 768px) and (max-width: 1024px) {
+                padding-right: 60px !important;
+            }
+
+            @media (min-width: 1025px) and (max-width: 1440px) {
                 padding-right: 80px !important;
             }
         }
@@ -180,9 +233,11 @@ section#our-history-block,
             position: relative;
             cursor: pointer;
 
-            @media (min-width: 375px) and (max-width: 767px) {
-                width: 100%;
-                max-width: none;
+            @media (min-width: 481px) and (max-width: 767px) {
+                width: 25rem;
+                height: 28.6875rem;
+                margin-bottom: 0;
+                padding: 0;
             }
 
             &:last-child {
@@ -231,7 +286,7 @@ section#our-history-block,
                 z-index: 3;
                 margin-bottom: $spacer * 1.5;
 
-                @media (min-width: 375px) and (max-width: 767px) {
+                @media (min-width: 481px) and (max-width: 767px) {
                     text-align: left;
                     justify-content: flex-start;
                     margin-left: 0;
@@ -259,6 +314,11 @@ section#our-history-block,
                     width: 100%;
                 }
 
+                @media (min-width: 481px) and (max-width: 767px) {
+                    height: 15.625rem;
+                    width: 100%;
+                }
+
                 .history-card__image {
                     width: 100%;
                     height: 100%;
@@ -271,8 +331,8 @@ section#our-history-block,
                 padding: $spacer * 1.5 0 0 0;
                 background: transparent;
 
-                @media (min-width: 375px) and (max-width: 767px) {
-                    padding: $spacer * 1.5 0 0 0;
+                @media (min-width: 481px) and (max-width: 767px) {
+                    padding: $spacer * 2 0 $spacer * 0.3125;
                 }
 
                 @include media-breakpoint-up(md) {
@@ -296,6 +356,13 @@ section#our-history-block,
                     text-overflow: ellipsis;
 
                     @include media-breakpoint-up(md) {
+                        margin-bottom: $spacer * 1.25;
+                        max-height: 4.5rem;
+                        -webkit-line-clamp: 3 !important;
+                        line-clamp: 3 !important;
+                    }
+
+                    @media (min-width: 481px) and (max-width: 767px) {
                         margin-bottom: $spacer * 1.25;
                         max-height: 4.5rem;
                         -webkit-line-clamp: 3 !important;
@@ -332,6 +399,13 @@ section#our-history-block,
                         max-width: 7.0625rem;
                     }
 
+                    @media (min-width: 481px) and (max-width: 767px) {
+                        font-size: $font-size-sm;
+                        width: 7.0625rem;
+                        height: 1.3125rem;
+                        max-width: 7.0625rem;
+                    }
+
                     &:hover {
                         color: $color-dark-red;
                         text-decoration: underline;
@@ -342,6 +416,18 @@ section#our-history-block,
 
         .timeline-divider {
             display: none;
+
+            @media (min-width: 481px) and (max-width: 767px) {
+                display: block;
+                flex: 0 0 auto;
+                width: 1px;
+                height: 29rem;
+                background-image: url('/wp-content/themes/appian/resources/images/divider-line.png');
+                background-repeat: repeat-y;
+                background-size: 1px 100%;
+                margin-left: $spacer * 4.6875;
+                margin-right: $spacer * 4.6875;
+            }
 
             @include media-breakpoint-up(md) {
                 display: block;
@@ -370,12 +456,25 @@ section#our-history-block,
         margin-left: auto;
         margin-right: auto;
 
+        @media (min-width: 481px) and (max-width: 767px) {
+            display: flex;
+            margin-top: $spacer * 3;
+            margin-bottom: $spacer * 5;
+            padding-left: 40px;
+            padding-right: 40px;
+        }
+
         @include media-breakpoint-up(md) {
             display: flex;
             margin-top: $spacer * 3;
             margin-bottom: $spacer * 5;
             padding-left: 80px;
             padding-right: 80px;
+        }
+
+        @media (min-width: 768px) and (max-width: 1024px) {
+            padding-left: 60px;
+            padding-right: 60px;
         }
 
         .history-nav--prev,
