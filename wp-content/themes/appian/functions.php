@@ -159,12 +159,12 @@ add_action('widgets_init', 'outside_traineeship_biolerplate_widgets_init');
 /**
  * Enqueue scripts and styles.
  */
-function outside_traineeship_biolerplate_scripts()
-{
-    wp_enqueue_style('app-css', vite_assets('resources/styles/app.scss'), true, null,);
-     wp_enqueue_script_module('app-js', vite_assets ('resources/scripts/app.js'), [''], null, []);
-}
-add_action('wp_enqueue_scripts', 'outside_traineeship_biolerplate_scripts', 2);
+// function outside_traineeship_biolerplate_scripts()
+// {
+//     wp_enqueue_style('app-css', vite_assets('resources/styles/app.scss'), true, null,);
+//      wp_enqueue_script_module('app-js', vite_assets ('resources/scripts/app.js'), [''], null, []);
+// }
+// add_action('wp_enqueue_scripts', 'outside_traineeship_biolerplate_scripts', 2);
 
 
 function is_block_preview()
@@ -211,7 +211,6 @@ function theme_assets()
 
     // Vite HMR
     if ($is_dev) {
-
         wp_enqueue_script(
             'vite-client',
             'http://localhost:5173/@vite/client',
@@ -220,16 +219,17 @@ function theme_assets()
             true
         );
 
-        wp_enqueue_script(
+        wp_enqueue_script_module(
             'theme-app',
             'http://localhost:5173/resources/scripts/app.js',
             [],
-            null,
-            true
+            null
         );
 
         return;
     }
+
+
 
     $manifest = theme_vite_manifest();
 

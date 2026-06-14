@@ -1,0 +1,163 @@
+{
+    "key": "group_6a2d9719930cd",
+    "title": "Contact Form Block",
+    "fields": [
+        {
+            "key": "field_6a2d971ab3089",
+            "label": "Title",
+            "name": "title",
+            "type": "text",
+            "instructions": "Enter the main title for the contact form section",
+            "required": 0,
+            "default_value": "A New Chapter in Student Living"
+        },
+        {
+            "key": "field_6a2d9796b308a",
+            "label": "Subtitle",
+            "name": "subtitle",
+            "type": "textarea",
+            "instructions": "Enter the subtitle text that appears below the title",
+            "required": 0,
+            "default_value": "Quisque quis nisl vel elit tristique mollis vel ut ex. Integer et est enim. Nullam sagittis nibh sit amet ornare pretium. Sed eget tellus a ex sagittis accumsan lobortis id ipsum.",
+            "rows": 3
+        },
+        {
+            "key": "field_6a2d97deb308b",
+            "label": "Form Fields",
+            "name": "form_fields",
+            "type": "repeater",
+            "instructions": "Configure the form fields that will appear in the contact form",
+            "required": 0,
+            "layout": "block",
+            "button_label": "Add Field",
+            "sub_fields": [
+                {
+                    "key": "field_6a2d9873eb7b7",
+                    "label": "Field Label",
+                    "name": "field_label",
+                    "type": "text",
+                    "required": 1,
+                    "placeholder": "e.g., First Name"
+                },
+                {
+                    "key": "field_6a2d990beb7b8",
+                    "label": "Field Type",
+                    "name": "field_type",
+                    "type": "select",
+                    "required": 1,
+                    "choices": {
+                        "text": "Text",
+                        "email": "Email",
+                        "tel": "Phone",
+                        "date": "Date",
+                        "select": "Dropdown",
+                        "radio": "Radio Select"
+                    },
+                    "default_value": "text",
+                    "return_format": "value"
+                },
+                {
+                    "key": "field_6a2d99b1eb7b9",
+                    "label": "Required",
+                    "name": "required",
+                    "type": "true_false",
+                    "default_value": 1
+                },
+                {
+                    "key": "field_6a2d99c4eb7ba",
+                    "label": "Default Value",
+                    "name": "default_value",
+                    "type": "text",
+                    "instructions": "Enter option value to pre-select (e.g., 1bedroom). Leave blank for none.",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_6a2d990beb7b8",
+                                "operator": "==",
+                                "value": "select"
+                            }
+                        ],
+                        [
+                            {
+                                "field": "field_6a2d990beb7b8",
+                                "operator": "==",
+                                "value": "radio"
+                            }
+                        ]
+                    ],
+                    "placeholder": "e.g., 1bedroom"
+                },
+                {
+                    "key": "field_contact_inner_choices",
+                    "label": "Field Options List",
+                    "name": "field_options_list",
+                    "type": "repeater",
+                    "instructions": "Configure choices if you selected Dropdown or Radio Select above",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_6a2d990beb7b8",
+                                "operator": "==",
+                                "value": "select"
+                            }
+                        ],
+                        [
+                            {
+                                "field": "field_6a2d990beb7b8",
+                                "operator": "==",
+                                "value": "radio"
+                            }
+                        ]
+                    ],
+                    "layout": "table",
+                    "button_label": "Add Option Selection Row",
+                    "sub_fields": [
+                        {
+                            "key": "field_inner_option_value",
+                            "label": "Option Value",
+                            "name": "option_value",
+                            "type": "text",
+                            "required": 1,
+                            "placeholder": "e.g., studio"
+                        },
+                        {
+                            "key": "field_inner_option_label",
+                            "label": "Option Label",
+                            "name": "option_label",
+                            "type": "text",
+                            "required": 1,
+                            "placeholder": "e.g., Studio"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "key": "field_6a2d9ab1eb7be",
+            "label": "Button Text",
+            "name": "button_text",
+            "type": "text",
+            "instructions": "Text to display on the submit button",
+            "required": 0,
+            "default_value": "Submit"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf\/contact-form"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true
+}
