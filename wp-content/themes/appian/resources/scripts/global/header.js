@@ -105,6 +105,13 @@ const header = () => {
   });
 
 
+  Array.from(document.getElementsByClassName('navbar__link')).forEach(link => {
+    if (link.href === window.location.href) {
+        link.closest('.navbar__item').classList.add('is-active');
+    }
+    });
+
+
   const header = document.querySelector(".header");
 
   // Reset mobile state when resizing

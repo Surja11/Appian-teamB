@@ -228,8 +228,10 @@ main{
     @media (min-width: 1370px) and (max-width: 1438px) {
    
         gap: clamp(2rem, calc(-21.25rem + 3.125vw), 2.25rem) !important;
+        font-size: 0.875rem;
     
 }
+
   }
 
   &__item {
