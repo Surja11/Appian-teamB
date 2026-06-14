@@ -17,7 +17,7 @@ add_action('acf/init', function () {
             'arrow-testimonial' => 'Arrow Testimonial',
             'contact-video' => 'Contact Video',
             'contact-form' => 'Contact Form',
-            'faq' => 'faq',
+            'faq' => 'FAQ',
             'logo-marquee'=>'Logo Marquee',
             'wwb-leadspace' => 'What We Build Leadspace',
             'our-project-leadspace'=>"Our Project Leadspace",
