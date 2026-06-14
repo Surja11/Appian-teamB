@@ -1,14 +1,14 @@
 @import '../common';
 
-.wwb-leadspace-container{
-    min-height: 303px;
+.contact-leadspace-container{
+    min-height: 400px;
 
     @include media-breakpoint-up(lg){
         min-height: 816px;
     }
     img{
         object-fit: cover;
-        aspect-ratio: 375/303;
+        aspect-ratio: 15/16;
         @include media-breakpoint-up(lg){
             aspect-ratio: 1440/816;
         }
