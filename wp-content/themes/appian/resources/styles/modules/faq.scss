@@ -1,0 +1,85 @@
+@import '../common';
+
+.cta-section {
+    gap: 1.875rem !important;
+
+    &__caption{
+        
+        @include media-breakpoint-up(lg){
+            text-transform: capitalize;
+            max-width: 303px;
+        }
+    }
+
+    .btn-primary {
+        width: 240px !important;
+    }
+    @include media-breakpoint-up(lg){
+        max-width: 387.11px;
+    }
+
+
+}
+
+.faq {
+    .accordion-button::after {
+        display: none;
+    }
+}
+
+.accordion {
+    $self : '.accordion';
+    &-item {
+        border-bottom: none !important;
+        border-top: 1px solid $color-secondary !important;
+    }
+&-chevron {
+    position: absolute;
+    right: 0px;
+    width: 26px;
+    height: 26px;
+    transform: rotate(45deg);
+    transition: transform 0.3s ease-in-out;
+
+    @include media-breakpoint-up(xl) {
+        width: 32px;
+        height: 32px;
+    }
+}
+&-button {
+    position: relative;
+    padding-inline: 0 !important;
+
+    &:not(.collapsed) {
+        background-color: transparent !important;
+        color: $color-secondary !important;
+        box-shadow: none !important;
+
+        #{$self}-chevron {
+            transform: rotate(0deg);  
+        }
+    }
+
+    &.collapsed {
+        #{$self}-chevron {
+            transform: rotate(45deg); 
+        }
+    }
+
+    :focus{
+        border-color: transparent !important;
+    }
+}
+
+    &-body {
+        padding-inline: 0 !important;
+    }
+
+    &:last-child{
+        padding-bottom: 0 !important;
+    }
+}
+
+.accordion-item:last-child .accordion-button {
+    padding-bottom: 0 !important;
+}

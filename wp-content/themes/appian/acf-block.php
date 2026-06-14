@@ -17,6 +17,12 @@ add_action('acf/init', function () {
             'arrow-testimonial' => 'Arrow Testimonial',
             'contact-video' => 'Contact Video',
             'contact-form' => 'Contact Form',
+            'faq' => 'faq',
+            'logo-marquee'=>'Logo Marquee',
+            'wwb-leadspace' => 'What We Build Leadspace',
+            'our-project-leadspace'=>"Our Project Leadspace",
+             
+            'contact-us-leadspace'=>'Contact Us Leadspace',
         ];
 
         foreach ($boilerplateModules as $key => $mModule) {
