@@ -250,9 +250,7 @@ main{
       color: $nav-hover-color;
     }
 
-    &.current-menu-item,
-    &.current-page-ancestor,
-    &.current-menu-ancestor {
+    &.is-active {
         .navbar__link,
         .navbar__dropdown-trigger {
             color: $nav-hover-color;
@@ -268,6 +266,9 @@ main{
     text-transform: capitalize;
     color: $nav-color;
     transition: color $transition-base;
+    cursor: pointer;
+
+   
 
     @include focus-box;
     @include active-element;
