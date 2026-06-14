@@ -1,0 +1,96 @@
+{
+    "key": "group_6a2eddcd68280",
+    "title": "Logo Marquee",
+    "fields": [
+        {
+            "key": "field_6a2ede015c104",
+            "label": "Section Heading",
+            "name": "marquee_heading",
+            "type": "text",
+            "required": 0,
+            "default_value": "Trusted By",
+            "placeholder": "Trusted By"
+        },
+        {
+            "key": "field_6a2ede332b841",
+            "label": "Logos",
+            "name": "logo_loop",
+            "type": "repeater",
+            "required": 0,
+            "layout": "block",
+            "button_label": "Add New Logo",
+            "sub_fields": [
+                {
+                    "key": "field_6a2ede55ef092",
+                    "label": "Logo Source Type",
+                    "name": "logo_source_type",
+                    "type": "button_group",
+                    "choices": {
+                        "upload": "Upload Image",
+                        "url": "Insert from URL"
+                    },
+                    "default_value": "upload",
+                    "layout": "horizontal"
+                },
+                {
+                    "key": "field_6a2ede7da1149",
+                    "label": "Upload Image",
+                    "name": "logo_image_file",
+                    "type": "image",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_6a2ede55ef092",
+                                "operator": "==",
+                                "value": "upload"
+                            }
+                        ]
+                    ],
+                    "return_format": "array",
+                    "preview_size": "medium",
+                    "library": "all"
+                },
+                {
+                    "key": "field_6a2edebba3820",
+                    "label": "Image URL",
+                    "name": "logo_image_url",
+                    "type": "url",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_6a2ede55ef092",
+                                "operator": "==",
+                                "value": "url"
+                            }
+                        ]
+                    ],
+                    "placeholder": "https://example.com/logo.png"
+                },
+                {
+                    "key": "field_6a2ededdf9401",
+                    "label": "Alt Text Override",
+                    "name": "logo_alt_text",
+                    "type": "text",
+                    "instructions": "Leave blank to use the uploaded image alt text, or provide custom text if loading via URL."
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf/logo-marquee"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "active": true
+}
