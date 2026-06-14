@@ -1,0 +1,38 @@
+@import '../common';
+
+.logo-marquee {
+
+  @include media-breakpoint-up(lg){
+    padding:3.21875rem 0 !important;
+
+  }
+    &__track {
+        overflow: hidden;
+        width: 100%;
+    }
+
+    &__inner {
+        width: max-content;
+        will-change: transform;
+        animation: marquee-scroll var(--marquee-duration, 20s) linear infinite;
+    }
+
+    .logo-item {
+        width: 150px;
+        height: 32px;
+        flex-shrink: 0;
+        img {
+        
+            object-fit: contain;
+        }
+    }
+}
+
+@keyframes marquee-scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(calc(-1 * var(--marquee-scroll-amount)));
+    }
+}
