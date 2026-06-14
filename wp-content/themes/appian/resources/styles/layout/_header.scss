@@ -228,8 +228,10 @@ main{
     @media (min-width: 1370px) and (max-width: 1438px) {
    
         gap: clamp(2rem, calc(-21.25rem + 3.125vw), 2.25rem) !important;
+        font-size: 0.875rem;
     
 }
+
   }
 
   &__item {
@@ -250,7 +252,9 @@ main{
       color: $nav-hover-color;
     }
 
-    &.is-active {
+    &.current-menu-item,
+    &.current-page-ancestor,
+    &.current-menu-ancestor {
         .navbar__link,
         .navbar__dropdown-trigger {
             color: $nav-hover-color;
@@ -266,9 +270,6 @@ main{
     text-transform: capitalize;
     color: $nav-color;
     transition: color $transition-base;
-    cursor: pointer;
-
-   
 
     @include focus-box;
     @include active-element;
