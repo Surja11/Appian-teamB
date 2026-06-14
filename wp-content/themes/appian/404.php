@@ -1,60 +1,51 @@
 <?php
-/**
- * The template for displaying 404 pages (not found)
- *
- * @link https://codex.wordpress.org/Creating_an_Error_404_Page
- *
- * @package Outside_Traineeship_Biolerplate
- */
 
 get_header();
+
+$eyebrow    = get_field( '404_eyebrow', 'options' ) ?: __( '404 Error', 'outside-traineeship-biolerplate' );
+$title      = get_field( '404_title', 'options' ) ?: __( 'Page Not Found', 'outside-traineeship-biolerplate' );
+$desc       = get_field( '404_description', 'options' ) ?: __( 'Sorry, we couldn\'t locate that page. It might have been relocated, removed, or perhaps it was never here.', 'outside-traineeship-biolerplate' );
+$btn_text   = get_field( '404_button_text', 'options' ) ?: __( 'Go to Homepage', 'outside-traineeship-biolerplate' );
+$bg_image   = get_field( '404_background_image', 'options' );
+
+if ( ! $bg_image ) {
+    $bg_image = get_template_directory_uri() . '/resources/images/page-not-found.jpg';
+}
 ?>
 
-	<main id="primary" class="site-main">
+<main id="primary" class="site-main">
 
-		<section class="error-404 not-found">
-			<header class="page-header">
-				<h1 class="page-title"><?php esc_html_e( 'Oops! That page can&rsquo;t be found.', 'outside-traineeship-biolerplate' ); ?></h1>
-			</header><!-- .page-header -->
+    <section class="error-404" style="background-image: url('<?php echo esc_url( $bg_image ); ?>');">
+        <div class="error-404__inner">
+            
+            <p class="error-404__eyebrow caption-1">
+                <?php echo esc_html( $eyebrow ); ?>
+            </p>
+            
+            <h1 class="error-404__title display-2">
+                <?php echo esc_html( $title ); ?>
+            </h1>
+            
+            <p class="error-404__description subheading-3">
+                <?php echo esc_html( $desc ); ?>
+            </p>
+            
+            <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="error-404__btn btn-text">
+                <span><?php echo esc_html( $btn_text ); ?></span>
+                <span class="error-404__btn-arrow">
+                    <?php 
+                    $svg_path = get_theme_file_path( '/resources/images/icon-arrow-right.svg' );
+                    if ( file_exists( $svg_path ) ) {
+                        include $svg_path;
+                    }
+                    ?>
+                </span>
+            </a>
+            
+        </div>
+    </section>
 
-			<div class="page-content">
-				<p><?php esc_html_e( 'It looks like nothing was found at this location. Maybe try one of the links below or a search?', 'outside-traineeship-biolerplate' ); ?></p>
-
-					<?php
-					get_search_form();
-
-					the_widget( 'WP_Widget_Recent_Posts' );
-					?>
-
-					<div class="widget widget_categories">
-						<h2 class="widget-title"><?php esc_html_e( 'Most Used Categories', 'outside-traineeship-biolerplate' ); ?></h2>
-						<ul>
-							<?php
-							wp_list_categories(
-								array(
-									'orderby'    => 'count',
-									'order'      => 'DESC',
-									'show_count' => 1,
-									'title_li'   => '',
-									'number'     => 10,
-								)
-							);
-							?>
-						</ul>
-					</div><!-- .widget -->
-
-					<?php
-					/* translators: %1$s: smiley */
-					$outside_traineeship_biolerplate_archive_content = '<p>' . sprintf( esc_html__( 'Try looking in the monthly archives. %1$s', 'outside-traineeship-biolerplate' ), convert_smilies( ':)' ) ) . '</p>';
-					the_widget( 'WP_Widget_Archives', 'dropdown=1', "after_title=</h2>$outside_traineeship_biolerplate_archive_content" );
-
-					the_widget( 'WP_Widget_Tag_Cloud' );
-					?>
-
-			</div><!-- .page-content -->
-		</section><!-- .error-404 -->
-
-	</main><!-- #main -->
+</main>
 
 <?php
 get_footer();

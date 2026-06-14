@@ -1,0 +1,133 @@
+.error-404 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 477px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  @media (min-width: 90rem) {
+    height: 810px;
+  }
+}
+
+.error-404__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 327px;
+  height: 270px;
+  max-width: 20.4375rem;
+  gap: 1.5rem;
+
+  @media (min-width: 64.0625rem) and (max-width: 89.9375rem) {
+    width: 100%;
+    max-width: 55rem;
+    height: auto;
+  }
+
+  @media (min-width: 90rem) {
+    width: 1212px;
+    max-width: 75.75rem;
+    height: 288px;
+    padding: 0;
+    gap: 0;
+    margin: 261px 114px;
+  }
+}
+
+.error-404__eyebrow {
+  margin: 0;
+  color: rgba($color-secondary, 0.54); 
+
+  @media (min-width: 90rem) {
+    color: $black;
+    opacity: 0.5;
+  }
+}
+
+.error-404__title {
+  margin: 0; 
+  padding: 0 1.84375rem;
+  color: $color-secondary;
+  word-wrap: break-word;
+
+  @media (min-width: 64.0625rem) and (max-width: 89.9375rem) {
+    width: 100%;
+    padding: 0;
+  }
+
+  @media (min-width: 90rem) {
+    width: 612px;
+    max-width: 38.25rem;
+    height: 106px;
+    margin: 0 0 1.5rem 0;
+    padding: 0;
+    color: $color-neutral-600;
+  }
+}
+
+.error-404__description {
+  margin: 0;
+  padding: 0;
+  color: $color-secondary;
+
+  @media (min-width: 64.0625rem) and (max-width: 89.9375rem) {
+    width: 100%;
+  }
+
+  @media (min-width: 90rem) {
+    width: 870px;
+    max-width: 54.375rem;
+    height: 29px;
+    margin: 0 0 2rem 0;
+    color: $color-neutral-600;
+  }
+}
+
+.error-404__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between; 
+  width: 100%; 
+  max-width: 18.4375rem;
+  padding: 1.375rem 1.75rem;
+  background-color: $color-primary-red;
+  color: $white;
+  text-decoration: none;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: $color-dark-red;
+    color: $white;
+    text-decoration: none;
+  }
+
+  @media (min-width: 90rem) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5.5rem;
+    width: auto;
+    max-width: none;
+    margin-top: 24px;
+  }
+}
+
+.error-404__btn-arrow {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+
+  svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}
