@@ -6,45 +6,99 @@
             "key": "field_6a2d971ab3089",
             "label": "Title",
             "name": "title",
+            "aria-label": "",
             "type": "text",
             "instructions": "Enter the main title for the contact form section",
             "required": 0,
-            "default_value": "A New Chapter in Student Living"
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "A New Chapter in Student Living",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_6a2d9796b308a",
             "label": "Subtitle",
             "name": "subtitle",
+            "aria-label": "",
             "type": "textarea",
             "instructions": "Enter the subtitle text that appears below the title",
             "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
             "default_value": "Quisque quis nisl vel elit tristique mollis vel ut ex. Integer et est enim. Nullam sagittis nibh sit amet ornare pretium. Sed eget tellus a ex sagittis accumsan lobortis id ipsum.",
-            "rows": 3
+            "rows": 3,
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
         },
         {
             "key": "field_6a2d97deb308b",
             "label": "Form Fields",
             "name": "form_fields",
+            "aria-label": "",
             "type": "repeater",
             "instructions": "Configure the form fields that will appear in the contact form",
             "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
             "layout": "block",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
             "button_label": "Add Field",
+            "rows_per_page": 20,
             "sub_fields": [
                 {
                     "key": "field_6a2d9873eb7b7",
                     "label": "Field Label",
                     "name": "field_label",
+                    "aria-label": "",
                     "type": "text",
+                    "instructions": "",
                     "required": 1,
-                    "placeholder": "e.g., First Name"
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "placeholder": "e.g., First Name",
+                    "default_value": "",
+                    "maxlength": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_6a2d97deb308b"
                 },
                 {
                     "key": "field_6a2d990beb7b8",
                     "label": "Field Type",
                     "name": "field_type",
+                    "aria-label": "",
                     "type": "select",
+                    "instructions": "",
                     "required": 1,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
                     "choices": {
                         "text": "Text",
                         "email": "Email",
@@ -54,19 +108,42 @@
                         "radio": "Radio Select"
                     },
                     "default_value": "text",
-                    "return_format": "value"
+                    "return_format": "value",
+                    "multiple": 0,
+                    "allow_null": 0,
+                    "ui": 0,
+                    "ajax": 0,
+                    "placeholder": "",
+                    "create_options": 0,
+                    "save_options": 0,
+                    "parent_repeater": "field_6a2d97deb308b"
                 },
                 {
                     "key": "field_6a2d99b1eb7b9",
                     "label": "Required",
                     "name": "required",
+                    "aria-label": "",
                     "type": "true_false",
-                    "default_value": 1
+                    "instructions": "",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": 1,
+                    "message": "",
+                    "ui": 0,
+                    "ui_on_text": "",
+                    "ui_off_text": "",
+                    "parent_repeater": "field_6a2d97deb308b"
                 },
                 {
                     "key": "field_6a2d99c4eb7ba",
                     "label": "Default Value",
                     "name": "default_value",
+                    "aria-label": "",
                     "type": "text",
                     "instructions": "Enter option value to pre-select (e.g., 1bedroom). Leave blank for none.",
                     "required": 0,
@@ -86,12 +163,23 @@
                             }
                         ]
                     ],
-                    "placeholder": "e.g., 1bedroom"
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "placeholder": "e.g., 1bedroom",
+                    "default_value": "",
+                    "maxlength": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_6a2d97deb308b"
                 },
                 {
                     "key": "field_contact_inner_choices",
                     "label": "Field Options List",
                     "name": "field_options_list",
+                    "aria-label": "",
                     "type": "repeater",
                     "instructions": "Configure choices if you selected Dropdown or Radio Select above",
                     "required": 0,
@@ -111,26 +199,62 @@
                             }
                         ]
                     ],
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
                     "layout": "table",
                     "button_label": "Add Option Selection Row",
+                    "min": 0,
+                    "max": 0,
+                    "rows_per_page": 20,
+                    "collapsed": "",
                     "sub_fields": [
                         {
                             "key": "field_inner_option_value",
                             "label": "Option Value",
                             "name": "option_value",
+                            "aria-label": "",
                             "type": "text",
+                            "instructions": "",
                             "required": 1,
-                            "placeholder": "e.g., studio"
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "placeholder": "e.g., studio",
+                            "default_value": "",
+                            "maxlength": "",
+                            "prepend": "",
+                            "append": "",
+                            "parent_repeater": "field_contact_inner_choices"
                         },
                         {
                             "key": "field_inner_option_label",
                             "label": "Option Label",
                             "name": "option_label",
+                            "aria-label": "",
                             "type": "text",
+                            "instructions": "",
                             "required": 1,
-                            "placeholder": "e.g., Studio"
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "placeholder": "e.g., Studio",
+                            "default_value": "",
+                            "maxlength": "",
+                            "prepend": "",
+                            "append": "",
+                            "parent_repeater": "field_contact_inner_choices"
                         }
-                    ]
+                    ],
+                    "parent_repeater": "field_6a2d97deb308b"
                 }
             ]
         },
@@ -138,10 +262,21 @@
             "key": "field_6a2d9ab1eb7be",
             "label": "Button Text",
             "name": "button_text",
+            "aria-label": "",
             "type": "text",
             "instructions": "Text to display on the submit button",
             "required": 0,
-            "default_value": "Submit"
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Submit",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         }
     ],
     "location": [
@@ -159,5 +294,11 @@
     "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": "",
-    "active": true
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "display_title": "",
+    "allow_ai_access": false,
+    "ai_description": "",
+    "modified": 1781450633
 }

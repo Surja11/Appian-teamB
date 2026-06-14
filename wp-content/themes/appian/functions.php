@@ -194,6 +194,10 @@ require get_template_directory() . '/inc/customizer.php';
 
 require get_template_directory() . '/acf-block.php';
 
+require get_template_directory() . '/inc/cpt/contact-cpt.php';
+
+require get_template_directory() . '/inc/form/form-handler.php';
+
 /**
  * Load Jetpack compatibility file.
  */
