@@ -1,0 +1,29 @@
+@import '../common';
+
+.wwb-leadspace-container{
+    min-height: 303px;
+
+    @include media-breakpoint-up(lg){
+        min-height: 816px;
+    }
+    img{
+        object-fit: cover;
+        aspect-ratio: 375/303;
+        @include media-breakpoint-up(lg){
+            aspect-ratio: 1440/816;
+        }
+    }
+
+    &__overlay{
+        background: linear-gradient(#000000, rgba(0, 0, 0, 0));
+        opacity: 40%;
+        pointer-events: none;
+        z-index: 15;
+        height: 100%;
+        width: 100%;
+    }
+
+    &__heading{
+        color: $color-neutral-50 !important;
+    }
+}

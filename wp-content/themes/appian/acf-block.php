@@ -18,6 +18,7 @@ add_action('acf/init', function () {
             'contact-video' => 'Contact Video',
             'faq' => 'faq',
             'logo-marquee'=>'Logo Marquee',
+            'wwb-leadspace' => 'What We Build Leadspace',
         ];
 
         foreach ($boilerplateModules as $key => $mModule) {
