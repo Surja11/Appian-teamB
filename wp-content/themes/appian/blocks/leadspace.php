@@ -49,11 +49,6 @@ $video_url    = $video ? esc_url( $video['url'] ) : '';
                 </div>
                 <?php endif; ?>
                 <div class="home-leadspace__text-body">
-                    <?php if ( $heading_main ) : ?>
-                    <h1 class="display-1 text-capitalize display-1--mobile-view">
-                        <?php echo esc_html( $heading_main ); ?>
-                    </h1>
-                    <?php endif; ?>
                     <?php if ( $heading_sub ) : ?>
                     <h1 class="h3 m-0">
                         <?php echo esc_html( $heading_sub ); ?>
