@@ -17,6 +17,7 @@ add_action('acf/init', function () {
             'arrow-testimonial' => 'Arrow Testimonial',
             'contact-video' => 'Contact Video',
             'faq' => 'faq',
+            'logo-marquee'=>'Logo Marquee',
         ];
 
         foreach ($boilerplateModules as $key => $mModule) {
