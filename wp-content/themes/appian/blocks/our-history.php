@@ -3,28 +3,25 @@
 $history_items = get_field( 'history_items' );
 
 if ( ! function_exists( 'our_history_get_excerpt' ) ) :
-    function our_history_get_excerpt( $html_content, $word_limit = 55 ) {
+    function our_history_get_excerpt( $html_content, $word_limit = 999 ) {
         $plain = wp_strip_all_tags( $html_content );
-        $words = explode( ' ', trim( $plain ) );
-        if ( count( $words ) <= $word_limit ) {
-            return $plain;
-        }
-        return implode( ' ', array_slice( $words, 0, $word_limit ) ) . '…';
+        return $plain; // Return full text, let CSS handle truncation
     }
 endif;
 ?>
 
 <?php if ( $history_items ) : ?> 
-<section id="our-history-block" class="our-history-block">
-    <div class="our-history-block__overlay"></div>
+<section id="our-history-block" class="our-history-block position-relative w-100 overflow-hidden bg-white h-auto my-0 mx-auto">
+    <div class="our-history-block__overlay position-absolute top-0 start-0 end-0 bottom-0"></div>
+    <div class="our-history-block__texture position-absolute top-0 start-0 end-0 bottom-0" style="background-image: url('/wp-content/themes/appian/resources/images/bg-texture.png'); background-repeat: repeat; opacity: 0.3; pointer-events: none; z-index: 1;"></div>
     
-    <div class="our-history__header text-center">
-        <h2 class="our-history__title">Our History</h2>
+    <div class="our-history__header text-center w-100 mx-auto">
+        <h2 class="our-history__title h2 position-relative">Our History</h2>
     </div>
 
-    <div class="our-history__timeline">
-        <div class="timeline-scroll-container">
-            <div class="timeline-cards-wrapper">
+    <div class="our-history__timeline w-100 p-0">
+        <div class="timeline-scroll-container overflow-auto">
+            <div class="timeline-cards-wrapper d-flex flex-column flex-sm-row align-items-center align-items-sm-start">
                 
                 <?php foreach ( (array) $history_items as $index => $item ) :
                     // Safely extract data with fallbacks
@@ -46,31 +43,31 @@ endif;
                 ?>
 
                 <!-- History Item <?php echo $year ? $year : 'Item ' . ($index + 1); ?> -->
-                <div class="history-card" data-year="<?php echo esc_attr($unique_id); ?>">
+                <div class="history-card mb-16 mb-sm-0 border-0 overflow-hidden shadow-none position-relative cursor-pointer bg-transparent flex-shrink-0 h-auto p-0 focus-ring-0" data-year="<?php echo esc_attr($unique_id); ?>">
                     
                     <!-- Year/Title - Only show if exists -->
                     <?php if ( $year ) : ?>
-                    <div class="history-card__year"><?php echo $year; ?></div>
+                    <div class="history-card__year body-xlarge mb-6 text-start text-md-start d-flex align-items-center justify-content-start justify-content-md-start position-relative bg-transparent top-0 start-0 z-3"><?php echo $year; ?></div>
                     <?php endif; ?>
                     
                     <!-- Image Section - Only show if image exists -->
                     <?php if ( $img_url ) : ?>
-                    <div class="history-card__image-wrapper">
+                    <div class="history-card__image-wrapper position-relative overflow-hidden w-100">
                         <img src="<?php echo $img_url; ?>" 
                              alt="<?php echo $img_alt; ?>" 
-                             class="history-card__image" />
+                             class="history-card__image w-100 h-100 object-fit-cover d-block" />
                     </div>
                     <?php endif; ?>
 
                     <!-- Gallery Section - Only show if gallery exists -->
                     <?php if ( !empty( $gallery ) ) : ?>
-                    <div class="history-card__gallery">
+                    <div class="history-card__gallery d-none">
                         <?php foreach ( $gallery as $gallery_image ) : ?>
                             <?php if ( !empty( $gallery_image['url'] ) ) : ?>
                             <div class="history-card__gallery-item">
                                 <img src="<?php echo esc_url( $gallery_image['url'] ); ?>"
                                      alt="<?php echo !empty( $gallery_image['alt'] ) ? esc_attr( $gallery_image['alt'] ) : esc_attr( $year ); ?>"
-                                     class="history-card__gallery-image" />
+                                     class="history-card__gallery-image w-100 h-100 object-fit-cover" />
                             </div>
                             <?php endif; ?>
                         <?php endforeach; ?>
@@ -79,15 +76,20 @@ endif;
 
                     <!-- Content Section - Only show if content exists -->
                     <?php if ( $content ) : ?>
-                    <div class="history-card__content">
-                        <p class="history-card__excerpt">
+                    <div class="history-card__content pt-6 pt-md-8 bg-transparent d-sm-flex flex-sm-column h-sm-100">
+                        <p class="history-card__excerpt body mb-10 mb-md-5 d-block">
                             <?php echo esc_html( $excerpt ); ?>
                         </p>
                         <!-- Hidden full content for modal -->
-                        <div class="history-card__full-content" style="display: none;">
+                        <div class="history-card__full-content d-none">
                             <?php echo wp_kses_post( $content ); ?>
                         </div>
-                        <button class="btn btn-link history-card__read-more" 
+                        <button class="btn btn-link history-card__read-more body-xsmall d-md-none text-decoration-none border-0 cursor-pointer text-start overflow-hidden bg-transparent text-nowrap" 
+                                data-history-id="<?php echo esc_attr($unique_id); ?>"
+                                >
+                            Continue Reading
+                        </button>
+                        <button class="btn btn-link history-card__read-more body-small d-none d-md-inline text-decoration-none border-0 cursor-pointer text-start overflow-hidden bg-transparent text-nowrap" 
                                 data-history-id="<?php echo esc_attr($unique_id); ?>"
                                 >
                             Continue Reading
@@ -97,7 +99,7 @@ endif;
                 </div>
                  
                 <?php if ( $index < count( $history_items ) - 1 ) : ?>
-                <div class="timeline-divider" aria-hidden="true"></div>
+                <div class="timeline-divider d-none d-sm-block flex-shrink-0" aria-hidden="true"></div>
                 <?php endif; ?>
 
                 <?php endforeach; ?>
@@ -105,11 +107,11 @@ endif;
             </div>
         </div>
 
-        <div class="our-history__navigation">
-            <button class="btn-nav btn-nav--arrow history-nav--prev" type="button" aria-label="Previous timeline entries">
+        <div class="our-history__navigation mt-8 mb-8 mt-md-12 mb-md-20 gap-4 d-none d-sm-flex justify-content-start align-items-center w-100 mx-auto ps-6 ps-sm-10 ps-md-15 ps-lg-20 ps-xl-20 pe-6 pe-sm-10 pe-md-15 pe-lg-20 pe-xl-20">
+            <button class="btn-nav btn-nav--arrow history-nav--prev border-0 cursor-pointer d-flex align-items-center justify-content-center" type="button" aria-label="Previous timeline entries">
                 <?php include get_template_directory() . '/resources/images/icon-arrow-left.svg'; ?>
             </button>
-            <button class="btn-nav btn-nav--arrow history-nav--next" type="button" aria-label="Next timeline entries">
+            <button class="btn-nav btn-nav--arrow history-nav--next border-0 cursor-pointer d-flex align-items-center justify-content-center" type="button" aria-label="Next timeline entries">
                 <?php include get_template_directory() . '/resources/images/icon-arrow-right.svg'; ?>
             </button>
         </div>
