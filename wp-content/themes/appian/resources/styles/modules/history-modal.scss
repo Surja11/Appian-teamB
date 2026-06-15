@@ -568,6 +568,32 @@
         line-height: $line-height-base;
         color: $color-neutral-600;
     }
+
+    // Small tablet (md: 768px-1024px)
+    @include media-breakpoint-up(md) {
+        @include media-breakpoint-down(lg) {
+            padding-bottom: 1.5rem;
+        }
+    }
+
+    // Large tablet (lg: 1025px-1199px)
+    @include media-breakpoint-up(lg) {
+        @include media-breakpoint-down(xl) {
+            padding-bottom: 2rem;
+        }
+    }
+
+    // Desktop (xl: 1200px-1439px)
+    @include media-breakpoint-up(xl) {
+        @include media-breakpoint-down(xxl) {
+            padding-bottom: 2.5rem;
+        }
+    }
+
+    // XXL (1440px+)
+    @include media-breakpoint-up(xxl) {
+        padding-bottom: map-get($spacers, 24);
+    }
 }
 
 .history-modal .history-modal__text-section .history-modal__text p {

@@ -89,8 +89,7 @@ endif;
                         </div>
                         <button class="btn btn-link history-card__read-more" 
                                 data-history-id="<?php echo esc_attr($unique_id); ?>"
-                                data-bs-toggle="modal" 
-                                data-bs-target="#historyModal">
+                                >
                             Continue Reading
                         </button>
                     </div>

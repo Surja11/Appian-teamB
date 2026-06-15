@@ -77,6 +77,7 @@ class HistoryModalModule {
             hasContent: hasContent
         };
     }
+
     openModal(historyId) {
         if (!this.modal) return;
         this.currentId    = historyId;
@@ -102,8 +103,16 @@ class HistoryModalModule {
         if (data.hasImages && modalImageSection) {
             modalImageSection.style.display = '';
             if (modalImage) {
+                modalImage.style.transition = 'opacity 0.15s ease';
+                modalImage.style.opacity = '0';
+                
+                // Assign new source and alt
                 modalImage.src = data.images[this.currentImage] || '';
                 modalImage.alt = `Historical image from ${data.year || 'history'}`;
+                
+                modalImage.onload = () => {
+                    modalImage.style.opacity = '1';
+                };
             }
 
             const closeBtn = this.modal.querySelector('.history-modal__close');
@@ -188,6 +197,12 @@ class HistoryModalModule {
         document.body.style.overflow = '';
         this.currentId    = null;
         this.currentImage = 0;
+        
+        const modalImage = document.getElementById('history-modal-image');
+        if (modalImage) {
+            modalImage.style.opacity = '0';
+            modalImage.src = '';
+        }
     }
 }
 
