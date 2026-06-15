@@ -13,7 +13,7 @@ $logo    = $footer['logo'] ?? null;
     <div class="row-wrapper container">
         <div class="row custom-footer__row">
 
-            <div class="col-12 col-lg-4 custom-footer__col custom-footer__col--brand">
+            <div class="col-12 col-xl-4 custom-footer__col custom-footer__col--brand">
 
                 <?php if (!empty($logo['url'])) : ?>
                     <a href="<?php echo esc_url(home_url('/')); ?>" class="custom-footer__logo" aria-label="Go to homepage">
@@ -25,7 +25,7 @@ $logo    = $footer['logo'] ?? null;
 
                 <div class="custom-footer__subscribe">
                     <?php if (!empty($footer['subscribe'])) : ?>
-                        <label class="custom-footer__label" for="footer-email">
+                        <label class="custom-footer__label caption-3" for="footer-email">
                             <?php echo esc_html($footer['subscribe']); ?>
                         </label>
                     <?php endif; ?>
@@ -48,20 +48,20 @@ $logo    = $footer['logo'] ?? null;
                         </div>
                     </form>
 
-                    <div class="custom-footer__input-error caption-3 pt-3" role="alert"></div>
+                    <div class="custom-footer__input-error caption-3" role="alert"></div>
                     <p class="custom-footer__thank-you"><?php echo !empty($footer['thank_you_msg']) ? esc_html($footer['thank_you_msg']) : 'THANK YOU FOR SUBSCRIPTION'; ?></p>
                 </div>
 
             </div>
 
-            <div class="col-12 col-lg-4 custom-footer__col custom-footer__col--contact">
+            <div class="col-12 col-xl-4 custom-footer__col custom-footer__col--contact subheading-3">
 
                 <?php if (!empty($address['address_title']) || !empty($address['company_name']) || !empty($address['street_address'])) : ?>
                     <div class="custom-footer__section custom-footer__section--address">
-                        <span class="custom-footer__label">
+                        <span class="custom-footer__label caption-3">
                             <?php echo esc_html($address['address_title'] ?? 'Address'); ?>
                         </span>
-                        <address class="custom-footer__text">
+                        <address class="custom-footer__text subheading-3">
                             <?php if (!empty($address['company_name'])) : ?>
                                 <?php echo esc_html($address['company_name']); ?><br>
                             <?php endif; ?>
@@ -73,8 +73,8 @@ $logo    = $footer['logo'] ?? null;
                     </div>
                 <?php endif; ?>
 
-                <div class="custom-footer__section custom-footer__section--contact-info">
-                    <span class="custom-footer__label">
+                <div class="custom-footer__section custom-footer__section--contact-info subheading-3">
+                    <span class="custom-footer__label caption-3">
                         <?php echo esc_html($contact['contact_title'] ?? 'Contact'); ?>
                     </span>
                     <p class="custom-footer__text">
@@ -130,10 +130,10 @@ $logo    = $footer['logo'] ?? null;
             </div>
 
             <?php if (!empty($explore['explore_items'])) : ?>
-                <div class="col-12 col-lg-4 custom-footer__col custom-footer__col--nav">
+                <div class="col-12 col-xl-4 custom-footer__col custom-footer__col--nav">
 
                     <?php if (!empty($explore['explore_title'])) : ?>
-                        <span class="custom-footer__label" id="footer-nav-label">
+                        <span class="custom-footer__label caption-3" id="footer-nav-label">
                             <?php echo esc_html($explore['explore_title']); ?>
                         </span>
                     <?php endif; ?>
