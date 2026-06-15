@@ -1,26 +1,14 @@
 @import '../custom';
 
 .history-modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
     background-color: var(--overlay-68);
     z-index: 99999;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    overflow-y: auto;
     opacity: 0;
     animation: fadeIn 0.3s ease forwards;
-    pointer-events: auto;
 
     // Tablet and above
     @include media-breakpoint-up(md) {
         padding: map-get($spacers, 30) map-get($spacers, 20) map-get($spacers, 24) map-get($spacers, 20);
-        align-items: center;
-        overflow-y: hidden;
     }
 }
 
@@ -28,15 +16,11 @@
     to { opacity: 1; }
 }
 
+
 .history-modal {
-    background: $white;
-    width: 100%;
     max-width: 100vw;
     min-height: 100vh;
-    height: auto;
-    position: relative;
-    overflow-y: visible;
-    overflow-x: hidden;
+    height: 100vh;
     transform: scale(0.95);
     animation: scaleIn 0.3s ease forwards;
     z-index: 100000;
@@ -50,22 +34,16 @@
     // Above mobile to small screens (377px-575px)
     @media (min-width: 377px) and (max-width: 575px) {
         max-width: 100vw;
-        width: 100vw;
         min-height: 100vh;
-        height: auto;
-        overflow: visible;
-        margin: 0;
+        height: 100vh;
     }
 
     // Small screens (sm: 576px-767px) 
     @include media-breakpoint-up(sm) {
         @include media-breakpoint-down(md) {
             max-width: 100vw;
-            width: 100vw;
             min-height: 100vh;
-            height: auto;
-            overflow: visible;
-            margin: 0;
+            height: 100vh;
         }
     }
 
@@ -77,7 +55,6 @@
             min-height: unset;
             height: 85vh;
             max-height: 600px;
-            overflow: hidden;
         }
     }
 
@@ -89,7 +66,6 @@
             min-height: unset;
             height: 75vh;
             max-height: 650px;
-            overflow: hidden;
         }
     }
 
@@ -101,7 +77,6 @@
             min-height: unset;
             height: 70vh;
             max-height: 700px;
-            overflow: hidden;
         }
     }
 
@@ -110,7 +85,6 @@
         max-width: 80rem;
         min-height: unset;
         height: 46.25rem;
-        overflow: hidden;
     }
 }
 
@@ -119,19 +93,11 @@
 }
 
 .history-modal__close {
-    position: absolute;
     top: 1.375rem;
     right: 1.75rem;
     width: 1.75rem;
     height: 1.75rem;
-    border: none;
-    background: transparent;
-    cursor: pointer;
     z-index: 20;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
 
     @include media-breakpoint-up(md) {
         top: map-get($spacers, 5);
@@ -181,76 +147,52 @@
 }
 
 .history-modal__content {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: auto;
-
     // Above mobile to small screens (377px-575px)
     @media (min-width: 377px) and (max-width: 575px) {
-        flex-direction: column;
-        height: auto;
-        overflow: visible;
+        height: 100%;
     }
 
     @include media-breakpoint-up(sm) {
         @include media-breakpoint-down(md) {
-            flex-direction: column;
-            height: auto;
-            overflow: visible;
+            height: 100%;
         }
     }
 
     // Small tablet (md: 768px-1024px)
     @include media-breakpoint-up(md) {
         @include media-breakpoint-down(lg) {
-            flex-direction: row;
             height: 85vh;
             max-height: 600px;
-            overflow: hidden;
-            align-items: center;
         }
     }
 
     // Large tablet (lg: 1025px-1199px)
     @include media-breakpoint-up(lg) {
         @include media-breakpoint-down(xl) {
-            flex-direction: row;
             height: 75vh;
             max-height: 650px;
-            overflow: hidden;
-            align-items: center;
         }
     }
 
     // Desktop (xl: 1200px-1439px)
     @include media-breakpoint-up(xl) {
         @include media-breakpoint-down(xxl) {
-            flex-direction: row;
             height: 70vh;
             max-height: 700px;
-            overflow: hidden;
-            align-items: center;
         }
     }
 
     // XXL (1440px+)
     @include media-breakpoint-up(xxl) {
-        flex-direction: row;
         height: 46.25rem;
-        overflow: hidden;
     }
 }
 
 .history-modal__image-section {
-    flex: 0 0 auto;
-    position: relative;
-    width: 100%;
     height: 16.25rem;
 
     // Above mobile to small screens (377px-575px)
     @media (min-width: 377px) and (max-width: 575px) {
-        width: 100%;
         height: 40vh;
         min-height: 350px;
         max-height: 450px;
@@ -259,7 +201,6 @@
     // Small screens (sm: 576px-767px)
     @include media-breakpoint-up(sm) {
         @include media-breakpoint-down(md) {
-            width: 100%;
             height: 42vh;
             min-height: 380px;
             max-height: 480px;
@@ -271,7 +212,6 @@
         @include media-breakpoint-down(lg) {
             width: 45%;
             height: 100%;
-            overflow: hidden;
         }
     }
 
@@ -280,7 +220,6 @@
         @include media-breakpoint-down(xl) {
             width: 47%;
             height: 100%;
-            overflow: hidden;
         }
     }
 
@@ -289,7 +228,6 @@
         @include media-breakpoint-down(xxl) {
             width: 48%;
             height: 100%;
-            overflow: hidden;
         }
     }
 
@@ -297,62 +235,36 @@
     @include media-breakpoint-up(xxl) {
         width: 38.75rem;
         height: 100%;
-        overflow: hidden;
     }
 }
 
 .history-modal__image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
     object-position: top center;
-    display: block;
-    background-color: $color-neutral-100;
     
     @include media-breakpoint-up(sm) {
         @include media-breakpoint-down(md) {
-            object-fit: cover;
             object-position: center center;
         }
     }
 }
 
 .history-modal__nav {
-    display: none;
-
     @include media-breakpoint-up(md) {
-        position: absolute;
         top: 50%;
         transform: translateY(-50%);
         left: 1.75rem;
         right: 1.75rem;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        pointer-events: none;
         z-index: 10;
     }
 }
 
 .history-modal__nav-btn {
-    border-radius: 50%;
-    border: none;
-    background-color: $color-primary-red;
-    color: $white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    flex-shrink: 0;
-    pointer-events: auto;
     transition: background-color 0.2s ease, opacity 0.2s ease;
-
     width: 3rem; 
     height: 3rem;
     padding: 0.875rem;
 
     svg {
-        display: block;
         pointer-events: none;
         fill: none;
         stroke: none;
@@ -371,7 +283,6 @@
 
     &:disabled {
         opacity: 0.5;
-        cursor: not-allowed;
     }
 
     &--sm {
@@ -387,106 +298,28 @@
 }
 
 .history-modal__text-section {
-    width: 100%;
-    padding: map-get($spacers, 10) map-get($spacers, 7) map-get($spacers, 10);
-    overflow-x: hidden;
-    box-sizing: border-box;
-
     @media (min-width: 377px) and (max-width: 575px) {
-        width: 100%;
-        padding: map-get($spacers, 10) map-get($spacers, 7) map-get($spacers, 10);
-        overflow-x: hidden;
-        box-sizing: border-box;
+        height: calc(100vh - 40vh);
+        min-height: calc(100vh - 450px);
     }
 
     @include media-breakpoint-up(sm) {
         @include media-breakpoint-down(md) {
-            width: 100%;
-            padding: map-get($spacers, 10) map-get($spacers, 7) map-get($spacers, 10);
-            overflow-x: hidden;
-            box-sizing: border-box;
+            height: calc(100vh - 42vh);
+            min-height: calc(100vh - 480px);
         }
     }
 
-    // Small tablet (md: 768px-1024px)
+    // Clamp padding for larger screens only (768px+)
+    @media (min-width: 768px) and (max-width: 1439px) {
+        padding: clamp(64px, 8vw, 96px) clamp(55px, 6vw, 77px) clamp(64px, 8vw, 96px) clamp(55px, 6vw, 77px);
+    }
+
+    // Small tablet (md: 768px-1024px) to XXL
     @include media-breakpoint-up(md) {
-        @include media-breakpoint-down(lg) {
-            flex: 1;
-            padding: 1.5rem 1.5rem 1.5rem 2rem;
-            overflow-y: auto;
-            height: 100%;
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-
-            scrollbar-width: thin;
-            scrollbar-color: rgba($color-primary-red, 0.3) transparent;
-            &::-webkit-scrollbar {
-                width: 4px;
-            }
-            &::-webkit-scrollbar-thumb {
-                background-color: rgba($color-primary-red, 0.3);
-                border-radius: 2px;
-            }
-        }
-    }
-
-    // Large tablet (lg: 1025px-1199px)
-    @include media-breakpoint-up(lg) {
-        @include media-breakpoint-down(xl) {
-            flex: 1;
-            padding: 2rem 2rem 2rem 2.5rem;
-            overflow-y: auto;
-            height: 100%;
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-
-            scrollbar-width: thin;
-            scrollbar-color: rgba($color-primary-red, 0.3) transparent;
-            &::-webkit-scrollbar {
-                width: 4px;
-            }
-            &::-webkit-scrollbar-thumb {
-                background-color: rgba($color-primary-red, 0.3);
-                border-radius: 2px;
-            }
-        }
-    }
-
-    // Desktop (xl: 1200px-1439px)
-    @include media-breakpoint-up(xl) {
-        @include media-breakpoint-down(xxl) {
-            flex: 1;
-            padding: 2.5rem 2.5rem 2.5rem 3rem;
-            overflow-y: auto;
-            height: 100%;
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-
-            scrollbar-width: thin;
-            scrollbar-color: rgba($color-primary-red, 0.3) transparent;
-            &::-webkit-scrollbar {
-                width: 4px;
-            }
-            &::-webkit-scrollbar-thumb {
-                background-color: rgba($color-primary-red, 0.3);
-                border-radius: 2px;
-            }
-        }
-    }
-
-    // XXL (1440px+)
-    @include media-breakpoint-up(xxl) {
-        flex: 1;
-        padding: 8rem 6.8125rem map-get($spacers, 24) 9.4375rem;
-        overflow-y: auto;
+        overflow: scroll;
         height: 100%;
-        box-sizing: border-box;
+        width: 55%;
 
         scrollbar-width: thin;
         scrollbar-color: rgba($color-primary-red, 0.3) transparent;
@@ -498,76 +331,101 @@
             border-radius: 2px;
         }
     }
-}
 
-.history-modal__content-wrapper {
-    @include media-breakpoint-down(md) {
-        width: 100%;
+    // Large tablet (lg: 1025px-1199px)
+    @include media-breakpoint-up(lg) {
+        @include media-breakpoint-down(xl) {
+            width: 53%;
+        }
     }
 
-    // Middle screens (768px-1439px)
-    @include media-breakpoint-up(md) {
+    // Desktop (xl: 1200px-1439px)
+    @include media-breakpoint-up(xl) {
         @include media-breakpoint-down(xxl) {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            flex-shrink: 0;
-            min-height: auto;
-            height: 100%;
+            width: 52%;
         }
     }
 
     // XXL (1440px+)
     @include media-breakpoint-up(xxl) {
-        width: 100%;
+        padding: 8rem 6.8125rem map-get($spacers, 24) 9.4375rem;
+        width: auto;
+        flex: 1;
+    }
+}
+
+.history-modal__content-wrapper {
+    // Mobile screens (below md: up to 767px)
+    @include media-breakpoint-down(md) {
+        overflow-y: auto;
+        padding: map-get($spacers, 10) map-get($spacers, 7);
+        padding-bottom: 0px;
+
+        scrollbar-width: thin;
+        scrollbar-color: rgba($color-primary-red, 0.3) transparent;
+        &::-webkit-scrollbar {
+            width: 4px;
+        }
+        &::-webkit-scrollbar-thumb {
+            background-color: rgba($color-primary-red, 0.3);
+            border-radius: 2px;
+        }
+    }
+
+    // Small tablet (md: 768px-1024px)
+    @include media-breakpoint-up(md) {
+        @include media-breakpoint-down(lg) {
+            min-height: auto;
+            height: 420px;
+            overflow: scroll;
+        }
+    }
+
+    // Large tablet (lg: 1025px-1199px)
+    @include media-breakpoint-up(lg) {
+        @include media-breakpoint-down(xl) {
+            min-height: auto;
+            height: 480px;
+            overflow: scroll;
+        }
+    }
+
+    // Desktop (xl: 1200px-1439px)
+    @include media-breakpoint-up(xl) {
+        @include media-breakpoint-down(xxl) {
+            min-height: auto;
+            height: 480px;
+            overflow: scroll;
+        }
+    }
+
+    // XXL (1440px+)
+    @include media-breakpoint-up(xxl) {
+        height: 520px;
+        overflow: scroll;
     }
 }
 
 .history-modal__mobile-nav {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: map-get($spacers, 3);
-    margin-bottom: map-get($spacers, 8);
-
-    @include media-breakpoint-up(md) {
-        display: none;
-    }
+    z-index: 10;
 }
 
 .history-modal__year {
-    font-size: map-get($font-sizes, 2);
-    font-weight: $font-weight-medium;
-    font-family: $font-family-sans-serif;
     color: $color-primary-red;
-    line-height: 1.4;
-    margin-bottom: map-get($spacers, 8);
-    text-align: left;
-    width: 100%;
-    display: block;
+    font-family: $font-family-sans-serif; 
+    font-size: 2rem; // 32px (Mobile)
+    line-height: 1.2; // 120%
+    font-weight: 500; // Medium
+    letter-spacing: 0;
 
     @include media-breakpoint-up(md) {
-        font-size: map-get($font-sizes, 1);
-        font-weight: $font-weight-medium;
-        line-height: 1;
-        margin-bottom: map-get($spacers, 10);
+        font-size: 3rem; // 48px
+        line-height: 1; // 100%
     }
 }
 
 .history-modal__text {
-    font-size: $font-size-base;
-    font-weight: $font-weight-normal;
-    line-height: $line-height-base;
     color: $color-neutral-600;
-    text-align: left;
-    font-family: $font-family-sans-serif;
-
-    @include media-breakpoint-up(md) {
-        font-size: $font-size-base;
-        font-weight: $font-weight-normal;
-        line-height: $line-height-base;
-        color: $color-neutral-600;
-    }
 
     // Small tablet (md: 768px-1024px)
     @include media-breakpoint-up(md) {
@@ -596,10 +454,22 @@
     }
 }
 
+.history-modal-scrollable-content {
+    @include media-breakpoint-up(md) {
+        scrollbar-width: thin;
+        scrollbar-color: rgba($color-primary-red, 0.3) transparent;
+        &::-webkit-scrollbar {
+            width: 4px;
+        }
+        &::-webkit-scrollbar-thumb {
+            background-color: rgba($color-primary-red, 0.3);
+            border-radius: 2px;
+        }
+    }
+}
+
 .history-modal .history-modal__text-section .history-modal__text p {
     margin: 0 0 1em 0 !important;
-    padding: 0 !important;
-    display: block !important;
 
     &:last-child {
         margin-bottom: 0 !important;

@@ -85,9 +85,9 @@
     --btn-hover-bg: #000000;
     --btn-hover-border-color: #000000;
     --btn-hover-color: #{$white};
-    --btn-focus-bg: var(--os-dark);
+    --btn-focus-bg: var(--os-primary);
     --btn-focus-color: #{$white};
-    --btn-focus-border-color: var(--os-dark);
+    --btn-focus-border-color: var(--os-primary);
 
     background-color: var(--btn-bg);
     border-color: var(--btn-border-color);
@@ -223,9 +223,9 @@
   }
 }
 
-/* NAVIGATION BUTTONS */
+/* Navigation buttons */
 .btn-nav {
-  // Reset button styles
+  // Reset button
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -235,13 +235,13 @@
   border: none;
   color: $white;
   
-  // Layout properties
+  // Layout
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
   
-  // Reset properties
+  // Reset
   padding: 0;
   margin: 0;
   outline: none;
@@ -270,7 +270,7 @@
     pointer-events: none;                    
   }
 
-  // Arrow navigation variant
+  // Arrow navigation
   &--arrow {
     width: 3rem; // 48px
     height: 3rem; // 48px
@@ -335,7 +335,7 @@
       padding: 22px;
     }
     
-    // Arrow icon styling
+    // Arrow icon
     svg {
       width: 20px;
       height: 20px;
@@ -359,7 +359,6 @@
     @extend .btn-nav--arrow;
         border-radius: 50%;
     
-    // Disabled state: 50% opacity
     &:disabled {
         opacity: 0.5; 
         background-color: $primary;

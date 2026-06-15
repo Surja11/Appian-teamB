@@ -8,6 +8,14 @@ class HistoryModalModule {
     }
 
     init() {
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => this.setup());
+        } else {
+            this.setup();
+        }
+    }
+
+    setup() {
         this.modal = document.getElementById('history-modal-overlay');
 
         if (this.modal && this.modal.parentElement !== document.body) {
@@ -18,28 +26,54 @@ class HistoryModalModule {
     }
 
     bindEvents() {
-        document.querySelectorAll('.history-card__read-more').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                this.openModal(btn.getAttribute('data-history-id'));
+        // avoid null errors
+        const readMoreBtns = document.querySelectorAll('.history-card__read-more');
+        if (readMoreBtns) {
+            readMoreBtns.forEach((btn, index) => {
+                if (btn) {
+                    const historyId = btn.getAttribute('data-history-id');
+                    btn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        if (historyId) {
+                            this.openModal(historyId);
+                        }
+                    });
+                }
             });
-        });
+        }
 
-        document.querySelectorAll('.history-card').forEach(card => {
-            card.addEventListener('click', (e) => {
-                if (e.target.closest('.history-card__read-more')) return;
-                const historyId = card.getAttribute('data-year');
-                if (historyId) this.openModal(historyId);
+        const historyCards = document.querySelectorAll('.history-card');
+        if (historyCards) {
+            historyCards.forEach((card, index) => {
+                if (card) {
+                    const historyId = card.getAttribute('data-year');
+                    card.addEventListener('click', (e) => {
+                        if (e.target.closest('.history-card__read-more')) {
+                            return;
+                        }
+                        if (historyId) {
+                            this.openModal(historyId);
+                        }
+                    });
+                }
             });
-        });
+        }
 
-        if (this.modal) this.bindModalEvents();
+        if (this.modal) {
+            this.bindModalEvents();
+        }
     }
 
     getHistoryData(historyId) {
+        if (!historyId) {
+            return null;
+        }
+        
         const card = document.querySelector(`.history-card[data-year="${historyId}"]`);
-        if (!card) return null;
+        if (!card) {
+            return null;
+        }
 
         const year        = card.querySelector('.history-card__year');
         const fullContent = card.querySelector('.history-card__full-content');
@@ -48,42 +82,56 @@ class HistoryModalModule {
         let images = [];
 
         // Feature image
-        const primarySrc = card.querySelector('.history-card__image')?.getAttribute('src');
-        if (primarySrc) images.push(primarySrc);
+        const primaryImage = card.querySelector('.history-card__image');
+        const primarySrc = primaryImage ? primaryImage.getAttribute('src') : null;
+        if (primarySrc) {
+            images.push(primarySrc);
+        }
 
         // Gallery images
         const galleryImgs = card.querySelectorAll('.history-card__gallery-item img');
-        galleryImgs.forEach(img => {
-            if (img.src) images.push(img.src);
-        });
+        if (galleryImgs) {
+            galleryImgs.forEach(img => {
+                if (img && img.src) {
+                    images.push(img.src);
+                }
+            });
+        }
 
         let content = '';
         let hasContent = false;
         
-        if (fullContent && fullContent.innerHTML.trim()) {
+        if (fullContent && fullContent.innerHTML && fullContent.innerHTML.trim()) {
             content = fullContent.innerHTML.trim();
             hasContent = true;
-        } else if (excerpt && excerpt.textContent.trim()) {
+        } else if (excerpt && excerpt.textContent && excerpt.textContent.trim()) {
             content = `<p>${excerpt.textContent.trim()}</p>`;
             hasContent = true;
         }
 
-        return {
-            year: year ? year.textContent.trim() : null,
+        const data = {
+            year: year && year.textContent ? year.textContent.trim() : null,
             images,
             text: content,
-            hasYear: !!year,
+            hasYear: !!(year && year.textContent),
             hasImages: images.length > 0,
             hasContent: hasContent
         };
+
+        return data;
     }
 
     openModal(historyId) {
-        if (!this.modal) return;
+        if (!this.modal || !historyId) {
+            return;
+        }
+        
         this.currentId    = historyId;
         this.currentImage = 0;
         this.renderContent();
-        this.modal.style.display = 'flex';
+        
+        this.modal.classList.remove('d-none');
+        this.modal.classList.add('d-flex');
         document.body.style.overflow = 'hidden';
 
         const modalEl = this.modal.querySelector('.history-modal');
@@ -92,7 +140,9 @@ class HistoryModalModule {
 
     renderContent() {
         const data = this.getHistoryData(this.currentId);
-        if (!data) return;
+        if (!data) {
+            return;
+        }
 
         const modalImageSection = this.modal.querySelector('.history-modal__image-section');
         const modalImage = document.getElementById('history-modal-image');
@@ -149,37 +199,92 @@ class HistoryModalModule {
     }
 
     updateNavState(data) {
+        if (!data) return;
+        
         const isFirst     = this.currentImage === 0;
         const isLast      = this.currentImage >= data.images.length - 1;
         const hasMultiple = data.images.length > 1;
 
         const desktopNav = this.modal.querySelector('.history-modal__nav');
         const mobileNav  = this.modal.querySelector('.history-modal__mobile-nav');
-        if (desktopNav) desktopNav.style.display = hasMultiple ? '' : 'none';
-        if (mobileNav)  mobileNav.style.display  = hasMultiple ? '' : 'none';
+        
+        if (desktopNav) {
+            desktopNav.style.display = hasMultiple ? '' : 'none';
+        }
+        if (mobileNav) {
+            mobileNav.style.display = hasMultiple ? '' : 'none';
+        }
 
-        this.modal.querySelectorAll('.history-modal__nav-btn--prev')
-            .forEach(btn => btn.disabled = isFirst);
-        this.modal.querySelectorAll('.history-modal__nav-btn--next')
-            .forEach(btn => btn.disabled = isLast);
+        const prevBtns = this.modal.querySelectorAll('.history-modal__nav-btn--prev');
+        const nextBtns = this.modal.querySelectorAll('.history-modal__nav-btn--next');
+        
+        if (prevBtns) {
+            prevBtns.forEach(btn => {
+                if (btn) btn.disabled = isFirst;
+            });
+        }
+        
+        if (nextBtns) {
+            nextBtns.forEach(btn => {
+                if (btn) btn.disabled = isLast;
+            });
+        }
     }
 
     bindModalEvents() {
+        if (!this.modal) {
+            return;
+        }
+        
+        // Click outside modal to close
         this.modal.addEventListener('click', (e) => {
-            if (e.target === this.modal) this.closeModal();
+            if (e.target === this.modal) {
+                this.closeModal();
+            }
         });
 
+        // Close button
         const closeBtn = this.modal.querySelector('.history-modal__close');
-        if (closeBtn) closeBtn.addEventListener('click', () => this.closeModal());
+        if (closeBtn) {
+            closeBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                this.closeModal();
+            });
+        }
 
+        // Escape key
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && this.modal.style.display === 'flex') this.closeModal();
+            if (e.key === 'Escape' && !this.modal.classList.contains('d-none')) {
+                this.closeModal();
+            }
         });
 
-        this.modal.querySelectorAll('.history-modal__nav-btn--prev')
-            .forEach(btn => btn.addEventListener('click', (e) => { e.stopPropagation(); this.navigateImage(-1); }));
-        this.modal.querySelectorAll('.history-modal__nav-btn--next')
-            .forEach(btn => btn.addEventListener('click', (e) => { e.stopPropagation(); this.navigateImage(1); }));
+        // Navigation buttons
+        const prevBtns = this.modal.querySelectorAll('.history-modal__nav-btn--prev');
+        const nextBtns = this.modal.querySelectorAll('.history-modal__nav-btn--next');
+        
+        if (prevBtns) {
+            prevBtns.forEach(btn => {
+                if (btn) {
+                    btn.addEventListener('click', (e) => { 
+                        e.stopPropagation(); 
+                        this.navigateImage(-1); 
+                    });
+                }
+            });
+        }
+        
+        if (nextBtns) {
+            nextBtns.forEach(btn => {
+                if (btn) {
+                    btn.addEventListener('click', (e) => { 
+                        e.stopPropagation(); 
+                        this.navigateImage(1); 
+                    });
+                }
+            });
+        }
     }
 
     navigateImage(direction) {
@@ -192,9 +297,14 @@ class HistoryModalModule {
     }
 
     closeModal() {
-        if (!this.modal) return;
-        this.modal.style.display = 'none';
+        if (!this.modal) {
+            return;
+        }
+        
+        this.modal.classList.remove('d-flex');
+        this.modal.classList.add('d-none');
         document.body.style.overflow = '';
+        
         this.currentId    = null;
         this.currentImage = 0;
         
@@ -207,5 +317,8 @@ class HistoryModalModule {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    new HistoryModalModule();
+    // Add a small delay to ensure all elements are ready
+    setTimeout(() => {
+        new HistoryModalModule();
+    }, 100);
 });
