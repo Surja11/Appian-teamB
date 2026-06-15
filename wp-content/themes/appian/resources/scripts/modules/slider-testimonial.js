@@ -1,12 +1,16 @@
 import Swiper from 'swiper';
-import { Navigation } from 'swiper/modules';
+import { Navigation, Mousewheel } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 
 const initTestimonialSlider = () => {
-    const mobileSwiper = new Swiper('.testimonial-swiper-mobile', {
-        modules: [Navigation],
+    new Swiper('.testimonial-swiper-mobile', {
+        modules: [Navigation, Mousewheel],
         loop: false,
+        allowTouchMove: true,
+        mousewheel: {
+            forceToAxis: true,
+        },
         navigation: {
             prevEl: '.btn-prev-mobile',
             nextEl: '.btn-next-mobile',
@@ -14,8 +18,12 @@ const initTestimonialSlider = () => {
     });
 
     const desktopSwiper = new Swiper('.testimonial-swiper-desktop', {
+        modules: [Mousewheel],
         loop: false,
         allowTouchMove: true,
+        mousewheel: {
+            forceToAxis: true,
+        },
         on: {
             init: function () {
                 updateProgress(this);
