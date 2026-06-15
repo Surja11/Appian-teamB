@@ -4,13 +4,13 @@
  * template-parts/hero-project-card.php
  */
 
-$card           = get_query_var('card', []);
-$category       = $card['project_category'] ?? '';
+$card= get_query_var('card', []);
+$category= $card['project_category'] ?? '';
 $category_short = $card['category_short'] ?? explode(' ', $category)[0];
-$title          = $card['project_title'] ?? '';
-$subtitle       = $card['project_subtitle'] ?? '';
-$card_image     = $card['project_image'] ?? null;
-$card_link      = $card['page_link'] ?? '#';
+$title= $card['project_title'] ?? '';
+$subtitle= $card['project_subtitle'] ?? '';
+$card_image= $card['project_image'] ?? null;
+$card_link= $card['page_link'] ?? '#';
 ?>
 
 <article class="hero-project-card">
@@ -41,7 +41,7 @@ $card_link      = $card['page_link'] ?? '#';
             <img
                 class="hero-project-card__arrow"
                 src="<?php echo get_template_directory_uri(); ?>/resources/images/icon-arrow-right.svg"
-                alt=""
+                alt="arrow icon"
                 aria-hidden="true"
                 width="24"
                 height="24"
