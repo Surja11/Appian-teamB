@@ -30,61 +30,55 @@ $arrow_svg = str_replace('fill="#F3BABC"', 'fill="currentColor"', $arrow_svg);
 
 <section class="c-testimonial">
 
-    <!-- Background -->
-    <div class="c-testimonial__bg-white"></div>
-    <div class="c-testimonial__bg-red bg-<?php echo esc_attr($bg_color); ?>"></div>
+    <div class="c-testimonial__colored-bg bg-<?php echo esc_attr($bg_color); ?>"></div>
 
-    <!-- Inner layout -->
-    <div class="c-testimonial__inner">
+    <?php if ($person_image) : ?>
+    <div class="c-testimonial__person-wrap">
 
-        <!-- Person image -->
-        <?php if ($person_image) : ?>
-        <div class="c-testimonial__person-wrap">
-            <img
-                src="<?php echo esc_url($person_image['url']); ?>"
-                alt="<?php echo esc_attr($person_image['alt']); ?>"
-                class="c-testimonial__person-img"
-            />
-        </div>
-        <?php endif; ?>
+        <img
+            src="<?php echo esc_url($person_image['url']); ?>"
+            alt="<?php echo esc_attr($person_image['alt']); ?>"
+            class="c-testimonial__person-img"
+        />
 
-        <!-- Name label + arrow -->
         <?php if ($person_name || $person_title || $person_company) : ?>
         <div class="c-testimonial__label-wrap">
+            <p class="c-testimonial__name">
+                <?php if ($person_name) : ?>
+                    <?php echo esc_html($person_name); ?>
+                    <?php if ($person_title || $person_company) : ?>,<br><?php endif; ?>
+                <?php endif; ?>
+                <?php if ($person_title) : ?>
+                    <?php echo esc_html($person_title); ?>
+                    <?php if ($person_company) : ?><br><?php endif; ?>
+                <?php endif; ?>
+                <?php if ($person_company) : ?>
+                    <?php echo esc_html($person_company); ?>
+                <?php endif; ?>
+            </p>
             <span
                 class="c-testimonial__arrow text-<?php echo esc_attr($arrow_color); ?>"
                 aria-hidden="true"
             >
                 <?php echo $arrow_svg; ?>
             </span>
-            <p class="c-testimonial__name body body-large">
-                <?php if ($person_name) : ?>
-                    <?php echo esc_html($person_name); ?>,<br>
-                <?php endif; ?>
-                <?php if ($person_title) : ?>
-                    <?php echo esc_html($person_title); ?>,<br>
-                <?php endif; ?>
-                <?php if ($person_company) : ?>
-                    <?php echo esc_html($person_company); ?>
-                <?php endif; ?>
-            </p>
-        </div>
-        <?php endif; ?>
-
-        <!-- Quote bubble -->
-        <?php if ($quote) : ?>
-        <div class="c-testimonial__quote-wrap">
-            <blockquote
-                class="c-testimonial__quote"
-                style="background-image: url('<?php echo get_template_directory_uri(); ?>/resources/images/testimonial-arrow-background.png');"
-            >
-                <p class="body body-large">
-                    <?php echo wp_kses_post($quote); ?>
-                </p>
-            </blockquote>
         </div>
         <?php endif; ?>
 
     </div>
+    <?php endif; ?>
+
+    <?php if ($quote) : ?>
+    <div class="c-testimonial__quote-wrap">
+        <blockquote
+            class="c-testimonial__quote"
+            style="background-image: url('<?php echo get_template_directory_uri(); ?>/resources/images/testimonial-arrow-background.png');"
+        >
+            <p class="c-testimonial__quote-text">
+                <?php echo wp_kses_post($quote); ?>
+            </p>
+        </blockquote>
+    </div>
+    <?php endif; ?>
 
 </section>

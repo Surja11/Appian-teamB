@@ -1,254 +1,151 @@
-/* Base styles — shared between mobile and desktop */
+@import "../common";
+
 .c-testimonial {
-  position: relative;
-  overflow: hidden;
-}
+    background: $white;
+    display: grid;
+    grid-template-columns: 1fr;
+    overflow: visible;
 
-.c-testimonial__bg-white {
-  position: absolute;
-  inset: 0;
-  background-color: var(--color-neutral-50, #ffffff);
-  z-index: 0;
-}
+    &__colored-bg {
+        grid-row: 1;
+        grid-column: 1;
+        align-self: end;
+        position: relative;
+        width: 100%;
+        height: 9.875rem;
+        z-index: 1;
 
-.c-testimonial__bg-red {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 35.27%;
-  background-color: var(--color-primary-red, #d72027);
-  z-index: 0;
-}
+        @include media-breakpoint-up(lg) {
+            height: 19.1875rem;
+        }
+    }
 
-.c-testimonial__arrow svg path {
-    fill: currentColor;
-}
+    &__person-wrap {
+        grid-row: 1;
+        grid-column: 1;
+        position: relative;
+        width: 88.6%;
+        max-width: 100%;
+        margin-left: 5.7%;
+        z-index: 2;
 
-.c-testimonial__inner {
-  position: relative;
-  z-index: 1;
-  margin-inline: auto;
-  padding-top: 1.5rem;
-}
+        @include media-breakpoint-up(lg) {
+            width: 100%;
+            max-width: 74rem;
+            margin: 0 auto;
+        }
+    }
 
-.c-testimonial__person-wrap {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 5.8125rem;
-  z-index: 1;
-}
+    // ── Person image ──────────────────────────────────
+    &__person-img {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 332.143 / 280;
+        object-fit: cover;
+        object-position: top center;
 
-.c-testimonial__person-img {
-  display: block;
-  width: 85%;
-  max-width: 100%;
-  margin-inline: auto;
-  object-fit: cover;
-  object-position: top center;
-}
+        @include media-breakpoint-up(lg) {
+            aspect-ratio: 1184 / 862;
+            object-position: center;
+        }
+    }
 
-.c-testimonial__label-wrap {
-  position: absolute;
-  top: 0;
-  right: 1rem;
-  text-align: center;
-  max-width: 7.4375rem;
-}
+    &__label-wrap {
+        position: absolute;
+        bottom: 100%;
+        left: 70%;
+        transform: translateX(5rem);
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+        width: 7.4375rem;
+        z-index: 3;
 
-.c-testimonial__arrow {
-  display: block;
-  width: 2.625rem;
-  margin-inline: auto;
-  margin-bottom: 0.25rem;
-}
+        @include media-breakpoint-up(lg) {
+            bottom: 50%;
+            left: 60%;
+            flex-direction: column;
+            width: auto;
+        }
+    }
 
-.c-testimonial__name {
-  margin: 0;
-  text-align: center;
-  color: var(--color-neutral-600, #111111);
-}
+    &__arrow {
+        display: block;
+        width: 2.625rem;
+        height: 3.4375rem;
+        transform: scaleY(-1);
 
-.c-testimonial__quote-wrap {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: calc(100% - 2rem);
-  z-index: 2;
-}
+        svg {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
 
-.c-testimonial__quote {
-  margin: 0;
-  background-color: transparent;
-  background-size: cover;
-  background-repeat: no-repeat;
-  padding: 1.25rem 1.5rem;
-  background-position: center center;
-}
+        @include media-breakpoint-up(lg) {
+            width: 4.5625rem;
+            height: 5.9375rem;
+            transform: none;
+        }
+    }
 
-.c-testimonial__quote p {
-  margin: 0;
-  color: var(--color-neutral-600, #111111);
-}
+    &__name {
+        width: 7.4375rem;
+        color: var(--secondary-dark);
+        text-align: center;
+        font-size: 1.125rem;
+        font-weight: 400;
+        line-height: 150%;
+        letter-spacing: 0.0225rem;
+        margin: 0;
 
-/* ============================================================
-   MOBILE ONLY
-   ============================================================ */
-@media (max-width: 64rem) {
-  .c-testimonial {
-    height: 39.875rem;
-  }
+        @include media-breakpoint-up(lg) {
+            width: 11.875rem;
+        }
+    }
 
-  .c-testimonial__bg-red {
-     bottom: 10.5rem; /* 168px gap from bottom */
-    height: 10.5rem; /* 168px tall */
-  }
+    &__quote-wrap {
+        grid-row: 2;
+        grid-column: 1;
+        position: relative;
+        width: calc(100% - 2rem);
+        max-width: 26.25rem;
+        margin: -3.25rem auto 0;
+        filter: drop-shadow(0 0.625rem 1.25rem rgba(0, 0, 0, 0.08));
+        z-index: 3;
 
-  .c-testimonial__person-wrap {
-    bottom: 10.5rem; /* 168px — aligns person bottom with red band bottom */
-  }
+        @include media-breakpoint-up(lg) {
+            margin: -5.6875rem auto 0;
+            width: 26.25rem;
+            max-width: none;
+        }
+    }
 
-  .c-testimonial__person-img {
-    width: 20.75rem;  /* 332px */
-    height: 17.5rem;  /* 280px */
-    object-fit: cover;
-    object-position: top center;
-  }
+    &__quote {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        padding: 1.5rem;
+        min-height: 13.75rem;
+        margin: 0;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
 
-  .c-testimonial__label-wrap {
-    position: absolute;
-    top: 3rem;
-    right: 0;
-    width: 7.4375rem;  /* 119px */
-    height: 8.4375rem; /* 135px */
-    max-width: none;   /* override base max-width */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    z-index: 4;
-  }
-   .c-testimonial__arrow {
-    order: 2;
-    width: 2.625rem;
-    height: 3.4375rem;
-    flex: 0 0 3.4375rem; /* fixed height, no shrink */
-    transform: scaleX(-1) rotate(180deg);
-  }
+        @include media-breakpoint-up(lg) {
+            padding: 1.5rem 2rem;
+            min-height: 11.5rem;
+        }
+    }
 
-   .c-testimonial__name {
-    order: 1;
-    font-size: 0.8125rem;
-    line-height: 1.3;
-    text-align: center;
-    flex: 0 0 auto; /* don't grow or shrink */
-  }
-
-  .c-testimonial__inner {
-    position: static; /* makes quote-wrap anchor to .c-testimonial instead */
-  }
-
-  .c-testimonial__quote-wrap {
-    position: absolute;
-    width: 21.4375rem; /* 343px */
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
-  .c-testimonial__quote {
-    min-height: 13.125rem; /* 210px */
-    background-size: 100% 100%;
-    padding: 1.5rem 1.625rem;
-  }
-
-  .c-testimonial__quote p {
-    max-width: 18.4375rem; /* 295px */
-    min-height: 10.125rem; /* 162px */
-    margin-inline: auto;
-  }
-}
-/* ============================================================
-   DESKTOP
-   ============================================================ */
-@media (min-width: 64.0625rem) {
-
-  .c-testimonial {
-    min-height: 62.1875rem;
-  }
-
-  .c-testimonial__bg-red {
-     height: 19.1875rem; /* 307px */
-     bottom: 5.8125rem; /* 93px gap */
-  }
-
-  .c-testimonial__inner {
-    position: relative;
-    max-width: 90rem;
-    padding-top: 0;
-  }
-
-  .c-testimonial__person-img {
-    display: block;
-    width: 74rem; /* keeps your 1184 target clean */
-    margin-inline: auto;
-    aspect-ratio: 1184 / 862;
-    object-fit: cover;
-    object-position: bottom center;
-  }
-
-  .c-testimonial__label-wrap {
-    position: absolute;
-    top: 8.375rem; /* 134px from red line reference */
-    right: 20rem; /* 320px gap from right edge */
-    max-width: 11.875rem;
-    text-align: center;
-  }
-
-  .c-testimonial__arrow {
-    width: 4.5625rem;
-    margin-bottom: 0.5rem;
-    margin-inline: auto;
-    display: block;
-  }
-
-  .c-testimonial__name {
-    text-align: center;
-  }
-
-  .c-testimonial__inner {
-    position: static; /* let __quote-wrap anchor to .c-testimonial instead */
-  }
-
-  /* Quote bubble — desktop */
-.c-testimonial__quote-wrap {
-  position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 5.8125rem; /* just the gap height — sits right at white/red boundary */
-    margin-inline: auto;
-    width: 26.25rem;
-    transform: translateY(50%);
-    z-index: 3;
-}
-
-.c-testimonial__quote {
-  margin: 0;
-  max-width: 26.25rem; /* 420 */
-  padding:
-    1.78125rem
-    2rem;
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-.c-testimonial__quote p {
-  margin: 0;
-  max-width: 22.25rem; /* 356 */
-  margin-inline: auto;
-  line-height: 1.25;
-}
+    &__quote-text {
+        align-self: stretch;
+        color: var(--secondary-dark);
+        font-size: 1.125rem;
+        font-weight: 400;
+        line-height: 150%;
+        letter-spacing: 0.0225rem;
+        margin: 0;
+    }
 }
