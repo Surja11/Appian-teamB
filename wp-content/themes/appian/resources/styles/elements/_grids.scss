@@ -3,18 +3,24 @@
   --grid-gutter: 1.5rem;
 }
 
-@media (min-width: 576px) {
-  :root {
-    --grid-side-gutter: 2rem;
-  }
-}
+// @media (min-width: 576px) {
+//   :root {
+//     --grid-side-gutter: 2rem;
+//   }
+// }
 
-@include media-breakpoint-up(lg) {
-  :root {
-    --grid-side-gutter: 4rem;
-    --grid-gutter: 2rem;
-  }
-}
+// @include media-breakpoint-up(md){
+//   :root{
+//     --grid-side-gutter: 2.5rem;
+//   }
+// }
+
+// @include media-breakpoint-up(lg) {
+//   :root {
+//     --grid-side-gutter: 4rem;
+//     --grid-gutter: 2rem;
+//   }
+// }
 
 @include media-breakpoint-up(xl) {
   :root {
@@ -33,16 +39,16 @@
 }
 
 // From 1441px — container centers itself, no fixed side padding needed
-@media (min-width: 1441px) {
-  :root {
-    --grid-side-gutter: 0px;   // padding removed, auto margin takes over
-  }
+// @media (min-width: 1441px) {
+//   :root {
+//     --grid-side-gutter: 0px;   // padding removed, auto margin takes over
+//   }
 
-  .container {
-    max-width: 1440px !important; // Cap at 1440 so margins are visible at 1441+
-    margin-inline: auto !important;
-  }
-}
+//   .container {
+//     max-width: 1440px !important; // Cap at 1440 so margins are visible at 1441+
+//     margin-inline: auto !important;
+//   }
+// }
 
 .row {
 
