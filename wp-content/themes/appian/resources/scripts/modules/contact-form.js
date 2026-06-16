@@ -1,8 +1,3 @@
-/**
- * Contact Form Module
- * Handles client-side validation, interactive UI, and asynchronous AJAX submission.
- */
-
 class ContactForm {
     constructor() {
         this.form = document.getElementById('js-contact-form');
@@ -107,8 +102,19 @@ class ContactForm {
             isValid = false;
         }
 
-        if (field.type === 'email' && value) {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const isNameField = field.name === 'first-name' || field.name === 'last-name';
+
+        if (isNameField && value) {
+            const nameRegex = /^[a-zA-ZÀ-ÿ\s'\-]+$/;
+            
+            if (!nameRegex.test(value)) {
+                this.showFieldError(field, 'Please enter a valid name (letters, spaces, hyphens, and apostrophes only)');
+                isValid = false;
+            }
+        }
+
+        if (field.type === 'email0 0 calc(50% - 1.125rem)' && value) {
+            const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;            
             if (!emailRegex.test(value)) {
                 this.showFieldError(field, 'Please enter a valid email address');
                 isValid = false;
@@ -116,8 +122,13 @@ class ContactForm {
         }
 
         if (field.type === 'tel' && value) {
+            const phoneStructureRegex = /^\+?[0-9\s.\-\(\)]+$/;
+            
             const cleanPhone = value.replace(/\D/g, '');
-            if (cleanPhone.length < 7 || cleanPhone.length > 15) {
+            
+            const isAllZeros = /^0+$/.test(cleanPhone);
+
+            if (!phoneStructureRegex.test(value) || isAllZeros || cleanPhone.length < 7 || cleanPhone.length > 15) {
                 this.showFieldError(field, 'Please enter a valid phone number');
                 isValid = false;
             }
