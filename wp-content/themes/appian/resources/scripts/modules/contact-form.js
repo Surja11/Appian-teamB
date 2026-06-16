@@ -1,6 +1,6 @@
 /**
  * Contact Form Module
- * Handles client-side validation, interactive UI, and asynchronous AJAX submission.
+ * Handles client-side validation, interactive UI and asynchronous AJAX submission.
  */
 
 class ContactForm {
@@ -77,15 +77,24 @@ class ContactForm {
 
             if (!radioGroupChecked) {
                 const triggerBox = radioWrapper.querySelector('.contact-form__radio-trigger');
+<<<<<<< Updated upstream
 
                 triggerBox.classList.add('error');
                 triggerBox.style.borderColor = '#ad1a1f';
 
+=======
+                
+                const primaryRed = getComputedStyle(document.documentElement).getPropertyValue('--color-primary-red') || '#d72027';
+                
+                triggerBox.classList.add('error');
+                triggerBox.style.borderColor = primaryRed;
+                
+>>>>>>> Stashed changes
                 const oldError = radioWrapper.querySelector('.error-message');
                 if (oldError) oldError.remove();
 
                 const errorElement = document.createElement('div');
-                errorElement.className = 'error-message';
+                errorElement.className = 'error-message body-small';
                 errorElement.textContent = 'This field is required';
 
                 radioWrapper.appendChild(errorElement);
@@ -138,15 +147,22 @@ class ContactForm {
     }
 
     showFieldError(field, message) {
+        const primaryRed = getComputedStyle(document.documentElement).getPropertyValue('--color-primary-red') || '#d72027';
+        
         field.classList.add('error');
+<<<<<<< Updated upstream
         field.style.borderColor = '#ad1a1f';
 
+=======
+        field.style.borderColor = primaryRed;
+        
+>>>>>>> Stashed changes
         const parent = field.parentNode;
         let existingError = parent.querySelector('.error-message');
         if (existingError) existingError.remove();
 
         const errorElement = document.createElement('div');
-        errorElement.className = 'error-message';
+        errorElement.className = 'error-message body-small';
         errorElement.textContent = message;
 
         parent.appendChild(errorElement);
@@ -181,16 +197,18 @@ class ContactForm {
     }
 
     showError(message) {
+        const primaryRed = getComputedStyle(document.documentElement).getPropertyValue('--color-primary-red') || '#d72027';
+        
         let errorContainer = this.form.querySelector('.form-error-message');
         if (!errorContainer) {
             errorContainer = document.createElement('div');
             errorContainer.className = 'form-error-message';
             errorContainer.style.cssText = `
                 background-color: #fbe9e9;
-                color: #ad1a1f;
+                color: ${primaryRed};
                 padding: 14px 16px;
                 margin-bottom: 24px;
-                border-left: 4px solid #ad1a1f;
+                border-left: 4px solid ${primaryRed};
                 font-size: 14px;
                 font-family: inherit;
             `;
