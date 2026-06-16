@@ -30,13 +30,21 @@
 }
 
 .container,
-.container-fluid {
+.container-fluid,
+.container-md {
   width: 100%;
   padding-right: var(--grid-side-gutter);
   padding-left: var(--grid-side-gutter);
   margin-right: auto;
   margin-left: auto;
 }
+
+
+.container-md{
+  max-width: 972px;
+}
+
+
 
 // From 1441px — container centers itself, no fixed side padding needed
 // @media (min-width: 1441px) {
