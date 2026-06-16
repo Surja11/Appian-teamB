@@ -77,10 +77,12 @@ class ContactForm {
 
             if (!radioGroupChecked) {
                 const triggerBox = radioWrapper.querySelector('.contact-form__radio-trigger');
+                
                 const primaryRed = getComputedStyle(document.documentElement).getPropertyValue('--color-primary-red') || '#d72027';
 
                 triggerBox.classList.add('error');
                 triggerBox.style.borderColor = primaryRed;
+                
                 const oldError = radioWrapper.querySelector('.error-message');
                 if (oldError) oldError.remove();
 
@@ -142,6 +144,7 @@ class ContactForm {
         
         field.classList.add('error');
         field.style.borderColor = primaryRed;
+        
         const parent = field.parentNode;
         let existingError = parent.querySelector('.error-message');
         if (existingError) existingError.remove();

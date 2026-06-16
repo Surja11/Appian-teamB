@@ -16,7 +16,7 @@ function handle_form_submission()
     $phone = sanitize_text_field($_POST['phone-number'] ?? '');
     $move_in_date = sanitize_text_field($_POST['move-in-date'] ?? '');
     $unit_type = sanitize_text_field($_POST['unit-type'] ?? '');
-    $room_type = sanitize_text_field($_POST['room-type'] ?? ''); // probably this too
+    $room_type = sanitize_text_field($_POST['room-type'] ?? '');
 
     // creating the CPT post
     $post_id = wp_insert_post(

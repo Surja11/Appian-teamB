@@ -11,6 +11,13 @@ $tab-font-size: 0.875rem;
     padding-bottom: 6.838125rem !important;
   }
 
+  &__wrapper{
+
+    @include media-breakpoint-up(xl){
+    max-width: 960px;
+    }
+  }
+
   // texture overlay
   &::before {
     content: '';

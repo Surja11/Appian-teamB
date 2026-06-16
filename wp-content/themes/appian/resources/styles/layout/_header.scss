@@ -252,13 +252,11 @@ main{
       color: $nav-hover-color;
     }
 
-    &.current-menu-item,
-    &.current-page-ancestor,
-    &.current-menu-ancestor {
-        .navbar__link,
-        .navbar__dropdown-trigger {
-            color: $nav-hover-color;
-        }
+     &.is-active{
+
+      .navbar__link{
+      color: $nav-hover-color;
+      }
     }
   }
 
@@ -273,6 +271,8 @@ main{
 
     @include focus-box;
     @include active-element;
+
+   
   }
 
   &__dropdown-trigger {
