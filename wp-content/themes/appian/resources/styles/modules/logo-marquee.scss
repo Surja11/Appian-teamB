@@ -1,6 +1,6 @@
 @import '../common';
 
-.logo-marquee {
+section.logo-marquee {
 
   @include media-breakpoint-up(lg){
     padding:3.21875rem 0 !important;

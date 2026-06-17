@@ -27,10 +27,10 @@
 .cta-section {
 
     >* {
-        margin-bottom: 1.75rem;
+        margin-bottom: 1.75rem !important;
 
         &:last-child {
-            margin-bottom: 0;
+            margin-bottom: 0 !important;
         }
     }
 
@@ -38,10 +38,10 @@
         gap: 1.75rem !important;
 
         >* {
-            margin-bottom: 0;
+            margin-bottom: 0 !important;
 
             &:last-child {
-                margin-bottom: 0;
+                margin-bottom: 0 !important;
             }
         }
     }
@@ -120,10 +120,6 @@
             }
         }
 
-        @include media-breakpoint-up(lg){
-        padding-top: 25px !important;
-        padding-bottom: 31px !important;
-        }
     }
 
     &-body {
