@@ -4,25 +4,23 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 
 const initTestimonialSlider = () => {
-    new Swiper('.testimonial-swiper-mobile', {
+    const testimonialSwiper = new Swiper('.testimonial-swiper', {
         modules: [Navigation, Mousewheel],
         loop: false,
         allowTouchMove: true,
+        centeredSlides: false,
+        slidesPerView: 1,
+        spaceBetween: 0,
         mousewheel: {
             forceToAxis: true,
         },
         navigation: {
-            prevEl: '.btn-prev-mobile',
-            nextEl: '.btn-next-mobile',
+            prevEl: '.btn-prev',
+            nextEl: '.btn-next',
         },
-    });
-
-    const desktopSwiper = new Swiper('.testimonial-swiper-desktop', {
-        modules: [Mousewheel],
-        loop: false,
-        allowTouchMove: true,
-        mousewheel: {
-            forceToAxis: true,
+        a11y: {
+            prevSlideMessage: 'Previous testimonial',
+            nextSlideMessage: 'Next testimonial',
         },
         on: {
             init: function () {
@@ -57,10 +55,10 @@ const initTestimonialSlider = () => {
             const clickX = e.clientX - rect.left;
             const ratio = Math.max(0, Math.min(1, clickX / rect.width));
             
-            const totalSlides = desktopSwiper.slides.filter(slide => !slide.classList.contains('swiper-slide-duplicate')).length;
+            const totalSlides = testimonialSwiper.slides.filter(slide => !slide.classList.contains('swiper-slide-duplicate')).length;
             const targetIndex = Math.floor(ratio * totalSlides);
             
-            desktopSwiper.slideToLoop(targetIndex);
+            testimonialSwiper.slideTo(targetIndex);
         });
     }
 };
