@@ -1,0 +1,21 @@
+.project-detail{
+    
+    background-repeat: repeat;
+    position: relative;
+
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: url('../../images/project-detail-bg.png');
+        background-repeat: repeat;
+        opacity: 0.2; 
+        z-index: 0;
+    }
+
+    > * {
+        position: relative;
+        z-index: 1;
+    }
+
+}
