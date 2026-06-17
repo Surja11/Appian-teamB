@@ -133,9 +133,9 @@
       width: calc(50% - 1.125rem);
     }
 
-    @include media-breakpoint-up(xxl) {
-      flex: 0 0 18.1875rem;
-      width: 18.1875rem;
+    @media (min-width: 90rem) {
+      flex: 0 0 calc(50% - 1.125rem);
+      width: calc(50% - 1.125rem);
     }
 
     &:first-of-type {
@@ -174,12 +174,9 @@
     padding: 0.875rem 1.25rem;
   }
 
-  @include media-breakpoint-up(xxl) {
-    .contact-form__field-wrap--half & {
-      padding: 0.875rem 1.5rem;
-      width: 18.1875rem;
-    }
+  @media (min-width: 90rem) {
     padding: 0.875rem 1.5rem;
+    width: 100%;
   }
 
   &::placeholder {
