@@ -41,7 +41,6 @@ $chevron = '<svg class="our-work__chevron" width="24" height="24" viewBox="0 0 2
 </svg>';
 ?>
 
-grgr
 <!-- our work section -->
 <section class="our-work pt-16 pb-16 ps-xl-10 pt-xl-27 pb-xl-27 d-flex flex-column justify-content-center">
     <!-- texture overlay that covers entire our-work section -->

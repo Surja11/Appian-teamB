@@ -1,11 +1,54 @@
 @import '../common';
 
-.cta-section {
-    gap: 1.875rem !important;
 
-    &__caption{
-        
-        @include media-breakpoint-up(lg){
+
+.faq-section__wrapper {
+    margin: 0 -8px !important;
+
+    @include media-breakpoint-up(lg) {
+        margin: 0 !important;
+
+    }
+
+    @include media-breakpoint-up(xl) {
+        max-width: 1164.14px;
+
+        .faq {
+
+
+            p {
+                margin-bottom: 22px !important;
+            }
+        }
+    }
+}
+
+
+.cta-section {
+
+    >* {
+        margin-bottom: 1.75rem;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    @supports (gap: 1rem) {
+        gap: 1.75rem !important;
+
+        >* {
+            margin-bottom: 0;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    &__caption {
+
+        @include media-breakpoint-up(lg) {
             text-transform: capitalize;
             max-width: 303px;
         }
@@ -14,7 +57,8 @@
     .btn-primary {
         width: 240px !important;
     }
-    @include media-breakpoint-up(lg){
+
+    @include media-breakpoint-up(lg) {
         max-width: 387.11px;
     }
 
@@ -29,53 +73,70 @@
 
 .accordion {
     $self : '.accordion';
+
     &-item {
         border-bottom: none !important;
         border-top: 1px solid $color-secondary !important;
     }
-&-chevron {
-    position: absolute;
-    right: 0px;
-    width: 26px;
-    height: 26px;
-    transform: rotate(45deg);
-    transition: transform 0.3s ease-in-out;
 
-    @include media-breakpoint-up(xl) {
-        width: 32px;
-        height: 32px;
-    }
-}
-&-button {
-    position: relative;
-    padding-inline: 0 !important;
+    &-chevron {
+        position: absolute;
+        right: 0px;
+        width: 26px;
+        height: 26px;
+        overflow: hidden;
+        transform: rotate(0deg);
+        transition: transform 0.3s ease-in-out;
 
-    &:not(.collapsed) {
-        background-color: transparent !important;
-        color: $color-secondary !important;
-        box-shadow: none !important;
-
-        #{$self}-chevron {
-            transform: rotate(0deg);  
+        @include media-breakpoint-up(xl) {
+            width: 32px;
+            height: 32px;
+            right: 20px;
         }
     }
 
-    &.collapsed {
-        #{$self}-chevron {
-            transform: rotate(45deg); 
+    &-button {
+        position: relative;
+        padding-inline: 0 !important;
+
+        &:focus {
+            border-color: transparent !important;
+            box-shadow: none !important;
+        }
+
+        &:not(.collapsed) {
+            background-color: transparent !important;
+            color: $color-secondary !important;
+            box-shadow: none !important;
+
+            #{$self}-chevron {
+                transform: rotate(45deg);
+            }
+        }
+
+        &.collapsed {
+            #{$self}-chevron {
+                transform: rotate(0deg);
+            }
+        }
+
+        @include media-breakpoint-up(lg){
+        padding-top: 25px !important;
+        padding-bottom: 31px !important;
         }
     }
-
-    :focus{
-        border-color: transparent !important;
-    }
-}
 
     &-body {
         padding-inline: 0 !important;
+
+        ul,
+        ol,
+        dl {
+            margin-bottom: 0 !important;
+        }
     }
 
-    &:last-child{
+    &:last-child {
         padding-bottom: 0 !important;
     }
 }
