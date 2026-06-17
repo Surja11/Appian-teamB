@@ -25,7 +25,7 @@ $chevron = '<svg class="our-work__chevron" width="24" height="24" viewBox="0 0 2
 <use xlink:href="#stroke0_4010_183" transform="translate(10.5309 15.6117) scale(0.00560224) rotate(-148.407)"/>
 <use xlink:href="#stroke0_4010_183" transform="translate(11.6294 15.9649) scale(0.00560224) rotate(-172.879)"/>
 <use xlink:href="#stroke0_4010_183" transform="translate(11.1592 16.7499) scale(0.00560224) rotate(-126.278)"/>
-<use xlink:href="#stroke0_4010_183" transform="translate(10.7215 15.5948) scale(0.00560224) rotate(-30.7502)"/>
+<use xlink:href="#stroke0_4010_183" transform="translate(10.7215 15.5948) scale(0.00560224) rotate(-30.7502)"/>cd
 <use xlink:href="#stroke0_4010_183" transform="translate(11.2424 15.5812) scale(0.00560224) rotate(-54.8274)"/>
 <use xlink:href="#stroke0_4010_183" transform="translate(12.9746 13.5167) scale(0.00560224) rotate(34.4669)"/>
 <use xlink:href="#stroke0_4010_183" transform="translate(13.625 15.6191) scale(0.00560224) rotate(-133.892)"/>
@@ -41,30 +41,31 @@ $chevron = '<svg class="our-work__chevron" width="24" height="24" viewBox="0 0 2
 </svg>';
 ?>
 
-
+grgr
 <!-- our work section -->
-<section class="our-work pt-16 pb-16 ps-7 pe-7 ps-xl-65 pe-xl-55 pt-xl-27 pb-xl-27 d-flex flex-column justify-content-center">
+<section class="our-work pt-16 pb-16 ps-xl-10 pt-xl-27 pb-xl-27 d-flex flex-column justify-content-center">
     <!-- texture overlay that covers entire our-work section -->
     <div class="our-work__overlay"></div>
-
+    <div class="container">
+        <div class="our-work__wrapper ms-auto me-auto">
     <!-- our work heading with underline stroke -->
-    <div class="our-work__heading d-flex flex-column justify-content-center align-items-center">
-        <h2 class="mb-4"><?php echo esc_html($our_work_header ?: 'Our Work'); ?></h2>
-        <picture>
+        <div class=" our-work__heading d-flex flex-column justify-content-center align-items-center">
+            <h2 class="mb-4"><?php echo esc_html($our_work_header ?: 'Our Work'); ?></h2>
+            <picture>
             <source
                 media="(min-width: 1200px)"
                 srcset="<?php echo get_template_directory_uri(); ?>/resources/images/divider.svg">
             <img
                 src="<?php echo get_template_directory_uri(); ?>/resources/images/divider-small.svg"
                 alt="">
-        </picture>
-    </div>
+            </picture>
+        </div>
 
 
 
     <!-- tabs for large screens -->
     <div class="our-work__tabs-container">
-        <ul class="our-work__tabs d-none d-xl-flex justify-content-center list-unstyled mb-0" id="ourWorkTabs" role="tablist">
+        <ul class="our-work__tabs d-none d-xl-flex flex-wrap justify-content-center list-unstyled mb-0" id="ourWorkTabs" role="tablist">
             <?php foreach ($valid_tabs as $index => $tab) :
                 $tab_id = 'tab' . ($index + 1);
                 $is_active = ($index === 0);
@@ -99,7 +100,7 @@ $chevron = '<svg class="our-work__chevron" width="24" height="24" viewBox="0 0 2
             $content = $tab['content'] ?? '';
             $image = $tab['image'] ?? null;
             $image_url = is_array($image) ? ($image['url'] ?? '') : $image;
-            $image_alt = is_array($image) ? (empty($image['alt']) ? $title:$image['alt']) : $title;
+            $image_alt = is_array($image) ? (empty($image['alt']) ? $title : $image['alt']) : $title;
             if (empty($title) && empty($content) && empty($image)) {
                 continue;
             }
@@ -174,5 +175,6 @@ $chevron = '<svg class="our-work__chevron" width="24" height="24" viewBox="0 0 2
             </div>
         <?php endforeach; ?>
     </div>
-
+        </div>
+    </div>
 </section>
