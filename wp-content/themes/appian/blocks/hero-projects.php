@@ -18,7 +18,7 @@ if (!empty($section_title) || !empty($hero_projects_list) || !empty($featured_im
 ?>
 
     <section class="hero-projects">
-        <div class="hero-projects__inner">
+        <div class="container">
 
             <?php if (!empty($section_title)) : ?>
                 <div class="hero-projects__title-block">

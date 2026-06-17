@@ -16,7 +16,15 @@ $card_link= $card['page_link'] ?? '#';
 <article class="hero-project-card">
     <a class="hero-project-card__link" href="<?php echo esc_url($card_link); ?>">
 
-        <div class="hero-project-card__image-wrap" <?php if ($card_image && isset($card_image['url'])) : ?>style="background-image: url('<?php echo esc_url($card_image['url']); ?>');"<?php endif; ?>></div>
+        <div class="hero-project-card__image-wrap" <?php if ($card_image && isset($card_image['url'])) : ?>style="background-image: url('<?php echo esc_url($card_image['url']); ?>');"<?php endif; ?>>
+            <?php if ($card_image && isset($card_image['url'])) : ?>
+                <img 
+                    src="<?php echo esc_url($card_image['url']); ?>" 
+                    alt="<?php echo esc_attr(!empty($card_image['alt']) ? $card_image['alt'] : $title . ' project'); ?>" 
+                    class="sr-only"
+                >
+            <?php endif; ?>
+        </div>
         <div class="hero-project-card__overlay"></div>
         <div class="hero-project-card__hover-overlay"></div>
 

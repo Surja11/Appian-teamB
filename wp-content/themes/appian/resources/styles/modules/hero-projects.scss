@@ -4,26 +4,10 @@
     background-color: $white;
     padding: clamp(4rem, 8vw, 6.25rem) 0;
 
-    &__inner {
+    .container {
         display: flex;
         flex-direction: column;
         align-items: center;
-        max-width: 90rem;
-        margin: 0 auto;
-        padding: 0 clamp(1.75rem, 4vw, 5rem);
-        
-        @include media-breakpoint-down(sm) {
-            padding: 0 1.75rem; // 28px
-        }
-        
-        @include media-breakpoint-up(xl) {
-            padding: 0 5rem; // 80px
-        }
-        
-        @media (min-width: 1441px) {
-            max-width: 90rem;
-            padding: 0 5rem; // 80px + auto
-        }
     }
 
     &__title-block {
@@ -61,7 +45,7 @@
             @include media-breakpoint-down(md) {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 12px !important;
-                margin-bottom: 12px !important;
+                margin-bottom: 92px !important;
             }
         }
         
@@ -79,6 +63,10 @@
             column-gap: 12px !important;
             row-gap: 20px !important;
             margin-bottom: 20px !important;
+        }
+        
+        @media (max-width: 375px) {
+            gap: 8px !important;
         }
     }
 
