@@ -11,12 +11,18 @@ const initTestimonialSlider = () => {
         centeredSlides: false,
         slidesPerView: 1,
         spaceBetween: 0,
+        speed: 300,
+        preventInteractionOnTransition: true,
         mousewheel: {
             forceToAxis: true,
+            sensitivity: 1,
+            thresholdDelta: 50,
+            thresholdTime: 500,
         },
         navigation: {
             prevEl: '.btn-prev',
             nextEl: '.btn-next',
+            disabledClass: 'swiper-button-disabled',
         },
         a11y: {
             prevSlideMessage: 'Previous testimonial',
@@ -50,7 +56,13 @@ const initTestimonialSlider = () => {
 
     const progressBarWrapper = document.querySelector('.progress-bar-wrapper');
     if (progressBarWrapper) {
+        let isProgressBarClicking = false;
+        
         progressBarWrapper.addEventListener('click', (e) => {
+            if (isProgressBarClicking || testimonialSwiper.animating) return;
+            
+            isProgressBarClicking = true;
+            
             const rect = progressBarWrapper.getBoundingClientRect();
             const clickX = e.clientX - rect.left;
             const ratio = Math.max(0, Math.min(1, clickX / rect.width));
@@ -59,6 +71,10 @@ const initTestimonialSlider = () => {
             const targetIndex = Math.floor(ratio * totalSlides);
             
             testimonialSwiper.slideTo(targetIndex);
+            
+            setTimeout(() => {
+                isProgressBarClicking = false;
+            }, 400);
         });
     }
 };
