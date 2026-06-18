@@ -4,6 +4,8 @@ class HistoryModalModule {
         this.currentId    = null;
         this.currentImage = 0;
         this.imagesCache  = {};
+        this.lastActiveElement = null;
+        this.focusableElements = null;
         this.init();
     }
 
@@ -48,12 +50,24 @@ class HistoryModalModule {
             historyCards.forEach((card, index) => {
                 if (card) {
                     const historyId = card.getAttribute('data-year');
+                    
+                    // Click event
                     card.addEventListener('click', (e) => {
                         if (e.target.closest('.history-card__read-more')) {
                             return;
                         }
                         if (historyId) {
                             this.openModal(historyId);
+                        }
+                    });
+                    
+                    // Keyboard event (Enter or Space)
+                    card.addEventListener('keydown', (e) => {
+                        if ((e.key === 'Enter' || e.key === ' ') && !e.target.closest('.history-card__read-more')) {
+                            e.preventDefault();
+                            if (historyId) {
+                                this.openModal(historyId);
+                            }
                         }
                     });
                 }
@@ -126,6 +140,9 @@ class HistoryModalModule {
             return;
         }
         
+        // Store currently focused element
+        this.lastActiveElement = document.activeElement;
+        
         this.currentId    = historyId;
         this.currentImage = 0;
         this.renderContent();
@@ -136,6 +153,10 @@ class HistoryModalModule {
 
         const modalEl = this.modal.querySelector('.history-modal');
         if (modalEl) modalEl.scrollTop = 0;
+
+        // Set up focus trapping and move focus to modal
+        this.setupFocusTrapping();
+        this.focusFirstElement();
     }
 
     renderContent() {
@@ -229,6 +250,9 @@ class HistoryModalModule {
                 if (btn) btn.disabled = isLast;
             });
         }
+
+        // Refresh focusable elements after navigation state changes
+        this.setupFocusTrapping();
     }
 
     bindModalEvents() {
@@ -257,6 +281,13 @@ class HistoryModalModule {
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && !this.modal.classList.contains('d-none')) {
                 this.closeModal();
+            }
+        });
+
+        // Tab key focus trapping
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Tab' && !this.modal.classList.contains('d-none')) {
+                this.trapFocus(e);
             }
         });
 
@@ -312,6 +343,61 @@ class HistoryModalModule {
         if (modalImage) {
             modalImage.style.opacity = '0';
             modalImage.src = '';
+        }
+
+        // Return focus to element that opened the modal
+        if (this.lastActiveElement) {
+            this.lastActiveElement.focus();
+            this.lastActiveElement = null;
+        }
+    }
+
+    setupFocusTrapping() {
+        // Get all focusable elements within the modal
+        const focusableSelectors = [
+            'button:not([disabled])',
+            '[href]',
+            'input:not([disabled])',
+            'select:not([disabled])',
+            'textarea:not([disabled])',
+            '[tabindex]:not([tabindex="-1"])'
+        ];
+        
+        this.focusableElements = this.modal.querySelectorAll(focusableSelectors.join(', '));
+    }
+
+    focusFirstElement() {
+        if (this.focusableElements && this.focusableElements.length > 0) {
+            // Focus close button first
+            const closeBtn = this.modal.querySelector('.history-modal__close');
+            if (closeBtn) {
+                closeBtn.focus();
+            } else {
+                this.focusableElements[0].focus();
+            }
+        }
+    }
+
+    trapFocus(e) {
+        if (!this.focusableElements || this.focusableElements.length === 0) {
+            return;
+        }
+
+        const firstElement = this.focusableElements[0];
+        const lastElement = this.focusableElements[this.focusableElements.length - 1];
+
+        if (e.shiftKey) {
+            // Shift + Tab
+            if (document.activeElement === firstElement) {
+                e.preventDefault();
+                lastElement.focus();
+            }
+        } else {
+            // Tab
+            if (document.activeElement === lastElement) {
+                e.preventDefault();
+                firstElement.focus();
+            }
         }
     }
 }

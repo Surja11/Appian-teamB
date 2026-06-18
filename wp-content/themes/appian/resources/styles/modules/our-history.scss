@@ -196,6 +196,20 @@ section#our-history-block,
                 }
             }
 
+            &:focus {
+                outline: 2px solid $color-primary-red;
+                outline-offset: 2px;
+            }
+
+            &:focus:not(:focus-visible) {
+                outline: none;
+            }
+
+            &:focus-visible {
+                outline: 2px solid $color-primary-red;
+                outline-offset: 2px;
+            }
+
             .history-card__year {
                 color: $color-primary-red;
                 line-height: 1.2;
@@ -295,6 +309,22 @@ section#our-history-block,
                     &:hover {
                         color: $color-dark-red;
                         text-decoration: underline;
+                    }
+
+                    &:focus {
+                        outline: 2px solid $color-primary-red;
+                        outline-offset: 2px;
+                        color: $color-dark-red;
+                    }
+
+                    &:focus:not(:focus-visible) {
+                        outline: none;
+                    }
+
+                    &:focus-visible {
+                        outline: 2px solid $color-primary-red;
+                        outline-offset: 2px;
+                        color: $color-dark-red;
                     }
                 }
             }
