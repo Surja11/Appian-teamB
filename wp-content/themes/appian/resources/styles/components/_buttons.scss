@@ -278,6 +278,20 @@
     min-height: 3rem;
     border-radius: 0;
     
+    &:focus {
+      outline: 2px solid $color-primary-red;
+      outline-offset: 2px;
+    }
+
+    &:focus:not(:focus-visible) {
+      outline: none;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $color-primary-red;
+      outline-offset: 2px;
+    }
+    
     svg {
       width: 1.25rem;
       height: 1.25rem;

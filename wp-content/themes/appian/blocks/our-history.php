@@ -5,7 +5,7 @@ $history_items = get_field( 'history_items' );
 if ( ! function_exists( 'our_history_get_excerpt' ) ) :
     function our_history_get_excerpt( $html_content, $word_limit = 999 ) {
         $plain = wp_strip_all_tags( $html_content );
-        return $plain; // Return full text, let CSS handle truncation
+        return $plain;
     }
 endif;
 ?>
@@ -43,7 +43,11 @@ endif;
                 ?>
 
                 <!-- History Item <?php echo $year ? $year : 'Item ' . ($index + 1); ?> -->
-                <div class="history-card mb-16 mb-sm-0 border-0 overflow-hidden shadow-none position-relative cursor-pointer bg-transparent flex-shrink-0 h-auto p-0 focus-ring-0" data-year="<?php echo esc_attr($unique_id); ?>">
+                <div class="history-card mb-16 mb-sm-0 border-0 overflow-hidden shadow-none position-relative cursor-pointer bg-transparent flex-shrink-0 h-auto p-0 focus-ring-0" 
+                     data-year="<?php echo esc_attr($unique_id); ?>" 
+                     tabindex="0" 
+                     role="button" 
+                     aria-label="View details for <?php echo $year ? esc_attr($year) : 'history item'; ?>">
                     
                     <!-- Year/Title - Only show if exists -->
                     <?php if ( $year ) : ?>

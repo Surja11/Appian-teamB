@@ -144,6 +144,20 @@
             fill: $color-primary-red;
         }
     }
+
+    &:focus {
+        outline: 2px solid $color-primary-red;
+        outline-offset: 2px;
+    }
+
+    &:focus:not(:focus-visible) {
+        outline: none;
+    }
+
+    &:focus-visible {
+        outline: 2px solid $color-primary-red;
+        outline-offset: 2px;
+    }
 }
 
 .history-modal__content {
@@ -281,6 +295,20 @@
         background-color: $color-dark-red;
     }
 
+    &:focus {
+        outline: 2px solid $color-primary-red;
+        outline-offset: 2px;
+    }
+
+    &:focus:not(:focus-visible) {
+        outline: none;
+    }
+
+    &:focus-visible {
+        outline: 2px solid $color-primary-red;
+        outline-offset: 2px;
+    }
+
     &:disabled {
         opacity: 0.5;
     }
@@ -317,19 +345,9 @@
 
     // Small tablet (md: 768px-1024px) to XXL
     @include media-breakpoint-up(md) {
-        overflow: scroll;
+        overflow: hidden;
         height: 100%;
         width: 55%;
-
-        scrollbar-width: thin;
-        scrollbar-color: rgba($color-primary-red, 0.3) transparent;
-        &::-webkit-scrollbar {
-            width: 4px;
-        }
-        &::-webkit-scrollbar-thumb {
-            background-color: rgba($color-primary-red, 0.3);
-            border-radius: 2px;
-        }
     }
 
     // Large tablet (lg: 1025px-1199px)
@@ -357,19 +375,9 @@
 .history-modal__content-wrapper {
     // Mobile screens (below md: up to 767px)
     @include media-breakpoint-down(md) {
-        overflow-y: auto;
+        overflow-y: hidden;
         padding: map-get($spacers, 10) map-get($spacers, 7);
         padding-bottom: 0px;
-
-        scrollbar-width: thin;
-        scrollbar-color: rgba($color-primary-red, 0.3) transparent;
-        &::-webkit-scrollbar {
-            width: 4px;
-        }
-        &::-webkit-scrollbar-thumb {
-            background-color: rgba($color-primary-red, 0.3);
-            border-radius: 2px;
-        }
     }
 
     // Small tablet (md: 768px-1024px)
@@ -377,7 +385,7 @@
         @include media-breakpoint-down(lg) {
             min-height: auto;
             height: 420px;
-            overflow: scroll;
+            overflow: hidden;
         }
     }
 
@@ -386,7 +394,7 @@
         @include media-breakpoint-down(xl) {
             min-height: auto;
             height: 480px;
-            overflow: scroll;
+            overflow: hidden;
         }
     }
 
@@ -395,14 +403,14 @@
         @include media-breakpoint-down(xxl) {
             min-height: auto;
             height: 480px;
-            overflow: scroll;
+            overflow: hidden;
         }
     }
 
     // XXL (1440px+)
     @include media-breakpoint-up(xxl) {
         height: 520px;
-        overflow: scroll;
+        overflow: hidden;
     }
 }
 
@@ -455,16 +463,14 @@
 }
 
 .history-modal-scrollable-content {
-    @include media-breakpoint-up(md) {
-        scrollbar-width: thin;
-        scrollbar-color: rgba($color-primary-red, 0.3) transparent;
-        &::-webkit-scrollbar {
-            width: 4px;
-        }
-        &::-webkit-scrollbar-thumb {
-            background-color: rgba($color-primary-red, 0.3);
-            border-radius: 2px;
-        }
+    scrollbar-width: thin;
+    scrollbar-color: rgba($color-primary-red, 0.3) transparent;
+    &::-webkit-scrollbar {
+        width: 4px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: rgba($color-primary-red, 0.3);
+        border-radius: 2px;
     }
 }
 
