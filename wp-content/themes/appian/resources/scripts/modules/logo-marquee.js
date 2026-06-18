@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // if the elements are less, cloning them
     function setupClones() {
         // removing existing clones
-        inner.querySelectorAll('logo-marquee__container[aria-hidden="true"]').forEach(
+        inner.querySelectorAll('.logo-marquee__container[aria-hidden="true"]').forEach(
             container => container.remove()
         );
 

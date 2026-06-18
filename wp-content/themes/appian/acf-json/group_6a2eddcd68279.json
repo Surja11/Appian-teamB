@@ -28,7 +28,7 @@
             "label": "CTA Text",
             "name": "faq_cta_text",
             "aria-label": "",
-            "type": "textarea",
+            "type": "wysiwyg",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -38,11 +38,11 @@
                 "id": ""
             },
             "default_value": "",
-            "maxlength": "",
             "allow_in_bindings": 0,
-            "rows": "",
-            "placeholder": "",
-            "new_lines": ""
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0
         },
         {
             "key": "field_6a2ede0069d0f",
@@ -63,7 +63,7 @@
         },
         {
             "key": "field_6a2ede1e69d10",
-            "label": "Q/A",
+            "label": "Q\/A",
             "name": "faq_loop",
             "aria-label": "",
             "type": "repeater",
@@ -85,8 +85,8 @@
             "sub_fields": [
                 {
                     "key": "field_6a2ede3469d11",
-                    "label": "FAQ Question",
-                    "name": "faq_question",
+                    "label": "FAQ Questions",
+                    "name": "faq_questions",
                     "aria-label": "",
                     "type": "text",
                     "instructions": "",
@@ -110,7 +110,7 @@
                     "label": "FAQ Answer",
                     "name": "faq_answer",
                     "aria-label": "",
-                    "type": "textarea",
+                    "type": "wysiwyg",
                     "instructions": "",
                     "required": 0,
                     "conditional_logic": 0,
@@ -120,11 +120,11 @@
                         "id": ""
                     },
                     "default_value": "",
-                    "maxlength": "",
                     "allow_in_bindings": 0,
-                    "rows": "",
-                    "placeholder": "",
-                    "new_lines": "",
+                    "tabs": "all",
+                    "toolbar": "full",
+                    "media_upload": 1,
+                    "delay": 0,
                     "parent_repeater": "field_6a2ede1e69d10"
                 }
             ]
@@ -151,5 +151,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1781458681
+    "modified": 1781763882
 }

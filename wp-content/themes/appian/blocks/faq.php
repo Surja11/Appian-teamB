@@ -20,12 +20,12 @@ $cta_button  = get_field('faq_cta_button');
     <main class="pt-15 d-flex flex-column flex-lg-row gap-lg-20">
       <section class="cta-section d-flex flex-shrink-0 flex-column pb-20">
         <h5 class="cta-section__caption mb-0">
-          <?php echo esc_html($cta_caption); ?>
+          <?php echo wp_kses_post($cta_caption); ?>
         </h5>
 
         <div class="cta-section__body d-flex flex-column">
           <p class="cta-section__text m-0 body body-small-all">
-            <?php echo esc_html($cta_text); ?>
+            <?php echo wp_kses_post($cta_text); ?>
           </p>
         </div>
 
@@ -56,7 +56,7 @@ $cta_button  = get_field('faq_cta_button');
             <?php $count = 0; ?>
             <?php while (have_rows('faq_loop')) : the_row(); ?>
               <?php
-              $question = get_sub_field('faq_question');
+              $question = get_sub_field('faq_questions');
               $answer   = get_sub_field('faq_answer');
               $count++;
               $collapse_id = "flush-collapse-" . $count;

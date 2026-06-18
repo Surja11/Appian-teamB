@@ -3,8 +3,9 @@
 section.logo-marquee {
 
   @include media-breakpoint-up(lg){
-    padding:3.21875rem 0 !important;
+    padding:3rem 0 !important;
 
+  
   }
     &__track {
         overflow: hidden;
