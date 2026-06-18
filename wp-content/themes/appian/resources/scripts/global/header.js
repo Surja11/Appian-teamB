@@ -10,6 +10,7 @@ const header = () => {
 
   const breakpoint = 1291;
 
+
   // Hamburger toggle for small screens
   toggleIcon.addEventListener("click", () => {
     const isOpen = toggleIcon.getAttribute("aria-expanded") === "true";
@@ -51,29 +52,55 @@ const header = () => {
     // closing the dropdown
     const closeDropdown = () => {
       trigger.setAttribute("aria-expanded", "false");
+      console.log(trigger.getAttribute("aria-expanded"));
       dropdown.classList.remove("navbar__dropdown--open");
       if (!document.querySelector(".navbar__dropdown--open")) {
         overlay.classList.remove("navbar-overlay--visible");
       }
     };
 
+    trigger.addEventListener('click', (e)=>{
+      console.log("clicked");
+      if (window.innerWidth>breakpoint){
+        return
+      }
+      e.preventDefault();
+      const isOpen = trigger.getAttribute('aria-expanded')==="true";
+      console.log(isOpen);
+      if (isOpen) {
+        closeDropdown();
+      } else {
+        openDropdown();
+      }})
+
+  
+ 
     // using timeout since we have small gap below the dropdown button and the dropdown box so that it won't close immediately
     parentItem.addEventListener("mouseenter", () => {
+      if (window.innerWidth<=breakpoint)
+        return
       clearTimeout(closeTimer);
       openDropdown();
     });
 
     parentItem.addEventListener("mouseleave", () => {
+      if (window.innerWidth<=breakpoint)
+        return
       closeTimer = setTimeout(closeDropdown, 150);
     });
 
     parentItem.addEventListener("focusin", (e) => {
+      if (window.innerWidth<=breakpoint)
+        return
+     
       if (e.target === trigger || parentItem.contains(e.target)) {
         openDropdown();
       }
     });
 
     parentItem.addEventListener("focusout", (e) => {
+      if (window.innerWidth<=breakpoint)
+        return
       if (parentItem.contains(e.relatedTarget))
         return;
       closeDropdown();

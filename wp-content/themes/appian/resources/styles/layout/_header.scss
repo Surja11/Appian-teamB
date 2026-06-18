@@ -17,6 +17,7 @@ $nav-breakpoint: 1200px;
     outline: 1px solid $nav-color;
     outline-offset: $offset;
   }
+
   &:focus:not(:focus-visible) {
     outline: none;
   }
@@ -36,9 +37,10 @@ body:has(.navbar__main--open) {
   width: 100%;
 }
 
-main{
-  padding-top:4.375rem;
-  @media (min-width: $nav-breakpoint){
+main {
+  padding-top: 4.375rem;
+
+  @media (min-width: $nav-breakpoint) {
     padding-top: 5.625rem;
   }
 }
@@ -70,7 +72,7 @@ main{
       height: unset;
       overflow: unset;
 
-      
+
     }
   }
 }
@@ -89,10 +91,10 @@ main{
 
   @media (min-width: $nav-breakpoint) {
     flex-wrap: wrap;
-    align-items: center;          
-    justify-content: flex-start !important;  
+    align-items: center;
+    justify-content: flex-start !important;
     max-width: 1440px;
-    gap:$nav-gap !important;
+    gap: $nav-gap !important;
 
     z-index: $nav-z;
     margin: auto;
@@ -107,7 +109,7 @@ main{
 
     @media (min-width: $nav-breakpoint) {
       width: max-content;
-      flex-shrink: 0;   
+      flex-shrink: 0;
       flex-grow: 0;
     }
   }
@@ -157,6 +159,7 @@ main{
       .navbar__icon--open {
         display: none;
       }
+
       .navbar__icon--close {
         display: block;
       }
@@ -177,7 +180,7 @@ main{
     width: 100%;
     margin-top: 5.03125rem;
     display: none;
-    
+
 
     &--open {
       display: block;
@@ -186,6 +189,7 @@ main{
       min-height: 0;
       scrollbar-width: none;
       -ms-overflow-style: none;
+
       &::-webkit-scrollbar {
         display: none;
       }
@@ -199,8 +203,8 @@ main{
       padding-top: 0;
       border-top: none;
       margin-top: 0;
-      flex: 1 1 0;     
-      min-width: 0;     
+      flex: 1 1 0;
+      min-width: 0;
       overflow-y: unset;
       min-height: unset;
     }
@@ -220,17 +224,17 @@ main{
       flex-direction: row;
       align-items: center;
       gap: $nav-items-gap;
-      flex-wrap: wrap;    
-      
+      flex-wrap: wrap;
+
 
     }
 
     @media (min-width: 1370px) and (max-width: 1438px) {
-   
-        gap: clamp(2rem, calc(-21.25rem + 3.125vw), 2.25rem) !important;
-        font-size: 0.875rem;
-    
-}
+
+      gap: clamp(2rem, calc(-21.25rem + 3.125vw), 2.25rem) !important;
+      font-size: 0.875rem;
+
+    }
 
   }
 
@@ -248,14 +252,18 @@ main{
       border-bottom: none;
     }
 
-    &:hover {
-      color: $nav-hover-color;
-    }
 
-     &.is-active{
 
-      .navbar__link{
-      color: $nav-hover-color;
+    @include media-breakpoint-up(xl) {
+      &:hover {
+        color: $nav-hover-color;
+      }
+
+      &.is-active {
+
+        .navbar__link {
+          color: $nav-hover-color;
+        }
       }
     }
   }
@@ -272,7 +280,7 @@ main{
     @include focus-box;
     @include active-element;
 
-   
+
   }
 
   &__dropdown-trigger {
@@ -299,6 +307,7 @@ main{
       transition: transform 0.3s ease;
     }
 
+    @include media-breakpoint-up(xl) {
     &:hover {
       color: $nav-hover-color;
 
@@ -306,7 +315,7 @@ main{
         fill: $nav-hover-color;
       }
     }
-
+  }
     &[aria-expanded="true"] svg {
       transform: rotate(180deg);
     }
@@ -391,7 +400,7 @@ main{
       border-top: none;
       padding: 0;
       background-color: transparent;
-      flex-shrink: 0;    
+      flex-shrink: 0;
     }
   }
 
