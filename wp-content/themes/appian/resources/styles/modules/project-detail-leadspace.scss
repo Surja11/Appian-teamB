@@ -1,0 +1,10 @@
+@import '../common';
+
+.project-detail-leadspace{
+   
+    min-height: 816px;
+
+    &__text-content{
+        max-width: 640px;
+    }
+}
