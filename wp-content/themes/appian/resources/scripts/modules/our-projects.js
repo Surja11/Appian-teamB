@@ -1,57 +1,185 @@
 
 document.addEventListener('DOMContentLoaded', function() {
+    const section = document.querySelector('.our-projects');
+    
+    if (!section) return;
+    
+    const enablePagination = section.getAttribute('data-enable-pagination') === 'true';
+    const projectsPerPage = parseInt(section.getAttribute('data-projects-per-page')) || 6;
+    const totalPages = parseInt(section.getAttribute('data-total-pages')) || 1;
+    
+    let currentPage = 1;
+    let currentFilter = 'all';
+    
     const filterItems = document.querySelectorAll('.our-projects__filter-item');
     const paginationNumbers = document.querySelectorAll('.our-projects__pagination-number');
     const paginationArrows = document.querySelectorAll('.our-projects__pagination-arrow');
+    const cardsContainer = document.querySelector('.our-projects__cards');
+    const allCards = document.querySelectorAll('.our-projects__cards .hero-project-card');
     
-    // Mobile dropdown
+    if (allCards.length === 0) {
+        return;
+    }
+    
+    let originalCards = Array.from(allCards);
+    
     const mobileFilterToggle = document.getElementById('mobileFilterToggle');
     const mobileDropdownMenu = document.querySelector('.our-projects__filter-dropdown-menu');
     const mobileFilterOptions = document.querySelectorAll('.our-projects__filter-option');
     const mobileFilterSelected = document.querySelector('.our-projects__filter-selected');
     const mobileFilterArrow = document.querySelector('.our-projects__filter-arrow');
     
-    if (mobileFilterOptions.length > 0) {
-        mobileFilterOptions.forEach(option => {
-            option.style.display = 'block !important';
-            option.style.visibility = 'visible !important';
-            option.style.opacity = '1 !important';
+    function filterCards(category) {
+        if (category === 'all' || category === 'All Projects') {
+            return originalCards;
+        }
+        
+        return originalCards.filter(card => {
+            const dataCategory = card.getAttribute('data-category');
+            if (dataCategory) {
+                return dataCategory.toLowerCase().includes(category.toLowerCase());
+            }
+            
+            const categoryElement = card.querySelector('.hero-project-card__category-text, .category');
+            if (categoryElement) {
+                const cardCategory = categoryElement.textContent.trim();
+                return cardCategory.toLowerCase().includes(category.toLowerCase());
+            }
+            
+            return false;
         });
     }
     
-    // Mobile dropdown toggle
+    function paginateCards(cards, page, perPage) {
+        const startIndex = (page - 1) * perPage;
+        const endIndex = startIndex + perPage;
+        return cards.slice(startIndex, endIndex);
+    }
+    
+    function displayCards() {
+        if (!cardsContainer || originalCards.length === 0) {
+            return;
+        }
+        
+        const filteredCards = filterCards(currentFilter);
+        const paginatedCards = enablePagination ? 
+            paginateCards(filteredCards, currentPage, projectsPerPage) : 
+            filteredCards;
+        
+        originalCards.forEach(card => {
+            card.style.display = 'none';
+        });
+        
+        paginatedCards.forEach(card => {
+            card.style.display = 'block';
+        });
+        
+        if (enablePagination) {
+            updatePagination(filteredCards.length);
+        }
+        
+        if (filteredCards.length === 0) {
+            if (!document.querySelector('.no-results-message')) {
+                const noResultsMsg = document.createElement('p');
+                noResultsMsg.className = 'text-center no-results-message';
+                noResultsMsg.textContent = 'No projects found for this category.';
+                cardsContainer.appendChild(noResultsMsg);
+            }
+        } else {
+            const existingMsg = document.querySelector('.no-results-message');
+            if (existingMsg) {
+                existingMsg.remove();
+            }
+        }
+    }
+    
+    function updatePagination(totalFilteredCards) {
+        const newTotalPages = Math.ceil(totalFilteredCards / projectsPerPage);
+        
+        const paginationContainer = document.querySelector('.our-projects__pagination-numbers');
+        if (paginationContainer && newTotalPages > 1) {
+            paginationContainer.innerHTML = '';
+            
+            const maxVisiblePages = 5;
+            let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+            let endPage = Math.min(newTotalPages, startPage + maxVisiblePages - 1);
+            
+            if (endPage - startPage + 1 < maxVisiblePages) {
+                startPage = Math.max(1, endPage - maxVisiblePages + 1);
+            }
+            
+            for (let i = startPage; i <= endPage; i++) {
+                const button = document.createElement('button');
+                button.className = `our-projects__pagination-number btn-text d-flex align-items-center justify-content-center text-center px-4 py-0 bg-white border border-light rounded-1 ${i === currentPage ? 'active' : ''}`;
+                button.setAttribute('data-page', i);
+                button.textContent = i;
+                button.addEventListener('click', () => goToPage(i));
+                paginationContainer.appendChild(button);
+            }
+            
+            if (endPage < newTotalPages) {
+                if (endPage < newTotalPages - 1) {
+                    const ellipsis = document.createElement('span');
+                    ellipsis.className = 'our-projects__pagination-ellipsis';
+                    ellipsis.textContent = '...';
+                    paginationContainer.appendChild(ellipsis);
+                }
+                
+                const lastButton = document.createElement('button');
+                lastButton.className = 'our-projects__pagination-number btn-text d-flex align-items-center justify-content-center text-center px-4 py-0 bg-white border border-light rounded-1';
+                lastButton.setAttribute('data-page', newTotalPages);
+                lastButton.textContent = newTotalPages;
+                lastButton.addEventListener('click', () => goToPage(newTotalPages));
+                paginationContainer.appendChild(lastButton);
+            }
+        }
+        
+        const prevArrow = document.querySelector('.our-projects__pagination-arrow--prev');
+        const nextArrow = document.querySelector('.our-projects__pagination-arrow--next');
+        
+        if (prevArrow) {
+            prevArrow.disabled = currentPage <= 1;
+        }
+        
+        if (nextArrow) {
+            nextArrow.disabled = currentPage >= newTotalPages;
+        }
+        
+        const paginationSection = document.querySelector('.our-projects__pagination');
+        if (paginationSection) {
+            if (newTotalPages <= 1) {
+                paginationSection.style.display = 'none';
+            } else {
+                paginationSection.style.display = 'flex';
+            }
+        }
+    }
+    
+    function goToPage(page) {
+        currentPage = page;
+        displayCards();
+    }
+    
+    function applyFilter(category) {
+        currentFilter = category;
+        currentPage = 1;
+        displayCards();
+    }
+    
     if (mobileFilterToggle && mobileDropdownMenu && mobileFilterArrow) {
         mobileFilterToggle.addEventListener('click', function(e) {
             e.stopPropagation();
             const isOpen = !mobileDropdownMenu.classList.contains('d-none');
             
             if (isOpen) {
-                // Close dropdown
                 mobileDropdownMenu.classList.add('d-none');
                 mobileFilterArrow.style.transform = 'rotate(0deg)';
             } else {
-                // Open dropdown
                 mobileDropdownMenu.classList.remove('d-none');
                 mobileFilterArrow.style.transform = 'rotate(180deg)';
-                
-                const dropdownRect = mobileFilterToggle.getBoundingClientRect();
-                const menuRect = mobileDropdownMenu.getBoundingClientRect();
-                const containerRect = mobileFilterToggle.parentElement.getBoundingClientRect();
-                
-                const rightPosition = containerRect.width - dropdownRect.width;
-                mobileDropdownMenu.style.right = '0px';
-                mobileDropdownMenu.style.left = 'auto';
-                mobileDropdownMenu.style.transform = 'translateX(0)';
-                
-                mobileFilterOptions.forEach(option => {
-                    option.style.display = 'block !important';
-                    option.style.visibility = 'visible !important';
-                    option.style.opacity = '1 !important';
-                });
             }
         });
         
-        // Close dropdown when clicking outside
         document.addEventListener('click', function(e) {
             if (!mobileFilterToggle.contains(e.target) && !mobileDropdownMenu.contains(e.target)) {
                 mobileDropdownMenu.classList.add('d-none');
@@ -60,159 +188,97 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Mobile dropdown option
     if (mobileFilterOptions.length > 0) {
         mobileFilterOptions.forEach(option => {
             option.addEventListener('click', function() {
-                const selectedValue = this.textContent.trim();
-                console.log('Mobile option clicked:', selectedValue);
+                const selectedValue = this.getAttribute('data-value') || this.textContent.trim();
                 
-                // Update mobile dropdown selected text
                 if (mobileFilterSelected) {
-                    mobileFilterSelected.textContent = selectedValue;
+                    mobileFilterSelected.textContent = this.textContent.trim();
                 }
                 
-                mobileFilterOptions.forEach((opt, index) => {
-                    opt.classList.remove('active');
-                    opt.classList.remove('body-small-all');
+                mobileFilterOptions.forEach(opt => {
+                    opt.classList.remove('active', 'body-small-all');
                     opt.classList.add('body-small');
-                    
-                    opt.style.display = 'block';
-                    opt.style.visibility = 'visible';
-                    opt.style.opacity = '1';
-                    opt.removeAttribute('hidden');
-                    opt.classList.remove('d-none');
-                    
-                    console.log(`Option ${index}: ${opt.textContent.trim()} - Display: ${opt.style.display}`);
                 });
                 
-                // Add active to selected option
-                this.classList.add('active');
+                this.classList.add('active', 'body-small-all');
                 this.classList.remove('body-small');
-                this.classList.add('body-small-all');
                 
-                this.style.display = 'block';
-                this.style.visibility = 'visible';
-                this.style.opacity = '1';
-                
-                // Sync with desktop filter items
                 filterItems.forEach(filterItem => {
-                    filterItem.classList.remove('active');
-                    filterItem.classList.remove('body-small-all');
+                    filterItem.classList.remove('active', 'body-small-all');
                     filterItem.classList.add('body-small');
                     
-                    if (filterItem.textContent.trim() === selectedValue) {
-                        filterItem.classList.add('active');
+                    if (filterItem.textContent.trim() === this.textContent.trim()) {
+                        filterItem.classList.add('active', 'body-small-all');
                         filterItem.classList.remove('body-small');
-                        filterItem.classList.add('body-small-all');
                     }
                 });
                 
-                // Close dropdown
                 if (mobileDropdownMenu && mobileFilterArrow) {
                     mobileDropdownMenu.classList.add('d-none');
                     mobileFilterArrow.style.transform = 'rotate(0deg)';
                 }
                 
-                console.log('Mobile filter selected:', selectedValue);
-                
-                // TODO: Add project filtering logic
+                applyFilter(selectedValue === 'all' ? 'all' : selectedValue);
             });
         });
     }
     
-    // Filter
     if (filterItems.length > 0) {
         filterItems.forEach(item => {
             item.addEventListener('click', function() {
-                // Remove active class and add body-small for all filter items
                 filterItems.forEach(filterItem => {
-                    filterItem.classList.remove('active');
-                    filterItem.classList.remove('body-small-all');
+                    filterItem.classList.remove('active', 'body-small-all');
                     filterItem.classList.add('body-small');
                 });
                 
-                // Add active class and body-small-all to clicked item
-                this.classList.add('active');
+                this.classList.add('active', 'body-small-all');
                 this.classList.remove('body-small');
-                this.classList.add('body-small-all');
                 
                 const filterValue = this.textContent.trim();
                 
-                // Sync with mobile dropdown
                 if (mobileFilterSelected) {
                     mobileFilterSelected.textContent = filterValue;
                 }
                 
-                // Update mobile dropdown active state
                 mobileFilterOptions.forEach(option => {
-                    option.classList.remove('active');
-                    option.classList.remove('body-small-all');
+                    option.classList.remove('active', 'body-small-all');
                     option.classList.add('body-small');
-                    option.style.display = 'block';
                     
                     if (option.textContent.trim() === filterValue) {
-                        option.classList.add('active');
+                        option.classList.add('active', 'body-small-all');
                         option.classList.remove('body-small');
-                        option.classList.add('body-small-all');
-                        option.style.display = 'block';
                     }
                 });
                 
-                console.log('Desktop filter selected:', filterValue);
-                
-                // TODO: Add project filtering logic
+                const filterCategory = filterValue === 'All Projects' ? 'all' : filterValue;
+                applyFilter(filterCategory);
             });
         });
     }
     
-    // Pagination
-    if (paginationNumbers.length > 0) {
-        paginationNumbers.forEach(item => {
-            item.addEventListener('click', function() {
-                // Remove active class from all pagination numbers
-                paginationNumbers.forEach(pageItem => {
-                    pageItem.classList.remove('active');
-                });
-                
-                // Add active class to clicked item
-                this.classList.add('active');
-                
-                const pageNumber = this.textContent.trim();
-                console.log('Page selected:', pageNumber);
-                
-                // TODO: Add pagination logic
-            });
-        });
-    }
-    
-    // Arrow navigation
     if (paginationArrows.length > 0) {
         paginationArrows.forEach(arrow => {
             arrow.addEventListener('click', function() {
-                const currentActive = document.querySelector('.our-projects__pagination-number.active');
-                if (!currentActive) return;
+                if (this.disabled) return;
                 
                 const isNext = this.classList.contains('our-projects__pagination-arrow--next');
                 const isPrev = this.classList.contains('our-projects__pagination-arrow--prev');
                 
-                let targetPage = null;
+                const filteredCards = filterCards(currentFilter);
+                const maxPages = Math.ceil(filteredCards.length / projectsPerPage);
                 
-                if (isNext) {
-                    targetPage = currentActive.nextElementSibling;
-                } else if (isPrev) {
-                    targetPage = currentActive.previousElementSibling;
-                }
-                
-                if (targetPage && targetPage.classList.contains('our-projects__pagination-number')) {
-                    // Remove active from current item
-                    currentActive.classList.remove('active');
-                    // Add active to target item
-                    targetPage.classList.add('active');
-                    
-                    console.log('Navigated to page:', targetPage.textContent.trim());
+                if (isNext && currentPage < maxPages) {
+                    goToPage(currentPage + 1);
+                } else if (isPrev && currentPage > 1) {
+                    goToPage(currentPage - 1);
                 }
             });
         });
+    }
+    
+    if (originalCards.length > 0) {
+        displayCards();
     }
 });

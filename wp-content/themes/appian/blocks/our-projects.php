@@ -1,28 +1,56 @@
 <?php
 
 $our_projects = get_field('our_projects');
-if (!$our_projects) {
-    $our_projects = get_field('hero_projects');
-}
-
-// proper null checking
-$section_title = isset($our_projects['section_title']) ? $our_projects['section_title'] : '';
-$our_projects_list = isset($our_projects['hero_projects_list']) ? $our_projects['hero_projects_list'] : 
-                    (isset($our_projects['our_projects_list']) ? $our_projects['our_projects_list'] : array());
-$featured_image = isset($our_projects['featured_image']) ? $our_projects['featured_image'] : null;
-
-if (!is_array($our_projects_list)) {
-    $our_projects_list = array();
-}
 
 if (!$our_projects) {
     return;
 }
 
-if (!empty($section_title) || !empty($our_projects_list) || !empty($featured_image)):
+// Extract field values
+$section_title = $our_projects['section_title'] ?? '';
+$our_projects_list = $our_projects['our_projects_list'] ?? array();
+$enable_filters = $our_projects['enable_filters'] ?? true;
+$enable_pagination = $our_projects['enable_pagination'] ?? true;
+$projects_per_page = $our_projects['projects_per_page'] ?? 6;
+
+if (!is_array($our_projects_list)) {
+    $our_projects_list = array();
+}
+
+$processed_projects = array();
+foreach ($our_projects_list as $project_item) {
+    if (isset($project_item['project']) && $project_item['project']) {
+        $project_post = $project_item['project'];
+        $project_details = get_field('project_details', $project_post->ID);
+        
+        $processed_project = array(
+            'project_title' => $project_post->post_title,
+            'project_category' => $project_details['project_category'] ?? '',
+            'category_short' => '',
+            'project_subtitle' => $project_details['project_subtitle'] ?? '',
+            'project_image' => $project_details['project_card_image'] ?? null,
+            'page_link' => get_permalink($project_post->ID),
+            'featured_post' => $project_details['featured_post'] ?? false,
+        );
+        
+        $processed_projects[] = $processed_project;
+    }
+}
+
+// Calculate pagination
+$total_projects = count($processed_projects);
+$total_pages = $enable_pagination ? ceil($total_projects / $projects_per_page) : 1;
+
+$projects_to_show = $processed_projects;
+
+if (!empty($section_title) || !empty($processed_projects)):
 ?>
 
-    <section class="our-projects">
+    <section class="our-projects" 
+             data-enable-pagination="<?php echo $enable_pagination ? 'true' : 'false'; ?>"
+             data-projects-per-page="<?php echo esc_attr($projects_per_page); ?>"
+             data-total-pages="<?php echo esc_attr($total_pages); ?>"
+             data-total-projects="<?php echo esc_attr($total_projects); ?>">
         <div class="container d-flex flex-column align-items-center">
 
             <?php if (!empty($section_title)) : ?>
@@ -39,6 +67,7 @@ if (!empty($section_title) || !empty($our_projects_list) || !empty($featured_ima
                 </div>
             <?php endif; ?>
 
+            <?php if ($enable_filters) : ?>
             <!-- Filter Section -->
             <div class="our-projects__filter w-100">
                 <div class="our-projects__filter-line-top mb-4"></div>
@@ -75,59 +104,51 @@ if (!empty($section_title) || !empty($our_projects_list) || !empty($featured_ima
                     <button class="our-projects__filter-item body-small border-0 bg-transparent p-0">Roofing</button>
                 </div>
             </div>
+            <?php endif; ?>
 
             <div class="our-projects__cards d-grid w-100 gap-3 mb-23 mb-md-3 mb-xl-5">
                 <?php
-                if (!empty($our_projects_list) && is_array($our_projects_list)) {
-                    $all_cards = $our_projects_list;
-                    $total_cards = count($all_cards);
-
-                    for ($i = 0; $i < $total_cards; $i++) {
-                        $card = $all_cards[$i];
-
+                if (!empty($projects_to_show)) {
+                    foreach ($projects_to_show as $card) {
                         if (!empty($card['project_title']) || !empty($card['project_category']) || !empty($card['category_short']) || !empty($card['project_subtitle']) || !empty($card['project_image']) || !empty($card['page_link'])) {
                             set_query_var('card', $card);
                             get_template_part('template-parts/hero-project-card');
-
-                            if ($i === 3 && !empty($featured_image) && isset($featured_image['url'])) : ?>
-                                <div class="our-projects__feature-image" aria-labelledby="Featured Image" style="background-image: url('<?php echo esc_url($featured_image['url']); ?>');">
-                                </div>
-                    <?php endif;
                         }
                     }
                 } else {
-                    for ($i = 0; $i < 6; $i++) {
-                        $sample_card = array(
-                            'project_category' => 'Sample Category',
-                            'category_short' => 'SC',
-                            'project_title' => 'Sample Project ' . ($i + 1),
-                            'project_subtitle' => 'Sample project description',
-                            'project_image' => array('url' => ''),
-                            'page_link' => '#'
-                        );
-                        set_query_var('card', $sample_card);
-                        get_template_part('template-parts/hero-project-card');
-                    }
+                    // Fallback message
+                    echo '<p class="text-center">No projects have been selected for display.</p>';
                 }
                 ?>
             </div>
 
+            <?php if ($enable_pagination && $total_pages > 1) : ?>
             <!-- Pagination Section -->
             <div class="our-projects__pagination d-flex align-items-center justify-content-center gap-md-1 mt-20 mb-25 mt-md-15">
-                <button class="our-projects__pagination-arrow our-projects__pagination-arrow--prev d-flex align-items-center justify-content-center bg-transparent border-0 p-0" aria-label="Previous page">
+                <button class="our-projects__pagination-arrow our-projects__pagination-arrow--prev d-flex align-items-center justify-content-center bg-transparent border-0 p-0" aria-label="Previous page" data-direction="prev" disabled>
                     <img src="<?php echo get_template_directory_uri(); ?>/resources/images/icon-chevron.svg" alt="Previous">
                 </button>
                 <div class="our-projects__pagination-numbers d-flex align-items-center gap-md-1">
-                    <button class="our-projects__pagination-number btn-text d-flex align-items-center justify-content-center text-center active px-4 py-0 bg-white border border-light rounded-1">1</button>
-                    <button class="our-projects__pagination-number btn-text d-flex align-items-center justify-content-center text-center px-4 py-0 bg-white border border-light rounded-1">2</button>
-                    <button class="our-projects__pagination-number btn-text d-flex align-items-center justify-content-center text-center px-4 py-0 bg-white border border-light rounded-1">3</button>
-                    <button class="our-projects__pagination-number btn-text d-flex align-items-center justify-content-center text-center px-4 py-0 bg-white border border-light rounded-1">4</button>
-                    <button class="our-projects__pagination-number btn-text d-flex align-items-center justify-content-center text-center px-4 py-0 bg-white border border-light rounded-1">5</button>
+                    <?php for ($i = 1; $i <= min($total_pages, 5); $i++) : ?>
+                        <button class="our-projects__pagination-number btn-text d-flex align-items-center justify-content-center text-center px-4 py-0 bg-white border border-light rounded-1 <?php echo $i === 1 ? 'active' : ''; ?>" 
+                                data-page="<?php echo $i; ?>">
+                            <?php echo $i; ?>
+                        </button>
+                    <?php endfor; ?>
+                    
+                    <?php if ($total_pages > 5) : ?>
+                        <span class="our-projects__pagination-ellipsis">...</span>
+                        <button class="our-projects__pagination-number btn-text d-flex align-items-center justify-content-center text-center px-4 py-0 bg-white border border-light rounded-1" 
+                                data-page="<?php echo $total_pages; ?>">
+                            <?php echo $total_pages; ?>
+                        </button>
+                    <?php endif; ?>
                 </div>
-                <button class="our-projects__pagination-arrow our-projects__pagination-arrow--next d-flex align-items-center justify-content-center bg-transparent border-0 p-0" aria-label="Next page">
+                <button class="our-projects__pagination-arrow our-projects__pagination-arrow--next d-flex align-items-center justify-content-center bg-transparent border-0 p-0" aria-label="Next page" data-direction="next" <?php echo $total_pages <= 1 ? 'disabled' : ''; ?>>
                     <img src="<?php echo get_template_directory_uri(); ?>/resources/images/icon-chevron.svg" alt="Next">
                 </button>
             </div>
+            <?php endif; ?>
 
         </div>
     </section>
