@@ -1,0 +1,179 @@
+@import '../custom';
+
+.our-projects {
+    background-color: $white;
+    padding: clamp(4rem, 8vw, 6.25rem) 0;
+
+    &__title {
+        color: $color-neutral-600;
+        margin: 0;
+    }
+
+    &__filter-line-top,
+    &__filter-line-bottom {
+        width: 100%;
+        height: 1px;
+        background-color: $color-neutral-100;
+    }
+
+    &__filter-line-bottom {
+        @include media-breakpoint-up(md) {
+            display: none;
+        }
+    }
+
+    &__filter-label {
+        color: $color-neutral-600;
+    }
+
+    &__filter-current {
+        color: $color-neutral-600;
+    }
+
+    &__filter-items {
+        width: auto;
+        max-width: 100%;
+        
+        @include media-breakpoint-up(md) {
+            position: relative;
+            
+            &::after {
+                content: '';
+                position: absolute;
+                bottom: -1rem;
+                left: 0;
+                width: 100%;
+                height: 1px;
+                background-color: $color-neutral-100;
+            }
+        }
+    }
+
+    &__filter-item {
+        color: $color-neutral-200;
+        cursor: pointer;
+        transition: color 0.3s ease;
+        
+        &:hover,
+        &.active {
+            color: $color-neutral-600;
+        }
+        
+        @media (hover: hover) and (pointer: fine) {
+            &:hover {
+                color: $color-primary-red;
+            }
+        }
+        
+        &.active {
+            color: $color-neutral-600 !important;
+        }
+    }
+
+    &__cards {
+        @media (max-width: 375px) {
+            gap: 0.5rem !important;
+        }
+        
+        @include media-breakpoint-up(sm) {
+            @include media-breakpoint-down(md) {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+        }
+        
+        @include media-breakpoint-up(md) {
+            @include media-breakpoint-down(xl) {
+                grid-template-columns: repeat(3, 1fr) !important;
+                margin-bottom: 0.75rem !important;
+            }
+        }
+        
+        @include media-breakpoint-up(xl) {
+            grid-template-columns: repeat(4, 1fr) !important;
+            column-gap: 0.75rem !important;
+            row-gap: 1.25rem !important;
+            margin-bottom: 1.25rem !important;
+        }
+    }
+
+    &__feature-image {
+        border-radius: 0.625rem;
+        background-size: 250%;
+        background-position: center;
+        background-repeat: no-repeat;
+        
+        @include media-breakpoint-down(sm) {
+            height: 14.25rem;
+            background-size: 500%;
+        }
+        
+        @include media-breakpoint-up(sm) {
+            @include media-breakpoint-down(xl) {
+                grid-column: span 1;
+                height: 28.5rem;
+                background-size: 375%;
+            }
+        }
+        
+        @include media-breakpoint-up(xl) {
+            grid-column: span 2;
+            height: 28.5rem;
+            background-size: 250%;
+        }
+    }
+
+    &__pagination-arrow {        
+        width: 3rem;
+        height: 3rem;
+        cursor: pointer;
+        transition: opacity 0.3s ease;
+        
+        &:hover {
+            opacity: 0.7;
+        }
+        
+        &--prev img {
+            transform: rotate(90deg);
+        }
+        
+        &--next img {
+            transform: rotate(-90deg);
+        }
+        
+        img {
+            width: 1.125rem;
+            height: 1.125rem;
+        }
+        
+        @include media-breakpoint-down(md) {
+            width: 2.5rem !important;
+            height: 2.5rem !important;
+        }
+    }
+
+    &__pagination-number {
+        width: 3rem;
+        height: 3rem;
+        line-height: 100% !important;
+        color: $color-neutral-200;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        
+        &:hover {
+            background-color: $color-primary-red !important;
+            border-color: $color-primary-red !important;
+            color: $white !important;
+        }
+        
+        &.active {
+            background-color: $color-primary-red !important;
+            border-color: $color-primary-red !important;
+            color: $white !important;
+        }
+        
+        @include media-breakpoint-down(md) {
+            width: 2.5rem !important;
+            height: 2.5rem !important;
+        }
+    }
+}

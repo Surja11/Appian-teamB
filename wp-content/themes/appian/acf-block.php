@@ -24,6 +24,7 @@ add_action('acf/init', function () {
             'contact-us-leadspace'=>'Contact Us Leadspace',
             'project-detail-content'=>'Project Detail Content',
             'project-detail-leadspace'=>'Project Detail Leadspace',
+            'our-projects'=>'Our Projects',
 
         ];
 
