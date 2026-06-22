@@ -6,7 +6,7 @@
 
 $card= get_query_var('card', []);
 $category= $card['project_category'] ?? '';
-$category_short = $card['category_short'] ?? explode(' ', $category)[0];
+// $category_short = $card['category_short'] ?? explode(' ', $category)[0];
 $title= $card['project_title'] ?? '';
 $subtitle= $card['project_subtitle'] ?? '';
 $card_image= $card['project_image'] ?? null;
@@ -30,11 +30,8 @@ $card_link= $card['page_link'] ?? '#';
 
         <div class="hero-project-card__category">
             <span class="hero-project-card__category-icon" aria-hidden="true">i</span>
-            <span class="hero-project-card__category-text hero-project-card__category-text--full body-xsmall d-xl-none">
+            <span class="hero-project-card__category-text hero-project-card__category-text--full body-xsmall">
                 <?php echo esc_html($category); ?>
-            </span>
-            <span class="hero-project-card__category-text hero-project-card__category-text--short body-xsmall d-none d-xl-block">
-                <?php echo esc_html($category_short); ?>
             </span>
         </div>
 
