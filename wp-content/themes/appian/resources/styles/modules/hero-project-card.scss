@@ -24,6 +24,11 @@
         @include media-breakpoint-up(md){
             grid-column: span 2 !important;
         }
+
+        @media (min-width: 1440px) {
+            width: 100% !important;
+            max-width: 100% !important;
+        }
     }
 
     &__link {
