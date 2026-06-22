@@ -1,8 +1,4 @@
 <?php
-/**
- * Template Part: Hero Project Card
- * template-parts/hero-project-card.php
- */
 
 $card= get_query_var('card', []);
 $category    = $card['project_category'] ?? '';
@@ -13,7 +9,7 @@ $card_link   = $card['page_link']        ?? '#';
 $is_featured = !empty($card['featured_post']);
 ?>
 
-<article class="hero-project-card <?php echo $is_featured ? 'hero-project-card--featured' : ''; ?>">
+<article class="hero-project-card <?php echo $is_featured ? 'hero-project-card--featured' : ''; ?>" data-category="<?php echo esc_attr(strtolower($category)); ?>">
     <a class="hero-project-card__link" href="<?php echo esc_url($card_link); ?>">
 
         <div class="hero-project-card__image-wrap" <?php if ($card_image && isset($card_image['url'])) : ?>style="background-image: url('<?php echo esc_url($card_image['url']); ?>');"<?php endif; ?>>
