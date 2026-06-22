@@ -47,6 +47,7 @@ if (!empty($section_title) || $projects->have_posts() || !empty($featured_image)
                         'project_subtitle' => $project_details['project_subtitle'],
                         'project_image' => $project_details['project_card_image'] ?? null,
                         'page_link' => get_permalink($post_id),
+                        'featured_post'    => get_field('featured_post', $post_id),
                     ];
 
                     set_query_var('card', $card);
