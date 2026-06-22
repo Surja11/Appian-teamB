@@ -1,11 +1,11 @@
 {
-    "key": "group_6a264f1b10895",
-    "title": "Hero Projects",
+    "key": "group_6a38d20e4d937",
+    "title": "Project Fields",
     "fields": [
         {
-            "key": "field_6a264f1b303e8",
-            "label": "Hero Projects",
-            "name": "hero_projects",
+            "key": "field_6a38d20ea7db6",
+            "label": "Project Details",
+            "name": "project_details",
             "aria-label": "",
             "type": "group",
             "instructions": "",
@@ -19,9 +19,9 @@
             "layout": "block",
             "sub_fields": [
                 {
-                    "key": "field_6a264f3d303e9",
-                    "label": "Section Title",
-                    "name": "section_title",
+                    "key": "field_6a38d3c8a7db7",
+                    "label": "Project Category",
+                    "name": "project_category",
                     "aria-label": "",
                     "type": "text",
                     "instructions": "",
@@ -40,9 +40,30 @@
                     "append": ""
                 },
                 {
-                    "key": "field_6a2651077be08",
-                    "label": "Featured Image",
-                    "name": "featured_image",
+                    "key": "field_6a38d5a3a7db8",
+                    "label": "Project Subtitle",
+                    "name": "project_subtitle",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
+                },
+                {
+                    "key": "field_6a38d5b8a7db9",
+                    "label": "Project Card Image",
+                    "name": "project_card_image",
                     "aria-label": "",
                     "type": "image",
                     "instructions": "",
@@ -71,9 +92,9 @@
     "location": [
         [
             {
-                "param": "block",
+                "param": "post_type",
                 "operator": "==",
-                "value": "acf\/hero-projects"
+                "value": "project"
             }
         ]
     ],
@@ -89,5 +110,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1782112000
+    "modified": 1782109881
 }
