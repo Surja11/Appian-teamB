@@ -26,7 +26,7 @@ if (!empty($section_title) || !empty($our_projects_list) || !empty($featured_ima
         <div class="container d-flex flex-column align-items-center">
 
             <?php if (!empty($section_title)) : ?>
-                <div class="our-projects__title-block d-flex flex-column align-items-center mb-10 mb-md-15">
+                <div class="our-projects__title-block d-flex flex-column align-items-center">
                     <h2 class="our-projects__title h2 text-center mb-4"><?php echo esc_html($section_title); ?></h2>
                     <picture>
                         <source
@@ -40,15 +40,29 @@ if (!empty($section_title) || !empty($our_projects_list) || !empty($featured_ima
             <?php endif; ?>
 
             <!-- Filter Section -->
-            <div class="our-projects__filter w-100 mb-10 mb-md-15">
+            <div class="our-projects__filter w-100">
                 <div class="our-projects__filter-line-top mb-4"></div>
                 
-                <div class="our-projects__filter-header d-flex justify-content-between align-items-center w-100 d-md-none">
-                    <span class="our-projects__filter-label body-small">Filter by:</span>
-                    <span class="our-projects__filter-current body-small">All Projects</span>
+                <div class="our-projects__filter-header d-flex align-items-center w-100 d-md-none">
+                    <span class="our-projects__filter-label body-medium me-auto">Filter by:</span>
+                    <div class="our-projects__filter-dropdown position-relative">
+                        <button class="our-projects__filter-current btn-text d-flex align-items-center justify-content-between bg-transparent border-0 p-0" id="mobileFilterToggle">
+                            <span class="our-projects__filter-selected">All Projects</span>
+                            <img src="<?php echo get_template_directory_uri(); ?>/resources/images/icon-chevron-down.svg" alt="Dropdown" class="our-projects__filter-arrow ms-2" style="width: 12px; height: 12px; transition: transform 0.3s ease;">
+                        </button>
+                        <div class="our-projects__filter-dropdown-menu position-absolute top-100 bg-white border rounded-1 shadow-sm d-none" style="z-index: 10; right: 0; left: auto; min-width: 160px; width: auto;">
+                            <button class="our-projects__filter-option d-block w-100 text-start border-0 bg-transparent body-small-all active" data-value="all">All Projects</button>
+                            <button class="our-projects__filter-option d-block w-100 text-start border-0 bg-transparent body-small" data-value="renovation">Renovation</button>
+                            <button class="our-projects__filter-option d-block w-100 text-start border-0 bg-transparent body-small" data-value="waterproofing">Waterproofing</button>
+                            <button class="our-projects__filter-option d-block w-100 text-start border-0 bg-transparent body-small" data-value="plumbing">Plumbing</button>
+                            <button class="our-projects__filter-option d-block w-100 text-start border-0 bg-transparent body-small" data-value="electrical">Electrical</button>
+                            <button class="our-projects__filter-option d-block w-100 text-start border-0 bg-transparent body-small" data-value="hvac">HVAC</button>
+                            <button class="our-projects__filter-option d-block w-100 text-start border-0 bg-transparent body-small" data-value="roofing">Roofing</button>
+                        </div>
+                    </div>
                 </div>
                 
-                <div class="our-projects__filter-line-bottom mt-4 mb-4"></div>
+                <div class="our-projects__filter-line-bottom mt-4"></div>
                 
                 <!-- Filter items -->
                 <div class="our-projects__filter-items d-none d-md-flex align-items-center justify-content-center flex-wrap gap-8">
@@ -99,19 +113,19 @@ if (!empty($section_title) || !empty($our_projects_list) || !empty($featured_ima
             </div>
 
             <!-- Pagination Section -->
-            <div class="our-projects__pagination d-flex align-items-center justify-content-center gap-1 mt-20 mb-25 mt-md-20 mb-md-16">
+            <div class="our-projects__pagination d-flex align-items-center justify-content-center gap-md-1 mt-20 mb-25 mt-md-15">
                 <button class="our-projects__pagination-arrow our-projects__pagination-arrow--prev d-flex align-items-center justify-content-center bg-transparent border-0 p-0" aria-label="Previous page">
-                    <img src="<?php echo get_template_directory_uri(); ?>/resources/images/icon-chevron-down.svg" alt="Previous">
+                    <img src="<?php echo get_template_directory_uri(); ?>/resources/images/icon-chevron.svg" alt="Previous">
                 </button>
-                <div class="our-projects__pagination-numbers d-flex align-items-center gap-1">
-                    <button class="our-projects__pagination-number button-text d-flex align-items-center justify-content-center text-center active px-4 py-0 bg-white border border-light rounded-1">1</button>
-                    <button class="our-projects__pagination-number button-text d-flex align-items-center justify-content-center text-center px-4 py-0 bg-white border border-light rounded-1">2</button>
-                    <button class="our-projects__pagination-number button-text d-flex align-items-center justify-content-center text-center px-4 py-0 bg-white border border-light rounded-1">3</button>
-                    <button class="our-projects__pagination-number button-text d-flex align-items-center justify-content-center text-center px-4 py-0 bg-white border border-light rounded-1">4</button>
-                    <button class="our-projects__pagination-number button-text d-flex align-items-center justify-content-center text-center px-4 py-0 bg-white border border-light rounded-1">5</button>
+                <div class="our-projects__pagination-numbers d-flex align-items-center gap-md-1">
+                    <button class="our-projects__pagination-number btn-text d-flex align-items-center justify-content-center text-center active px-4 py-0 bg-white border border-light rounded-1">1</button>
+                    <button class="our-projects__pagination-number btn-text d-flex align-items-center justify-content-center text-center px-4 py-0 bg-white border border-light rounded-1">2</button>
+                    <button class="our-projects__pagination-number btn-text d-flex align-items-center justify-content-center text-center px-4 py-0 bg-white border border-light rounded-1">3</button>
+                    <button class="our-projects__pagination-number btn-text d-flex align-items-center justify-content-center text-center px-4 py-0 bg-white border border-light rounded-1">4</button>
+                    <button class="our-projects__pagination-number btn-text d-flex align-items-center justify-content-center text-center px-4 py-0 bg-white border border-light rounded-1">5</button>
                 </div>
                 <button class="our-projects__pagination-arrow our-projects__pagination-arrow--next d-flex align-items-center justify-content-center bg-transparent border-0 p-0" aria-label="Next page">
-                    <img src="<?php echo get_template_directory_uri(); ?>/resources/images/icon-chevron-down.svg" alt="Next">
+                    <img src="<?php echo get_template_directory_uri(); ?>/resources/images/icon-chevron.svg" alt="Next">
                 </button>
             </div>
 
