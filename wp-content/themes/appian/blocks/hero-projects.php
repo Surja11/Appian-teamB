@@ -1,26 +1,26 @@
 <?php
 
-/**
- * Hero Projects
- * blocks/hero-projects.php
- */
-
 $hero_projects = get_field('hero_projects');
-$section_title = $hero_projects['section_title'];
-$hero_projects_list = $hero_projects['hero_projects_list'];
-$featured_image = $hero_projects['featured_image'];
+$section_title = $hero_projects['section_title']  ?? '';
+$featured_image = $hero_projects['featured_image'] ?? null;
 
 if (!$hero_projects) {
     return;
 }
 
-if (!empty($section_title) || !empty($hero_projects_list) || !empty($featured_image)):
+$projects = new WP_Query([
+    'post_type' => 'project',
+    'posts_per_page' => -1,
+    'post_status' => 'publish',
+]);
+
+if (!empty($section_title) || $projects->have_posts() || !empty($featured_image)):
 ?>
 
     <section class="hero-projects">
         <div class="container">
 
-            <?php if (!empty($section_title)) : ?>
+            <?php if (!empty($section_title)): ?>
                 <div class="hero-projects__title-block">
                     <h2 class="hero-projects__title h2"><?php echo esc_html($section_title); ?></h2>
                     <picture>
@@ -36,22 +36,31 @@ if (!empty($section_title) || !empty($hero_projects_list) || !empty($featured_im
 
             <div class="hero-projects__cards">
                 <?php
-                $all_cards = $hero_projects_list;
-                $total_cards = count($all_cards);
+                $i = 0;
+                while ($projects->have_posts()): $projects->the_post();
+                    $post_id = get_the_ID();
+                    $project_details = get_field('project_details', $post_id);
 
-                for ($i = 0; $i < $total_cards; $i++) {
-                    $card = $all_cards[$i];
+                    $card = [
+                        'project_title' => get_the_title($post_id),
+                        'project_category' => $project_details['project_category'],
+                        'project_subtitle' => $project_details['project_subtitle'],
+                        'project_image' => $project_details['project_card_image'] ?? null,
+                        'page_link' => get_permalink($post_id),
+                    ];
 
-                    if (!empty($card['project_title']) || !empty($card['project_category']) || !empty($card['category_short']) || !empty($card['project_subtitle']) || !empty($card['project_image']) || !empty($card['page_link'])) {
-                        set_query_var('card', $card);
-                        get_template_part('template-parts/hero-project-card');
+                    set_query_var('card', $card);
+                    get_template_part('template-parts/hero-project-card');
 
-                        if ($i === 3 && !empty($featured_image)) : ?>
-                            <div class="hero-projects__feature-image" aria-labelledby="Featured Image" style="background-image: url('<?php echo esc_url($featured_image['url']); ?>');">
-                            </div>
+                    if ($i === 3 && !empty($featured_image)): ?>
+                        <div class = "hero-projects__feature-image"
+                            aria-label = "Featured Image"
+                            style = "background-image: url('<?php echo esc_url($featured_image['url']); ?>');">
+                        </div>
                 <?php endif;
-                    }
-                }
+                    $i++;
+                endwhile;
+                wp_reset_postdata();
                 ?>
             </div>
 
