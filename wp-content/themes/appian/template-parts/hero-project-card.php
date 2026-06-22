@@ -5,36 +5,34 @@
  */
 
 $card= get_query_var('card', []);
-$category= $card['project_category'] ?? '';
-$category_short = $card['category_short'] ?? explode(' ', $category)[0];
-$title= $card['project_title'] ?? '';
-$subtitle= $card['project_subtitle'] ?? '';
-$card_image= $card['project_image'] ?? null;
-$card_link= $card['page_link'] ?? '#';
+$category    = $card['project_category'] ?? '';
+$title= $card['project_title']    ?? '';
+$subtitle    = $card['project_subtitle'] ?? '';
+$card_image  = $card['project_image']    ?? null;
+$card_link   = $card['page_link']        ?? '#';
+$is_featured = !empty($card['featured_post']);
 ?>
 
-<article class="hero-project-card">
+<article class="hero-project-card <?php echo $is_featured ? 'hero-project-card--featured' : ''; ?>">
     <a class="hero-project-card__link" href="<?php echo esc_url($card_link); ?>">
 
         <div class="hero-project-card__image-wrap" <?php if ($card_image && isset($card_image['url'])) : ?>style="background-image: url('<?php echo esc_url($card_image['url']); ?>');"<?php endif; ?>>
             <?php if ($card_image && isset($card_image['url'])) : ?>
-                <img 
-                    src="<?php echo esc_url($card_image['url']); ?>" 
-                    alt="<?php echo esc_attr(!empty($card_image['alt']) ? $card_image['alt'] : $title . ' project'); ?>" 
+                <img
+                    src="<?php echo esc_url($card_image['url']); ?>"
+                    alt="<?php echo esc_attr(!empty($card_image['alt']) ? $card_image['alt'] : $title . ' project'); ?>"
                     class="sr-only"
                 >
             <?php endif; ?>
         </div>
+
         <div class="hero-project-card__overlay"></div>
         <div class="hero-project-card__hover-overlay"></div>
 
         <div class="hero-project-card__category">
             <span class="hero-project-card__category-icon" aria-hidden="true">i</span>
-            <span class="hero-project-card__category-text hero-project-card__category-text--full body-xsmall d-xl-none">
+            <span class="hero-project-card__category-text hero-project-card__category-text--full body-xsmall">
                 <?php echo esc_html($category); ?>
-            </span>
-            <span class="hero-project-card__category-text hero-project-card__category-text--short body-xsmall d-none d-xl-block">
-                <?php echo esc_html($category_short); ?>
             </span>
         </div>
 
