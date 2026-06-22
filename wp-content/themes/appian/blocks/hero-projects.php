@@ -41,12 +41,13 @@ if (!empty($section_title) || $projects->have_posts() || !empty($featured_image)
                     $post_id = get_the_ID();
                     $project_details = get_field('project_details', $post_id);
 
-                    $card = [
-                        'project_title' => get_the_title($post_id),
-                        'project_category' => $project_details['project_category'],
-                        'project_subtitle' => $project_details['project_subtitle'],
-                        'project_image' => $project_details['project_card_image'] ?? null,
-                        'page_link' => get_permalink($post_id),
+                   $card = [
+                        'project_title'    => get_the_title($post_id),
+                        'project_category' => $project_details['project_category'] ?? '',
+                        'project_subtitle' => $project_details['project_subtitle'] ?? '',
+                        'project_image'    => $project_details['project_card_image'] ?? null,
+                        'page_link'        => get_permalink($post_id),
+                        'featured_post'    => $project_details['featured_post'] ?? false, 
                     ];
 
                     set_query_var('card', $card);
