@@ -1,284 +1,144 @@
+document.addEventListener('DOMContentLoaded', function () {
 
-document.addEventListener('DOMContentLoaded', function() {
     const section = document.querySelector('.our-projects');
-    
     if (!section) return;
-    
-    const enablePagination = section.getAttribute('data-enable-pagination') === 'true';
-    const projectsPerPage = parseInt(section.getAttribute('data-projects-per-page')) || 6;
-    const totalPages = parseInt(section.getAttribute('data-total-pages')) || 1;
-    
-    let currentPage = 1;
-    let currentFilter = 'all';
-    
-    const filterItems = document.querySelectorAll('.our-projects__filter-item');
-    const paginationNumbers = document.querySelectorAll('.our-projects__pagination-number');
-    const paginationArrows = document.querySelectorAll('.our-projects__pagination-arrow');
+
     const cardsContainer = document.querySelector('.our-projects__cards');
-    const allCards = document.querySelectorAll('.our-projects__cards .hero-project-card');
-    
-    if (allCards.length === 0) {
-        return;
-    }
-    
-    let originalCards = Array.from(allCards);
-    
-    const mobileFilterToggle = document.getElementById('mobileFilterToggle');
-    const mobileDropdownMenu = document.querySelector('.our-projects__filter-dropdown-menu');
+    if (!cardsContainer) return;
+
+    const enablePagination = section.getAttribute('data-enable-pagination') === 'true';
+    const perPage= parseInt(section.getAttribute('data-projects-per-page')) || 6;
+
+    let currentFilter = 'all';
+    let currentPage   = 1;
+
+    const filterItems= document.querySelectorAll('.our-projects__filter-item');
+    const mobileFilterToggle  = document.getElementById('mobileFilterToggle');
+    const mobileDropdownMenu  = document.querySelector('.our-projects__filter-dropdown-menu');
     const mobileFilterOptions = document.querySelectorAll('.our-projects__filter-option');
-    const mobileFilterSelected = document.querySelector('.our-projects__filter-selected');
-    const mobileFilterArrow = document.querySelector('.our-projects__filter-arrow');
-    
-    function filterCards(category) {
-        if (category === 'all' || category === 'All Projects') {
-            return originalCards;
-        }
-        
-        return originalCards.filter(card => {
-            const dataCategory = card.getAttribute('data-category');
-            if (dataCategory) {
-                return dataCategory.toLowerCase().includes(category.toLowerCase());
-            }
-            
-            const categoryElement = card.querySelector('.hero-project-card__category-text, .category');
-            if (categoryElement) {
-                const cardCategory = categoryElement.textContent.trim();
-                return cardCategory.toLowerCase().includes(category.toLowerCase());
-            }
-            
-            return false;
+    const mobileFilterSelected= document.querySelector('.our-projects__filter-selected');
+    const mobileFilterArrow= document.querySelector('.our-projects__filter-arrow');
+
+    function loadProjects(filter, page) {
+        currentFilter = filter || 'all';
+        currentPage= page   || 1;
+
+        cardsContainer.style.opacity= '0.4';
+        cardsContainer.style.pointerEvents = 'none';
+
+        const data = new FormData();
+        data.append('action','our_projects_filter');
+        data.append('nonce',projectsAjax.nonce);
+        data.append('filter',currentFilter);
+        data.append('page',currentPage);
+        data.append('per_page', perPage);
+
+        fetch(projectsAjax.ajaxurl, {
+            method: 'POST',
+            body:   data,
+        })
+        .then(r => r.text())
+        .then(html => {
+            cardsContainer.innerHTML = html;
+            initPaginationClicks();
+            highlightActiveFilter(currentFilter);
+        })
+        .catch(err => console.error('Projects AJAX error:', err))
+        .finally(() => {
+            cardsContainer.style.opacity       = '';
+            cardsContainer.style.pointerEvents = '';
         });
     }
-    
-    function paginateCards(cards, page, perPage) {
-        const startIndex = (page - 1) * perPage;
-        const endIndex = startIndex + perPage;
-        return cards.slice(startIndex, endIndex);
-    }
-    
-    function displayCards() {
-        if (!cardsContainer || originalCards.length === 0) {
-            return;
-        }
-        
-        const filteredCards = filterCards(currentFilter);
-        const paginatedCards = enablePagination ? 
-            paginateCards(filteredCards, currentPage, projectsPerPage) : 
-            filteredCards;
-        
-        originalCards.forEach(card => {
-            card.style.display = 'none';
-        });
-        
-        paginatedCards.forEach(card => {
-            card.style.display = 'block';
-        });
-        
-        if (enablePagination) {
-            updatePagination(filteredCards.length);
-        }
-        
-        if (filteredCards.length === 0) {
-            if (!document.querySelector('.no-results-message')) {
-                const noResultsMsg = document.createElement('p');
-                noResultsMsg.className = 'text-center no-results-message';
-                noResultsMsg.textContent = 'No projects found for this category.';
-                cardsContainer.appendChild(noResultsMsg);
-            }
-        } else {
-            const existingMsg = document.querySelector('.no-results-message');
-            if (existingMsg) {
-                existingMsg.remove();
-            }
-        }
-    }
-    
-    function updatePagination(totalFilteredCards) {
-        const newTotalPages = Math.ceil(totalFilteredCards / projectsPerPage);
-        
-        const paginationContainer = document.querySelector('.our-projects__pagination-numbers');
-        if (paginationContainer && newTotalPages > 1) {
-            paginationContainer.innerHTML = '';
-            
-            const maxVisiblePages = 5;
-            let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
-            let endPage = Math.min(newTotalPages, startPage + maxVisiblePages - 1);
-            
-            if (endPage - startPage + 1 < maxVisiblePages) {
-                startPage = Math.max(1, endPage - maxVisiblePages + 1);
-            }
-            
-            for (let i = startPage; i <= endPage; i++) {
-                const button = document.createElement('button');
-                button.className = `our-projects__pagination-number btn-text d-flex align-items-center justify-content-center text-center px-4 py-0 bg-white border border-light rounded-1 ${i === currentPage ? 'active' : ''}`;
-                button.setAttribute('data-page', i);
-                button.textContent = i;
-                button.addEventListener('click', () => goToPage(i));
-                paginationContainer.appendChild(button);
-            }
-            
-            if (endPage < newTotalPages) {
-                if (endPage < newTotalPages - 1) {
-                    const ellipsis = document.createElement('span');
-                    ellipsis.className = 'our-projects__pagination-ellipsis';
-                    ellipsis.textContent = '...';
-                    paginationContainer.appendChild(ellipsis);
-                }
-                
-                const lastButton = document.createElement('button');
-                lastButton.className = 'our-projects__pagination-number btn-text d-flex align-items-center justify-content-center text-center px-4 py-0 bg-white border border-light rounded-1';
-                lastButton.setAttribute('data-page', newTotalPages);
-                lastButton.textContent = newTotalPages;
-                lastButton.addEventListener('click', () => goToPage(newTotalPages));
-                paginationContainer.appendChild(lastButton);
-            }
-        }
-        
-        const prevArrow = document.querySelector('.our-projects__pagination-arrow--prev');
-        const nextArrow = document.querySelector('.our-projects__pagination-arrow--next');
-        
-        if (prevArrow) {
-            prevArrow.disabled = currentPage <= 1;
-        }
-        
-        if (nextArrow) {
-            nextArrow.disabled = currentPage >= newTotalPages;
-        }
-        
-        const paginationSection = document.querySelector('.our-projects__pagination');
-        if (paginationSection) {
-            if (newTotalPages <= 1) {
-                paginationSection.style.display = 'none';
-            } else {
-                paginationSection.style.display = 'flex';
-            }
-        }
-    }
-    
-    function goToPage(page) {
-        currentPage = page;
-        displayCards();
-    }
-    
-    function applyFilter(category) {
-        currentFilter = category;
-        currentPage = 1;
-        displayCards();
-    }
-    
-    if (mobileFilterToggle && mobileDropdownMenu && mobileFilterArrow) {
-        mobileFilterToggle.addEventListener('click', function(e) {
-            e.stopPropagation();
-            const isOpen = !mobileDropdownMenu.classList.contains('d-none');
-            
-            if (isOpen) {
-                mobileDropdownMenu.classList.add('d-none');
-                mobileFilterArrow.style.transform = 'rotate(0deg)';
-            } else {
-                mobileDropdownMenu.classList.remove('d-none');
-                mobileFilterArrow.style.transform = 'rotate(180deg)';
-            }
-        });
-        
-        document.addEventListener('click', function(e) {
-            if (!mobileFilterToggle.contains(e.target) && !mobileDropdownMenu.contains(e.target)) {
-                mobileDropdownMenu.classList.add('d-none');
-                mobileFilterArrow.style.transform = 'rotate(0deg)';
-            }
-        });
-    }
-    
-    if (mobileFilterOptions.length > 0) {
-        mobileFilterOptions.forEach(option => {
-            option.addEventListener('click', function() {
-                const selectedValue = this.getAttribute('data-value') || this.textContent.trim();
-                
-                if (mobileFilterSelected) {
-                    mobileFilterSelected.textContent = this.textContent.trim();
-                }
-                
-                mobileFilterOptions.forEach(opt => {
-                    opt.classList.remove('active', 'body-small-all');
-                    opt.classList.add('body-small');
-                });
-                
-                this.classList.add('active', 'body-small-all');
-                this.classList.remove('body-small');
-                
-                filterItems.forEach(filterItem => {
-                    filterItem.classList.remove('active', 'body-small-all');
-                    filterItem.classList.add('body-small');
-                    
-                    if (filterItem.textContent.trim() === this.textContent.trim()) {
-                        filterItem.classList.add('active', 'body-small-all');
-                        filterItem.classList.remove('body-small');
-                    }
-                });
-                
-                if (mobileDropdownMenu && mobileFilterArrow) {
-                    mobileDropdownMenu.classList.add('d-none');
-                    mobileFilterArrow.style.transform = 'rotate(0deg)';
-                }
-                
-                applyFilter(selectedValue === 'all' ? 'all' : selectedValue);
+
+    function initPaginationClicks() {
+        const pageNumbers = cardsContainer.querySelectorAll('.our-projects__pagination-number');
+        pageNumbers.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const page = parseInt(btn.getAttribute('data-page'));
+                if (page) loadProjects(currentFilter, page);
             });
         });
+
+        const prevBtn = cardsContainer.querySelector('.our-projects__pagination-arrow--prev');
+        const nextBtn = cardsContainer.querySelector('.our-projects__pagination-arrow--next');
+
+        if (prevBtn) {
+            prevBtn.addEventListener('click', () => {
+                if (!prevBtn.disabled) loadProjects(currentFilter, currentPage - 1);
+            });
+        }
+
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => {
+                if (!nextBtn.disabled) loadProjects(currentFilter, currentPage + 1);
+            });
+        }
     }
-    
-    if (filterItems.length > 0) {
+
+    function highlightActiveFilter(filter) {
         filterItems.forEach(item => {
-            item.addEventListener('click', function() {
-                filterItems.forEach(filterItem => {
-                    filterItem.classList.remove('active', 'body-small-all');
-                    filterItem.classList.add('body-small');
-                });
-                
-                this.classList.add('active', 'body-small-all');
-                this.classList.remove('body-small');
-                
-                const filterValue = this.textContent.trim();
-                
-                if (mobileFilterSelected) {
-                    mobileFilterSelected.textContent = filterValue;
-                }
-                
-                mobileFilterOptions.forEach(option => {
-                    option.classList.remove('active', 'body-small-all');
-                    option.classList.add('body-small');
-                    
-                    if (option.textContent.trim() === filterValue) {
-                        option.classList.add('active', 'body-small-all');
-                        option.classList.remove('body-small');
-                    }
-                });
-                
-                const filterCategory = filterValue === 'All Projects' ? 'all' : filterValue;
-                applyFilter(filterCategory);
-            });
+            const val= item.getAttribute('data-value') || '';
+            const isActive = val === filter;
+            item.classList.toggle('active',isActive);
+            item.classList.toggle('body-small-all', isActive);
+            item.classList.toggle('body-small',!isActive);
+        });
+
+        mobileFilterOptions.forEach(opt => {
+            const val= opt.getAttribute('data-value') || '';
+            const isActive = val === filter;
+            opt.classList.toggle('active',isActive);
+            opt.classList.toggle('body-small-all', isActive);
+            opt.classList.toggle('body-small',!isActive);
         });
     }
-    
-    if (paginationArrows.length > 0) {
-        paginationArrows.forEach(arrow => {
-            arrow.addEventListener('click', function() {
-                if (this.disabled) return;
-                
-                const isNext = this.classList.contains('our-projects__pagination-arrow--next');
-                const isPrev = this.classList.contains('our-projects__pagination-arrow--prev');
-                
-                const filteredCards = filterCards(currentFilter);
-                const maxPages = Math.ceil(filteredCards.length / projectsPerPage);
-                
-                if (isNext && currentPage < maxPages) {
-                    goToPage(currentPage + 1);
-                } else if (isPrev && currentPage > 1) {
-                    goToPage(currentPage - 1);
-                }
-            });
+
+    filterItems.forEach(item => {
+        item.addEventListener('click', function () {
+            const val   = this.getAttribute('data-value') || 'all';
+            const label = this.textContent.trim();
+
+            if (mobileFilterSelected) mobileFilterSelected.textContent = label;
+            loadProjects(val, 1);
+        });
+    });
+
+    mobileFilterOptions.forEach(opt => {
+        opt.addEventListener('click', function () {
+            const val= this.getAttribute('data-value') || 'all';
+            const label = this.textContent.trim();
+
+            if (mobileFilterSelected) mobileFilterSelected.textContent = label;
+            closeMobileDropdown();
+            loadProjects(val, 1);
+        });
+    });
+
+    if (mobileFilterToggle && mobileDropdownMenu) {
+        mobileFilterToggle.addEventListener('click', function (e) {
+            e.stopPropagation();
+            mobileDropdownMenu.classList.contains('d-none')
+                ? openMobileDropdown()
+                : closeMobileDropdown();
+        });
+
+        document.addEventListener('click', function (e) {
+            if (!mobileFilterToggle.contains(e.target) && !mobileDropdownMenu.contains(e.target)) {
+                closeMobileDropdown();
+            }
         });
     }
-    
-    if (originalCards.length > 0) {
-        displayCards();
+
+    function openMobileDropdown() {
+        mobileDropdownMenu.classList.remove('d-none');
+        if (mobileFilterArrow) mobileFilterArrow.style.transform = 'rotate(180deg)';
     }
+
+    function closeMobileDropdown() {
+        mobileDropdownMenu.classList.add('d-none');
+        if (mobileFilterArrow) mobileFilterArrow.style.transform = 'rotate(0deg)';
+    }
+
+    loadProjects(currentFilter, currentPage);
+
 });
