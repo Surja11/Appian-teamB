@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const section = document.querySelector('.our-projects');
     if (!section) return;
 
+    console.log(document.querySelector('.our-projects'));
     const cardsContainer = document.querySelector('.our-projects__cards');
     if (!cardsContainer) return;
 
@@ -114,23 +115,33 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    if (mobileFilterToggle && mobileDropdownMenu) {
-        mobileFilterToggle.addEventListener('click', function (e) {
-            e.stopPropagation();
-            mobileDropdownMenu.classList.contains('d-none')
-                ? openMobileDropdown()
-                : closeMobileDropdown();
-        });
+   let isToggling = false;
 
-        document.addEventListener('click', function (e) {
-            if (!mobileFilterToggle.contains(e.target) && !mobileDropdownMenu.contains(e.target)) {
-                closeMobileDropdown();
-            }
-        });
+mobileFilterToggle.addEventListener('click', function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    e.stopImmediatePropagation();
+
+    if (isToggling) return;
+    isToggling = true;
+
+    if (mobileDropdownMenu.classList.contains('d-none')) {
+        openMobileDropdown();
+    } else {
+        closeMobileDropdown();
     }
 
+    setTimeout(() => { isToggling = false; }, 300);
+});
+
+
     function openMobileDropdown() {
+        // console.log('opening dropdown');
         mobileDropdownMenu.classList.remove('d-none');
+        // console.log(
+
+        // 'class removed'
+        // )
         if (mobileFilterArrow) mobileFilterArrow.style.transform = 'rotate(180deg)';
     }
 

@@ -1,9 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
-    console.log("Content loaded");
+    // console.log("Content loaded");
     
     const ourWorkSection = document.getElementsByClassName("our-work")[0];
     if (!ourWorkSection) {
-        console.log("Section not found");
+        // console.log("Section not found");
         return;
     }
 
@@ -40,16 +40,16 @@ document.addEventListener("DOMContentLoaded", function () {
         // adding active to corresponding pane
         if (tabPanes[index]) {
             tabPanes[index].classList.add("active");
-            console.log(`Pane ${index} activated`);
+            // console.log(`Pane ${index} activated`);
         }
     }
 
     // adding click event listener
     tabButtons.forEach((btn, index) => {
-        console.log(`Attaching listener to button ${index}:`, btn.id);
+        // console.log(`Attaching listener to button ${index}:`, btn.id);
         
         btn.addEventListener("click", function(e) {
-            console.log(`Clicked button ${index}`);
+            // console.log(`Clicked button ${index}`);
             e.preventDefault();
             e.stopPropagation();
             showTab(index);
