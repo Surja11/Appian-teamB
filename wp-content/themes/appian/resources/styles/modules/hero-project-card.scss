@@ -21,7 +21,7 @@
     }
 
     &--featured{
-        @include media-breakpoint-up(md){
+        @include media-breakpoint-up(xl){
             grid-column: span 2 !important;
         }
 
@@ -76,10 +76,15 @@
         transition: clip-path 0.5s ease;
     }
 
+    &__heading{
+        padding-top: 1.0625rem !important;
+        padding-left: 0.9375rem !important;
+        padding-right:0.9375rem !important;
+    }
+
     &__category {
-        position: absolute;
-        top: 1.0625rem;
-        left: 0.9375rem;
+       
+      
         z-index: 3;
         display: flex;
         align-items: center;
@@ -133,6 +138,16 @@
         overflow-wrap: break-word;
         hyphens: auto;
         line-height: 1.2;
+    }
+
+    &__featured-tag{
+        background-color: $color-primary-red;
+        color: $color-neutral-50;
+
+        @include media-breakpoint-up(xl){
+            display: none;
+        }
+        
     }
 
     &__subtitle {

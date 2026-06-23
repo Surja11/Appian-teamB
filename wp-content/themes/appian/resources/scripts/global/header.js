@@ -1,5 +1,5 @@
 const header = () => {
-  console.log("Header js loaded");
+  // console.log("Header js loaded");
 
   const toggleIcon = document.getElementsByClassName("navbar__icon-container")[0];
   const mainNav = document.getElementsByClassName("navbar__main")[0];
@@ -52,7 +52,7 @@ const header = () => {
     // closing the dropdown
     const closeDropdown = () => {
       trigger.setAttribute("aria-expanded", "false");
-      console.log(trigger.getAttribute("aria-expanded"));
+      // console.log(trigger.getAttribute("aria-expanded"));
       dropdown.classList.remove("navbar__dropdown--open");
       if (!document.querySelector(".navbar__dropdown--open")) {
         overlay.classList.remove("navbar-overlay--visible");
@@ -60,13 +60,13 @@ const header = () => {
     };
 
     trigger.addEventListener('click', (e)=>{
-      console.log("clicked");
+      // console.log("clicked");
       if (window.innerWidth>breakpoint){
         return
       }
       e.preventDefault();
       const isOpen = trigger.getAttribute('aria-expanded')==="true";
-      console.log(isOpen);
+      // console.log(isOpen);
       if (isOpen) {
         closeDropdown();
       } else {
@@ -160,14 +160,14 @@ const header = () => {
 
   let lastScrollY = window.scrollY;
   let scrollStopTimer = null;
-  console.log(lastScrollY);
+  // console.log(lastScrollY);
 
   window.addEventListener("scroll", () => {
     if (mainNav.classList.contains("navbar__main--open")) return;
 
     const currentScrollY = window.scrollY;
 
-    console.log(currentScrollY);
+    // console.log(currentScrollY);
     const scrollingUp = currentScrollY < lastScrollY;
     lastScrollY = currentScrollY;
 
@@ -175,14 +175,14 @@ const header = () => {
 
     if (currentScrollY <= 0) {
       header?.classList.remove("header--hidden");
-      console.log('at top');
+      // console.log('at top');
       return;
     }
 
 
     if (!scrollingUp) {
       header?.classList.add("header--hidden");
-      console.log('it should hide')
+      // console.log('it should hide')
       return;
     }
 

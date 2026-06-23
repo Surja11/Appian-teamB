@@ -6,8 +6,8 @@ if (!$our_projects) {
     return;
 }
 
-$section_title = $our_projects['section_title']     ?? '';
-$enable_filters = $our_projects['enable_filters']    ?? true;
+$section_title = $our_projects['section_title'] ?? '';
+$enable_filters = $our_projects['enable_filters'] ?? true;
 $enable_pagination = $our_projects['enable_pagination'] ?? true;
 $projects_per_page = $our_projects['projects_per_page'] ?? 6;
 
@@ -18,16 +18,25 @@ $all_project_ids = get_posts([
     'fields' => 'ids',
 ]);
 
-$unique_categories = [];
+$all_cats_in_use = [];
 foreach ($all_project_ids as $pid) {
     $details = get_field('project_details', $pid);
     $cat = $details['project_category'] ?? '';
-    if ($cat && !in_array($cat, $unique_categories)) {
+    if ($cat && !in_array($cat, $all_cats_in_use)) {
+        $all_cats_in_use[] = $cat;
+    }
+}
+
+
+$category_order = ['Renovation', 'Waterproofing', 'Plumbing', 'Electrical', 'HVAC', 'Roofing'];
+
+$unique_categories = array_values(array_filter($category_order, fn($cat) => in_array($cat, $all_cats_in_use)));
+
+foreach ($all_cats_in_use as $cat) {
+    if (!in_array($cat, $unique_categories)) {
         $unique_categories[] = $cat;
     }
 }
-sort($unique_categories);
-
 if (empty($section_title) && empty($all_project_ids)) return;
 ?>
 
@@ -57,9 +66,9 @@ if (empty($section_title) && empty($all_project_ids)) return;
                 <div class="our-projects__filter-header d-flex align-items-center w-100 d-md-none">
                     <span class="our-projects__filter-label body-medium me-auto">Filter by:</span>
                     <div class="our-projects__filter-dropdown position-relative">
-                        <button class="our-projects__filter-current btn-text d-flex align-items-center justify-content-between bg-transparent border-0 p-0"
+                        <button class="our-projects__filter-current btn-text d-flex align-items-center justify-content-between bg-transparent border-0 p-0 "
                             id="mobileFilterToggle">
-                            <span class="our-projects__filter-selected">All Projects</span>
+                            <span class="our-projects__filter-selected pe-none">All Projects</span>
                             <img src="<?php echo get_template_directory_uri(); ?>/resources/images/icon-chevron-down.svg"
                                 alt="" class="our-projects__filter-arrow ms-2"
                                 style="width:12px;height:12px;transition:transform 0.3s ease;">

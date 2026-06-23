@@ -1,11 +1,11 @@
 <?php
 
 $card= get_query_var('card', []);
-$category    = $card['project_category'] ?? '';
-$title= $card['project_title']    ?? '';
-$subtitle    = $card['project_subtitle'] ?? '';
-$card_image  = $card['project_image']    ?? null;
-$card_link   = $card['page_link']        ?? '#';
+$category= $card['project_category'] ?? '';
+$title= $card['project_title']?? '';
+$subtitle= $card['project_subtitle'] ?? '';
+$card_image= $card['project_image']?? null;
+$card_link= $card['page_link']?? '#';
 $is_featured = !empty($card['featured_post']);
 ?>
 
@@ -25,11 +25,18 @@ $is_featured = !empty($card['featured_post']);
         <div class="hero-project-card__overlay"></div>
         <div class="hero-project-card__hover-overlay"></div>
 
+        <div class="hero-project-card__heading d-flex justify-content-between w-100">
         <div class="hero-project-card__category">
             <span class="hero-project-card__category-icon" aria-hidden="true">i</span>
             <span class="hero-project-card__category-text hero-project-card__category-text--full body-xsmall">
                 <?php echo esc_html($category); ?>
             </span>
+        </div>
+        <?php if ($is_featured) : ?>
+        <div class="hero-project-card__featured-tag pt-1 pb-1 ps-4 pe-4 postion-relative z-3">
+            <span class="body body-small-all">Featured</span>
+        </div>    
+        <?php endif;     ?>
         </div>
 
         <div class="hero-project-card__content">
