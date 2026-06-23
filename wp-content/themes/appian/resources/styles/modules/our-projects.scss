@@ -10,19 +10,18 @@
     }
 
     &__title-block {
-        margin-bottom: 3.125rem; // 50px
+        margin-bottom: 3.125rem;
         
         @include media-breakpoint-up(md) {
-            margin-bottom: 3.75rem; // 60px
+            margin-bottom: 3.75rem;
         }
     }
 
-    // Filter Section
     &__filter {
-        margin-bottom: 2.5rem; // 40px
+        margin-bottom: 2.5rem;
         
         @include media-breakpoint-up(md) {
-            margin-bottom: 3.5rem; // 56px
+            margin-bottom: 3.5rem;
         }
     }
 
@@ -47,7 +46,6 @@
         color: $color-neutral-600;
     }
 
-
     &__filter-arrow {
         transition: transform 0.3s ease;
         flex-shrink: 0;
@@ -63,14 +61,8 @@
         padding: 0;
         min-width: 10rem !important;
         width: auto !important;
-        transform: translateX(calc(100% - 100%));
-        
         right: 0 !important;
         left: auto !important;
-        
-        &.align-right {
-            transform: translateX(calc(100% - 100%));
-        }
     }
 
     &__filter-option {
@@ -107,14 +99,6 @@
         &:not(:last-child) {
             border-bottom: 1px solid $color-neutral-75;
         }
-        
-        &[style*="display: none"],
-        &[style*="visibility: hidden"],
-        &[style*="opacity: 0"] {
-            display: block !important;
-            visibility: visible !important;
-            opacity: 1 !important;
-        }
     }
 
     &__filter-items {
@@ -141,13 +125,8 @@
         cursor: pointer;
         transition: color 0.3s ease;
         
-        &:hover,
-        &.active {
-            color: $color-neutral-600;
-        }
-        
-        @media (hover: hover) and (pointer: fine) {
-            &:hover {
+        &:hover {
+            @media (hover: hover) and (pointer: fine) {
                 color: $color-primary-red;
             }
         }
@@ -158,28 +137,36 @@
     }
 
     &__cards {
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+
         @media (max-width: 375px) {
-            gap: 0.5rem !important;
+            gap: 0.5rem;
         }
-        
+    }
+
+    &__cards-inner {
+        display: grid;
+        width: 100%;
+        grid-auto-flow: dense; 
+        gap: 0.75rem;
+        grid-template-columns: 1fr; 
         @include media-breakpoint-up(sm) {
-            @include media-breakpoint-down(md) {
-                grid-template-columns: repeat(2, 1fr) !important;
-            }
+            grid-template-columns: repeat(2, 1fr);
         }
-        
+
         @include media-breakpoint-up(md) {
-            @include media-breakpoint-down(xl) {
-                grid-template-columns: repeat(3, 1fr) !important;
-                margin-bottom: 0.75rem !important;
-            }
+            grid-template-columns: repeat(3, 1fr);
+            margin-bottom: 0.75rem;
         }
-        
+
         @include media-breakpoint-up(xl) {
-            grid-template-columns: repeat(4, 1fr) !important;
-            column-gap: 0.75rem !important;
-            row-gap: 1.25rem !important;
-            margin-bottom: 1.25rem !important;
+            grid-template-columns: repeat(4, 1fr);
+            column-gap: 0.75rem;
+            row-gap: 1.25rem;
+            margin-bottom: 1.25rem;
         }
     }
 
@@ -209,7 +196,12 @@
         }
     }
 
-    &__pagination-arrow {        
+    &__no-results {
+        padding: 3rem 0;
+        color: $color-neutral-200;
+    }
+
+    &__pagination-arrow {
         width: 3rem;
         height: 3rem;
         cursor: pointer;
@@ -219,11 +211,9 @@
             opacity: 0.7;
         }
 
-        
         &--prev img {
             transform: rotate(180deg);
         }
-        
         
         @include media-breakpoint-down(md) {
             width: 2.5rem !important;
@@ -258,6 +248,8 @@
     }
 
     &__pagination {
+        width: 100%;
+
         @include media-breakpoint-down(md) {
             gap: 0 !important;
         }
@@ -272,12 +264,12 @@
 
 .our-projects__pagination.mt-20 {
     @include media-breakpoint-down(md) {
-        margin-top: 2.5rem !important; // 40px
+        margin-top: 2.5rem !important;
     }
 }
 
 .our-projects__pagination.mb-25 {
     @include media-breakpoint-down(md) {
-        margin-bottom: 9rem !important; // 144px
+        margin-bottom: 9rem !important;
     }
 }
