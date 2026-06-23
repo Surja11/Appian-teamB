@@ -7,6 +7,15 @@ section.logo-marquee {
 
   
   }
+
+}
+  .logo-marquee{
+
+    $text-color: #121313;
+    h5{
+        color:  $text-color !important;
+
+    }
     &__track {
         overflow: hidden;
         width: 100%;
