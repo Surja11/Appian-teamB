@@ -24,9 +24,9 @@ $cta_button  = get_field('faq_cta_button');
         </h5>
 
         <div class="cta-section__body d-flex flex-column">
-          <p class="cta-section__text m-0 body body-small-all">
+          <div class="cta-section__text m-0 body body-small-all">
             <?php echo wp_kses_post($cta_text); ?>
-          </p>
+        </div>
         </div>
 
         <?php if (!empty($cta_button) && isset($cta_button['url'])) : ?>
@@ -40,8 +40,8 @@ $cta_button  = get_field('faq_cta_button');
           </a>
         <?php else : ?>
           <a href="#" class="btn btn-primary">
-            <span class="btn--cta__text">Our Story</span>
-            <div class="btn--cta__icon-container">
+            <span class="btn__cta-text">Our Story</span>
+            <div class="btn__cta-icon-container">
               <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M1 8.41406H15M8 15.4141L15 8.41406L8 1.41406" stroke="#ffffff" stroke-width="2" stroke-miterlimit="5.75877" stroke-linecap="square" />
               </svg>

@@ -26,7 +26,7 @@ function our_projects_filter()
 {
     check_ajax_referer('projects_nonce', 'nonce');
 
-    $filter = isset($_POST['filter'])? sanitize_text_field($_POST['filter']) : 'all';
+    $filter = strtolower(isset($_POST['filter']))? sanitize_text_field($_POST['filter']) : 'all';
     $page= isset($_POST['page'])? absint($_POST['page'])                : 1;
     $per_page = isset($_POST['per_page']) ? absint($_POST['per_page'])            : 6;
 
@@ -44,7 +44,7 @@ function our_projects_filter()
         $cat_filter = [[
             'key'=> 'project_details_project_category',
             'value'=> $filter,
-            'compare'=> 'LIKE',
+            'compare'=> '=',
         ]];
     }
 

@@ -27,7 +27,7 @@
 .cta-section {
 
     >* {
-        margin-bottom: 1.75rem !important;
+        margin-bottom: 1.875rem !important;
 
         &:last-child {
             margin-bottom: 0 !important;
@@ -35,7 +35,7 @@
     }
 
     @supports (gap: 1rem) {
-        gap: 1.75rem !important;
+        gap: 1.875rem !important;
 
         >* {
             margin-bottom: 0 !important;
@@ -64,6 +64,20 @@
 
 
 }
+
+.btn{
+    &__cta-icon-container {
+        display: flex; 
+        
+        svg {
+            width: 17px !important;
+            height: 17px !important;
+            flex-shrink: 0;
+        }
+    }
+}
+
+
 
 .faq {
     .accordion-button::after {
