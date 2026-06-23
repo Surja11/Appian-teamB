@@ -115,9 +115,24 @@ class ContactForm {
             }
         }
 
-        if (field.type === 'email0 0 calc(50% - 1.125rem)' && value) {
-            const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;            
-            if (!emailRegex.test(value)) {
+        if (field.type === 'email' && value) {
+            const emailRegex = /^[a-zA-Z0-9][a-zA-Z0-9._%+-]*[a-zA-Z0-9]@[a-zA-Z0-9][a-zA-Z0-9.-]*[a-zA-Z0-9]\.[a-zA-Z]{2,}$/;
+            
+            const invalidPatterns = [
+                /\.{2,}/,
+                /^\./,
+                /\.$/,
+                /@\./,
+                /\.@/,
+                /@@/,
+                /@.*@/,
+                /\s/,
+                /[#%^]/
+            ];
+            
+            let hasInvalidPattern = invalidPatterns.some(pattern => pattern.test(value));
+            
+            if (!emailRegex.test(value) || hasInvalidPattern) {
                 this.showFieldError(field, 'Please enter a valid email address');
                 isValid = false;
             }

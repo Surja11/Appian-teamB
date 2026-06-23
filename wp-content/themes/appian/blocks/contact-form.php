@@ -104,6 +104,10 @@ $button_text = get_field('button_text') ?: 'Submit';
                                                 placeholder="<?php echo esc_attr($field_label); ?><?php echo $required ? ' *' : ''; ?>"
                                                 class="contact-form__input body w-100 bg-white rounded<?php echo ($field_type === 'date') ? ' contact-form__date-picker' : ''; ?>"
                                                 <?php echo $required ? 'required' : ''; ?>
+                                                <?php if ($field_type === 'email') : ?>
+                                                pattern="[a-zA-Z0-9][a-zA-Z0-9._%+-]*[a-zA-Z0-9]@[a-zA-Z0-9][a-zA-Z0-9.-]*[a-zA-Z0-9]\.[a-zA-Z]{2,}"
+                                                title="Please enter a valid email address"
+                                                <?php endif; ?>
                                                 <?php if ($field_type === 'date') : ?>
                                                 onfocus="(this.type='date')"
                                                 onblur="if(!this.value) this.type='text'"
