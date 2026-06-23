@@ -2,11 +2,7 @@
 
 .video-section {
     background-color: $white;
-    position: relative;
-    width: 100%;
     height: auto;
-    margin: 0 auto;
-    overflow: hidden;
     
     padding: $spacer * 3 $spacer * 1.75;
     
@@ -19,47 +15,32 @@
     }
 
     .video-wrapper {
-        position: relative;
-        width: 100%;
-        aspect-ratio: 16/9;
-        background-color: #000;
+        aspect-ratio: 1.14/1; // Mobile aspect ratio (319/280)
+        background-color: $black;
         border-radius: 0;
-        overflow: hidden;
         
         max-width: 100%;
         
         @include media-breakpoint-up(md) {
+            aspect-ratio: 1.95/1; // Desktop aspect ratio (1280/656)
             max-width: 80rem;
             margin: 0 auto;
         }
 
         .video-player {
-            width: 100%;
-            height: 100%;
             object-fit: cover;
-            display: block;
         }
 
         .video-controls {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
             z-index: 10;
-            opacity: 0;
+            opacity: 0.8;
             transition: opacity 0.3s ease;
             
             .video-control-btn {
                 background: $color-primary-red;
-                border: none;
-                border-radius: 50%;
                 cursor: pointer;
                 transition: $transition-base;
-                display: flex;
-                align-items: center;
-                justify-content: center;
                 outline: none;
-                position: relative;
                 
                 width: 4.25rem;
                 height: 4.25rem;
@@ -76,20 +57,8 @@
                     transform: scale(1.05);
                 }
 
-                &:focus {
-                    outline: none;
-                }
-
                 .play-icon,
                 .pause-icon {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    position: absolute;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
-                    
                     svg {
                         width: 1.25rem;
                         height: 1.25rem;
@@ -115,25 +84,33 @@
                         }
                     }
                 }
-                
-                .play-icon {
-                    display: flex;
-                }
-                
-                .pause-icon {
-                    display: none;
-                }
             }
+        }
+
+        // Hide controls when video is playing
+        &.playing .video-controls {
+            opacity: 0;
+            pointer-events: none;
         }
 
         @media (hover: hover) and (pointer: fine) {
             &:hover .video-controls {
                 opacity: 1;
+                pointer-events: auto;
+            }
+            
+            &.playing:hover .video-controls {
+                opacity: 1;
+                pointer-events: auto;
             }
         }
         
         @media (hover: none) and (pointer: coarse) {
             .video-controls {
+                opacity: 1;
+            }
+            
+            &.playing .video-controls {
                 opacity: 0;
             }
         }
@@ -141,93 +118,27 @@
 }
 
 .video-wrapper:not(.native-controls) .video-player {
-    &::-webkit-media-controls {
-        display: none !important;
-    }
-    
-    &::-webkit-media-controls-panel {
-        display: none !important;
-    }
-    
-    &::-webkit-media-controls-play-button {
-        display: none !important;
-    }
-    
-    &::-webkit-media-controls-overlay-play-button {
-        display: none !important;
-    }
-    
-    &::-webkit-media-controls-start-playback-button {
-        display: none !important;
-    }
-    
-    &::-webkit-media-controls-timeline {
-        display: none !important;
-    }
-    
-    &::-webkit-media-controls-current-time-display {
-        display: none !important;
-    }
-    
-    &::-webkit-media-controls-time-remaining-display {
-        display: none !important;
-    }
-    
-    &::-webkit-media-controls-mute-button {
-        display: none !important;
-    }
-    
-    &::-webkit-media-controls-toggle-closed-captions-button {
-        display: none !important;
-    }
-    
-    &::-webkit-media-controls-volume-slider {
-        display: none !important;
-    }
-    
-    &::-webkit-media-controls-fullscreen-button {
-        display: none !important;
-    }
-    
-    &::-webkit-media-controls-rewind-button {
-        display: none !important;
-    }
-    
-    &::-webkit-media-controls-return-to-realtime-button {
-        display: none !important;
-    }
-
+    &::-webkit-media-controls,
+    &::-webkit-media-controls-panel,
+    &::-webkit-media-controls-play-button,
+    &::-webkit-media-controls-overlay-play-button,
+    &::-webkit-media-controls-start-playback-button,
+    &::-webkit-media-controls-timeline,
+    &::-webkit-media-controls-current-time-display,
+    &::-webkit-media-controls-time-remaining-display,
+    &::-webkit-media-controls-mute-button,
+    &::-webkit-media-controls-toggle-closed-captions-button,
+    &::-webkit-media-controls-volume-slider,
+    &::-webkit-media-controls-fullscreen-button,
+    &::-webkit-media-controls-rewind-button,
+    &::-webkit-media-controls-return-to-realtime-button,
     &::-moz-media-controls {
         display: none !important;
     }
-}
 
-.video-wrapper:not(.native-controls) .video-player {
     pointer-events: none;
     
     + .video-controls {
         pointer-events: auto;
-    }
-}
-
-.video-wrapper {
-    .video-control-btn {
-        .play-icon {
-            display: flex !important;
-        }
-        
-        .pause-icon {
-            display: none !important;
-        }
-    }
-    
-    &.playing .video-control-btn {
-        .play-icon {
-            display: none !important;
-        }
-        
-        .pause-icon {
-            display: flex !important;
-        }
     }
 }

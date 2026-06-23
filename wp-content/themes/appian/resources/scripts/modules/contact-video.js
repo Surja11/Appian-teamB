@@ -22,21 +22,46 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function updateButtonState() {
+        const playIcon = playPauseBtn.querySelector('.play-icon');
+        const pauseIcon = playPauseBtn.querySelector('.pause-icon');
+        
         if (videoPlayer.paused) {
             videoWrapper.classList.remove('playing');
             playPauseBtn.setAttribute('aria-label', 'Play video');
+            // Show play icon, hide pause icon
+            playIcon.classList.remove('d-none');
+            pauseIcon.classList.add('d-none');
         } else {
             videoWrapper.classList.add('playing');
             playPauseBtn.setAttribute('aria-label', 'Pause video');
+            // Hide play icon, show pause icon
+            playIcon.classList.add('d-none');
+            pauseIcon.classList.remove('d-none');
         }
     }
     
     function showControls() {
         videoControls.style.opacity = '1';
+        videoControls.style.pointerEvents = 'auto';
     }
     
     function hideControls() {
-        videoControls.style.opacity = '0';
+        // Only hide the pause button if video is playing
+        if (!videoPlayer.paused) {
+            videoControls.style.opacity = '0';
+            videoControls.style.pointerEvents = 'none';
+        } else {
+
+            videoControls.style.opacity = '';
+            videoControls.style.pointerEvents = '';
+        }
+    }
+    
+    function hideControlsDelayed() {
+        clearTimeout(hideControlsTimeout);
+        hideControlsTimeout = setTimeout(() => {
+            hideControls();
+        }, 3000);
     }
     
     function hideControlsDelayed() {
@@ -49,10 +74,6 @@ document.addEventListener('DOMContentLoaded', function() {
     playPauseBtn.addEventListener('click', function(e) {
         e.stopPropagation();
         togglePlayPause();
-        if (isMobile) {
-            showControls();
-            hideControlsDelayed();
-        }
     });
     
     videoPlayer.addEventListener('play', updateButtonState);
@@ -85,10 +106,6 @@ document.addEventListener('DOMContentLoaded', function() {
     videoWrapper.addEventListener('click', function(e) {
         if (e.target === videoPlayer || e.target === videoWrapper) {
             togglePlayPause();
-            if (isMobile) {
-                showControls();
-                hideControlsDelayed();
-            }
         }
     });
     
@@ -96,10 +113,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (e.key === ' ' || e.key === 'Spacebar') {
             e.preventDefault();
             togglePlayPause();
-            showControls();
-            if (isMobile) {
-                hideControlsDelayed();
-            }
         }
     });
     

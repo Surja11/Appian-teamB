@@ -14,11 +14,11 @@ if ($video_source === 'upload' && $video_file) {
 ?>
 
 <?php if ($final_video_url) : ?>
-<section class="video-section">
-    <div class="video-wrapper <?php echo $show_controls ? 'native-controls' : ''; ?>">
+<section class="video-section position-relative w-100 overflow-hidden mx-auto">
+    <div class="video-wrapper <?php echo $show_controls ? 'native-controls' : ''; ?> position-relative w-100 overflow-hidden">
         <video 
             id="videoPlayer" 
-            class="video-player" 
+            class="video-player w-100 h-100 d-block" 
             preload="metadata"
             poster=""
             <?php echo $show_controls ? 'controls' : ''; ?>
@@ -29,12 +29,12 @@ if ($video_source === 'upload' && $video_file) {
         </video>
         
         <?php if (!$show_controls) : ?>
-        <div class="video-controls">
-            <button id="playPauseBtn" class="video-control-btn play-btn" aria-label="Play video">
-                <span class="play-icon">
+        <div class="video-controls position-absolute top-50 start-50 translate-middle">
+            <button id="playPauseBtn" class="video-control-btn play-btn d-flex align-items-center justify-content-center position-relative border-0 rounded-circle" aria-label="Play video">
+                <span class="play-icon d-flex align-items-center justify-content-center position-absolute top-50 start-50 translate-middle">
                     <?php include get_template_directory() . '/resources/images/icon-play.svg'; ?>
                 </span>
-                <span class="pause-icon" style="display: none;">
+                <span class="pause-icon d-flex align-items-center justify-content-center position-absolute top-50 start-50 translate-middle d-none">
                     <?php include get_template_directory() . '/resources/images/icon-pause.svg'; ?>
                 </span>
             </button>
