@@ -31,22 +31,13 @@ $cta_button  = get_field('faq_cta_button');
 
         <?php if (!empty($cta_button) && isset($cta_button['url'])) : ?>
           <a href="<?php echo esc_url($cta_button['url']); ?>" target="<?php echo esc_attr($cta_button['target'] ?: '_self'); ?>" class="btn btn-primary">
-            <span class="btn--cta__text"><?php echo esc_html($cta_button['title']); ?></span>
-            <div class="btn--cta__icon-container">
-              <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M1 8.41406H15M8 15.4141L15 8.41406L8 1.41406" stroke="#ffffff" stroke-width="2" stroke-miterlimit="5.75877" stroke-linecap="square" />
-              </svg>
-            </div>
-          </a>
-        <?php else : ?>
-          <a href="#" class="btn btn-primary">
-            <span class="btn__cta-text">Our Story</span>
+            <span class="btn__cta-text"><?php echo esc_html($cta_button['title']); ?></span>
             <div class="btn__cta-icon-container">
               <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M1 8.41406H15M8 15.4141L15 8.41406L8 1.41406" stroke="#ffffff" stroke-width="2" stroke-miterlimit="5.75877" stroke-linecap="square" />
               </svg>
             </div>
-          </a>
+        </a>
         <?php endif; ?>
       </section>
 

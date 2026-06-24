@@ -36,7 +36,7 @@ if (!empty($section_title) || $projects->have_posts() || !empty($featured_image)
 
             <div class="hero-projects__cards">
                 <?php
-                $i = 0;
+                $i = 1;
                 while ($projects->have_posts()): $projects->the_post();
                     $post_id = get_the_ID();
                     $project_details = get_field('project_details', $post_id);
@@ -51,14 +51,15 @@ if (!empty($section_title) || $projects->have_posts() || !empty($featured_image)
                     ];
 
                     set_query_var('card', $card);
-                    get_template_part('template-parts/hero-project-card');
 
-                    if ($i === 3 && !empty($featured_image)): ?>
+                    if ($i === 5 && !empty($featured_image)): ?>
                         <div class = "hero-projects__feature-image"
                             aria-label = "Featured Image"
                             style = "background-image: url('<?php echo esc_url($featured_image['url']); ?>');">
                         </div>
                 <?php endif;
+                    get_template_part('template-parts/hero-project-card');
+
                     $i++;
                 endwhile;
                 wp_reset_postdata();
