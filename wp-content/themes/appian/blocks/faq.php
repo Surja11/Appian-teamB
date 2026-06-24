@@ -1,11 +1,10 @@
 <?php
-
 $cta_caption = get_field('faq_cta_caption') ?: __('How will we achieve this?', 'outside-traineeship-biolerplate');
-$cta_text    = get_field('faq_cta_text') ?: __('We achieve this by following a structured and transparent construction process...', 'outside-traineeship-biolerplate');
+$cta_text= get_field('faq_cta_text') ?: __('We achieve this by following a structured and transparent construction process...', 'outside-traineeship-biolerplate');
 $cta_button  = get_field('faq_cta_button');
 ?>
 
-<section class="faq-section container pt-20  pb-39 pt-lg-20 pb-lg-20">
+<section class="faq-section container pt-20 pb-39 pt-lg-20 pb-lg-20">
   <div class="faq-section__wrapper ms-md-auto me-md-auto">
     <header>
       <div class="faq-heading d-flex flex-column justify-content-center align-items-center">
@@ -26,7 +25,7 @@ $cta_button  = get_field('faq_cta_button');
         <div class="cta-section__body d-flex flex-column">
           <div class="cta-section__text m-0 body body-small-all">
             <?php echo wp_kses_post($cta_text); ?>
-</div>
+          </div>
         </div>
 
         <?php if (!empty($cta_button) && isset($cta_button['url'])) : ?>
@@ -37,7 +36,7 @@ $cta_button  = get_field('faq_cta_button');
                 <path d="M1 8.41406H15M8 15.4141L15 8.41406L8 1.41406" stroke="#ffffff" stroke-width="2" stroke-miterlimit="5.75877" stroke-linecap="square" />
               </svg>
             </div>
-        </a>
+          </a>
         <?php endif; ?>
       </section>
 
@@ -48,7 +47,7 @@ $cta_button  = get_field('faq_cta_button');
             <?php while (have_rows('faq_loop')) : the_row(); ?>
               <?php
               $question = get_sub_field('faq_questions');
-              $answer   = get_sub_field('faq_answer');
+              $answer= get_sub_field('faq_answer');
               $count++;
               $collapse_id = "flush-collapse-" . $count;
               ?>
@@ -61,13 +60,13 @@ $cta_button  = get_field('faq_cta_button');
                     aria-expanded="<?php echo ($count === 1) ? 'true' : 'false'; ?>"
                     aria-controls="<?php echo esc_attr($collapse_id); ?>">
                     <?php echo esc_html($question); ?>
-
                     <img src="<?php echo esc_url(get_template_directory_uri()); ?>/resources/images/accordion-toggle.svg" alt="close button" class="accordion-chevron" />
-
                   </button>
                 </h2>
-                <div id="<?php echo esc_attr($collapse_id); ?>" class="accordion-collapse collapse <?php echo ($count === 1) ? 'show' : ''; ?> pb-6" data-bs-parent="#accordionFlushExample">
-                  <div class="accordion-body body body-small pb-6 pb-lg-8">
+                
+                <div id="<?php echo esc_attr($collapse_id); ?>" class="accordion-collapse collapse <?php echo ($count === 1) ? 'show' : ''; ?>" data-bs-parent="#accordionFlushExample">
+                  
+                  <div class="accordion-body body body-small pt-2 pb-12 pb-lg-13">
                     <?php echo wp_kses_post($answer); ?>
                   </div>
                 </div>

@@ -80,6 +80,7 @@ $chevron = '<svg class="our-work__chevron" width="24" height="24" viewBox="0 0 2
                         data-tab-index="<?php echo $index; ?>"
                         type="button"
                         role="tab"
+                        aria-labelledby="<?php echo esc_html($tab_name); ?>"
                         aria-controls="<?php echo esc_attr($tab_id); ?>-content"
                         aria-selected="<?php echo $is_active ? 'true' : 'false'; ?>">
                         <?php echo esc_html($tab_name); ?>
