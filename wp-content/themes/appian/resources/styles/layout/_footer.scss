@@ -177,7 +177,7 @@ body {
     &__input-group {
         position: relative;
         display: flex;
-        width: 319px;
+        width: clamp(15.625rem, -1.625rem + 92vw, 19.9375rem);
 
         @include media-breakpoint-up(xl) {
             width: clamp(19.375rem, 7.5875rem + 18.4vw, 23.6875rem);

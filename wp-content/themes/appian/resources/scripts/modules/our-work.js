@@ -1,58 +1,68 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // console.log("Content loaded");
-    
     const ourWorkSection = document.getElementsByClassName("our-work")[0];
-    if (!ourWorkSection) {
-        // console.log("Section not found");
-        return;
-    }
+    if (!ourWorkSection) return;
 
-    // getting all the tabs and tabpanes.
     const tabButtons = Array.from(document.getElementsByClassName("our-work__tab-link"));
     const tabPanes = Array.from(document.querySelectorAll(".our-work__tab-pane"));
 
-    // console.log("buttons found:", tabButtons.length);
-    // console.log("panes found:", tabPanes.length);
-
     function showTab(index) {
 
-
-        // removing active tab buttons
-        tabButtons.forEach((btn, i) => {
+       // removing active tab buttons
+        tabButtons.forEach((btn) => {
             btn.classList.remove("active");
             btn.setAttribute("aria-selected", "false");
             btn.setAttribute("tabindex", "-1");
         });
 
-        // removing all active tab panes
-        tabPanes.forEach((pane, i) => {
+       // removing active tab panes
+        tabPanes.forEach((pane) => {
             pane.classList.remove("active");
         });
+
 
         // adding active class to the selected index
         if (tabButtons[index]) {
             tabButtons[index].classList.add("active");
             tabButtons[index].setAttribute("aria-selected", "true");
-            tabButtons[index].setAttribute("tabindex", "0"); 
-            tabButtons[index].focus(); 
+            tabButtons[index].setAttribute("tabindex", "0");
         }
 
-        // adding active to corresponding pane
+         // adding active to corresponding pane
         if (tabPanes[index]) {
             tabPanes[index].classList.add("active");
-            // console.log(`Pane ${index} activated`);
         }
     }
 
-    // adding click event listener
+
     tabButtons.forEach((btn, index) => {
-        // console.log(`Attaching listener to button ${index}:`, btn.id);
-        
-        btn.addEventListener("click", function(e) {
-            // console.log(`Clicked button ${index}`);
+        // adding click event listener
+        btn.addEventListener("click", function (e) {
             e.preventDefault();
-            e.stopPropagation();
             showTab(index);
         });
     });
+
+    tabButtons.forEach((btn, index) => {
+        btn.addEventListener("keydown", function (e) {
+            if (e.key === "Tab" && !e.shiftKey && index < tabButtons.length - 1) {
+                e.preventDefault();
+                tabButtons[index + 1].setAttribute("tabindex", "0");
+                tabButtons[index + 1].focus();
+            }
+
+
+            if (e.key === "Tab" && e.shiftKey && index > 0) {
+                e.preventDefault();
+                tabButtons[index - 1].setAttribute("tabindex", "0");
+                tabButtons[index - 1].focus();
+            }
+
+            if (e.key === "Enter") {
+                e.preventDefault();
+                showTab(index);
+            }
+        });
+    });
+
+    showTab(0);
 });

@@ -1,78 +1,68 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const marquee = document.getElementsByClassName('logo-marquee')[0];
-    const track = document.getElementsByClassName('logo-marquee__track')[0];
-    const inner = document.getElementsByClassName('logo-marquee__inner')[0];
-    const originalContainer = document.getElementsByClassName('logo-marquee__container')[0];
+    const marquee = document.querySelector('.logo-marquee');
+    const track = document.querySelector('.logo-marquee__track');
+    const inner = document.querySelector('.logo-marquee__inner');
+    const originalContainer = document.querySelector('.logo-marquee__container');
 
-    if (!marquee || !track || !inner || !originalContainer) 
-        return;
+    if (!marquee || !track || !inner || !originalContainer) return;
 
-
-    // if the elements are less, cloning them
     function setupClones() {
-        // removing existing clones
+        // Remove existing clones
         inner.querySelectorAll('.logo-marquee__container[aria-hidden="true"]').forEach(
-            container => container.remove()
+            el => el.remove()
         );
+        inner.style.animation = 'none';
+        inner.style.transform = 'translateX(0)';
+        void inner.offsetHeight; 
 
         const trackWidth = track.offsetWidth;
-        let totalWidth = inner.scrollWidth;
+        const originalWidth = originalContainer.offsetWidth;
 
-        // repeating entire container until it is 2x track width for smooth scrol
-        while (totalWidth < trackWidth * 2) {
-            const repeatedContainer = originalContainer.cloneNode(true);
-            repeatedContainer.setAttribute('aria-hidden', 'true');
-
-            inner.appendChild(repeatedContainer);
-            totalWidth = inner.scrollWidth;
+        // Clone until we have 3x track width worth of content
+        const clonesNeeded = Math.ceil((trackWidth * 3) / originalWidth) + 1;
+        for (let i = 0; i < clonesNeeded; i++) {
+            const clone = originalContainer.cloneNode(true);
+            clone.setAttribute('aria-hidden', 'true');
+            inner.appendChild(clone);
         }
 
-        // setting exact px scroll amount — original container width only
-        const originalWidth = originalContainer.offsetWidth;
         inner.style.setProperty('--marquee-scroll-amount', `${originalWidth}px`);
 
         const speed = 50;
         const duration = originalWidth / speed;
         inner.style.setProperty('--marquee-duration', `${duration}s`);
+
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                inner.style.animation = '';
+            });
+        });
     }
 
     setupClones();
 
-    //applying intersection observer
     const observer = new IntersectionObserver(
         (entries) => {
             entries.forEach(entry => {
-                inner.style.animationPlayState = entry.isIntersecting
-                    ? 'running'
-                    : 'paused';
+                inner.style.animationPlayState = entry.isIntersecting ? 'running' : 'paused';
             });
         },
         { root: null, threshold: 0.1 }
     );
-
     observer.observe(marquee);
 
-  //stopping on hover
     inner.addEventListener('mouseenter', () => {
         inner.style.animationPlayState = 'paused';
     });
-
     inner.addEventListener('mouseleave', () => {
         if (marquee.getBoundingClientRect().top < window.innerHeight) {
             inner.style.animationPlayState = 'running';
         }
     });
 
-  
-  //resize
     let resizeTimer;
     window.addEventListener('resize', () => {
         clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(() => {
-            inner.style.animation = 'none';
-            setupClones();
-            inner.offsetHeight; 
-            inner.style.animation = '';
-        }, 150);
+        resizeTimer = setTimeout(setupClones, 150);
     });
 });
