@@ -26,7 +26,7 @@ $cta_button  = get_field('faq_cta_button');
         <div class="cta-section__body d-flex flex-column">
           <div class="cta-section__text m-0 body body-small-all">
             <?php echo wp_kses_post($cta_text); ?>
-        </div>
+</div>
         </div>
 
         <?php if (!empty($cta_button) && isset($cta_button['url'])) : ?>

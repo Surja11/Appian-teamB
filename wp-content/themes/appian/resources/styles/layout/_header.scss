@@ -12,6 +12,9 @@ $nav-z: 100;
 
 $nav-breakpoint: 1200px;
 
+
+
+
 @mixin focus-box($offset: 5px) {
   &:focus-visible {
     outline: 1px solid $nav-color;
@@ -74,6 +77,31 @@ main {
 
 
     }
+  }
+}
+
+
+.logged-in .header {
+  top: 46px;
+
+  &:not(.header--hidden) {
+    transform: translateY(0px); 
+  }
+
+  &.header--hidden {
+    transform: translateY(calc(-100% - 46px));
+  }
+
+  @media (min-width: 783px) {
+    top: 32px;
+
+    &.header--hidden {
+      transform: translateY(calc(-100% - 32px));
+    }
+
+     &:not(.header--hidden) {
+    transform: translateY(0px); 
+  }
   }
 }
 
