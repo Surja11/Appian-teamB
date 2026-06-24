@@ -279,39 +279,6 @@
     align-items: center;
     gap: 0.9375rem;
     margin-top: 4rem;
-    
-    .btn-slider-nav {
-        width: 3rem !important;
-        height: 3rem !important;
-        min-width: 3rem !important;
-        min-height: 3rem !important;
-        max-width: 3rem !important;
-        max-height: 3rem !important;
-
-        padding: 0 !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        flex-shrink: 0 !important;
-        
-        img {
-            width: 0.875rem !important;
-            height: 0.875rem !important;
-            filter: brightness(0) invert(1);
-            pointer-events: none;
-        }
-        
-        svg {
-            width: 0.875rem !important;
-            height: 0.875rem !important;
-            fill: none;
-            stroke: $white;
-            stroke-width: 2;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            pointer-events: none;
-        }
-    }
 }
 
 

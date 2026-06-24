@@ -1,5 +1,7 @@
+// Contact form validation and submission
 class ContactForm {
     constructor() {
+        // Find form elements
         this.form = document.getElementById('js-contact-form');
         this.submitButton = this.form ? this.form.querySelector('.contact-form__submit') : null;
         this.inputs = this.form.querySelectorAll('input.contact-form__input, select.contact-form__input, textarea.contact-form__input');
@@ -19,8 +21,10 @@ class ContactForm {
     }
 
     bindEvents() {
+        // Handle form submit
         this.form.addEventListener('submit', this.handleSubmit.bind(this));
 
+        // Check fields when user clicks outside
         this.inputs.forEach(input => {
             input.addEventListener('blur', this.validateField.bind(this));
             input.addEventListener('input', this.clearFieldError.bind(this));
@@ -48,6 +52,7 @@ class ContactForm {
     handleSubmit(event) {
         event.preventDefault();
 
+        // Only submit the form if valid
         if (this.validateForm()) {
             this.submitForm();
         }
@@ -56,27 +61,26 @@ class ContactForm {
     validateForm() {
         let isValid = true;
 
+        // Clear old errors and messages
         this.clearAllErrors();
         const existingStatus = this.form.querySelector('.form-success-message, .form-error-message');
         if (existingStatus) existingStatus.remove();
 
+        // Check each input field
         this.inputs.forEach(input => {
             if (!this.validateField({ target: input })) {
                 isValid = false;
             }
         });
 
+        // Check radio buttons
         const radioWrapper = this.form.querySelector('.contact-form__radio-dropdown-wrapper');
         if (radioWrapper) {
             const radioGroupChecked = radioWrapper.querySelector('.contact-form__radio:checked');
 
             if (!radioGroupChecked) {
                 const triggerBox = radioWrapper.querySelector('.contact-form__radio-trigger');
-                
-                const primaryRed = getComputedStyle(document.documentElement).getPropertyValue('--color-primary-red') || '#d72027';
-
                 triggerBox.classList.add('error');
-                triggerBox.style.borderColor = primaryRed;
                 
                 const oldError = radioWrapper.querySelector('.error-message');
                 if (oldError) oldError.remove();
@@ -99,11 +103,13 @@ class ContactForm {
         const value = field.value.trim();
         let isValid = true;
 
+        // Check if required field is empty
         if (field.hasAttribute('required') && !value) {
             this.showFieldError(field, 'This field is required');
             isValid = false;
         }
 
+        // Check name fields for valid characters
         const isNameField = field.name === 'first-name' || field.name === 'last-name';
 
         if (isNameField && value) {
@@ -115,6 +121,7 @@ class ContactForm {
             }
         }
 
+        // Check email format
         if (field.type === 'email' && value) {
             const emailRegex = /^[a-zA-Z0-9][a-zA-Z0-9._%+-]*[a-zA-Z0-9]@[a-zA-Z0-9][a-zA-Z0-9.-]*[a-zA-Z0-9]\.[a-zA-Z]{2,}$/;
             
@@ -138,19 +145,33 @@ class ContactForm {
             }
         }
 
+        // Check phone number format
         if (field.type === 'tel' && value) {
-            const phoneStructureRegex = /^\+?[0-9\s.\-\(\)]+$/;
-            
             const cleanPhone = value.replace(/\D/g, '');
             
             const isAllZeros = /^0+$/.test(cleanPhone);
-
-            if (!phoneStructureRegex.test(value) || isAllZeros || cleanPhone.length < 7 || cleanPhone.length > 15) {
+            const hasConsecutiveSpecialChars = /[\-\.]{2,}|[\s]{2,}|[\(\)]{2,}/.test(value); // Only check dashes, dots, spaces or parentheses
+            const hasInvalidPatterns = /[^\+0-9\s.\-\(\)]/.test(value);
+            
+            const startsOK = /^[\+\(0-9]/.test(value); // Start with +, ( or digit
+            const endsOK = /[0-9\)]$/.test(value);    // End with digit or )
+            
+            // Phone must pass all these checks
+            if (
+                !startsOK ||                      
+                !endsOK ||                        
+                hasConsecutiveSpecialChars ||     // No double symbols or multiple spaces
+                hasInvalidPatterns ||             
+                isAllZeros ||                     // Can't be all zeros
+                cleanPhone.length < 7 ||          // At least 7 numbers
+                cleanPhone.length > 15            // Max 15 numbers
+            ) {
                 this.showFieldError(field, 'Please enter a valid phone number');
                 isValid = false;
             }
         }
 
+        // Check if date is in future
         if (field.type === 'date' && value) {
             const selectedDate = new Date(value);
             const today = new Date();
@@ -166,15 +187,14 @@ class ContactForm {
     }
 
     showFieldError(field, message) {
-        const primaryRed = getComputedStyle(document.documentElement).getPropertyValue('--color-primary-red') || '#d72027';
-        
         field.classList.add('error');
-        field.style.borderColor = primaryRed;
         
+        // Remove old error message
         const parent = field.parentNode;
         let existingError = parent.querySelector('.error-message');
         if (existingError) existingError.remove();
 
+        // Add new error message
         const errorElement = document.createElement('div');
         errorElement.className = 'error-message body-small';
         errorElement.textContent = message;
@@ -185,7 +205,6 @@ class ContactForm {
     clearFieldError(event) {
         const field = event.target;
         field.classList.remove('error');
-        field.style.borderColor = '';
 
         const errorMessage = field.parentNode.querySelector('.error-message');
         if (errorMessage) errorMessage.remove();
@@ -197,7 +216,6 @@ class ContactForm {
 
         this.inputs.forEach(input => {
             input.classList.remove('error');
-            input.style.borderColor = '';
         });
 
         const radioWrapper = this.form.querySelector('.contact-form__radio-dropdown-wrapper');
@@ -205,27 +223,15 @@ class ContactForm {
             const triggerBox = radioWrapper.querySelector('.contact-form__radio-trigger');
             if (triggerBox) {
                 triggerBox.classList.remove('error');
-                triggerBox.style.borderColor = '';
             }
         }
     }
 
-    showError(message) {
-        const primaryRed = getComputedStyle(document.documentElement).getPropertyValue('--color-primary-red') || '#d72027';
-        
+    showError(message) {        
         let errorContainer = this.form.querySelector('.form-error-message');
         if (!errorContainer) {
             errorContainer = document.createElement('div');
             errorContainer.className = 'form-error-message';
-            errorContainer.style.cssText = `
-                background-color: #fbe9e9;
-                color: ${primaryRed};
-                padding: 14px 16px;
-                margin-bottom: 24px;
-                border-left: 4px solid ${primaryRed};
-                font-size: 14px;
-                font-family: inherit;
-            `;
             this.form.insertBefore(errorContainer, this.form.firstChild);
         }
         errorContainer.textContent = message;
@@ -267,7 +273,6 @@ class ContactForm {
 
         } catch (error) {
             this.showError('System submission error. Please try again later.');
-            console.error('AJAX Execution Fail Error logs:', error);
         } finally {
             this.setLoadingState(false);
         }
@@ -277,32 +282,63 @@ class ContactForm {
         const textSpan = this.submitButton.querySelector('span');
         if (loading) {
             this.submitButton.disabled = true;
+            this.submitButton.classList.add('loading');
             textSpan.textContent = 'Submitting...';
-            this.submitButton.style.opacity = '0.7';
         } else {
             this.submitButton.disabled = false;
+            this.submitButton.classList.remove('loading');
             textSpan.textContent = 'Submit';
-            this.submitButton.style.opacity = '1';
         }
     }
 
     showSuccessMessage() {
+        const formContainer = this.form.querySelector('.contact-form__grid');
+        
+        if (formContainer) {
+            formContainer.classList.add('form-hidden');
+        }
+
         const successMessage = document.createElement('div');
         successMessage.className = 'form-success-message';
-        successMessage.style.cssText = `
-            background-color: #e7f5e7;
-            color: #2d5f2d;
-            padding: 16px;
-            margin-bottom: 24px;
-            border-left: 4px solid #4caf50;
-            font-size: 16px;
-            border-radius: 4px;
-            font-family: inherit;
+        successMessage.innerHTML = `
+            <div class="success-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z"/>
+                </svg>
+            </div>
+            <h3 class="success-title">Thank you!</h3>
+            <p class="success-text">Your message has been sent successfully.<br>We'll get back to you soon.</p>
+            <button type="button" class="contact-form__send-another">Send another message</button>
         `;
-        successMessage.innerHTML = `<strong>Thank you!</strong> Your message has been sent successfully. We'll get back to you soon.`;
 
         this.form.insertBefore(successMessage, this.form.firstChild);
         successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+        // Add event listener for "Send another message" button
+        const sendAnotherBtn = successMessage.querySelector('.contact-form__send-another');
+        sendAnotherBtn.addEventListener('click', () => {
+            this.resetForm();
+        });
+    }
+
+    resetForm() {
+        // Remove success message
+        const successMessage = this.form.querySelector('.form-success-message');
+        if (successMessage) successMessage.remove();
+
+        // Show form again
+        const formContainer = this.form.querySelector('.contact-form__grid');
+        
+        if (formContainer) {
+            formContainer.classList.remove('form-hidden');
+        }
+
+        // Reset form fields
+        this.form.reset();
+        this.clearAllErrors();
+
+        // Scroll back to form
+        this.form.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     setupRadioDropdownToggle() {
@@ -312,11 +348,10 @@ class ContactForm {
         const trigger = wrapper.querySelector('.contact-form__radio-trigger');
         const radios = wrapper.querySelectorAll('.contact-form__radio');
 
-        trigger.addEventListener('click', (e) => {
+        trigger.addEventListener('click', () => {
             wrapper.classList.toggle('is-open');
 
             trigger.classList.remove('error');
-            trigger.style.borderColor = '';
             const localError = wrapper.querySelector('.error-message');
             if (localError) localError.remove();
         });
@@ -324,7 +359,6 @@ class ContactForm {
         radios.forEach(radio => {
             radio.addEventListener('change', () => {
                 trigger.classList.remove('error');
-                trigger.style.borderColor = '';
                 const localError = wrapper.querySelector('.error-message');
                 if (localError) localError.remove();
             });
@@ -338,6 +372,7 @@ class ContactForm {
 }
 
 if(document.querySelector('.contact-form-block')){
+// Start contact form when page loads
 document.addEventListener('DOMContentLoaded', () => {
     new ContactForm();
 });

@@ -88,12 +88,12 @@ endif;
                         <div class="history-card__full-content d-none">
                             <?php echo wp_kses_post( $content ); ?>
                         </div>
-                        <button class="btn btn-link history-card__read-more body-xsmall d-md-none text-decoration-none border-0 cursor-pointer text-start overflow-hidden bg-transparent text-nowrap" 
+                        <button class="btn btn-link btn-primary history-card__read-more body-xsmall d-md-none text-decoration-none border-0 cursor-pointer text-start overflow-hidden bg-transparent text-nowrap" 
                                 data-history-id="<?php echo esc_attr($unique_id); ?>"
                                 >
                             Continue Reading
                         </button>
-                        <button class="btn btn-link history-card__read-more body-small d-none d-md-inline text-decoration-none border-0 cursor-pointer text-start overflow-hidden bg-transparent text-nowrap" 
+                        <button class="btn btn-link btn-primary history-card__read-more body-small d-none d-md-inline text-decoration-none border-0 cursor-pointer text-start overflow-hidden bg-transparent text-nowrap" 
                                 data-history-id="<?php echo esc_attr($unique_id); ?>"
                                 >
                             Continue Reading
@@ -112,10 +112,10 @@ endif;
         </div>
 
         <div class="our-history__navigation mt-8 mb-8 mt-md-12 mb-md-20 gap-4 d-none d-sm-flex justify-content-start align-items-center w-100 mx-auto ps-6 ps-sm-10 ps-md-15 ps-lg-20 ps-xl-20 pe-6 pe-sm-10 pe-md-15 pe-lg-20 pe-xl-20">
-            <button class="btn-nav btn-nav--arrow history-nav--prev border-0 cursor-pointer d-flex align-items-center justify-content-center" type="button" aria-label="Previous timeline entries">
+            <button class="btn-nav btn-primary history-nav--prev border-0 cursor-pointer d-flex align-items-center justify-content-center" type="button" aria-label="Previous timeline entries">
                 <?php include get_template_directory() . '/resources/images/icon-arrow-left.svg'; ?>
             </button>
-            <button class="btn-nav btn-nav--arrow history-nav--next border-0 cursor-pointer d-flex align-items-center justify-content-center" type="button" aria-label="Next timeline entries">
+            <button class="btn-nav btn-primary history-nav--next border-0 cursor-pointer d-flex align-items-center justify-content-center" type="button" aria-label="Next timeline entries">
                 <?php include get_template_directory() . '/resources/images/icon-arrow-right.svg'; ?>
             </button>
         </div>
