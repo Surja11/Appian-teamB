@@ -18,24 +18,22 @@
   flex-direction: column;
   justify-content: space-between;
   
-  @media (max-width: 767px) {
+  // Small screens (below 768px)
+  @include media-breakpoint-down(md) {
     min-height: 30rem !important; 
     height: 30rem !important;
-    max-width: 23.4375rem;
     margin: 0 auto;
+    width: 100%;
   }
 
+  // Big Screens (768px and above)
   @include media-breakpoint-up(md) {
-    min-height: 35rem;
+    min-height: 43.75rem; // 700px
     height: auto;
     width: 50%;         
     max-width: none;
     flex: 1;
     margin: 0;
-
-    @include media-breakpoint-up(lg)  { min-height: 43.75rem; }
-    @include media-breakpoint-up(xl)  { min-height: 43.75rem; }
-    @include media-breakpoint-up(xxl) { min-height: 43.75rem; }
   }
 
   &__background {
@@ -65,31 +63,24 @@
     height: auto;
     padding: 3rem 0 0 1.75rem;
 
-    @include media-breakpoint-up(md)  { padding: 3.5rem 0 0 2.75rem; }
-    @include media-breakpoint-up(lg)  { padding: 5.5rem 0 0 5rem; }
-    @include media-breakpoint-up(xl)  { padding: 5.5rem 0 0 5rem; }
-    @include media-breakpoint-up(xxl) { padding: 5.5rem 0 0 5rem; }
+    @include media-breakpoint-up(md) { padding: 5.5rem 0 0 5rem; } // 88px top, 80px left
   }
 
   &__title {
     color: var(--color-neutral-50);
-    padding-right: 1.75rem;
-
-    @media (min-width: 767px) and (max-width: 832px) {
-      padding-right: 2.5rem;
+    
+    @include media-breakpoint-down(md) {
+      padding-right: 1.75rem;
     }
-    @include media-breakpoint-up(md)  { padding-right: 3.5rem; }
-    @include media-breakpoint-up(lg)  { padding-right: 5rem; }
-    @include media-breakpoint-up(xl)  { padding-right: 5.5rem;  }
-    @include media-breakpoint-up(xxl) { padding-right: 6rem;  }
+
+    @include media-breakpoint-up(md) { padding-right: 5rem; } // 80px
   }
 
   &__label {
-    padding-right: 1.75rem;
-    @include media-breakpoint-up(md)  { padding-right: 3.5rem; }
-    @include media-breakpoint-up(lg)  { padding-right: 5rem; }
-    @include media-breakpoint-up(xl)  { padding-right: 5.5rem; }
-    @include media-breakpoint-up(xxl) { padding-right: 6rem;  }
+    @include media-breakpoint-down(md) {
+      padding-right: 1.75rem;
+    }
+    @include media-breakpoint-up(md) { padding-right: 5rem; } // 80px
 
     &--desktop {
       @include media-breakpoint-up(md) {
@@ -98,59 +89,24 @@
     }
 
     &--mobile {
-      @media (max-width: 767px) {
+      @include media-breakpoint-down(md) {
         padding-top: 1.5rem;
       }
     }
   }
 
-  .btn {
+  .btn-nav {
     position: relative;
     align-self: flex-end;
     margin: 2rem 1.75rem 2rem auto;
     z-index: 10;
-    
-    width: 3.25rem !important;
-    height: 3.25rem !important;
-    min-width: 3.25rem !important;  
-    max-width: 3.25rem !important;
-    padding: 1rem !important;     
-    justify-content: center;
-
-    svg {
-      width: 1.25rem !important;
-      height: 1.25rem !important;
-      stroke: var(--color-neutral-50);
-      display: block;
-    }
-
-    @include media-breakpoint-up(lg) {
-      margin: 3rem 3.75rem 3rem auto;
-      width: 4.25rem !important;
-      height: 4.25rem !important;
-      min-width: 4.25rem !important; 
-      max-width: 4.25rem !important;
-      padding: 1.375rem !important;    
-      
-      svg {
-        width: 1.5rem !important;
-        height: 1.5rem !important;
-      }
-    }
 
     @include media-breakpoint-up(md) {
-      @include media-breakpoint-down(lg) {
-        margin: 2.25rem 2.25rem 2.25rem auto;
-      }
-    }
-    @include media-breakpoint-up(xl) {
-      margin: 3.5rem 3.75rem 3rem auto;
-    }
-    @include media-breakpoint-up(xxl) {
-      margin: 4rem 3.75rem 3rem auto; 
+      margin: 3rem 3.75rem 3rem auto;
     }
   }
 
+  // Above 1440px
   @media (min-width: 1441px) {
     width: 50% !important;
     max-width: none !important;
@@ -165,7 +121,7 @@
       padding-right: calc((100vw - 1440px) / 2 + 6rem) !important;
     }
 
-    .btn {
+    .btn-nav {
       position: absolute !important;
       bottom: 3rem !important;
       top: auto !important;
@@ -174,7 +130,7 @@
       right: 3.75rem !important;
     }
 
-    &:nth-child(even) .btn {
+    &:nth-child(even) .btn-nav {
       right: calc((100vw - 1440px) / 2 + 3.75rem) !important;
     }
   }
@@ -199,4 +155,34 @@
   padding: 1.25rem;
   text-align: center;
   color: $color-neutral-200;
+}
+
+.services-block {
+  .btn-nav {
+    // Small screens (below 768px) - one column layout
+    @include media-breakpoint-down(md) {
+      width: 3.25rem;  // 52px
+      height: 3.25rem; // 52px
+      min-width: 3.25rem;
+      min-height: 3.25rem;
+      
+      svg {
+        width: 1.25rem;  // 20px
+        height: 1.25rem; // 20px
+      }
+    }
+
+    // Big screens (768px and above) - two column layout  
+    @include media-breakpoint-up(md) {
+      width: 4.25rem;  // 68px
+      height: 4.25rem; // 68px
+      min-width: 4.25rem;
+      min-height: 4.25rem;
+      
+      svg {
+        width: 1.5rem;   // 24px
+        height: 1.5rem;  // 24px
+      }
+    }
+  }
 }

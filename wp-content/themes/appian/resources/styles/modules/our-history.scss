@@ -415,52 +415,6 @@ section#our-history-block,
                 aspect-ratio: 4/3;
                 margin-bottom: 0;
             }
-
-            .modal-nav {
-                top: 50%;
-                transform: translateY(-50%);
-                width: 2rem;
-                height: 2rem;
-                border-radius: $border-radius-pill;
-                background-color: rgba($color-primary-red, 0.9);
-                color: $white;
-                transition: $btn-transition;
-
-                @include media-breakpoint-up(md) {
-                    width: 2.5rem;
-                    height: 2.5rem;
-                }
-
-                &:hover {
-                    background-color: rgba($color-dark-red, 0.9);
-                }
-
-                &.modal-nav--prev {
-                    left: $spacer * 0.5;
-
-                    @include media-breakpoint-up(md) {
-                        left: $spacer;
-                    }
-                }
-
-                &.modal-nav--next {
-                    right: $spacer * 0.5;
-
-                    @include media-breakpoint-up(md) {
-                        right: $spacer;
-                    }
-                }
-
-                svg {
-                    width: 0.875rem;
-                    height: 0.875rem;
-
-                    @include media-breakpoint-up(md) {
-                        width: 1rem;
-                        height: 1rem;
-                    }
-                }
-            }
         }
 
         .modal-content-wrapper {

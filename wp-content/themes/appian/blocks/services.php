@@ -88,11 +88,8 @@ if (!empty($valid_departments)) :
                     </div>
 
                     <?php if (!empty($department_link)) : ?>
-                        <a href="<?php echo esc_url($department_link); ?>" class="btn btn-primary btn--small d-flex align-items-center justify-content-center border-0 p-0">
-                            <span></span>
-                            <span class="d-flex align-items-center justify-content-center">
-                                <?php include get_template_directory() . '/resources/images/icon-arrow-right.svg'; ?>
-                            </span>
+                        <a href="<?php echo esc_url($department_link); ?>" class="btn-nav">
+                            <?php include get_template_directory() . '/resources/images/icon-arrow-right.svg'; ?>
                         </a>
                     <?php endif; ?>
                 </div>

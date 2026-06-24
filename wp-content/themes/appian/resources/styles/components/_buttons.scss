@@ -1,3 +1,81 @@
+// Arrow animation keyframes
+@keyframes arrowIn {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  45% {
+    transform: translateX(14px);
+    opacity: 0;
+  }
+  50% {
+    transform: translateX(-14px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes arrowOut {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  45% {
+    transform: translateX(-14px);
+    opacity: 0;
+  }
+  50% {
+    transform: translateX(14px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+// Left arrow animation
+@keyframes arrowInLeft {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  45% {
+    transform: translateX(-14px);
+    opacity: 0;
+  }
+  50% {
+    transform: translateX(14px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes arrowOutLeft {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  45% {
+    transform: translateX(14px);
+    opacity: 0;
+  }
+  50% {
+    transform: translateX(-14px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
 .btn {
   --btn-font-size: 1rem;
   --btn-line-height: 1.5;
@@ -82,8 +160,8 @@
     --btn-bg: var(--os-primary);
     --btn-border-color: var(--os-primary);
     --btn-color: #{$white};
-    --btn-hover-bg: #000000;
-    --btn-hover-border-color: #000000;
+    --btn-hover-bg: #{$black};
+    --btn-hover-border-color: #{$black};
     --btn-hover-color: #{$white};
     --btn-focus-bg: var(--os-primary);
     --btn-focus-color: #{$white};
@@ -92,6 +170,16 @@
     background-color: var(--btn-bg);
     border-color: var(--btn-border-color);
     color: var(--btn-color);
+
+    svg {
+      animation: arrowOut 0.5s ease-in-out;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      &:hover svg {
+        animation: arrowIn 0.5s ease-in-out forwards;
+      }
+    }
 
     &:disabled,
     &.disabled {
@@ -229,11 +317,12 @@
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  
-  background: $primary;         
-  background-color: $primary;   
   border: none;
-  color: $white;
+  padding: 0;
+  margin: 0;
+  outline: none;
+  box-shadow: none;
+  text-decoration: none;
   
   // Layout
   display: flex;
@@ -241,149 +330,158 @@
   justify-content: center;
   flex-shrink: 0;
   
-  // Reset
-  padding: 0;
-  margin: 0;
-  outline: none;
-  box-shadow: none;
-  text-decoration: none;
+  background-color: $primary;
+  color: $white;
+  width: 3rem; // 48px
+  height: 3rem; // 48px
+  min-width: 3rem;
+  min-height: 3rem;
+  border-radius: 0;
   
   transition: background-color 0.3s ease;
   cursor: pointer;
   
+  // Focus styling
+  &:focus {
+    outline: 2px solid $color-primary-red;
+    outline-offset: 2px;
+  }
+
+  &:focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $color-primary-red;
+    outline-offset: 2px;
+  }
+  
+  // Hover
   @media (hover: hover) and (pointer: fine) {
-    &:hover {
-      background-color: $dark; 
+    &:hover:not(:disabled) {
+      background-color: #{$black};
       color: $white;
-      border-color: transparent;
     }
   }
 
+  // Disabled state
   &:disabled,
   &[disabled] {
-    background: $gray-300 !important;       
     background-color: $gray-300 !important;
-    border: none;
     color: $white !important;
     cursor: not-allowed;
-    opacity: 0.65 !important;               
-    pointer-events: none;                    
+    opacity: 0.65 !important;
+    pointer-events: none;
   }
-
-  // Arrow navigation
-  &--arrow {
-    width: 3rem; // 48px
-    height: 3rem; // 48px
-    min-width: 3rem;
-    min-height: 3rem;
-    border-radius: 0;
+  
+  svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    fill: none;
+    stroke: $white;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    pointer-events: none;
+    animation: arrowOut 0.5s ease-in-out;
     
-    &:focus {
-      outline: 2px solid $color-primary-red;
-      outline-offset: 2px;
-    }
-
-    &:focus:not(:focus-visible) {
-      outline: none;
-    }
-
-    &:focus-visible {
-      outline: 2px solid $color-primary-red;
-      outline-offset: 2px;
-    }
-    
-    svg {
-      width: 1.25rem;
-      height: 1.25rem;
+    path,
+    polyline {
       fill: none;
       stroke: $white;
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      pointer-events: none;
-      
-      path {
-        fill: none;
-        stroke: $white;
-      }
-      
-      polyline {
-        fill: none;
-        stroke: $white;
-      }
-      
-      @include media-breakpoint-up(md) {
-        width: 1.5rem;
-        height: 1.5rem;
+    }
+    
+    @include media-breakpoint-up(md) {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+  }
+
+  // Hover animation for all btn-nav
+  @media (hover: hover) and (pointer: fine) {
+    &:hover:not(:disabled) svg {
+      animation: arrowIn 0.5s ease-in-out forwards;
+    }
+  }
+
+  // Right arrow animation
+  &.btn-next,
+  &[class*="next"],
+  &[class*="--next"] {
+    svg {
+      animation: arrowOut 0.5s ease-in-out;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      &:hover:not(:disabled) svg {
+        animation: arrowIn 0.5s ease-in-out forwards;
       }
     }
   }
 
-  // Service action variant
-  &--service {
-    position: absolute;
-    bottom: 2rem;
-    right: 1.75rem;
-    width: 52px;
-    height: 52px;
-    min-width: auto;
-    padding: 16px;
-    border-radius: var(--btn-border-radius);
-    z-index: 10;
-    
-    // Tablet
-    @include media-breakpoint-up(md) {
-      bottom: 2.25rem;
-      right: 2.75rem;
-      width: 60px;
-      height: 60px;
-      padding: 18px;
-    }
-    
-    // Desktop
-    @include media-breakpoint-up(lg) {
-      bottom: 3rem;
-      right: 3.75rem;
-      width: 68px;
-      height: 68px;
-      padding: 22px;
-    }
-    
-    // Arrow icon
+  // Left arrow animation
+  &.btn-prev,
+  &[class*="prev"],
+  &[class*="--prev"] {
     svg {
-      width: 20px;
-      height: 20px;
-      stroke: currentColor;
-      
-      @include media-breakpoint-up(md) {
-        width: 22px;
-        height: 22px;
-      }
-      
-      @include media-breakpoint-up(lg) {
-        width: 24px;
-        height: 24px;
+      animation: arrowOutLeft 0.5s ease-in-out;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      &:hover:not(:disabled) svg {
+        animation: arrowInLeft 0.5s ease-in-out forwards;
       }
     }
   }
 }
 
-// Modal variant of navigation buttons
-.btn-nav--modal {
-    @extend .btn-nav--arrow;
-        border-radius: 50%;
+.btn-nav--circle {
+    border-radius: 50%;
+    
+    svg {
+        animation: none !important;
+    }
+    
+    @media (hover: hover) and (pointer: fine) {
+        &:hover:not(:disabled) {
+            &.btn-prev,
+            &[class*="prev"],
+            &[class*="--prev"] {
+                svg {
+                    animation: arrowInLeft 0.5s ease-in-out forwards !important;
+                }
+            }
+            
+            &.btn-next,
+            &[class*="next"],
+            &[class*="--next"] {
+                svg {
+                    animation: arrowIn 0.5s ease-in-out forwards !important;
+                }
+            }
+            
+            &:not([class*="prev"]):not([class*="next"]) {
+                svg {
+                    animation: arrowIn 0.5s ease-in-out forwards !important;
+                }
+            }
+        }
+    }
     
     &:disabled {
-        opacity: 0.5; 
-        background-color: $primary;
+        opacity: 0.5 !important; 
+        background-color: $primary !important;
         cursor: not-allowed;
         
         &:hover {
-            background-color: $primary;
-            transform: none;
+            background-color: $primary !important;
         }
         
-        svg,
+        svg {
+            animation: none !important;
+            stroke: $white;
+        }
+        
         svg path,
         svg polyline {
             stroke: $white;

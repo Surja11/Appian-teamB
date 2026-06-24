@@ -62,11 +62,11 @@ endif;
             </div>
             
             <div class="slider-controls d-lg-none">
-                <button class="btn btn-primary btn-slider-nav btn-prev" aria-label="Previous slide">
-                    <img src="<?php echo get_template_directory_uri(); ?>/resources/images/icon-arrow-left.svg" alt="" width="14" height="14">
+                <button class="btn-nav btn-prev" aria-label="Previous slide">
+                    <?php include get_template_directory() . '/resources/images/icon-arrow-left.svg'; ?>
                 </button>
-                <button class="btn btn-primary btn-slider-nav btn-next" aria-label="Next slide">
-                    <img src="<?php echo get_template_directory_uri(); ?>/resources/images/icon-arrow-right.svg" alt="" width="14" height="14">
+                <button class="btn-nav btn-next" aria-label="Next slide">
+                    <?php include get_template_directory() . '/resources/images/icon-arrow-right.svg'; ?>
                 </button>
             </div>
         </div>
