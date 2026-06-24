@@ -243,10 +243,11 @@ class ContactForm {
         if (structuralStatus) structuralStatus.remove();
 
         try {
+            
             const formData = new FormData(this.form);
 
-
-
+            formData.append('action', 'submit_form_action');
+           
             const response = await fetch(this.formAction, {
                 method: 'POST',
                 body: formData
@@ -336,8 +337,10 @@ class ContactForm {
     }
 }
 
+if(document.querySelector('.contact-form-block')){
 document.addEventListener('DOMContentLoaded', () => {
     new ContactForm();
 });
+}
 
 export default ContactForm;

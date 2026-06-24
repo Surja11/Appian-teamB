@@ -1,9 +1,10 @@
 
 
-const scrollElipse = document.querySelector('.home-leadspace__scroll-ellipse');
+const scrollEllipse = document.querySelector('.home-leadspace__scroll-ellipse');
 const outerEllipse = document.querySelector('.home-leadspace__outer-ellipse');
 
 // listening for scroll event listener
+if (scrollEllipse){
 window.addEventListener('scroll', () => {
 
     // getting the pixels scrolled by user
@@ -22,3 +23,4 @@ window.addEventListener('scroll', () => {
 
     scrollElipse.style.transform = `rotate(${rotation}deg)`;
 });
+}
