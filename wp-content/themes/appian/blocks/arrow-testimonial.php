@@ -13,16 +13,16 @@ if ($testimonial) {
     $person_title = $testimonial['person_title'] ?? '';
     $person_company = $testimonial['person_company'] ?? '';
     $quote = $testimonial['quote'] ?? '';
-    $bg_color = $testimonial['bg_color'] ?? 'primary';
-    $arrow_color = $testimonial['arrow_color'] ?? 'primary';
+    $bg_color = $testimonial['bg_color'] ?? '#ea483b';
+    $arrow_color = $testimonial['arrow_color'] ?? '#ea483b';
 } else {
     $person_image = get_field('person_image');
     $person_name = get_field('person_name');
     $person_title = get_field('person_title');
     $person_company = get_field('person_company');
     $quote = get_field('quote');
-    $bg_color = get_field('bg_color') ?: 'primary';
-    $arrow_color = get_field('arrow_color') ?: 'primary';
+    $bg_color = get_field('bg_color') ?: '#ea483b';
+    $arrow_color = get_field('arrow_color') ?: '#ea483b';
 }
 
 $arrow_svg = file_get_contents(get_template_directory() . '/resources/images/testimonial-arrow.svg');
@@ -31,7 +31,7 @@ $arrow_svg = str_replace('fill="#F3BABC"', 'fill="currentColor"', $arrow_svg);
 
 <section class="c-testimonial overflow-visible">
 
-    <div class="c-testimonial__colored-bg position-relative w-100 z-1 bg-<?php echo esc_attr($bg_color); ?>"></div>
+    <div class="c-testimonial__colored-bg position-relative w-100 z-1" style="background-color: <?php echo esc_attr($bg_color); ?>;"></div>
 
     <?php if ($person_image) : ?>
         <div class="c-testimonial__person-wrap position-relative z-2 w-100 d-flex flex-column align-items-center">
@@ -60,7 +60,8 @@ $arrow_svg = str_replace('fill="#F3BABC"', 'fill="currentColor"', $arrow_svg);
                         <?php endif; ?>
                     </p>
                     <span
-                        class="c-testimonial__arrow text-<?php echo esc_attr($arrow_color); ?>"
+                        class="c-testimonial__arrow"
+                        style="color: <?php echo esc_attr($arrow_color); ?>;"
                         aria-hidden="true">
                         <?php echo $arrow_svg; ?>
                     </span>
