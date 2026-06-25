@@ -3,35 +3,34 @@ document.addEventListener('DOMContentLoaded', function () {
     const section = document.querySelector('.our-projects');
     if (!section) return;
 
-    console.log(document.querySelector('.our-projects'));
     const cardsContainer = document.querySelector('.our-projects__cards');
     if (!cardsContainer) return;
 
     const enablePagination = section.getAttribute('data-enable-pagination') === 'true';
-    const perPage= parseInt(section.getAttribute('data-projects-per-page')) || 6;
+    const perPage = parseInt(section.getAttribute('data-projects-per-page')) || 6;
 
     let currentFilter = 'all';
     let currentPage   = 1;
 
-    const filterItems= document.querySelectorAll('.our-projects__filter-item');
+    const filterItems         = document.querySelectorAll('.our-projects__filter-item');
     const mobileFilterToggle  = document.getElementById('mobileFilterToggle');
     const mobileDropdownMenu  = document.querySelector('.our-projects__filter-dropdown-menu');
     const mobileFilterOptions = document.querySelectorAll('.our-projects__filter-option');
     const mobileFilterSelected= document.querySelector('.our-projects__filter-selected');
-    const mobileFilterArrow= document.querySelector('.our-projects__filter-arrow');
+    const mobileFilterArrow   = document.querySelector('.our-projects__filter-arrow');
 
-    function loadProjects(filter, page) {
+    function loadProjects(filter, page, scroll) {
         currentFilter = filter || 'all';
-        currentPage= page   || 1;
+        currentPage   = page   || 1;
 
-        cardsContainer.style.opacity= '0.4';
+        cardsContainer.style.opacity      = '0.4';
         cardsContainer.style.pointerEvents = 'none';
 
         const data = new FormData();
-        data.append('action','our_projects_filter');
-        data.append('nonce',projectsAjax.nonce);
-        data.append('filter',currentFilter);
-        data.append('page',currentPage);
+        data.append('action',   'our_projects_filter');
+        data.append('nonce',    projectsAjax.nonce);
+        data.append('filter',   currentFilter);
+        data.append('page',     currentPage);
         data.append('per_page', perPage);
 
         fetch(projectsAjax.ajaxurl, {
@@ -43,6 +42,10 @@ document.addEventListener('DOMContentLoaded', function () {
             cardsContainer.innerHTML = html;
             initPaginationClicks();
             highlightActiveFilter(currentFilter);
+
+            if (scroll) {
+                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
         })
         .catch(err => console.error('Projects AJAX error:', err))
         .finally(() => {
@@ -56,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function () {
         pageNumbers.forEach(btn => {
             btn.addEventListener('click', () => {
                 const page = parseInt(btn.getAttribute('data-page'));
-                if (page) loadProjects(currentFilter, page);
+                if (page) loadProjects(currentFilter, page, true);
             });
         });
 
@@ -65,13 +68,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (prevBtn) {
             prevBtn.addEventListener('click', () => {
-                if (!prevBtn.disabled) loadProjects(currentFilter, currentPage - 1);
+                if (!prevBtn.disabled) loadProjects(currentFilter, currentPage - 1, true);
             });
         }
 
         if (nextBtn) {
             nextBtn.addEventListener('click', () => {
-                if (!nextBtn.disabled) loadProjects(currentFilter, currentPage + 1);
+                if (!nextBtn.disabled) loadProjects(currentFilter, currentPage + 1, true);
             });
         }
     }
@@ -100,48 +103,42 @@ document.addEventListener('DOMContentLoaded', function () {
             const label = this.textContent.trim();
 
             if (mobileFilterSelected) mobileFilterSelected.textContent = label;
-            loadProjects(val, 1);
+            loadProjects(val, 1, false);
         });
     });
 
     mobileFilterOptions.forEach(opt => {
         opt.addEventListener('click', function () {
-            const val= this.getAttribute('data-value') || 'all';
+            const val   = this.getAttribute('data-value') || 'all';
             const label = this.textContent.trim();
 
             if (mobileFilterSelected) mobileFilterSelected.textContent = label;
             closeMobileDropdown();
-            loadProjects(val, 1);
+            loadProjects(val, 1, false);
         });
     });
 
-   let isToggling = false;
+    let isToggling = false;
 
-mobileFilterToggle.addEventListener('click', function (e) {
-    e.preventDefault();
-    e.stopPropagation();
-    e.stopImmediatePropagation();
+    mobileFilterToggle.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
 
-    if (isToggling) return;
-    isToggling = true;
+        if (isToggling) return;
+        isToggling = true;
 
-    if (mobileDropdownMenu.classList.contains('d-none')) {
-        openMobileDropdown();
-    } else {
-        closeMobileDropdown();
-    }
+        if (mobileDropdownMenu.classList.contains('d-none')) {
+            openMobileDropdown();
+        } else {
+            closeMobileDropdown();
+        }
 
-    setTimeout(() => { isToggling = false; }, 300);
-});
-
+        setTimeout(() => { isToggling = false; }, 300);
+    });
 
     function openMobileDropdown() {
-        // console.log('opening dropdown');
         mobileDropdownMenu.classList.remove('d-none');
-        // console.log(
-
-        // 'class removed'
-        // )
         if (mobileFilterArrow) mobileFilterArrow.style.transform = 'rotate(180deg)';
     }
 
@@ -150,6 +147,6 @@ mobileFilterToggle.addEventListener('click', function (e) {
         if (mobileFilterArrow) mobileFilterArrow.style.transform = 'rotate(0deg)';
     }
 
-    loadProjects(currentFilter, currentPage);
+    loadProjects(currentFilter, currentPage, false);
 
 });

@@ -1,11 +1,18 @@
 @import '../common';
 
+.our-projects{
+    @include media-breakpoint-up(xxl)
+{
+margin: 0 auto;
+}}
+
 .our-project-leadspace-container{
     min-height: 400px;
 
     @include media-breakpoint-up(lg){
         min-height: 816px;
     }
+  
     video{
       
         aspect-ratio: 15/16;
@@ -25,5 +32,17 @@
 
     &__heading{
         color: $color-neutral-50 !important;
+        max-width: 318px !important;
+        @include media-breakpoint-up(lg) {
+        max-width: 840px !important;
+            
+        }
+    }
+
+     &__text{
+        @media (min-width:1200px) and (max-width: 1440px) {
+            margin-left: 0px !important;
+            margin-right: 0px !important;            
+        }
     }
 }

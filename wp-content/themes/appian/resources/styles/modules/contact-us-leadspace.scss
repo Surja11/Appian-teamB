@@ -26,4 +26,11 @@
     &__heading{
         color: $color-neutral-50 !important;
     }
+
+     &__text{
+        @media (min-width:1200px) and (max-width: 1440px) {
+            margin-left: 0px !important;
+            margin-right: 0px !important;            
+        }
+    }
 }
