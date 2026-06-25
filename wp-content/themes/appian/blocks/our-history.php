@@ -1,6 +1,7 @@
 <?php
 
-$history_items = get_field( 'history_items' );
+// Get selected history items from field
+$selected_history_items = get_field('selected_history_items');
 
 if ( ! function_exists( 'our_history_get_excerpt' ) ) :
     function our_history_get_excerpt( $html_content, $word_limit = 999 ) {
@@ -10,7 +11,7 @@ if ( ! function_exists( 'our_history_get_excerpt' ) ) :
 endif;
 ?>
 
-<?php if ( $history_items ) : ?> 
+<?php if ( $selected_history_items ) : ?> 
 <section id="our-history-block" class="our-history-block position-relative w-100 overflow-hidden bg-white h-auto my-0 mx-auto">
     <div class="our-history-block__overlay position-absolute top-0 start-0 end-0 bottom-0"></div>
     <div class="our-history-block__texture position-absolute top-0 start-0 end-0 bottom-0" style="background-image: url('/wp-content/themes/appian/resources/images/bg-texture.png'); background-repeat: repeat; opacity: 0.3; pointer-events: none; z-index: 1;"></div>
@@ -23,15 +24,26 @@ endif;
         <div class="timeline-scroll-container overflow-auto">
             <div class="timeline-cards-wrapper d-flex flex-column flex-sm-row align-items-center align-items-sm-start">
                 
-                <?php foreach ( (array) $history_items as $index => $item ) :
-                    // Safely extract data with fallbacks
-                    $year    = !empty( $item['title'] ) ? esc_html( $item['title'] ) : '';
-                    $content = !empty( $item['content'] ) ? $item['content'] : '';
-                    $image   = !empty( $item['feature_image'] ) ? $item['feature_image'] : null;
-                    $img_url = $image ? esc_url( $image['url'] ) : '';
-                    $img_alt = $image && !empty( $image['alt'] ) ? esc_attr( $image['alt'] ) : ($year ? esc_attr( $year ) : 'History image');
+                <?php foreach ( $selected_history_items as $index => $post ) :
+                    // Setup post data for ACF fields
+                    setup_postdata($post);
+                    
+                    $year    = !empty( $post->post_title ) ? esc_html( $post->post_title ) : '';
+                    $content = !empty( $post->post_content ) ? apply_filters('the_content', $post->post_content) : '';
+                    $image   = get_field('feature_image', $post->ID);
+                    
+                    // Handle image field
+                    if (is_array($image)) {
+                        $img_url = $image ? esc_url( $image['url'] ) : '';
+                        $img_alt = $image && !empty( $image['alt'] ) ? esc_attr( $image['alt'] ) : ($year ? esc_attr( $year ) : 'History image');
+                    } else {
+                        $img_url = $image ? esc_url( $image ) : '';
+                        $img_alt = $year ? esc_attr( $year ) : 'History image';
+                    }
+                    
                     $excerpt = $content ? our_history_get_excerpt( $content ) : '';
-                    $gallery = !empty( $item['image_gallery'] ) ? $item['image_gallery'] : [];
+                    $gallery = get_field('image_gallery', $post->ID) ?: [];
+                    
                     
                     // Skip completely empty items
                     if (empty($year) && empty($content) && empty($img_url) && empty($gallery)) {
@@ -102,11 +114,12 @@ endif;
                     <?php endif; ?>
                 </div>
                  
-                <?php if ( $index < count( $history_items ) - 1 ) : ?>
+                <?php if ( $index < count( $selected_history_items ) - 1 ) : ?>
                 <div class="timeline-divider d-none d-sm-block flex-shrink-0" aria-hidden="true"></div>
                 <?php endif; ?>
 
-                <?php endforeach; ?>
+                <?php endforeach; 
+                wp_reset_postdata(); // Reset post data ?>
 
             </div>
         </div>

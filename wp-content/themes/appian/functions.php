@@ -200,6 +200,8 @@ require get_template_directory() . '/inc/form/form-handler.php';
 
 require get_template_directory() . '/inc/cpt/project-cpt.php';
 
+require get_template_directory() . '/inc/cpt/history-cpt.php';
+
 require_once get_template_directory() . '/inc/ajax-projects.php';
 
 /**
