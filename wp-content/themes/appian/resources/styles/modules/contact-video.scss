@@ -1,5 +1,125 @@
 @import '../custom';
 
+// Video modal overlay
+.video-modal-overlay {
+    background-color: rgba($black, 0.9);
+    z-index: 99999;
+    opacity: 0;
+    animation: fadeIn 0.3s ease forwards;
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+
+// Video modal container
+.video-modal {
+    position: relative;
+    max-width: 95vw;
+    max-height: 95vh;
+    width: auto;
+    height: auto;
+    transform: scale(0.95);
+    animation: scaleIn 0.3s ease forwards;
+    z-index: 100000;
+    
+    @include media-breakpoint-up(sm) {
+        max-width: 90vw;
+        max-height: 90vh;
+    }
+    
+    @include media-breakpoint-up(md) {
+        max-width: 85vw;
+        max-height: 85vh;
+    }
+    
+    @include media-breakpoint-up(lg) {
+        max-width: 80vw;
+        max-height: 80vh;
+    }
+    
+    @include media-breakpoint-up(xl) {
+        max-width: 75vw;
+        max-height: 75vh;
+    }
+    
+    // Show close button on hover
+    &:hover .video-modal__close {
+        opacity: 1;
+    }
+}
+
+@keyframes scaleIn {
+    to { transform: scale(1); }
+}
+
+// Modal close button
+.video-modal__close {
+    top: 0.75rem;
+    right: 0.75rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    z-index: 20;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    
+    @include media-breakpoint-up(md) {
+        top: 1rem;
+        right: 1rem;
+        width: 3rem;
+        height: 3rem;
+    }
+
+    svg {
+        width: 1.5rem;
+        height: 1.5rem;
+        stroke: $white;
+        fill: $white;
+        
+        @include media-breakpoint-up(md) {
+            width: 2rem;
+            height: 2rem;
+        }
+
+        path {
+            stroke: inherit;
+            fill: inherit;
+        }
+    }
+
+    &:hover {
+        svg,
+        svg path {
+            stroke: $color-primary-red;
+            fill: $color-primary-red;
+        }
+    }
+
+    &:focus {
+        outline: 2px solid $color-primary-red;
+        outline-offset: 2px;
+    }
+
+    &:focus:not(:focus-visible) {
+        outline: none;
+    }
+
+    &:focus-visible {
+        outline: 2px solid $color-primary-red;
+        outline-offset: 2px;
+    }
+}
+
+// Modal video player
+.modal-video-player {
+    object-fit: contain;
+    max-width: 100%;
+    max-height: 100%;
+    width: 100%;
+    height: auto;
+}
+
+// Video section (thumbnail container)
 .video-section {
     background-color: $white;
     height: auto;
@@ -13,132 +133,119 @@
     @include media-breakpoint-up(xxl) {
         padding: $spacer * 5;
     }
+}
 
-    .video-wrapper {
-        aspect-ratio: 1.14/1; // Mobile aspect ratio (319/280)
-        background-color: $black;
-        border-radius: 0;
-        
-        max-width: 100%;
-        
-        @include media-breakpoint-up(md) {
-            aspect-ratio: 1.95/1; // Desktop aspect ratio (1280/656)
-            max-width: 80rem;
-            margin: 0 auto;
+// Video thumbnail wrapper
+.video-thumbnail-wrapper {
+    aspect-ratio: 1.14/1; // Mobile aspect ratio (319/280)
+    background-color: $black;
+    border-radius: 0;
+    max-width: 100%;
+    
+    @include media-breakpoint-up(md) {
+        aspect-ratio: 1.95/1; // Desktop aspect ratio (1280/656)
+        max-width: 80rem;
+        margin: 0 auto;
+    }
+
+    &:hover {
+        .video-control-btn {
+            transform: scale(1.1);
         }
+    }
 
-        .video-player {
-            object-fit: cover;
-        }
+    &:focus {
+        outline: 2px solid $color-primary-red;
+        outline-offset: 4px;
+    }
 
-        .video-controls {
-            z-index: 10;
-            opacity: 0.8;
-            transition: opacity 0.3s ease;
-            
-            .video-control-btn {
-                background: $color-primary-red;
-                cursor: pointer;
-                transition: $transition-base;
-                outline: none;
-                
-                width: 4.25rem;
-                height: 4.25rem;
-                padding: $spacer * 1.5;
-                
-                @include media-breakpoint-up(md) {
-                    width: 5.5rem;
-                    height: 5.5rem;
-                    padding: $spacer * 2;
-                }
+    &:focus:not(:focus-visible) {
+        outline: none;
+    }
 
-                &:hover {
-                    background: $color-dark-red;
-                    transform: scale(1.05);
-                }
-
-                .play-icon,
-                .pause-icon {
-                    svg {
-                        width: 1.25rem;
-                        height: 1.25rem;
-                        
-                        @include media-breakpoint-up(md) {
-                            width: 1.5rem;
-                            height: 1.5rem;
-                        }
-                        
-                        fill: $white !important;
-                        color: $white !important;
-                        
-                        path {
-                            fill: $white !important;
-                            stroke: $white !important;
-                            color: $white !important;
-                        }
-                        
-                        * {
-                            fill: $white !important;
-                            stroke: $white !important;
-                            color: $white !important;
-                        }
-                    }
-                }
-            }
-        }
-
-        // Hide controls when video is playing
-        &.playing .video-controls {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        @media (hover: hover) and (pointer: fine) {
-            &:hover .video-controls {
-                opacity: 1;
-                pointer-events: auto;
-            }
-            
-            &.playing:hover .video-controls {
-                opacity: 1;
-                pointer-events: auto;
-            }
-        }
-        
-        @media (hover: none) and (pointer: coarse) {
-            .video-controls {
-                opacity: 1;
-            }
-            
-            &.playing .video-controls {
-                opacity: 0;
-            }
-        }
+    &:focus-visible {
+        outline: 2px solid $color-primary-red;
+        outline-offset: 4px;
     }
 }
 
-.video-wrapper:not(.native-controls) .video-player {
-    &::-webkit-media-controls,
-    &::-webkit-media-controls-panel,
-    &::-webkit-media-controls-play-button,
-    &::-webkit-media-controls-overlay-play-button,
-    &::-webkit-media-controls-start-playback-button,
-    &::-webkit-media-controls-timeline,
-    &::-webkit-media-controls-current-time-display,
-    &::-webkit-media-controls-time-remaining-display,
-    &::-webkit-media-controls-mute-button,
-    &::-webkit-media-controls-toggle-closed-captions-button,
-    &::-webkit-media-controls-volume-slider,
-    &::-webkit-media-controls-fullscreen-button,
-    &::-webkit-media-controls-rewind-button,
-    &::-webkit-media-controls-return-to-realtime-button,
-    &::-moz-media-controls {
-        display: none !important;
+// Video thumbnail
+.video-thumbnail {
+    .video-poster {
+        object-fit: cover;
+        pointer-events: none;
     }
-
-    pointer-events: none;
     
-    + .video-controls {
-        pointer-events: auto;
+    .video-overlay {
+        background: linear-gradient(45deg, rgba($black, 0.3), rgba($black, 0.1));
+        z-index: 1;
+    }
+}
+
+// Video controls
+.video-controls {
+    z-index: 10;
+    
+    .video-control-btn {
+        background: $color-primary-red;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        outline: none;
+        
+        width: 4.25rem;
+        height: 4.25rem;
+        padding: $spacer * 1.5;
+        
+        @include media-breakpoint-up(md) {
+            width: 5.5rem;
+            height: 5.5rem;
+            padding: $spacer * 2;
+        }
+
+        &:hover {
+            background: #{$black};
+            transform: scale(1.1);
+        }
+
+        &:focus {
+            outline: 2px solid $white;
+            outline-offset: 4px;
+        }
+
+        &:focus:not(:focus-visible) {
+            outline: none;
+        }
+
+        &:focus-visible {
+            outline: 2px solid $white;
+            outline-offset: 4px;
+        }
+
+        .play-icon {
+            svg {
+                width: 1.25rem;
+                height: 1.25rem;
+                
+                @include media-breakpoint-up(md) {
+                    width: 1.5rem;
+                    height: 1.5rem;
+                }
+                
+                fill: $white !important;
+                color: $white !important;
+                
+                path {
+                    fill: $white !important;
+                    stroke: $white !important;
+                    color: $white !important;
+                }
+                
+                * {
+                    fill: $white !important;
+                    stroke: $white !important;
+                    color: $white !important;
+                }
+            }
+        }
     }
 }
