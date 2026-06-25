@@ -1,7 +1,7 @@
 
 @import '../common';
 
-.our-partner-wrapper{
+.our-partner-wrapper {
   width: 100vw;
   display: flex;
   justify-content: center;
@@ -9,44 +9,93 @@
 }
 
 .our-partner {
-  
+
+  $cols-mobile: 2;
+  $cols-desk:   4;
+
+
+  $max-content-w: 1440px;
+
+  $padding-xs: 1rem;
+  $tick-h-xs:  1rem;
+  $row-h-xs:   72px;
+
+  $padding-375: 1.5rem;
+  $tick-h-375:  1.5rem;
+  $row-h-375:   100px;
+
   $padding-sm: 1.8125rem;
+  $tick-h-sm:  1.75rem;
+  $row-h-sm:   140px;
+
+  $padding-md: 3rem;
+  $tick-h-md:  2.5rem;
+  $row-h-md:   130px;
+
+
   $padding-xl: 5rem;
-  $tick-h-sm: 1.75rem;
-  $tick-h-xl: 3.5rem;
-  $row-h-sm: 100px;
-  $row-h-xl: 166px;
-  $row-w-sm: 160px;
-  $row-w-xl: 320px;
-  $cols-sm: 2;
-  $cols-xl: 4;
+  $tick-h-xl:  3.5rem;
+  $row-h-xl:   166px;
+
   $border-col: $color-neutral-100;
 
-  padding-top: 3rem;
-  padding-bottom: 4.75rem;
-  // max-width: 1440px;
+  width: 100%;
+  max-width: $max-content-w;
 
-  @include media-breakpoint-up(xl) {
+  padding-top: 2rem;
+  padding-bottom: 3.5rem;
+
+  @media (min-width: 375px) {
+    padding-top: 3rem;
+    padding-bottom: 4.75rem;
+  }
+
+  @include media-breakpoint-up(sm) {  // 576px
+    padding-top: 3.5rem;
+    padding-bottom: 5.5rem;
+  }
+
+  @include media-breakpoint-up(md) {  // 768px
+    padding-top: 4rem;
+    padding-bottom: 6.5rem;
+  }
+
+  @include media-breakpoint-up(xl) {  // 1200px
     padding-top: 5rem;
     padding-bottom: 8.5rem;
   }
+
 
   &__heading {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-bottom: 4rem;
+    margin-bottom: 2.5rem;
+
+    @media (min-width: 375px) {
+      margin-bottom: 3.5rem;
+    }
+
+    @include media-breakpoint-up(sm) {
+      margin-bottom: 4rem;
+    }
+
+    @include media-breakpoint-up(md) {
+      margin-bottom: 4.75rem;
+    }
 
     @include media-breakpoint-up(xl) {
       margin-bottom: 5.5rem;
     }
   }
 
+
   &__grid-wrapper {
     position: relative;
     overflow: hidden;
-    padding: $tick-h-sm $padding-sm;
+
+    padding: $tick-h-xs $padding-xs;
 
     &::before,
     &::after {
@@ -54,21 +103,60 @@
       position: absolute;
       left: 0;
       right: 0;
-      height: $tick-h-sm;
+      height: $tick-h-xs;
       pointer-events: none;
       background-image: linear-gradient(to right, $border-col 1px, transparent 1px);
       background-repeat: repeat-x;
-      background-size: calc((100% - #{$padding-sm * 2}) / #{$cols-sm}) 100%;
+      background-size: calc((100% - #{$padding-xs * 2}) / #{$cols-mobile}) 100%;
     }
 
     &::before {
       top: 0;
-      background-position: #{$padding-sm} 0;
+      background-position: #{$padding-xs} 0;
     }
 
     &::after {
       bottom: 0;
-      background-position: #{$padding-sm} 0;
+      background-position: #{$padding-xs} 0;
+    }
+
+    @media (min-width: 375px) {
+      padding: $tick-h-375 $padding-375;
+
+      &::before,
+      &::after {
+        height: $tick-h-375;
+        background-size: calc((100% - #{$padding-375 * 2}) / #{$cols-mobile}) 100%;
+      }
+
+      &::before { background-position: #{$padding-375} 0; }
+      &::after  { background-position: #{$padding-375} 0; }
+    }
+
+    @include media-breakpoint-up(sm) {
+      padding: $tick-h-sm $padding-sm;
+
+      &::before,
+      &::after {
+        height: $tick-h-sm;
+        background-size: calc((100% - #{$padding-sm * 2}) / #{$cols-mobile}) 100%;
+      }
+
+      &::before { background-position: #{$padding-sm} 0; }
+      &::after  { background-position: #{$padding-sm} 0; }
+    }
+
+    @include media-breakpoint-up(md) {
+      padding: $tick-h-md $padding-md;
+
+      &::before,
+      &::after {
+        height: $tick-h-md;
+        background-size: calc((100% - #{$padding-md * 2}) / #{$cols-desk}) 100%;
+      }
+
+      &::before { background-position: #{$padding-md} 0; }
+      &::after  { background-position: #{$padding-md} 0; }
     }
 
     @include media-breakpoint-up(xl) {
@@ -77,52 +165,137 @@
       &::before,
       &::after {
         height: $tick-h-xl;
-        background-size: calc((100% - #{$padding-xl * 2}) / #{$cols-xl}) 100%;
+        background-size: calc((100% - #{$padding-xl * 2}) / #{$cols-desk}) 100%;
       }
 
-      &::before {
-        background-position: #{$padding-xl} 0;
-      }
-
-      &::after {
-        background-position: #{$padding-xl} 0;
-      }
+      &::before { background-position: #{$padding-xl} 0; }
+      &::after  { background-position: #{$padding-xl} 0; }
     }
   }
+
 
   &__partner-grid {
     position: relative;
     display: grid;
-    grid-template-columns: repeat(#{$cols-sm}, 1fr);
-    grid-auto-rows: $row-h-sm;
     border-top:  0.0625rem solid $border-col;
     border-left: 0.0625rem solid $border-col;
+
+    grid-template-columns: repeat(#{$cols-mobile}, 1fr);
+    grid-auto-rows: $row-h-xs;
 
     &::before,
     &::after {
       content: "";
       position: absolute;
-      top: -$tick-h-sm;
-      bottom: -$tick-h-sm;
-      width: $padding-sm;
+      top: -$tick-h-xs;
+      bottom: -$tick-h-xs;
+      width: $padding-xs;
       pointer-events: none;
       background-image: linear-gradient(to bottom, $border-col 1px, transparent 1px);
       background-repeat: repeat-y;
-      background-size: 100% $row-h-sm;
+      background-size: 100% $row-h-xs;
     }
 
     &::before {
-      left: -$padding-sm;
-      background-position: 0 #{$tick-h-sm};
+      left: -$padding-xs;
+      background-position: 0 #{$tick-h-xs};
     }
 
     &::after {
-      right: -$padding-sm;
-      background-position: 0 #{$tick-h-sm};
+      right: -$padding-xs;
+      background-position: 0 #{$tick-h-xs};
+    }
+
+    @media (min-width: 375px) {
+      grid-auto-rows: $row-h-375;
+
+      &::before,
+      &::after {
+        top: -$tick-h-375;
+        bottom: -$tick-h-375;
+        width: $padding-375;
+        background-size: 100% $row-h-375;
+      }
+
+      &::before {
+        left: -$padding-375;
+        background-position: 0 #{$tick-h-375};
+      }
+
+      &::after {
+        right: -$padding-375;
+        background-position: 0 #{$tick-h-375};
+      }
+    }
+
+    @media (min-width: 565px) and (max-width: 578px) {
+      grid-auto-rows: 130px;
+
+      &::before,
+      &::after {
+        top: -$tick-h-375;
+        bottom: -$tick-h-375;
+        width: $padding-375;
+        background-size: 100% 130px;
+      }
+
+      &::before {
+        left: -$padding-375;
+        background-position: 0 #{$tick-h-375};
+      }
+
+      &::after {
+        right: -$padding-375;
+        background-position: 0 #{$tick-h-375};
+      }
+    }
+
+    @include media-breakpoint-up(sm) {
+      grid-auto-rows: $row-h-sm;
+
+      &::before,
+      &::after {
+        top: -$tick-h-sm;
+        bottom: -$tick-h-sm;
+        width: $padding-sm;
+        background-size: 100% $row-h-sm;
+      }
+
+      &::before {
+        left: -$padding-sm;
+        background-position: 0 #{$tick-h-sm};
+      }
+
+      &::after {
+        right: -$padding-sm;
+        background-position: 0 #{$tick-h-sm};
+      }
+    }
+
+    @include media-breakpoint-up(md) {
+      grid-template-columns: repeat(#{$cols-desk}, 1fr);
+      grid-auto-rows: $row-h-md;
+
+      &::before,
+      &::after {
+        top: -$tick-h-md;
+        bottom: -$tick-h-md;
+        width: $padding-md;
+        background-size: 100% $row-h-md;
+      }
+
+      &::before {
+        left: -$padding-md;
+        background-position: 0 #{$tick-h-md};
+      }
+
+      &::after {
+        right: -$padding-md;
+        background-position: 0 #{$tick-h-md};
+      }
     }
 
     @include media-breakpoint-up(xl) {
-      grid-template-columns: repeat(#{$cols-xl}, 1fr);
       grid-auto-rows: $row-h-xl;
 
       &::before,
@@ -145,15 +318,14 @@
     }
   }
 
+
   &__single-partner {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: clamp(10rem, 6.4789rem + 15.0235vw, 20rem);
     min-height: 0;
     border-right:  0.0625rem solid $border-col;
     border-bottom: 0.0625rem solid $border-col;
-
 
     &--cta {
       padding: 1rem;

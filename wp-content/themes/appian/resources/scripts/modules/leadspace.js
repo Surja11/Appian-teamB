@@ -1,26 +1,61 @@
 
 
+
 const scrollEllipse = document.querySelector('.home-leadspace__scroll-ellipse');
 const outerEllipse = document.querySelector('.home-leadspace__outer-ellipse');
 
-// listening for scroll event listener
-if (scrollEllipse){
-window.addEventListener('scroll', () => {
 
-    // getting the pixels scrolled by user
-    const scrolled = window.scrollY;
-    // console.log(scrolled)
+const PHASES = [
+    {
+        scrollStart: 0,
+        scrollEnd: 0.08,
+        rotStart: 0,
+        rotEnd: 0.10
+    },
 
+    {
+        scrollStart: 0.08,
+        scrollEnd: 0.25,
+        rotStart: 0.10,
+        rotEnd: 0.45
+    },
 
-    // defining the total scroll distance needed to complete one full rotation
-    const total = window.innerHeight * 2;
+    {
+        scrollStart: 0.25,
+        scrollEnd: 0.55,
+        rotStart: 0.45,
+        rotEnd: 0.70
+    },
 
-    // calculating scroll progress which is between 0 and 1
-    const progress = Math.min(scrolled / total, 1);
+    {
+        scrollStart: 0.55,
+        scrollEnd: 1.00,
+        rotStart: 0.70,
+        rotEnd: 1.00
+    },
+];
 
-    // calculating rotatiion degree
-    const rotation = -progress * 360;
+const TOTAL_SCROLL = window.innerHeight*2;
 
-    scrollElipse.style.transform = `rotate(${rotation}deg)`;
-});
+if (scrollEllipse) {
+    window.addEventListener('scroll', () => {
+        const scrolled = window.scrollY;
+        const progress = Math.min(scrolled / TOTAL_SCROLL, 1); 
+
+        let rotProgress = 0;
+
+        for (const phase of PHASES) {
+            if (progress <= phase.scrollEnd) {
+
+                const phaseProgress = (progress - phase.scrollStart) / (phase.scrollEnd - phase.scrollStart);
+
+                rotProgress = phase.rotStart + phaseProgress * (phase.rotEnd - phase.rotStart);
+                break;
+            }
+            rotProgress = phase.rotEnd;
+        }
+
+        const rotation = -rotProgress * 180;
+        scrollEllipse.style.transform = `rotate(${rotation}deg)`;
+    }, { passive: true });
 }
