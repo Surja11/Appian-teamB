@@ -311,6 +311,14 @@ section#our-history-block,
                         text-decoration: underline;
                     }
 
+                    // Disable hover effects on mobile devices
+                    @media (hover: none) {
+                        &:hover {
+                            color: inherit;
+                            text-decoration: none;
+                        }
+                    }
+
                     &:focus {
                         outline: 2px solid $color-primary-red;
                         outline-offset: 2px;

@@ -437,6 +437,15 @@
     text-decoration: none;
     background-color: rgba($green, 0.1);
   }
+
+  // Disable hover effects on mobile devices
+  @media (hover: none) {
+    &:hover {
+      color: inherit;
+      text-decoration: none;
+      background-color: transparent;
+    }
+  }
 }
 
 .form-error-message {

@@ -25,7 +25,7 @@ if (!empty($valid_departments)) :
 ?>
 
     <section id="services-block" class="services-block w-100 m-0 p-0 overflow-hidden">
-        <div class="services-container d-flex flex-column flex-md-row w-100 gap-0">
+        <div class="services-container d-flex flex-column flex-xl-row w-100 gap-0">
 
             <?php foreach ($valid_departments as $index => $department) :
                 $department_eyebrow = $department['department_eyebrow'] ?? '';
@@ -34,7 +34,7 @@ if (!empty($valid_departments)) :
                 $department_link    = $department['department_link'] ?? '';
             ?>
 
-                <div class="service-card position-relative d-flex flex-column justify-content-between w-100 w-md-50 flex-grow-1 overflow-hidden">
+                <div class="service-card position-relative d-flex flex-column justify-content-between w-100 w-xl-50 flex-grow-1 overflow-hidden">
                     
                     <div class="service-card__background position-absolute top-0 start-0 w-100 h-100">
                         <?php if (!empty($department_image) && is_array($department_image) && !empty($department_image['url'])) : ?>
@@ -46,11 +46,11 @@ if (!empty($valid_departments)) :
                     </div>
 
                     <div class="service-card__content text-white position-relative">
-                        <div class="service-card__top-content d-flex d-md-none flex-column w-100">
+                        <div class="service-card__top-content d-flex d-xl-none flex-column w-100">
                             <?php if (($index % 2) == 0) :?>
                                 <?php if (!empty($department_name)) : ?>
-                                    <h1 class="service-card__title text-wrap text-break mb-0">
-                                        <?php echo str_replace(' ', '<br>', esc_html($department_name)); ?>
+                                    <h1 class="service-card__title text-wrap mb-0">
+                                        <?php echo esc_html($department_name); ?>
                                     </h1>
                                 <?php endif; ?>
                                 <?php if (!empty($department_eyebrow)) : ?>
@@ -65,14 +65,14 @@ if (!empty($valid_departments)) :
                                     </div>
                                 <?php endif; ?>
                                 <?php if (!empty($department_name)) : ?>
-                                    <h1 class="service-card__title text-wrap text-break mb-0">
-                                        <?php echo str_replace(' ', '<br>', esc_html($department_name)); ?>
+                                    <h1 class="service-card__title text-wrap mb-0">
+                                        <?php echo esc_html($department_name); ?>
                                     </h1>
                                 <?php endif; ?>
                             <?php endif; ?>
                         </div>
 
-                        <div class="service-card__top-content d-none d-md-flex flex-column w-100">
+                        <div class="service-card__top-content d-none d-xl-flex flex-column w-100">
                             <?php if (!empty($department_eyebrow)) : ?>
                                 <div class="service-card__label caption-1 text-wrap text-break service-card__label--desktop">
                                     <?php echo wp_kses_post($department_eyebrow); ?>
@@ -80,8 +80,8 @@ if (!empty($valid_departments)) :
                             <?php endif; ?>
 
                             <?php if (!empty($department_name)) : ?>
-                                <h1 class="service-card__title text-wrap text-break mb-0">
-                                    <?php echo str_replace(' ', '<br>', esc_html($department_name)); ?>
+                                <h1 class="service-card__title text-wrap mb-0">
+                                    <?php echo esc_html($department_name); ?>
                                 </h1>
                             <?php endif; ?>
                         </div>

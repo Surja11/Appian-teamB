@@ -145,6 +145,17 @@
         }
     }
 
+    // Disable hover effects on mobile devices
+    @media (hover: none) {
+        &:hover {
+            svg,
+            svg path {
+                stroke: inherit;
+                fill: inherit;
+            }
+        }
+    }
+
     &:focus {
         outline: 2px solid $color-primary-red;
         outline-offset: 2px;
@@ -444,6 +455,17 @@
         svg path {
             stroke: $color-primary-red !important;
             fill: $color-primary-red !important;
+        }
+    }
+
+    // Disable hover effects on mobile devices
+    @media (hover: none) {
+        &:hover {
+            svg,
+            svg path {
+                stroke: $color-neutral-600 !important;
+                fill: $color-neutral-600 !important;
+            }
         }
     }
 }

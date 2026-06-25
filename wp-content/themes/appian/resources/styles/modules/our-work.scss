@@ -73,6 +73,14 @@ $tab-font-size: 0.875rem;
       outline: 1px solid $color-primary-red;
     }
 
+    // Disable hover effects on mobile devices
+    @media (hover: none) {
+      &:hover:not(.active) {
+        background-color: transparent;
+        outline: none;
+      }
+    }
+
 
     &.active {
       background-color: $color-primary-red;

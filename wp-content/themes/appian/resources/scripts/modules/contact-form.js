@@ -18,6 +18,7 @@ class ContactForm {
         this.setupValidation();
         this.setupAccessibility();
         this.setupRadioDropdownToggle();
+        this.setupDateRestrictions();
     }
 
     bindEvents() {
@@ -171,17 +172,6 @@ class ContactForm {
             }
         }
 
-        // Check if date is in future
-        if (field.type === 'date' && value) {
-            const selectedDate = new Date(value);
-            const today = new Date();
-            today.setHours(0, 0, 0, 0);
-
-            if (selectedDate < today) {
-                this.showFieldError(field, 'Please select a future date');
-                isValid = false;
-            }
-        }
 
         return isValid;
     }
@@ -341,6 +331,16 @@ class ContactForm {
         this.form.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
+    setupDateRestrictions() {
+        // Set minimum date to today for date inputs to prevent past date selection
+        const dateInputs = this.form.querySelectorAll('input[type="date"]');
+        const today = new Date().toISOString().split('T')[0];
+        
+        dateInputs.forEach(input => {
+            input.setAttribute('min', today);
+        });
+    }
+
     setupRadioDropdownToggle() {
         const wrapper = document.querySelector('.contact-form__radio-dropdown-wrapper');
         if (!wrapper) return;
@@ -361,17 +361,34 @@ class ContactForm {
                 trigger.classList.remove('error');
                 const localError = wrapper.querySelector('.error-message');
                 if (localError) localError.remove();
+
+                // Update placeholder with selected option
+                const selectedLabel = document.querySelector(`label[for="${radio.id}"]`);
+                if (selectedLabel) {
+                    const placeholderElement = trigger.querySelector('.placeholder-text');
+                    if (placeholderElement) {
+                        placeholderElement.textContent = selectedLabel.textContent.trim();
+                    }
+                }
             });
         });
 
+        // Set placeholder if there's a checked radio
         const initialCheckedRadio = wrapper.querySelector('.contact-form__radio:checked');
         if (initialCheckedRadio) {
+            const initialLabel = document.querySelector(`label[for="${initialCheckedRadio.id}"]`);
+            if (initialLabel) {
+                const placeholderElement = trigger.querySelector('.placeholder-text');
+                if (placeholderElement) {
+                    placeholderElement.textContent = initialLabel.textContent.trim();
+                }
+            }
             wrapper.classList.add('is-open');
         }
     }
 }
 
-if(document.querySelector('.contact-form-block')){
+if(document.querySelector('#js-contact-form')){
 // Start contact form when page loads
 document.addEventListener('DOMContentLoaded', () => {
     new ContactForm();

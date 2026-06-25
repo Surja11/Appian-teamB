@@ -164,6 +164,13 @@
         color: var(--color-primary-red);
       }
 
+      // Disable hover effects on mobile devices
+      @media (hover: none) {
+        &:hover {
+          color: inherit;
+        }
+      }
+
       &:last-child {
         border-bottom: none;
       }
@@ -474,6 +481,13 @@
 
     &:hover {
       border-color: var(--color-primary-red);
+    }
+
+    // Disable hover effects on mobile devices
+    @media (hover: none) {
+      &:hover {
+        border-color: var(--color-neutral-100);
+      }
     }
 
     img,

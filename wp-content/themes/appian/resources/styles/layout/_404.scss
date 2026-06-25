@@ -111,6 +111,15 @@
     text-decoration: none;
   }
 
+  // Disable hover effects on mobile devices
+  @media (hover: none) {
+    &:hover {
+      background-color: $color-primary-red;
+      color: $white;
+      text-decoration: none;
+    }
+  }
+
   @media (min-width: 90rem) {
     display: inline-flex;
     align-items: center;

@@ -228,6 +228,30 @@
             transition-delay: 0.3s;
         }
     }
+
+    // Disable hover effects on mobile devices
+    @media (hover: none) {
+        &:hover {
+            .hero-project-card__image-wrap {
+                opacity: 1;
+                transition: none;
+            }
+
+            .hero-project-card__hover-overlay {
+                clip-path: inset(100% 0 0 0);
+            }
+
+            .hero-project-card__content {
+                bottom: $spacer;
+            }
+
+            .hero-project-card__read-more {
+                opacity: 0;
+                transform: translateY(1.25rem);
+                transition-delay: 0s;
+            }
+        }
+    }
 }
 
 .sr-only {
