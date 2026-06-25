@@ -1,6 +1,3 @@
-<?php
-?>
-
 <div class="history-modal-overlay position-fixed top-0 start-0 w-100 h-100 d-flex align-items-start align-items-md-center justify-content-center overflow-hidden pe-auto d-none" id="history-modal-overlay">
         <div class="history-modal position-relative overflow-hidden d-flex flex-column w-100 bg-white m-0">
 

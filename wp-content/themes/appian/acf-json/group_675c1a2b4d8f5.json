@@ -1,0 +1,58 @@
+{
+    "key": "group_675c1a2b4d8f5",
+    "title": "Our History Block",
+    "fields": [
+        {
+            "key": "field_675c1a2b4d8f6",
+            "label": "Selected History Items",
+            "name": "selected_history_items",
+            "aria-label": "",
+            "type": "relationship",
+            "instructions": "Choose which history items to display in this timeline. Drag to reorder them as needed.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "history"
+            ],
+            "post_status": [
+                "publish"
+            ],
+            "taxonomy": "",
+            "filters": [
+                "search",
+                "post_type"
+            ],
+            "return_format": "object",
+            "min": "",
+            "max": "",
+            "allow_in_bindings": 0
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf\/our-history"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "display_title": "",
+    "allow_ai_access": false,
+    "ai_description": "",
+    "modified": 1734066731
+}
