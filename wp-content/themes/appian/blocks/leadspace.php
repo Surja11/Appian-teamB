@@ -7,8 +7,9 @@
 $eyebrow_text = get_field('eyebrow_text');
 $heading_main = get_field('heading_main');
 $heading_sub  = get_field('heading_sub');
-$video        = get_field('video');
+$video = get_field('video');
 $video_url    = $video ? esc_url($video['url']) : '';
+$video_poster = get_field('poster');
 
 ?>
 
@@ -32,7 +33,7 @@ $video_url    = $video ? esc_url($video['url']) : '';
                             loop
                             playsinline
                             preload="auto"
-
+                            poster="<?php echo $video_poster ? esc_url($video_poster['url']) : ''; ?>"
                             class="home-leadspace__video"
                             disablepictureinpicture
                             disableremoteplayback>

@@ -1,13 +1,13 @@
 {
-    "key": "group_6a2e6b79e3abb",
-    "title": "Our Project Leadspace",
+    "key": "group_6a3cc0c6481fb",
+    "title": "Social Links",
     "fields": [
         {
-            "key": "field_6a2e6b7ac8887",
-            "label": "Our Project Leadspace",
-            "name": "our_project_leadspace",
+            "key": "field_6a3cc0c6a0e36",
+            "label": "Social Links",
+            "name": "social_links",
             "aria-label": "",
-            "type": "group",
+            "type": "repeater",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -16,33 +16,18 @@
                 "class": "",
                 "id": ""
             },
-            "layout": "block",
+            "layout": "table",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "button_label": "Add Row",
+            "rows_per_page": 20,
             "sub_fields": [
                 {
-                    "key": "field_6a2e6b96c8888",
-                    "label": "Lead Video",
-                    "name": "lead_video",
-                    "aria-label": "",
-                    "type": "file",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "return_format": "array",
-                    "library": "all",
-                    "min_size": "",
-                    "max_size": "",
-                    "mime_types": "",
-                    "allow_in_bindings": 0
-                },
-                {
-                    "key": "field_6a2e6be9c8889",
-                    "label": "Leadspace Text",
-                    "name": "leadspace_text",
+                    "key": "field_6a3cc1674b90a",
+                    "label": "Social Platform",
+                    "name": "social_platform",
                     "aria-label": "",
                     "type": "text",
                     "instructions": "",
@@ -58,12 +43,32 @@
                     "allow_in_bindings": 0,
                     "placeholder": "",
                     "prepend": "",
-                    "append": ""
+                    "append": "",
+                    "parent_repeater": "field_6a3cc0c6a0e36"
                 },
                 {
-                    "key": "field_6a3d1046e3a38",
-                    "label": "Poster",
-                    "name": "poster",
+                    "key": "field_6a3cc1ba4b90b",
+                    "label": "Social URL",
+                    "name": "social_url",
+                    "aria-label": "",
+                    "type": "url",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "parent_repeater": "field_6a3cc0c6a0e36"
+                },
+                {
+                    "key": "field_6a3cc1cf4b90c",
+                    "label": "Social Icon",
+                    "name": "social_icon",
                     "aria-label": "",
                     "type": "image",
                     "instructions": "",
@@ -84,7 +89,8 @@
                     "max_size": "",
                     "mime_types": "",
                     "allow_in_bindings": 0,
-                    "preview_size": "medium"
+                    "preview_size": "medium",
+                    "parent_repeater": "field_6a3cc0c6a0e36"
                 }
             ]
         }
@@ -92,9 +98,9 @@
     "location": [
         [
             {
-                "param": "block",
+                "param": "options_page",
                 "operator": "==",
-                "value": "acf\/our-project-leadspace"
+                "value": "global-settings"
             }
         ]
     ],
@@ -110,5 +116,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1782389605
+    "modified": 1782366702
 }
