@@ -1,9 +1,8 @@
 class HistoryModalModule {
     constructor() {
-        this.modal        = null;
-        this.currentId    = null;
+        this.modal = null;
+        this.currentId = null;
         this.currentImage = 0;
-        this.imagesCache  = {};
         this.lastActiveElement = null;
         this.focusableElements = null;
         this.init();
@@ -28,10 +27,9 @@ class HistoryModalModule {
     }
 
     bindEvents() {
-        // avoid null errors
         const readMoreBtns = document.querySelectorAll('.history-card__read-more');
         if (readMoreBtns) {
-            readMoreBtns.forEach((btn, index) => {
+            readMoreBtns.forEach((btn) => {
                 if (btn) {
                     const historyId = btn.getAttribute('data-history-id');
                     btn.addEventListener('click', (e) => {
@@ -47,7 +45,7 @@ class HistoryModalModule {
 
         const historyCards = document.querySelectorAll('.history-card');
         if (historyCards) {
-            historyCards.forEach((card, index) => {
+            historyCards.forEach((card) => {
                 if (card) {
                     const historyId = card.getAttribute('data-year');
                     
