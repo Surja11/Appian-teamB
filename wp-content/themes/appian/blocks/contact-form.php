@@ -64,7 +64,9 @@ $button_text = get_field('button_text') ?: 'Submit';
                                             <div class="contact-form__radio-dropdown-wrapper position-relative w-100">
                                                 
                                                 <div class="contact-form__input contact-form__radio-trigger body d-flex align-items-center justify-content-between user-select-none w-100 cursor-pointer bg-white rounded">
-                                                    <span class="contact-form__trigger-label"><?php echo esc_html($field_label); ?><?php echo $required ? ' *' : ''; ?></span>
+                                                    <span class="contact-form__trigger-label">
+                                                        <span class="placeholder-text"><?php echo esc_html($field_label); ?><?php echo $required ? ' *' : ''; ?></span>
+                                                    </span>
                                                     <span class="contact-form__dropdown-icon d-flex align-items-center justify-content-center">
                                                         <?php include get_template_directory() . '/resources/images/icon-chevron-down.svg'; ?>
                                                     </span>
@@ -98,7 +100,7 @@ $button_text = get_field('button_text') ?: 'Submit';
 
                                         <?php else : ?>
                                             <input
-                                                type="<?php echo ($field_type === 'date') ? 'text' : esc_attr($field_type); ?>"
+                                                type="<?php echo esc_attr($field_type); ?>"
                                                 id="<?php echo esc_attr($field_id); ?>"
                                                 name="<?php echo esc_attr($field_id); ?>"
                                                 placeholder="<?php echo esc_attr($field_label); ?><?php echo $required ? ' *' : ''; ?>"
@@ -107,10 +109,6 @@ $button_text = get_field('button_text') ?: 'Submit';
                                                 <?php if ($field_type === 'email') : ?>
                                                 pattern="[a-zA-Z0-9][a-zA-Z0-9._%+-]*[a-zA-Z0-9]@[a-zA-Z0-9][a-zA-Z0-9.-]*[a-zA-Z0-9]\.[a-zA-Z]{2,}"
                                                 title="Please enter a valid email address"
-                                                <?php endif; ?>
-                                                <?php if ($field_type === 'date') : ?>
-                                                onfocus="(this.type='date')"
-                                                onblur="if(!this.value) this.type='text'"
                                                 <?php endif; ?> />
                                         <?php endif; ?>
                                         

@@ -47,6 +47,13 @@
     &:hover .video-modal__close {
         opacity: 1;
     }
+
+    // Disable hover effects on mobile devices  
+    @media (hover: none) {
+        &:hover .video-modal__close {
+            opacity: 0;
+        }
+    }
 }
 
 @keyframes scaleIn {
