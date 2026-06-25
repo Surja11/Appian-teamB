@@ -117,70 +117,38 @@
             "label": "Background Color",
             "name": "bg_color",
             "aria-label": "",
-            "type": "select",
+            "type": "color_picker",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
-                "width": "",
+                "width": "50",
                 "class": "",
                 "id": ""
             },
-            "choices": {
-                "primary": "Red",
-                "light-blue": "Light Blue",
-                "salmon": "Salmon",
-                "greenish-blue": "Greenish Blue",
-                "velvet-maroon": "Velvet Maroon",
-                "red-orange": "Red Orange",
-                "light-rose": "Light Rose",
-                "dirty-purple": "Dirty Purple"
-            },
-            "default_value": "primary",
-            "return_format": "value",
-            "multiple": 0,
-            "allow_null": 0,
-            "allow_in_bindings": 0,
-            "ui": 0,
-            "ajax": 0,
-            "placeholder": "",
-            "create_options": 0,
-            "save_options": 0
+            "default_value": "#ea483b",
+            "enable_opacity": 0,
+            "return_format": "string",
+            "allow_in_bindings": 0
         },
         {
             "key": "field_6a271e820095f",
             "label": "Arrow Color",
             "name": "arrow_color",
             "aria-label": "",
-            "type": "select",
+            "type": "color_picker",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
-                "width": "",
+                "width": "50",
                 "class": "",
                 "id": ""
             },
-            "choices": {
-                "primary": "Red",
-                "light-blue": "Light Blue",
-                "salmon": "Salmon",
-                "greenish-blue": "Greenish Blue",
-                "velvet-maroon": "Velvet Maroon",
-                "red-orange": "Red Orange",
-                "light-rose": "Light Rose",
-                "dirty-purple": "Dirty Purple"
-            },
-            "default_value": "primary",
-            "return_format": "value",
-            "multiple": 0,
-            "allow_null": 0,
-            "allow_in_bindings": 0,
-            "ui": 0,
-            "ajax": 0,
-            "placeholder": "",
-            "create_options": 0,
-            "save_options": 0
+            "default_value": "#ea483b",
+            "enable_opacity": 0,
+            "return_format": "string",
+            "allow_in_bindings": 0
         }
     ],
     "location": [
