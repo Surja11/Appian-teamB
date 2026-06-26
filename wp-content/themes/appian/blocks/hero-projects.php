@@ -67,7 +67,6 @@ if (!empty($section_title) || $projects->have_posts() || !empty($featured_image)
 
                     if ($i === $featured_image_position && !empty($featured_image)): ?>
                         <div class="hero-projects__feature-image"
-                            aria-label="Featured Image"
                             style="background-image: url('<?php echo esc_url($featured_image['url']); ?>');">
                         </div>
                     <?php endif;
@@ -79,7 +78,6 @@ if (!empty($section_title) || $projects->have_posts() || !empty($featured_image)
                 wp_reset_postdata();
                 if (!empty($featured_image) && $featured_image_position > $total): ?>
                     <div class="hero-projects__feature-image"
-                        aria-label="Featured Image"
                         style="background-image: url('<?php echo esc_url($featured_image['url']); ?>');">
                     </div>
                 <?php endif; ?>

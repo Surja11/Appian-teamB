@@ -1,7 +1,5 @@
-// Contact form validation and submission
 class ContactForm {
     constructor() {
-        // Find form elements
         this.form = document.getElementById('js-contact-form');
         this.submitButton = this.form ? this.form.querySelector('.contact-form__submit') : null;
         this.inputs = this.form.querySelectorAll('input.contact-form__input, select.contact-form__input, textarea.contact-form__input');
@@ -22,10 +20,8 @@ class ContactForm {
     }
 
     bindEvents() {
-        // Handle form submit
         this.form.addEventListener('submit', this.handleSubmit.bind(this));
 
-        // Check fields when user clicks outside
         this.inputs.forEach(input => {
             input.addEventListener('blur', this.validateField.bind(this));
             input.addEventListener('input', this.clearFieldError.bind(this));
@@ -53,7 +49,6 @@ class ContactForm {
     handleSubmit(event) {
         event.preventDefault();
 
-        // Only submit the form if valid
         if (this.validateForm()) {
             this.submitForm();
         }
@@ -62,19 +57,16 @@ class ContactForm {
     validateForm() {
         let isValid = true;
 
-        // Clear old errors and messages
         this.clearAllErrors();
         const existingStatus = this.form.querySelector('.form-success-message, .form-error-message');
         if (existingStatus) existingStatus.remove();
 
-        // Check each input field
         this.inputs.forEach(input => {
             if (!this.validateField({ target: input })) {
                 isValid = false;
             }
         });
 
-        // Check radio buttons
         const radioWrapper = this.form.querySelector('.contact-form__radio-dropdown-wrapper');
         if (radioWrapper) {
             const radioGroupChecked = radioWrapper.querySelector('.contact-form__radio:checked');
@@ -104,13 +96,11 @@ class ContactForm {
         const value = field.value.trim();
         let isValid = true;
 
-        // Check if required field is empty
         if (field.hasAttribute('required') && !value) {
             this.showFieldError(field, 'This field is required');
             isValid = false;
         }
 
-        // Check name fields for valid characters
         const isNameField = field.name === 'first-name' || field.name === 'last-name';
 
         if (isNameField && value) {
@@ -122,7 +112,6 @@ class ContactForm {
             }
         }
 
-        // Check email format
         if (field.type === 'email' && value) {
             const emailRegex = /^[a-zA-Z0-9][a-zA-Z0-9._%+-]*[a-zA-Z0-9]@[a-zA-Z0-9][a-zA-Z0-9.-]*[a-zA-Z0-9]\.[a-zA-Z]{2,}$/;
             
@@ -146,26 +135,24 @@ class ContactForm {
             }
         }
 
-        // Check phone number format
         if (field.type === 'tel' && value) {
             const cleanPhone = value.replace(/\D/g, '');
             
             const isAllZeros = /^0+$/.test(cleanPhone);
-            const hasConsecutiveSpecialChars = /[\-\.]{2,}|[\s]{2,}|[\(\)]{2,}/.test(value); // Only check dashes, dots, spaces or parentheses
+            const hasConsecutiveSpecialChars = /[\-\.]{2,}|[\s]{2,}|[\(\)]{2,}/.test(value);
             const hasInvalidPatterns = /[^\+0-9\s.\-\(\)]/.test(value);
             
-            const startsOK = /^[\+\(0-9]/.test(value); // Start with +, ( or digit
-            const endsOK = /[0-9\)]$/.test(value);    // End with digit or )
+            const startsOK = /^[\+\(0-9]/.test(value);
+            const endsOK = /[0-9\)]$/.test(value);
             
-            // Phone must pass all these checks
             if (
                 !startsOK ||                      
                 !endsOK ||                        
-                hasConsecutiveSpecialChars ||     // No double symbols or multiple spaces
+                hasConsecutiveSpecialChars ||
                 hasInvalidPatterns ||             
-                isAllZeros ||                     // Can't be all zeros
-                cleanPhone.length < 7 ||          // At least 7 numbers
-                cleanPhone.length > 15            // Max 15 numbers
+                isAllZeros ||                     
+                cleanPhone.length < 7 ||
+                cleanPhone.length > 15
             ) {
                 this.showFieldError(field, 'Please enter a valid phone number');
                 isValid = false;
@@ -179,12 +166,10 @@ class ContactForm {
     showFieldError(field, message) {
         field.classList.add('error');
         
-        // Remove old error message
         const parent = field.parentNode;
         let existingError = parent.querySelector('.error-message');
         if (existingError) existingError.remove();
 
-        // Add new error message
         const errorElement = document.createElement('div');
         errorElement.className = 'error-message body-small';
         errorElement.textContent = message;
@@ -304,7 +289,6 @@ class ContactForm {
         this.form.insertBefore(successMessage, this.form.firstChild);
         successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
-        // Add event listener for "Send another message" button
         const sendAnotherBtn = successMessage.querySelector('.contact-form__send-another');
         sendAnotherBtn.addEventListener('click', () => {
             this.resetForm();
@@ -312,49 +296,55 @@ class ContactForm {
     }
 
     resetForm() {
-        // Remove success message
         const successMessage = this.form.querySelector('.form-success-message');
         if (successMessage) successMessage.remove();
 
-        // Show form again
         const formContainer = this.form.querySelector('.contact-form__grid');
         
         if (formContainer) {
             formContainer.classList.remove('form-hidden');
         }
 
-        // Reset form fields
         this.form.reset();
         this.clearAllErrors();
 
-        // Scroll back to form
         this.form.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     setupDateRestrictions() {
-        // Set minimum date to today for date inputs to prevent past date selection
         const dateInputs = this.form.querySelectorAll('input[type="date"]');
         const today = new Date().toISOString().split('T')[0];
         
         dateInputs.forEach(input => {
             input.setAttribute('min', today);
             
-            // Add iOS support
-            input.addEventListener('change', (e) => {
-                const selectedDate = new Date(e.target.value);
-                const todayDate = new Date(today);
-                
-                // If selected date is before, reset to today
-                if (selectedDate < todayDate) {
-                    e.target.value = today;
-                    
-                    // Show error message
-                    this.showDateError(e.target);
+            const originalPlaceholder = input.getAttribute('placeholder');
+            
+            if (!input.value) {
+                input.setAttribute('type', 'text');
+                input.setAttribute('placeholder', originalPlaceholder);
+                input.classList.add('date-placeholder-mode');
+            }
+            
+            input.addEventListener('focus', () => {
+                if (input.classList.contains('date-placeholder-mode')) {
+                    input.setAttribute('type', 'date');
+                    input.setAttribute('min', today);
+                    input.removeAttribute('placeholder');
+                    input.classList.remove('date-placeholder-mode');
                 }
             });
             
-            input.addEventListener('blur', (e) => {
-                if (e.target.value) {
+            input.addEventListener('blur', () => {
+                if (!input.value) {
+                    input.setAttribute('type', 'text');
+                    input.setAttribute('placeholder', originalPlaceholder);
+                    input.classList.add('date-placeholder-mode');
+                }
+            });
+            
+            input.addEventListener('change', (e) => {
+                if (e.target.type === 'date' && e.target.value) {
                     const selectedDate = new Date(e.target.value);
                     const todayDate = new Date(today);
                     
@@ -364,24 +354,37 @@ class ContactForm {
                     }
                 }
             });
+            
+            input.addEventListener('blur', (e) => {
+                if (e.target.type === 'date' && !e.target.value) {
+                    this.clearFieldError({ target: e.target });
+                } else if (e.target.classList.contains('date-placeholder-mode') && !e.target.value) {
+                    this.clearFieldError({ target: e.target });
+                }
+            });
         });
     }
 
     showDateError(input) {
         this.clearFieldError({ target: input });
         
+        const existingError = input.parentNode.querySelector('.error-message');
+        if (existingError) {
+            return; 
+        }
+        
         input.classList.add('error');
         
-        // Create and show error message
-        const errorElement = document.createElement('span');
-        errorElement.className = 'contact-form__error-message';
+        const errorElement = document.createElement('div');
+        errorElement.className = 'error-message body-small'; // Use consistent class name
         errorElement.textContent = 'Please select today\'s date or a future date';
         
         input.parentNode.appendChild(errorElement);
         
-        // Remove error after 3 seconds
         setTimeout(() => {
-            this.clearFieldError({ target: input });
+            if (input.parentNode.querySelector('.error-message') === errorElement) {
+                this.clearFieldError({ target: input });
+            }
         }, 3000);
     }
 
@@ -406,7 +409,6 @@ class ContactForm {
                 const localError = wrapper.querySelector('.error-message');
                 if (localError) localError.remove();
 
-                // Update placeholder with selected option
                 const selectedLabel = document.querySelector(`label[for="${radio.id}"]`);
                 if (selectedLabel) {
                     const placeholderElement = trigger.querySelector('.placeholder-text');
@@ -417,7 +419,6 @@ class ContactForm {
             });
         });
 
-        // Set placeholder if there's a checked radio
         const initialCheckedRadio = wrapper.querySelector('.contact-form__radio:checked');
         if (initialCheckedRadio) {
             const initialLabel = document.querySelector(`label[for="${initialCheckedRadio.id}"]`);
@@ -433,7 +434,6 @@ class ContactForm {
 }
 
 if(document.querySelector('#js-contact-form')){
-// Start contact form when page loads
 document.addEventListener('DOMContentLoaded', () => {
     new ContactForm();
 });
