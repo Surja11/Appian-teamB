@@ -160,12 +160,10 @@
   color: $color-neutral-600;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
   
-  // Big screen (two column layout)
   @include media-breakpoint-up(md) {
     border: 1.5px solid rgba($black, 0.68);
   }
   
-  // Small screen (one column layout)
   @include media-breakpoint-down(sm) {
     border: 1.5px solid rgba($black, 0.3);
   }
@@ -187,7 +185,6 @@
     outline: none;
     box-shadow: none;
     
-    // Selected/focused state
     border: 1.5px solid $color-neutral-600;
     
 
@@ -245,7 +242,6 @@
 .contact-form__radio-dropdown-wrapper {
   &.is-open {
     .contact-form__radio-trigger {
-      // Selected state
       border: 1.5px solid $color-neutral-600;
 
       .contact-form__dropdown-icon svg {
@@ -324,16 +320,16 @@
 
 .contact-form__radio-item {
   gap: 0.5rem;
-  height: 1.5rem; // 24px
+  height: 1.5rem;
 }
 
 .contact-form__radio {
   appearance: none;
   -webkit-appearance: none;
-  width: 1.125rem; // 18px
-  height: 1.125rem; // 18px  
-  min-width: 1.125rem; // 18px
-  min-height: 1.125rem; // 18px
+  width: 1.125rem;
+  height: 1.125rem;
+  min-width: 1.125rem;
+  min-height: 1.125rem;
   border: 2px solid $color-neutral-600;
   border-radius: 50%;
   background-color: $white;
@@ -350,8 +346,8 @@
     &::after {
       content: '';
       position: absolute;
-      width: 0.625rem; // 10px
-      height: 0.625rem; // 10px
+      width: 0.625rem;
+      height: 0.625rem;
       background-color: $color-neutral-600;
       border-radius: 50%;
     }
@@ -363,13 +359,11 @@
   height: 1.125rem;
 }
 
-// Form hidden state
 .contact-form__grid.form-hidden,
 .contact-form__grid.form-hidden.d-flex {
   display: none !important;
 }
 
-// Form status messages
 .form-success-message {
   background: none;
   border: none;
@@ -420,7 +414,6 @@
   }
 }
 
-// Send another message button
 .contact-form__send-another {
   background: none;
   border: none;
@@ -438,7 +431,6 @@
     background-color: rgba($green, 0.1);
   }
 
-  // Disable hover effects on mobile devices
   @media (hover: none) {
     &:hover {
       color: inherit;
@@ -494,7 +486,6 @@ input[type="date"].contact-form__input,
     }
   }
 
-  // iOS
   @supports (-webkit-appearance: none) {
     &[type="date"] {
       -webkit-appearance: none;
@@ -504,11 +495,10 @@ input[type="date"].contact-form__input,
       height: 3.25rem !important;
       line-height: 1.5;
       
-      // Remove iOS default padding/margin
       padding: 0.875rem 1rem;
       margin: 0;
       
-      text-align: left;
+      text-align: left !important;
       
       background-color: white;
       background-image: none;
@@ -528,11 +518,61 @@ input[type="date"].contact-form__input,
       box-sizing: border-box;
       -webkit-box-sizing: border-box;
       
-      // Prevent zoom on iOS
       font-size: 16px;
+      
+      text-align: left !important;
+      -webkit-text-align-last: left !important;
+      text-align-last: left !important;
       
       -webkit-tap-highlight-color: transparent;
       -webkit-touch-callout: none;
     }
+  }
+  
+  &[type="date"]::-webkit-datetime-edit {
+    text-align: left;
+    padding: 0;
+    margin: 0;
+  }
+  
+  &[type="date"]::-webkit-datetime-edit-fields-wrapper {
+    text-align: left;
+    padding: 0;
+    margin: 0;
+  }
+  
+  &[type="date"]::-webkit-datetime-edit-text {
+    text-align: left;
+    padding: 0;
+    margin: 0;
+  }
+  
+  &[type="date"]::-webkit-datetime-edit-month-field,
+  &[type="date"]::-webkit-datetime-edit-day-field,
+  &[type="date"]::-webkit-datetime-edit-year-field {
+    text-align: left;
+    padding: 0;
+    margin: 0;
+  }
+  
+  &[type="date"]::-webkit-calendar-picker-indicator {
+    position: absolute;
+    right: 1rem;
+    color: transparent;
+    background: transparent;
+    cursor: pointer;
+    
+    @include media-breakpoint-down(xxl) {
+      right: 1.25rem;
+    }
+
+    @media (min-width: 90rem) {
+      right: 1.5rem;
+    }
+  }
+  
+  &[type="date"][min] {
+    -webkit-appearance: none;
+    appearance: none;
   }
 }
