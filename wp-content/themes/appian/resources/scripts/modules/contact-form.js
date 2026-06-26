@@ -338,7 +338,51 @@ class ContactForm {
         
         dateInputs.forEach(input => {
             input.setAttribute('min', today);
+            
+            // Add iOS support
+            input.addEventListener('change', (e) => {
+                const selectedDate = new Date(e.target.value);
+                const todayDate = new Date(today);
+                
+                // If selected date is before, reset to today
+                if (selectedDate < todayDate) {
+                    e.target.value = today;
+                    
+                    // Show error message
+                    this.showDateError(e.target);
+                }
+            });
+            
+            input.addEventListener('blur', (e) => {
+                if (e.target.value) {
+                    const selectedDate = new Date(e.target.value);
+                    const todayDate = new Date(today);
+                    
+                    if (selectedDate < todayDate) {
+                        e.target.value = today;
+                        this.showDateError(e.target);
+                    }
+                }
+            });
         });
+    }
+
+    showDateError(input) {
+        this.clearFieldError({ target: input });
+        
+        input.classList.add('error');
+        
+        // Create and show error message
+        const errorElement = document.createElement('span');
+        errorElement.className = 'contact-form__error-message';
+        errorElement.textContent = 'Please select today\'s date or a future date';
+        
+        input.parentNode.appendChild(errorElement);
+        
+        // Remove error after 3 seconds
+        setTimeout(() => {
+            this.clearFieldError({ target: input });
+        }, 3000);
     }
 
     setupRadioDropdownToggle() {
