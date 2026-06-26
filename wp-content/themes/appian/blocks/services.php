@@ -88,7 +88,9 @@ if (!empty($valid_departments)) :
                     </div>
 
                     <?php if (!empty($department_link)) : ?>
-                        <a href="<?php echo esc_url($department_link); ?>" class="btn-nav">
+                        <a href="<?php echo esc_url($department_link); ?>" 
+                           class="btn-nav"
+                           aria-label="Learn more about <?php echo esc_attr($department_name ? $department_name : 'this service'); ?>">
                             <?php include get_template_directory() . '/resources/images/icon-arrow-right.svg'; ?>
                         </a>
                     <?php endif; ?>
