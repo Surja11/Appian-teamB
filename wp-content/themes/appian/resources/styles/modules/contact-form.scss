@@ -493,4 +493,46 @@ input[type="date"].contact-form__input,
       padding-right: 1.5rem;
     }
   }
+
+  // iOS
+  @supports (-webkit-appearance: none) {
+    &[type="date"] {
+      -webkit-appearance: none;
+      -moz-appearance: textfield;
+      appearance: none;
+      
+      height: 3.25rem !important;
+      line-height: 1.5;
+      
+      // Remove iOS default padding/margin
+      padding: 0.875rem 1rem;
+      margin: 0;
+      
+      text-align: left;
+      
+      background-color: white;
+      background-image: none;
+      
+      @include media-breakpoint-down(xxl) {
+        padding: 0.875rem 1.25rem;
+      }
+
+      @media (min-width: 90rem) {
+        padding: 0.875rem 1.5rem;
+      }
+    }
+  }
+
+  @media screen and (-webkit-min-device-pixel-ratio: 2) {
+    &[type="date"] {
+      box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+      
+      // Prevent zoom on iOS
+      font-size: 16px;
+      
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+    }
+  }
 }
