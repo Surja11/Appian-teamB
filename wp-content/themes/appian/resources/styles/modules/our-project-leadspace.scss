@@ -7,11 +7,8 @@ margin: 0 auto;
 }}
 
 .our-project-leadspace-container{
-    min-height: 400px;
-
-    @include media-breakpoint-up(lg){
-        min-height: 816px;
-    }
+     min-height: clamp(400px, calc(400px + (816 - 400) * ((100vw - 375px) / (1440 - 375))), 816px);
+    
   
     video{
       
@@ -32,11 +29,8 @@ margin: 0 auto;
 
     &__heading{
         color: $color-neutral-50 !important;
-        max-width: 318px !important;
-        @include media-breakpoint-up(lg) {
-        max-width: 840px !important;
-            
-        }
+        font-size: clamp(3rem, 1.4155rem + 6.7606vw, 7.5rem) !important;
+       max-width: clamp(318px, 148.86px + 45.13vw, 840px) !important;
     }
 
      &__text{

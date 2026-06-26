@@ -6,13 +6,11 @@ $nav-hover-color: $color-primary-red;
 $nav-border-color: $color-neutral-100;
 $nav-dropdown-bg: $color-neutral-50;
 $nav-dropdown-shadow: $box-shadow;
-$nav-items-gap: clamp(0.625rem, calc(-8.75rem + 12.5vw), 2.5rem);
-$nav-gap: clamp(0.9375rem, -20.15625rem + 28.125vw, 5.15625rem);
+$nav-items-gap: clamp(0.75rem, calc(-8.75rem + 12.5vw), 2.5rem);
+$nav-gap: clamp(1rem, calc(-13rem + 14.583vw), 5.15625rem);
 $nav-z: 100;
 
 $nav-breakpoint: 1200px;
-
-
 
 
 @mixin focus-box($offset: 5px) {
@@ -39,6 +37,7 @@ body:has(.navbar__main--open) {
   position: fixed;
   width: 100%;
 }
+
 body.menu-open {
   overflow: hidden;
 }
@@ -88,7 +87,7 @@ main {
   top: 46px;
 
   &:not(.header--hidden) {
-    transform: translateY(0px); 
+    transform: translateY(0px);
   }
 
   &.header--hidden {
@@ -102,9 +101,9 @@ main {
       transform: translateY(calc(-100% - 32px));
     }
 
-     &:not(.header--hidden) {
-    transform: translateY(0px); 
-  }
+    &:not(.header--hidden) {
+      transform: translateY(0px);
+    }
   }
 }
 
@@ -121,16 +120,13 @@ main {
   }
 
   @media (min-width: $nav-breakpoint) {
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     align-items: center;
-    justify-content: flex-start !important;
+    justify-content: space-between !important;
     max-width: 1440px;
     gap: $nav-gap !important;
-
     z-index: $nav-z;
     margin: auto;
-
-
   }
 
   &__top {
@@ -290,22 +286,24 @@ main {
         color: $nav-hover-color;
       }
 
-      // Disable hover effects on mobile devices
+   
       @media (hover: none) {
         &:hover {
           color: $nav-color;
         }
       }
-&.is-active {
-  > .navbar__link,
-  > .navbar__dropdown-trigger {
-    color: $nav-hover-color;
-    
-    svg {
-      fill: $nav-hover-color;
-    }
-  }
-}
+
+      &.is-active {
+
+        >.navbar__link,
+        >.navbar__dropdown-trigger {
+          color: $nav-hover-color;
+
+          svg {
+            fill: $nav-hover-color;
+          }
+        }
+      }
     }
   }
 
@@ -349,25 +347,26 @@ main {
     }
 
     @include media-breakpoint-up(xl) {
-    &:hover {
-      color: $nav-hover-color;
-
-      svg {
-        fill: $nav-hover-color;
-      }
-    }
-
-    // Disable hover effects on mobile devices
-    @media (hover: none) {
       &:hover {
-        color: $nav-color;
+        color: $nav-hover-color;
 
         svg {
-          fill: $nav-color;
+          fill: $nav-hover-color;
+        }
+      }
+
+     
+      @media (hover: none) {
+        &:hover {
+          color: $nav-color;
+
+          svg {
+            fill: $nav-color;
+          }
         }
       }
     }
-  }
+
     &[aria-expanded="true"] svg {
       transform: rotate(180deg);
     }

@@ -1,11 +1,9 @@
 @import '../common';
 
 .contact-leadspace-container{
-    min-height: 400px;
+     min-height: clamp(400px, calc(400px + (816 - 400) * ((100vw - 375px) / (1440 - 375))), 816px);
 
-    @include media-breakpoint-up(lg){
-        min-height: 816px;
-    }
+    
     img{
         object-fit: cover;
         aspect-ratio: 15/16;
@@ -15,7 +13,7 @@
     }
 
     &__overlay{
-          background: linear-gradient(25.38deg, #000000 28.68%, rgba(0, 0, 0, 0) 92.02%);
+        background: linear-gradient(25.38deg, #000000 28.68%, rgba(0, 0, 0, 0) 92.02%);
         opacity: 40%;
         pointer-events: none;
         z-index: 15;
@@ -25,6 +23,7 @@
 
     &__heading{
         color: $color-neutral-50 !important;
+         font-size: clamp(3rem, 1.4155rem + 6.7606vw, 7.5rem) !important;
     }
 
      &__text{

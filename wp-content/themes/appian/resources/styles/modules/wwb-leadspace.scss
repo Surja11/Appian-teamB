@@ -1,13 +1,11 @@
 @import '../common';
 
 .wwb-leadspace-container{
-    min-height: 303px;
+    min-height: clamp(303px, calc(303px + (816 - 303) * ((100vw - 375px) / (1440 - 375))), 816px);
 
-    @include media-breakpoint-up(lg){
-        min-height: 816px;
-    }
     img{
         object-fit: cover;
+      
         aspect-ratio: 375/303;
         @include media-breakpoint-up(lg){
             aspect-ratio: 1440/816;
@@ -15,7 +13,7 @@
     }
 
     &__overlay{
-          background: linear-gradient(25.38deg, #000000 28.68%, rgba(0, 0, 0, 0) 92.02%);
+        background: linear-gradient(25.38deg, #000000 28.68%, rgba(0, 0, 0, 0) 92.02%);
         opacity: 40%;
         pointer-events: none;
         z-index: 15;
@@ -25,8 +23,8 @@
 
     &__heading{
         color: $color-neutral-50 !important;
+        font-size: clamp(3rem, 1.4155rem + 6.7606vw, 7.5rem) !important;
     }
-
 
     &__text{
         @media (min-width:1200px) and (max-width: 1440px) {
