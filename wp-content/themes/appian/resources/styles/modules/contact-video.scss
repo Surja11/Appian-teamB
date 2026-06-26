@@ -1,12 +1,20 @@
 @import '../custom';
 
 .video-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
     background-color: rgba($black, 0.9);
     z-index: 99999;
     opacity: 0;
     animation: fadeIn 0.3s ease forwards;
     padding: 1rem;
     box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     
     @media (max-width: 375px) {
         padding: 0.5rem;
@@ -30,7 +38,7 @@
     transform: scale(0.95);
     animation: scaleIn 0.3s ease forwards;
     z-index: 100000;
-    margin: 1rem;
+    margin: 0;
     background-color: $black;
     border-radius: 8px;
     overflow: hidden;
@@ -38,14 +46,12 @@
     @media (min-width: 320px) {
         max-width: calc(100vw - 1rem);
         max-height: calc(100vh - 1rem);
-        margin: 0.5rem;
         border-radius: 4px;
     }
     
     @include media-breakpoint-up(sm) {
         max-width: calc(90vw - 2rem);
         max-height: calc(90vh - 2rem);
-        margin: 1rem;
         border-radius: 8px;
     }
     
@@ -68,14 +74,12 @@
     @media (max-height: 500px) and (orientation: landscape) {
         max-height: calc(95vh - 1rem);
         max-width: calc(95vw - 1rem);
-        margin: 0.5rem;
         border-radius: 4px;
     }
     
     @media (max-width: 375px) {
         max-width: calc(100vw - 0.5rem);
         max-height: calc(100vh - 1rem);
-        margin: 0.25rem;
         border-radius: 2px;
     }
     
