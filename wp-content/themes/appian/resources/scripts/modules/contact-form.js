@@ -159,6 +159,17 @@ class ContactForm {
             }
         }
 
+        if (field.type === 'date' && value) {
+            const selectedDate = new Date(value);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            
+            if (selectedDate < today) {
+                this.showFieldError(field, 'Please select today\'s date or a future date');
+                isValid = false;
+            }
+        }
+
 
         return isValid;
     }
@@ -316,6 +327,7 @@ class ContactForm {
         const today = new Date().toISOString().split('T')[0];
         
         dateInputs.forEach(input => {
+            // Set min attribute to restrict past dates (works on most browsers/devices)
             input.setAttribute('min', today);
             
             const originalPlaceholder = input.getAttribute('placeholder');
@@ -349,8 +361,9 @@ class ContactForm {
                     const todayDate = new Date(today);
                     
                     if (selectedDate < todayDate) {
-                        e.target.value = today;
                         this.showDateError(e.target);
+                    } else {
+                        this.clearFieldError({ target: e.target });
                     }
                 }
             });
@@ -380,12 +393,6 @@ class ContactForm {
         errorElement.textContent = 'Please select today\'s date or a future date';
         
         input.parentNode.appendChild(errorElement);
-        
-        setTimeout(() => {
-            if (input.parentNode.querySelector('.error-message') === errorElement) {
-                this.clearFieldError({ target: input });
-            }
-        }, 3000);
     }
 
     setupRadioDropdownToggle() {
