@@ -27,16 +27,13 @@ class VideoModalModule {
     }
 
     bindEvents() {
-        // Video thumbnail click handlers
         const videoThumbnails = document.querySelectorAll('.video-thumbnail-wrapper');
         
         videoThumbnails.forEach(thumbnail => {
-            // Click event
             thumbnail.addEventListener('click', () => {
                 this.openModal(thumbnail);
             });
             
-            // Keyboard event (Enter or Space)
             thumbnail.addEventListener('keydown', (e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
@@ -45,7 +42,6 @@ class VideoModalModule {
             });
         });
 
-        // Play button click handlers
         const playButtons = document.querySelectorAll('.video-control-btn');
         playButtons.forEach(btn => {
             btn.addEventListener('click', (e) => {
@@ -67,16 +63,13 @@ class VideoModalModule {
             return;
         }
 
-        // Store currently focused element
         this.lastActiveElement = document.activeElement;
 
-        // Get video data from thumbnail
         const videoUrl = thumbnailElement.getAttribute('data-video-url');
         const enableAudio = thumbnailElement.getAttribute('data-enable-audio') === 'true';
 
         if (!videoUrl) return;
 
-        // Set video source and audio preference
         const videoSource = this.modalVideo.querySelector('source');
         if (videoSource) {
             videoSource.src = videoUrl;
@@ -84,16 +77,15 @@ class VideoModalModule {
         this.modalVideo.src = videoUrl;
         this.modalVideo.muted = !enableAudio;
 
-        // Show modal
+        this.adjustModalSize();
+
         this.modal.classList.remove('d-none');
         this.modal.classList.add('d-flex');
         document.body.style.overflow = 'hidden';
 
-        // Set focus trapping and move focus to modal
         this.setupFocusTrapping();
         this.focusFirstElement();
 
-        // Auto-play video
         this.modalVideo.play().catch(error => {
             console.log('Auto-play prevented:', error);
         });
@@ -102,14 +94,12 @@ class VideoModalModule {
     bindModalEvents() {
         if (!this.modal) return;
 
-        // Click outside modal to close
         this.modal.addEventListener('click', (e) => {
             if (e.target === this.modal) {
                 this.closeModal();
             }
         });
 
-        // Close button
         const closeBtn = this.modal.querySelector('.video-modal__close');
         if (closeBtn) {
             closeBtn.addEventListener('click', (e) => {
@@ -119,17 +109,29 @@ class VideoModalModule {
             });
         }
 
-        // Escape key to close
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && !this.modal.classList.contains('d-none')) {
                 this.closeModal();
             }
         });
 
-        // Tab key focus
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Tab' && !this.modal.classList.contains('d-none')) {
                 this.trapFocus(e);
+            }
+        });
+
+        window.addEventListener('resize', () => {
+            if (!this.modal.classList.contains('d-none')) {
+                this.adjustModalSize();
+            }
+        });
+
+        window.addEventListener('orientationchange', () => {
+            if (!this.modal.classList.contains('d-none')) {
+                setTimeout(() => {
+                    this.adjustModalSize();
+                }, 100);
             }
         });
     }
@@ -137,17 +139,14 @@ class VideoModalModule {
     closeModal() {
         if (!this.modal || !this.modalVideo) return;
 
-        // Pause and reset video
         this.modalVideo.pause();
         this.modalVideo.currentTime = 0;
         this.modalVideo.src = '';
 
-        // Hide modal
         this.modal.classList.remove('d-flex');
         this.modal.classList.add('d-none');
         document.body.style.overflow = '';
 
-        // Return focus to element that opened the modal
         if (this.lastActiveElement) {
             this.lastActiveElement.focus();
             this.lastActiveElement = null;
@@ -170,7 +169,6 @@ class VideoModalModule {
 
     focusFirstElement() {
         if (this.focusableElements && this.focusableElements.length > 0) {
-            // Focus close button first
             const closeBtn = this.modal.querySelector('.video-modal__close');
             if (closeBtn) {
                 closeBtn.focus();
@@ -189,22 +187,40 @@ class VideoModalModule {
         const lastElement = this.focusableElements[this.focusableElements.length - 1];
 
         if (e.shiftKey) {
-            // Shift + Tab
             if (document.activeElement === firstElement) {
                 e.preventDefault();
                 lastElement.focus();
             }
         } else {
-            // Tab
             if (document.activeElement === lastElement) {
                 e.preventDefault();
                 firstElement.focus();
             }
         }
     }
+
+    adjustModalSize() {
+        if (!this.modal || !this.modalVideo) return;
+
+        const modalContainer = this.modal.querySelector('.video-modal');
+        if (!modalContainer) return;
+
+        const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+        const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+
+        const safeWidth = vw - (vw < 768 ? 32 : 64);
+        const safeHeight = vh - (vh < 600 ? 64 : 80);
+
+        modalContainer.style.maxWidth = `${safeWidth}px`;
+        modalContainer.style.maxHeight = `${safeHeight}px`;
+
+        this.modalVideo.style.maxWidth = '100%';
+        this.modalVideo.style.maxHeight = '100%';
+
+        console.log(`Viewport: ${vw}x${vh}, Safe area: ${safeWidth}x${safeHeight}`);
+    }
 }
 
-// Initialize video modal
 document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
         new VideoModalModule();

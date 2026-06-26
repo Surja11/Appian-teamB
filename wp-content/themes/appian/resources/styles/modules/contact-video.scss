@@ -1,57 +1,91 @@
 @import '../custom';
 
-// Video modal overlay
 .video-modal-overlay {
     background-color: rgba($black, 0.9);
     z-index: 99999;
     opacity: 0;
     animation: fadeIn 0.3s ease forwards;
+    padding: 1rem;
+    box-sizing: border-box;
+    
+    @media (max-width: 375px) {
+        padding: 0.5rem;
+    }
+    
+    @media (max-height: 500px) and (orientation: landscape) {
+        padding: 0.5rem;
+    }
 }
 
 @keyframes fadeIn {
     to { opacity: 1; }
 }
 
-// Video modal container
 .video-modal {
     position: relative;
-    max-width: 95vw;
-    max-height: 95vh;
+    max-width: calc(100vw - 2rem);
+    max-height: calc(100vh - 2rem);
     width: auto;
     height: auto;
     transform: scale(0.95);
     animation: scaleIn 0.3s ease forwards;
     z-index: 100000;
+    margin: 1rem;
+    background-color: $black;
+    border-radius: 8px;
+    overflow: hidden;
+    
+    @media (min-width: 320px) {
+        max-width: calc(100vw - 1rem);
+        max-height: calc(100vh - 1rem);
+        margin: 0.5rem;
+        border-radius: 4px;
+    }
     
     @include media-breakpoint-up(sm) {
-        max-width: 90vw;
-        max-height: 90vh;
+        max-width: calc(90vw - 2rem);
+        max-height: calc(90vh - 2rem);
+        margin: 1rem;
+        border-radius: 8px;
     }
     
     @include media-breakpoint-up(md) {
-        max-width: 85vw;
-        max-height: 85vh;
+        max-width: calc(85vw - 2rem);
+        max-height: calc(85vh - 2rem);
+        border-radius: 12px;
     }
     
     @include media-breakpoint-up(lg) {
-        max-width: 80vw;
-        max-height: 80vh;
+        max-width: calc(80vw - 2rem);
+        max-height: calc(80vh - 2rem);
     }
     
     @include media-breakpoint-up(xl) {
-        max-width: 75vw;
-        max-height: 75vh;
+        max-width: calc(75vw - 2rem);
+        max-height: calc(75vh - 2rem);
     }
     
-    // Show close button on hover
+    @media (max-height: 500px) and (orientation: landscape) {
+        max-height: calc(95vh - 1rem);
+        max-width: calc(95vw - 1rem);
+        margin: 0.5rem;
+        border-radius: 4px;
+    }
+    
+    @media (max-width: 375px) {
+        max-width: calc(100vw - 0.5rem);
+        max-height: calc(100vh - 1rem);
+        margin: 0.25rem;
+        border-radius: 2px;
+    }
+    
     &:hover .video-modal__close {
         opacity: 1;
     }
 
-    // Disable hover effects on mobile devices  
     @media (hover: none) {
         &:hover .video-modal__close {
-            opacity: 0;
+            opacity: 1;
         }
     }
 }
@@ -60,7 +94,6 @@
     to { transform: scale(1); }
 }
 
-// Modal close button
 .video-modal__close {
     top: 0.75rem;
     right: 0.75rem;
@@ -69,12 +102,23 @@
     z-index: 20;
     opacity: 0;
     transition: opacity 0.3s ease;
+    background-color: rgba($black, 0.8);
+    border-radius: 50%;
     
     @include media-breakpoint-up(md) {
         top: 1rem;
         right: 1rem;
         width: 3rem;
         height: 3rem;
+    }
+    
+    @media (max-width: 767px) {
+        opacity: 1;
+        background-color: rgba($black, 0.9);
+    }
+
+    @media (hover: none) {
+        opacity: 1;
     }
 
     svg {
@@ -95,6 +139,9 @@
     }
 
     &:hover {
+        background-color: rgba($black, 1);
+        transform: scale(1.1);
+        
         svg,
         svg path {
             stroke: $color-primary-red;
@@ -105,6 +152,7 @@
     &:focus {
         outline: 2px solid $color-primary-red;
         outline-offset: 2px;
+        opacity: 1;
     }
 
     &:focus:not(:focus-visible) {
@@ -117,16 +165,42 @@
     }
 }
 
-// Modal video player
 .modal-video-player {
     object-fit: contain;
     max-width: 100%;
     max-height: 100%;
     width: 100%;
     height: auto;
+    display: block;
+    background-color: $black;
+    
+    @media (max-width: 767px) {
+        max-width: calc(100vw - 2rem);
+        max-height: calc(100vh - 4rem);
+    }
+    
+    @media (max-width: 375px) {
+        max-width: calc(100vw - 1rem);
+        max-height: calc(100vh - 3rem);
+    }
+    
+    @media (max-height: 500px) and (orientation: landscape) {
+        max-height: calc(90vh - 2rem);
+        width: auto;
+    }
+    
+    &:not([style*="height"]) {
+        height: auto !important;
+    }
+    
+    &[width], &[height] {
+        max-width: 100% !important;
+        max-height: 100% !important;
+        width: auto !important;
+        height: auto !important;
+    }
 }
 
-// Video section (thumbnail container)
 .video-section {
     background-color: $white;
     height: auto;
@@ -142,17 +216,28 @@
     }
 }
 
-// Video thumbnail wrapper
 .video-thumbnail-wrapper {
-    aspect-ratio: 1.14/1; // Mobile aspect ratio (319/280)
+    aspect-ratio: 16/9;
     background-color: $black;
     border-radius: 0;
     max-width: 100%;
+    width: 100%;
+    
+    @supports not (aspect-ratio: 16/9) {
+        &::before {
+            content: '';
+            display: block;
+            padding-bottom: 56.25%;
+        }
+    }
     
     @include media-breakpoint-up(md) {
-        aspect-ratio: 1.95/1; // Desktop aspect ratio (1280/656)
         max-width: 80rem;
         margin: 0 auto;
+    }
+    
+    @media (min-width: 1600px) {
+        max-width: 90rem;
     }
 
     &:hover {
@@ -176,7 +261,6 @@
     }
 }
 
-// Video thumbnail
 .video-thumbnail {
     .video-poster {
         object-fit: cover;
@@ -189,7 +273,6 @@
     }
 }
 
-// Video controls
 .video-controls {
     z-index: 10;
     
