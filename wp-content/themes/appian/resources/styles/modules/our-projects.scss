@@ -86,7 +86,6 @@
             color: $color-primary-red !important;
         }
 
-        // Disable hover effects on mobile devices
         @media (hover: none) {
             &:hover {
                 background-color: transparent !important;
@@ -227,11 +226,16 @@
             opacity: 0.7;
         }
 
-        // Disable hover effects on mobile devices
         @media (hover: none) {
             &:hover {
                 opacity: 1;
             }
+        }
+
+        &:disabled {
+            opacity: 0.25;
+            cursor: not-allowed;
+            pointer-events: none;
         }
 
         &--prev img {

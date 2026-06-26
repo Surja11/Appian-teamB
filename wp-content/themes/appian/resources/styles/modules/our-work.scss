@@ -73,7 +73,7 @@ $tab-font-size: 0.875rem;
       outline: 1px solid $color-primary-red;
     }
 
-    // Disable hover effects on mobile devices
+  
     @media (hover: none) {
       &:hover:not(.active) {
         background-color: transparent;
@@ -161,6 +161,7 @@ $tab-font-size: 0.875rem;
 
     &-item {
       border: none !important;
+      position: relative;
 
       &:last-child {
         padding-bottom: 0 !important;
@@ -173,7 +174,7 @@ $tab-font-size: 0.875rem;
 
     &-button {
       box-shadow: none;
-      border: none;
+      border: 1px solid $color-primary-red !important;
       position: relative;
       font-family: $font-family-sans-serif;
       font-weight: $font-weight-medium;
@@ -192,19 +193,34 @@ $tab-font-size: 0.875rem;
       ///state of accordion when closed
       background-color: transparent;
       color: $color-primary-red;
-      border: 1px solid $color-primary-red;
 
-      // state on open
+    
+      
       &:not(.collapsed) {
         background-color: $color-primary-red;
         color: $color-neutral-50;
-        border: 1px solid $color-primary-red;
-        overflow: hidden; 
+        overflow: hidden;
+        z-index: 1;
+
+        &::before {
+          content: '';
+          position: absolute;
+          bottom: -1px;
+          left: 0;
+          right: 0;
+          height: 2px;
+          background-color: $color-primary-red;
+          z-index: 2;
+        }
       }
 
       &:focus {
         box-shadow: none;
       }
+    }
+
+    &-collapse {
+      border: none;
     }
 
     //svg chevron
