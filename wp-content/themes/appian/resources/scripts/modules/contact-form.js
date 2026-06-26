@@ -376,7 +376,7 @@ class ContactForm {
         input.classList.add('error');
         
         const errorElement = document.createElement('div');
-        errorElement.className = 'error-message body-small'; // Use consistent class name
+        errorElement.className = 'error-message body-small';
         errorElement.textContent = 'Please select today\'s date or a future date';
         
         input.parentNode.appendChild(errorElement);
