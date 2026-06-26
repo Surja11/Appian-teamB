@@ -39,6 +39,9 @@ body:has(.navbar__main--open) {
   position: fixed;
   width: 100%;
 }
+body.menu-open {
+  overflow: hidden;
+}
 
 main {
   padding-top: 4.375rem;
@@ -226,7 +229,7 @@ main {
     @media (min-width: $nav-breakpoint) {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: center;
       width: auto;
       padding-top: 0;
       border-top: none;
@@ -293,13 +296,16 @@ main {
           color: $nav-color;
         }
       }
-
-      &.is-active {
-
-        .navbar__link {
-          color: $nav-hover-color;
-        }
-      }
+&.is-active {
+  > .navbar__link,
+  > .navbar__dropdown-trigger {
+    color: $nav-hover-color;
+    
+    svg {
+      fill: $nav-hover-color;
+    }
+  }
+}
     }
   }
 
