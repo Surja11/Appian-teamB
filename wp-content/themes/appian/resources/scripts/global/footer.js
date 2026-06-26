@@ -68,6 +68,8 @@ document.addEventListener('DOMContentLoaded', function () {
         let error = subscribeWrapper.querySelector('.custom-footer__input-error');
         let thanks = subscribeWrapper.querySelector('.custom-footer__thank-you');
 
+        error.style.color = 'color-primary-red';
+
         if (label) label.style.display = 'none';
         if (form)  form.style.display  = 'none';
         if (error) error.style.display = 'none';

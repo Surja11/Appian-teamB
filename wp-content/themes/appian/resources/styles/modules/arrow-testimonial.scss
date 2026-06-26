@@ -49,6 +49,10 @@
             left: 67.9%;
             width: auto;
         }
+
+        @media (max-width: 350px) {
+            left: 58%;
+        }
     }
 
     &__arrow {
