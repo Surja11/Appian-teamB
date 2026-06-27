@@ -41,10 +41,10 @@
                 },
                 {
                     "key": "field_6a390f4d303fa",
-                    "label": "Our Projects List",
-                    "name": "our_projects_list",
+                    "label": "Select Project Items",
+                    "name": "select_project_items",
                     "aria-label": "",
-                    "type": "repeater",
+                    "type": "relationship",
                     "instructions": "Select projects to display in this section. Only projects marked as 'Featured Post' will be highlighted.",
                     "required": 0,
                     "conditional_logic": 0,
@@ -53,43 +53,25 @@
                         "class": "",
                         "id": ""
                     },
-                    "min": 0,
-                    "max": 0,
-                    "layout": "table",
-                    "button_label": "Add Project",
-                    "collapsed": "field_6a390f5d303fb",
-                    "sub_fields": [
-                        {
-                            "key": "field_6a390f5d303fb",
-                            "label": "Select Project",
-                            "name": "project",
-                            "aria-label": "",
-                            "type": "post_object",
-                            "instructions": "",
-                            "required": 1,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "post_type": [
-                                "project"
-                            ],
-                            "post_status": [
-                                "publish"
-                            ],
-                            "taxonomy": "",
-                            "return_format": "object",
-                            "multiple": 0,
-                            "allow_null": 0,
-                            "bidirectional": 0,
-                            "ui": 1,
-                            "bidirectional_target": []
-                        }
-                    ]
+                    "post_type": [
+                        "project"
+                    ],
+                    "post_status": [
+                        "publish"
+                    ],
+                    "taxonomy": "",
+                    "filters": [
+                        "search",
+                        "post_type"
+                    ],
+                    "return_format": "object",
+                    "min": "",
+                    "max": "",
+                    "allow_in_bindings": 0,
+                    "elements": "",
+                    "bidirectional": 0,
+                    "bidirectional_target": []
                 },
-
                 {
                     "key": "field_6a390f9d303ff",
                     "label": "Enable Filters",
@@ -160,7 +142,8 @@
                     "step": 1,
                     "prepend": "",
                     "append": "",
-                    "allow_in_bindings": 0
+                    "allow_in_bindings": 0,
+                    "placeholder": ""
                 }
             ]
         }
@@ -186,5 +169,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1782124500
+    "modified": 1782550554
 }

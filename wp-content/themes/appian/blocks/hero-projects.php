@@ -19,7 +19,7 @@ $projects = new WP_Query([
     'posts_per_page' => 10,
     'post_status' => 'publish',
     'post__in' => $selected_ids,
-    'order_by' => 'post__in'
+    'orderby' => 'post__in'
 ]);
 
 if (!empty($section_title) || $projects->have_posts() || !empty($featured_image)):
