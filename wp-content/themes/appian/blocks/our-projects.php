@@ -104,7 +104,7 @@ if (empty($section_title) && empty($all_project_ids)) return;
         <?php endif; ?>
 
 
-        <div class="our-projects__cards w-100 d-flex flex-column align-items-center gap-3"
+        <div class="our-projects__cards w-100 d-flex flex-column align-items-center"
             id="projects-grid">
 
         </div>

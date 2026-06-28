@@ -152,16 +152,44 @@ class ContactForm {
             const startsOK = /^[\+\(0-9]/.test(effectiveValue);
             const endsOK = /[0-9\)]$/.test(effectiveValue);
             
+            // Check for valid international format (starts with + followed by country code)
+            const isInternationalFormat = /^\+[1-9]\d{0,3}/.test(effectiveValue);
+            
+            // Provide specific error messages based on the validation issue
+            let phoneErrorMessage = 'Please enter a valid phone number';
+            
+            if (hasInvalidPatterns) {
+                phoneErrorMessage = 'Phone number can only contain numbers, spaces, dashes, dots, parentheses, and + symbol';
+            } else if (!startsOK) {
+                phoneErrorMessage = 'Phone number must start with a number, + symbol, or opening parenthesis';
+            } else if (!endsOK) {
+                phoneErrorMessage = 'Phone number must end with a number or closing parenthesis';
+            } else if (hasConsecutiveSpecialChars) {
+                phoneErrorMessage = 'Please avoid consecutive special characters (e.g., --, .., etc.)';
+            } else if (isAllZeros) {
+                phoneErrorMessage = 'Phone number cannot consist of only zeros';
+            } else if (effectiveValue.startsWith('+') && !isInternationalFormat) {
+                phoneErrorMessage = 'International format must start with + followed by country code (e.g., +1, +44, +91)';
+            } else if (isInternationalFormat && cleanPhone.length < 8) {
+                phoneErrorMessage = 'International phone number is too short (minimum 8 digits including country code)';
+            } else if (!isInternationalFormat && cleanPhone.length < 10) {
+                phoneErrorMessage = 'Local phone number must be at least 10 digits (or use international format with +)';
+            } else if (cleanPhone.length > 15) {
+                phoneErrorMessage = 'Phone number is too long (maximum 15 digits)';
+            }
+            
             if (
                 !startsOK ||                      
                 !endsOK ||                        
                 hasConsecutiveSpecialChars ||
                 hasInvalidPatterns ||             
                 isAllZeros ||                     
-                cleanPhone.length < 7 ||
-                cleanPhone.length > 15
+                cleanPhone.length > 15 ||
+                (effectiveValue.startsWith('+') && !isInternationalFormat) ||
+                (isInternationalFormat && cleanPhone.length < 8) ||
+                (!isInternationalFormat && cleanPhone.length < 10)
             ) {
-                this.showFieldError(field, 'Please enter a valid phone number');
+                this.showFieldError(field, phoneErrorMessage);
                 isValid = false;
             }
         }
