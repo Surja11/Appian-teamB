@@ -40,13 +40,13 @@ if ($video_source === 'upload' && $video_file) {
 
 <div class="video-modal-overlay position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center overflow-hidden pe-auto d-none" id="video-modal-overlay">
 
-    <div class="video-modal position-relative overflow-hidden d-flex flex-column align-items-center justify-content-center">
+    <div class="video-modal container overflow-hidden d-flex flex-column align-items-center justify-content-center">
         
-        <button class="video-modal__close position-absolute border-0 cursor-pointer d-flex align-items-center justify-content-center bg-transparent p-0 pe-auto" aria-label="Close video modal">
-            <?php include get_template_directory() . '/resources/images/icon-close.svg'; ?>
-        </button>
-
         <div class="video-modal__content position-relative w-100 h-100 d-flex align-items-center justify-content-center">
+            <button class="video-modal__close position-absolute border-0 cursor-pointer d-flex align-items-center justify-content-center bg-transparent p-0 pe-auto" aria-label="Close video modal">
+                <?php include get_template_directory() . '/resources/images/icon-close.svg'; ?>
+            </button>
+            
             <video 
                 id="modalVideoPlayer" 
                 class="modal-video-player w-100 h-100 d-block" 

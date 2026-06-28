@@ -77,8 +77,6 @@ class VideoModalModule {
         this.modalVideo.src = videoUrl;
         this.modalVideo.muted = !enableAudio;
 
-        this.adjustModalSize();
-
         this.modal.classList.remove('d-none');
         this.modal.classList.add('d-flex');
         document.body.style.overflow = 'hidden';
@@ -86,8 +84,11 @@ class VideoModalModule {
         this.setupFocusTrapping();
         this.focusFirstElement();
 
+        this.modalVideo.addEventListener('loadedmetadata', () => {
+            this.forceVideoControlsVisible();
+        }, { once: true });
+
         this.modalVideo.play().catch(error => {
-            console.log('Auto-play prevented:', error);
         });
     }
 
@@ -109,9 +110,38 @@ class VideoModalModule {
             });
         }
 
+        if (this.modalVideo) {
+            this.modalVideo.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                if (this.modalVideo.paused) {
+                    this.modalVideo.play().catch(error => {
+                    });
+                } else {
+                    this.modalVideo.pause();
+                }
+            });
+
+            this.modalVideo.addEventListener('dblclick', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+            });
+        }
+
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && !this.modal.classList.contains('d-none')) {
-                this.closeModal();
+            if (!this.modal.classList.contains('d-none')) {
+                if (e.key === 'Escape') {
+                    this.closeModal();
+                } else if (e.key === ' ' || e.key === 'Spacebar') {
+                    e.preventDefault();
+                    if (this.modalVideo.paused) {
+                        this.modalVideo.play().catch(error => {
+                        });
+                    } else {
+                        this.modalVideo.pause();
+                    }
+                }
             }
         });
 
@@ -123,14 +153,14 @@ class VideoModalModule {
 
         window.addEventListener('resize', () => {
             if (!this.modal.classList.contains('d-none')) {
-                this.adjustModalSize();
+                this.forceVideoControlsVisible();
             }
         });
 
         window.addEventListener('orientationchange', () => {
             if (!this.modal.classList.contains('d-none')) {
                 setTimeout(() => {
-                    this.adjustModalSize();
+                    this.forceVideoControlsVisible();
                 }, 100);
             }
         });
@@ -199,25 +229,15 @@ class VideoModalModule {
         }
     }
 
-    adjustModalSize() {
-        if (!this.modal || !this.modalVideo) return;
-
-        const modalContainer = this.modal.querySelector('.video-modal');
-        if (!modalContainer) return;
-
-        const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
-        const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
-
-        const safeWidth = vw - (vw < 768 ? 32 : 64);
-        const safeHeight = vh - (vh < 600 ? 64 : 80);
-
-        modalContainer.style.maxWidth = `${safeWidth}px`;
-        modalContainer.style.maxHeight = `${safeHeight}px`;
-
-        this.modalVideo.style.maxWidth = '100%';
-        this.modalVideo.style.maxHeight = '100%';
-
-        console.log(`Viewport: ${vw}x${vh}, Safe area: ${safeWidth}x${safeHeight}`);
+    forceVideoControlsVisible() {
+        if (!this.modalVideo) return;
+        
+        this.modalVideo.setAttribute('controls', 'true');
+        this.modalVideo.controls = true;
+        
+        const currentTime = this.modalVideo.currentTime;
+        this.modalVideo.currentTime = currentTime + 0.01;
+        this.modalVideo.currentTime = currentTime;
     }
 }
 

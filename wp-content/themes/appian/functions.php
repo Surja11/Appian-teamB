@@ -34,6 +34,50 @@ function theme_preload_assets() {
 }
 add_action( 'wp_head', 'theme_preload_assets', 1 );
 
+function theme_add_meta_description() {
+    if (is_singular()) {
+        global $post;
+        
+        $meta_desc = get_post_meta($post->ID, 'meta_description', true);
+        
+        if (empty($meta_desc)) {
+            if (has_excerpt($post)) {
+                $meta_desc = get_the_excerpt($post);
+            } else {
+                $meta_desc = wp_trim_words(wp_strip_all_tags(get_the_content()), 25, '...');
+            }
+        }
+    } elseif (is_home() || is_front_page()) {
+        $meta_desc = get_bloginfo('description');
+    } elseif (is_category()) {
+        $meta_desc = category_description();
+        if (empty($meta_desc)) {
+            $meta_desc = 'Browse ' . single_cat_title('', false) . ' posts on ' . get_bloginfo('name');
+        }
+    } elseif (is_tag()) {
+        $meta_desc = tag_description();
+        if (empty($meta_desc)) {
+            $meta_desc = 'Posts tagged with ' . single_tag_title('', false) . ' on ' . get_bloginfo('name');
+        }
+    } elseif (is_archive()) {
+        $meta_desc = get_the_archive_description();
+        if (empty($meta_desc)) {
+            $meta_desc = 'Archive page on ' . get_bloginfo('name');
+        }
+    } else {
+        $meta_desc = get_bloginfo('description');
+    }
+    
+    if (!empty($meta_desc)) {
+        $meta_desc = wp_strip_all_tags($meta_desc);
+        $meta_desc = wp_trim_words($meta_desc, 25, '...');
+        $meta_desc = esc_attr($meta_desc);
+        
+        echo '<meta name="description" content="' . $meta_desc . '">' . "\n";
+    }
+}
+add_action('wp_head', 'theme_add_meta_description', 2);
+
 function vite_assets($entry)
 {
     static $manifest;

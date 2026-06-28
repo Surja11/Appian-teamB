@@ -6,134 +6,66 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba($black, 0.9);
-    z-index: 99999;
-    opacity: 0;
-    animation: fadeIn 0.3s ease forwards;
-    padding: 1rem;
-    box-sizing: border-box;
+    background: rgba(0, 0, 0, 0.8) !important;
+    backdrop-filter: blur(2px) !important;
+    z-index: 999999;
     display: flex;
     align-items: center;
     justify-content: center;
-    
-    @media (max-width: 375px) {
-        padding: 0.5rem;
-    }
-    
-    @media (max-height: 500px) and (orientation: landscape) {
-        padding: 0.5rem;
-    }
 }
 
-@keyframes fadeIn {
-    to { opacity: 1; }
-}
 
 .video-modal {
     position: relative;
-    max-width: calc(100vw - 2rem);
-    max-height: calc(100vh - 2rem);
-    width: auto;
-    height: auto;
-    transform: scale(0.95);
-    animation: scaleIn 0.3s ease forwards;
-    z-index: 100000;
-    margin: 0;
-    background-color: $black;
-    border-radius: 8px;
-    overflow: hidden;
-    
-    @media (min-width: 320px) {
-        max-width: calc(100vw - 1rem);
-        max-height: calc(100vh - 1rem);
-        border-radius: 4px;
-    }
-    
-    @include media-breakpoint-up(sm) {
-        max-width: calc(90vw - 2rem);
-        max-height: calc(90vh - 2rem);
-        border-radius: 8px;
-    }
-    
-    @include media-breakpoint-up(md) {
-        max-width: calc(85vw - 2rem);
-        max-height: calc(85vh - 2rem);
-        border-radius: 12px;
-    }
-    
-    @include media-breakpoint-up(lg) {
-        max-width: calc(80vw - 2rem);
-        max-height: calc(80vh - 2rem);
-    }
-    
-    @include media-breakpoint-up(xl) {
-        max-width: calc(75vw - 2rem);
-        max-height: calc(75vh - 2rem);
-    }
-    
-    @media (max-height: 500px) and (orientation: landscape) {
-        max-height: calc(95vh - 1rem);
-        max-width: calc(95vw - 1rem);
-        border-radius: 4px;
-    }
-    
-    @media (max-width: 375px) {
-        max-width: calc(100vw - 0.5rem);
-        max-height: calc(100vh - 1rem);
-        border-radius: 2px;
-    }
-    
-    &:hover .video-modal__close {
-        opacity: 1;
-    }
-
-    @media (hover: none) {
-        &:hover .video-modal__close {
-            opacity: 1;
-        }
-    }
-}
-
-@keyframes scaleIn {
-    to { transform: scale(1); }
+    aspect-ratio: 16/9;
 }
 
 .video-modal__close {
-    top: 0.75rem;
-    right: 0.75rem;
-    width: 2.5rem;
-    height: 2.5rem;
-    z-index: 20;
-    opacity: 0;
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    width: 1.75rem;   
+    height: 1.75rem;
+    z-index: 1000;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1; /* Always visible */
     transition: opacity 0.3s ease;
-    background-color: rgba($black, 0.8);
-    border-radius: 50%;
-    
+
     @include media-breakpoint-up(md) {
-        top: 1rem;
-        right: 1rem;
-        width: 3rem;
-        height: 3rem;
-    }
-    
-    @media (max-width: 767px) {
-        opacity: 1;
-        background-color: rgba($black, 0.9);
+        top: map-get($spacers, 5);
+        right: map-get($spacers, 5);
+        width: map-get($spacers, 6);
+        height: map-get($spacers, 6);
     }
 
-    @media (hover: none) {
-        opacity: 1;
+    @include media-breakpoint-up(xxl) {
+        top: map-get($spacers, 6);
+        right: map-get($spacers, 6);
+        width: map-get($spacers, 8);
+        height: map-get($spacers, 8);
     }
 
     svg {
-        width: 1.5rem;
-        height: 1.5rem;
+        width: 1.75rem;
+        height: 1.75rem;
         stroke: $white;
         fill: $white;
-        
+
         @include media-breakpoint-up(md) {
-            width: 2rem;
-            height: 2rem;
+            width: map-get($spacers, 6);
+            height: map-get($spacers, 6);
+            stroke: $white;
+            fill: $white;
+        }
+
+        @include media-breakpoint-up(xxl) {
+            width: map-get($spacers, 8);
+            height: map-get($spacers, 8);
         }
 
         path {
@@ -143,9 +75,6 @@
     }
 
     &:hover {
-        background-color: rgba($black, 1);
-        transform: scale(1.1);
-        
         svg,
         svg path {
             stroke: $color-primary-red;
@@ -153,10 +82,19 @@
         }
     }
 
+    @media (hover: none) {
+        &:hover {
+            svg,
+            svg path {
+                stroke: inherit;
+                fill: inherit;
+            }
+        }
+    }
+
     &:focus {
         outline: 2px solid $color-primary-red;
         outline-offset: 2px;
-        opacity: 1;
     }
 
     &:focus:not(:focus-visible) {
@@ -169,40 +107,20 @@
     }
 }
 
-.modal-video-player {
-    object-fit: contain;
-    max-width: 100%;
-    max-height: 100%;
+.video-modal__content {
+    position: relative;
     width: 100%;
-    height: auto;
-    display: block;
-    background-color: $black;
-    
-    @media (max-width: 767px) {
-        max-width: calc(100vw - 2rem);
-        max-height: calc(100vh - 4rem);
-    }
-    
-    @media (max-width: 375px) {
-        max-width: calc(100vw - 1rem);
-        max-height: calc(100vh - 3rem);
-    }
-    
-    @media (max-height: 500px) and (orientation: landscape) {
-        max-height: calc(90vh - 2rem);
-        width: auto;
-    }
-    
-    &:not([style*="height"]) {
-        height: auto !important;
-    }
-    
-    &[width], &[height] {
-        max-width: 100% !important;
-        max-height: 100% !important;
-        width: auto !important;
-        height: auto !important;
-    }
+    height: 100%;
+}
+
+.modal-video-player {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background: black;
 }
 
 .video-section {
@@ -297,12 +215,12 @@
         }
 
         &:hover {
-            background: #{$black};
+            background: $black;
             transform: scale(1.1);
         }
 
         &:focus {
-            outline: 2px solid $white;
+            outline: 2px solid $color-primary-red;
             outline-offset: 4px;
         }
 
@@ -311,7 +229,7 @@
         }
 
         &:focus-visible {
-            outline: 2px solid $white;
+            outline: 2px solid $color-primary-red;
             outline-offset: 4px;
         }
 

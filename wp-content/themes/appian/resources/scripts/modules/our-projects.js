@@ -49,7 +49,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 section.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         })
-        .catch(err => console.error('Projects AJAX error:', err))
+        .catch(err => {
+        })
         .finally(() => {
             cardsContainer.style.opacity       = '';
             cardsContainer.style.pointerEvents = '';
