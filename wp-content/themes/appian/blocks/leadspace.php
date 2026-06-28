@@ -28,7 +28,8 @@ $video_poster = get_field('poster');
                             poster="<?php echo $video_poster ? esc_url($video_poster['url']) : ''; ?>"
                             class="home-leadspace__video"
                             disablepictureinpicture
-                            disableremoteplayback>
+                            disableremoteplayback
+                            fetchpriority="high">
                             <source src="<?php echo $video_url; ?>" type="video/mp4">
                         </video>
                     </div>
