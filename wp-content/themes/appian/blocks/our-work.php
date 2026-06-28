@@ -50,7 +50,7 @@ $chevron = '<svg class="our-work__chevron" width="24" height="24" viewBox="0 0 2
     <!-- our work heading with underline stroke -->
         <div class=" our-work__heading d-flex flex-column justify-content-center align-items-center">
             <h2 class="mb-4"><?php echo esc_html($our_work_header ?: 'Our Work'); ?></h2>
-            <picture>
+            <picture class="divider-animate">
             <source
                 media="(min-width: 1200px)"
                 srcset="<?php echo get_template_directory_uri(); ?>/resources/images/divider.svg">
