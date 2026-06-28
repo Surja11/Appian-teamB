@@ -18,9 +18,9 @@ $cta_button  = get_field('faq_cta_button');
 
     <main class="pt-15 d-flex flex-column flex-lg-row gap-lg-20">
       <section class="cta-section d-flex flex-shrink-0 flex-column pb-20">
-        <h5 class="cta-section__caption mb-0">
+        <h3 class=" h5 cta-section__caption mb-0">
           <?php echo wp_kses_post($cta_caption); ?>
-        </h5>
+        </h3>
 
         <div class="cta-section__body d-flex flex-column">
           <div class="cta-section__text m-0 body body-small-all">

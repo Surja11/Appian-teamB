@@ -77,7 +77,7 @@ if (!empty($section_title) || $projects->have_posts() || !empty($featured_image)
                 endwhile;
                 wp_reset_postdata();
                 if (!empty($featured_image) && $featured_image_position > $total): ?>
-                    <div class="hero-projects__feature-image"
+                    <div class="hero-projects__feature-image" role="img"
                         style="background-image: url('<?php echo esc_url($featured_image['url']); ?>');">
                     </div>
                 <?php endif; ?>

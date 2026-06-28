@@ -15,6 +15,25 @@ if (! defined('_S_VERSION')) {
 
 require get_template_directory() . '/inc/svg-support.php';
 
+//preloading css
+function theme_preload_assets() {
+    $manifest = theme_vite_manifest();
+    if ( empty( $manifest ) ) return;
+
+    $app_entry = $manifest['resources/styles/app.scss'] ?? null;
+    if ( $app_entry && ! empty( $app_entry['file'] ) ) {
+        $css_url = get_template_directory_uri() . '/public/' . $app_entry['file'];
+        echo '<link rel="preload" href="' . esc_url( $css_url ) . '" as="style">' . "\n";
+    }
+
+    $js_entry = $manifest['resources/scripts/app.js'] ?? null;
+    if ( $js_entry && ! empty( $js_entry['file'] ) ) {
+        $js_url = get_template_directory_uri() . '/public/' . $js_entry['file'];
+        echo '<link rel="modulepreload" href="' . esc_url( $js_url ) . '">' . "\n";
+    }
+}
+add_action( 'wp_head', 'theme_preload_assets', 1 );
+
 function vite_assets($entry)
 {
     static $manifest;

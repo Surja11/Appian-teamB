@@ -22,24 +22,37 @@ function our_projects_filter()
 {
     check_ajax_referer('projects_nonce', 'nonce');
 
-    $filter = isset($_POST['filter']) ? strtolower(sanitize_text_field($_POST['filter'])) : 'all';
-    $page = isset($_POST['page']) ? absint($_POST['page']) : 1;
+    $filter = isset($_POST['filter'])   ? strtolower(sanitize_text_field($_POST['filter'])) : 'all';
+    $page = isset($_POST['page'])     ? absint($_POST['page']) : 1;
     $per_page = isset($_POST['per_page']) ? absint($_POST['per_page']) : 6;
 
+  
+    $selected_ids = [];
+    if (!empty($_POST['selected_ids'])) {
+        $selected_ids = array_filter(
+            array_map('absint', explode(',', sanitize_text_field($_POST['selected_ids'])))
+        );
+    }
+
     $base = [
-        'post_type'   => 'project',
+        'post_type'=> 'project',
         'post_status' => 'publish',
         'numberposts' => -1,
-        'fields'      => 'ids',
-        'orderby'     => 'date',
-        'order'       => 'DESC',
+        'fields'=> 'ids',
+        'orderby'=> 'date',
+        'order'=> 'DESC',
     ];
+
+   
+    if (!empty($selected_ids)) {
+        $base['post__in'] = $selected_ids;
+    }
 
     $cat_filter = [];
     if ($filter !== 'all') {
         $cat_filter = [[
-            'key'     => 'project_details_project_category',
-            'value'   => $filter,
+            'key'=> 'project_details_project_category',
+            'value'=> $filter,
             'compare' => '=',
         ]];
     }
@@ -58,32 +71,32 @@ function our_projects_filter()
         ]]),
     ]));
 
-    $all_ids     = array_merge($featured_ids, $regular_ids);
-    $total       = count($all_ids);
+    $all_ids= array_merge($featured_ids, $regular_ids);
+    $total= count($all_ids);
     $total_pages = $per_page > 0 ? ceil($total / $per_page) : 1;
-    $paged_ids   = array_slice($all_ids, ($page - 1) * $per_page, $per_page);
+    $paged_ids = array_slice($all_ids, ($page - 1) * $per_page, $per_page);
 
     echo '<div class="our-projects__cards-inner d-grid w-100 gap-3">';
 
     if (!empty($paged_ids)) :
         $query = new WP_Query([
-            'post_type'      => 'project',
-            'post__in'       => $paged_ids,
-            'orderby'        => 'post__in',
+            'post_type'=> 'project',
+            'post__in'=> $paged_ids,
+            'orderby'=> 'post__in',
             'posts_per_page' => $per_page,
         ]);
 
         while ($query->have_posts()) : $query->the_post();
-            $post_id         = get_the_ID();
+            $post_id= get_the_ID();
             $project_details = get_field('project_details', $post_id);
 
             $card = [
-                'project_title'    => get_the_title($post_id),
+                'project_title'=> get_the_title($post_id),
                 'project_category' => $project_details['project_category'] ?? '',
                 'project_subtitle' => $project_details['project_subtitle'] ?? '',
-                'project_image'    => $project_details['project_card_image'] ?? null,
-                'page_link'        => get_permalink($post_id),
-                'featured_post'    => $project_details['featured_post'] ?? false,
+                'project_image'=> $project_details['project_card_image'] ?? null,
+                'page_link'=> get_permalink($post_id),
+                'featured_post'=> $project_details['featured_post'] ?? false,
             ];
 
             set_query_var('card', $card);
@@ -99,8 +112,8 @@ function our_projects_filter()
 
     if ($total_pages > 1) :
         $visible = 5;
-        $start   = max(1, $page - floor($visible / 2));
-        $end     = min($total_pages, $start + $visible - 1);
+        $start= max(1, $page - floor($visible / 2));
+        $end= min($total_pages, $start + $visible - 1);
 
         if ($end - $start + 1 < $visible) {
             $start = max(1, $end - $visible + 1);

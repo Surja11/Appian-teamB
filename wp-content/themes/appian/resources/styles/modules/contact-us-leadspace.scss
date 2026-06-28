@@ -1,7 +1,11 @@
 @import '../common';
 
 .contact-leadspace-container{
-     min-height: clamp(400px, calc(400px + (816 - 400) * ((100vw - 375px) / (1440 - 375))), 816px);
+    min-height: calc(100vh - 4.375rem);
+
+    @include media-breakpoint-up(lg) {
+        min-height: calc(100vh - 5.625rem);
+    }
 
     
     img{

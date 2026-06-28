@@ -1,4 +1,3 @@
-
 @import '../common';
 
 .our-partner-wrapper {
@@ -13,28 +12,26 @@
   $cols-mobile: 2;
   $cols-desk:   4;
 
-
   $max-content-w: 1440px;
 
   $padding-xs: 1rem;
-  $tick-h-xs:  1rem;
+  $tick-h-xs:  0.95rem;
   $row-h-xs:   72px;
 
   $padding-375: 1.5rem;
-  $tick-h-375:  1.5rem;
+  $tick-h-375:  1.45rem;
   $row-h-375:   100px;
 
   $padding-sm: 1.8125rem;
-  $tick-h-sm:  1.75rem;
+  $tick-h-sm:  1.70rem;
   $row-h-sm:   140px;
 
   $padding-md: 3rem;
-  $tick-h-md:  2.5rem;
+  $tick-h-md:  2.45rem;
   $row-h-md:   130px;
 
-
   $padding-xl: 5rem;
-  $tick-h-xl:  3.5rem;
+  $tick-h-xl:  3.45rem;
   $row-h-xl:   166px;
 
   $border-col: $color-neutral-100;
@@ -50,17 +47,17 @@
     padding-bottom: 4.75rem;
   }
 
-  @include media-breakpoint-up(sm) {  // 576px
+  @include media-breakpoint-up(sm) {
     padding-top: 3.5rem;
     padding-bottom: 5.5rem;
   }
 
-  @include media-breakpoint-up(md) {  // 768px
+  @include media-breakpoint-up(md) {
     padding-top: 4rem;
     padding-bottom: 6.5rem;
   }
 
-  @include media-breakpoint-up(xl) {  // 1200px
+  @include media-breakpoint-up(xl) {
     padding-top: 5rem;
     padding-bottom: 8.5rem;
   }
@@ -97,79 +94,46 @@
 
     padding: $tick-h-xs $padding-xs;
 
-    &::before,
+    &::before {
+      content: "";
+      position: absolute;
+      right: $padding-xs;
+      top: 0;
+      width: 0.0625rem;
+      height: $tick-h-xs;
+      background-color: $border-col;
+      pointer-events: none;
+    }
+
     &::after {
       content: "";
       position: absolute;
-      left: 0;
-      right: 0;
-      height: $tick-h-xs;
-      pointer-events: none;
-      background-image: linear-gradient(to right, $border-col 1px, transparent 1px);
-      background-repeat: repeat-x;
-      background-size: calc((100% - #{$padding-xs * 2}) / #{$cols-mobile}) 100%;
-    }
-
-    &::before {
-      top: 0;
-      background-position: #{$padding-xs} 0;
-    }
-
-    &::after {
+      right: $padding-xs;
       bottom: 0;
-      background-position: #{$padding-xs} 0;
+      width: 0.0625rem;
+      height: $tick-h-xs;
+      background-color: $border-col;
+      pointer-events: none;
     }
 
     @media (min-width: 375px) {
       padding: $tick-h-375 $padding-375;
-
-      &::before,
-      &::after {
-        height: $tick-h-375;
-        background-size: calc((100% - #{$padding-375 * 2}) / #{$cols-mobile}) 100%;
-      }
-
-      &::before { background-position: #{$padding-375} 0; }
-      &::after  { background-position: #{$padding-375} 0; }
+      &::before, &::after { right: $padding-375; height: $tick-h-375; }
     }
 
     @include media-breakpoint-up(sm) {
       padding: $tick-h-sm $padding-sm;
-
-      &::before,
-      &::after {
-        height: $tick-h-sm;
-        background-size: calc((100% - #{$padding-sm * 2}) / #{$cols-mobile}) 100%;
-      }
-
-      &::before { background-position: #{$padding-sm} 0; }
-      &::after  { background-position: #{$padding-sm} 0; }
+      &::before, &::after { right: $padding-sm; height: $tick-h-sm; }
     }
 
     @include media-breakpoint-up(md) {
       padding: $tick-h-md $padding-md;
-
-      &::before,
-      &::after {
-        height: $tick-h-md;
-        background-size: calc((100% - #{$padding-md * 2}) / #{$cols-desk}) 100%;
-      }
-
-      &::before { background-position: #{$padding-md} 0; }
-      &::after  { background-position: #{$padding-md} 0; }
+      &::before, &::after { right: $padding-md; height: $tick-h-md; }
     }
 
     @include media-breakpoint-up(xl) {
       padding: $tick-h-xl $padding-xl;
-
-      &::before,
-      &::after {
-        height: $tick-h-xl;
-        background-size: calc((100% - #{$padding-xl * 2}) / #{$cols-desk}) 100%;
-      }
-
-      &::before { background-position: #{$padding-xl} 0; }
-      &::after  { background-position: #{$padding-xl} 0; }
+      &::before, &::after { right: $padding-xl; height: $tick-h-xl; }
     }
   }
 
@@ -179,10 +143,9 @@
     display: grid;
     border-top:  0.0625rem solid $border-col;
     border-left: 0.0625rem solid $border-col;
-
     grid-template-columns: repeat(#{$cols-mobile}, 1fr);
     grid-auto-rows: $row-h-xs;
-
+    overflow: visible; 
     &::before,
     &::after {
       content: "";
@@ -193,17 +156,17 @@
       pointer-events: none;
       background-image: linear-gradient(to bottom, $border-col 1px, transparent 1px);
       background-repeat: repeat-y;
-      background-size: 100% $row-h-xs;
+      background-size: 100% #{$row-h-xs};
     }
 
     &::before {
       left: -$padding-xs;
-      background-position: 0 #{$tick-h-xs};
+      background-position: 0 calc(#{$tick-h-xs} - 1px);
     }
 
     &::after {
       right: -$padding-xs;
-      background-position: 0 #{$tick-h-xs};
+      background-position: 0 calc(#{$tick-h-xs} - 1px);
     }
 
     @media (min-width: 375px) {
@@ -214,17 +177,17 @@
         top: -$tick-h-375;
         bottom: -$tick-h-375;
         width: $padding-375;
-        background-size: 100% $row-h-375;
+        background-size: 100% #{$row-h-375};
       }
 
       &::before {
         left: -$padding-375;
-        background-position: 0 #{$tick-h-375};
+        background-position: 0 calc(#{$tick-h-375} - 1px);
       }
 
       &::after {
         right: -$padding-375;
-        background-position: 0 #{$tick-h-375};
+        background-position: 0 calc(#{$tick-h-375} - 1px);
       }
     }
 
@@ -241,12 +204,12 @@
 
       &::before {
         left: -$padding-375;
-        background-position: 0 #{$tick-h-375};
+        background-position: 0 calc(#{$tick-h-375} - 1px);
       }
 
       &::after {
         right: -$padding-375;
-        background-position: 0 #{$tick-h-375};
+        background-position: 0 calc(#{$tick-h-375} - 1px);
       }
     }
 
@@ -258,17 +221,17 @@
         top: -$tick-h-sm;
         bottom: -$tick-h-sm;
         width: $padding-sm;
-        background-size: 100% $row-h-sm;
+        background-size: 100% #{$row-h-sm};
       }
 
       &::before {
         left: -$padding-sm;
-        background-position: 0 #{$tick-h-sm};
+        background-position: 0 calc(#{$tick-h-sm} - 1px);
       }
 
       &::after {
         right: -$padding-sm;
-        background-position: 0 #{$tick-h-sm};
+        background-position: 0 calc(#{$tick-h-sm} - 1px);
       }
     }
 
@@ -281,17 +244,17 @@
         top: -$tick-h-md;
         bottom: -$tick-h-md;
         width: $padding-md;
-        background-size: 100% $row-h-md;
+        background-size: 100% #{$row-h-md};
       }
 
       &::before {
         left: -$padding-md;
-        background-position: 0 #{$tick-h-md};
+        background-position: 0 calc(#{$tick-h-md} - 1px);
       }
 
       &::after {
         right: -$padding-md;
-        background-position: 0 #{$tick-h-md};
+        background-position: 0 calc(#{$tick-h-md} - 1px);
       }
     }
 
@@ -303,17 +266,17 @@
         top: -$tick-h-xl;
         bottom: -$tick-h-xl;
         width: $padding-xl;
-        background-size: 100% $row-h-xl;
+        background-size: 100% #{$row-h-xl};
       }
 
       &::before {
         left: -$padding-xl;
-        background-position: 0 #{$tick-h-xl};
+        background-position: 0 calc(#{$tick-h-xl} - 1px);
       }
 
       &::after {
         right: -$padding-xl;
-        background-position: 0 #{$tick-h-xl};
+        background-position: 0 calc(#{$tick-h-xl} - 1px);
       }
     }
   }
@@ -324,8 +287,43 @@
     align-items: center;
     justify-content: center;
     min-height: 0;
+    position: relative;
+    overflow: visible;
     border-right:  0.0625rem solid $border-col;
     border-bottom: 0.0625rem solid $border-col;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: -$tick-h-xs;
+      left: -0.0625rem;
+      width: 0.0625rem;
+      height: $tick-h-xs;
+      background-color: $border-col;
+      pointer-events: none;
+
+      @media (min-width: 375px) { top: -$tick-h-375; height: $tick-h-375; }
+      @include media-breakpoint-up(sm) { top: -$tick-h-sm; height: $tick-h-sm; }
+      @include media-breakpoint-up(md) { top: -$tick-h-md; height: $tick-h-md; }
+      @include media-breakpoint-up(xl) { top: -$tick-h-xl; height: $tick-h-xl; }
+    }
+
+    // Bottom tick — on the cell's left border
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -$tick-h-xs;
+      left: -0.0625rem;
+      width: 0.0625rem;
+      height: $tick-h-xs;
+      background-color: $border-col;
+      pointer-events: none;
+
+      @media (min-width: 375px) { bottom: -$tick-h-375; height: $tick-h-375; }
+      @include media-breakpoint-up(sm) { bottom: -$tick-h-sm; height: $tick-h-sm; }
+      @include media-breakpoint-up(md) { bottom: -$tick-h-md; height: $tick-h-md; }
+      @include media-breakpoint-up(xl) { bottom: -$tick-h-xl; height: $tick-h-xl; }
+    }
 
     &--cta {
       padding: 1rem;
@@ -338,7 +336,7 @@
     justify-content: center;
     width: 100%;
     height: 100%;
-
+    overflow: hidden;
     img {
       display: block;
       max-height: 100%;

@@ -1,10 +1,11 @@
+
+
 @import "../common";
 
 .c-testimonial {
     background: $color-neutral-50;
     display: grid;
     grid-template-columns: 1fr;
-    // grid-template-rows: auto auto;
 
     &__colored-bg {
         grid-area: 1/1;
@@ -15,31 +16,33 @@
         }
     }
 
- &__person-wrap {
-    grid-row: 1;
-    grid-column: 1;
-    align-self: end; 
+    &__person-wrap {
+        grid-row: 1;
+        grid-column: 1;
+        align-self: end;
 
-    @include media-breakpoint-up(lg) {
-        max-width: 74rem;
-        margin: 0 auto;
+        @include media-breakpoint-up(lg) {
+            max-width: 74rem;
+            margin: 0 auto;
+        }
     }
-}
 
-&__person-img {
-    width: 88.8%; 
-    height: auto;
-    aspect-ratio: 332.14 / 280;
-    object-position: bottom center; 
-
-    @include media-breakpoint-up(lg) {
-        aspect-ratio: 1184 / 862; 
+    &__person-img {
+        display: block;
         width: 100%;
-        height:100%;
+        height: auto;
+        object-fit: cover;
+        object-position: bottom center;
+
+        @include media-breakpoint-up(lg) {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: bottom center;
+        }
     }
-}
+
     &__label-wrap {
-   
         bottom: 67%;
         left: 65%;
         width: 7.4375rem;
@@ -61,10 +64,10 @@
         transform: scaleY(-1);
 
         svg {
-           
             width: 100%;
             height: 100%;
         }
+
         @include media-breakpoint-up(md) {
             width: 4rem;
             height: 5rem;
@@ -81,7 +84,7 @@
     &__name {
         width: 7.4375rem;
         color: $color-secondary;
-    
+
         @include media-breakpoint-up(lg) {
             width: 11.875rem;
         }
@@ -93,9 +96,7 @@
         width: calc(100% - 2rem);
         max-width: 26.25rem;
         margin: -3.25rem auto 0;
-        // background-size: 100% 100%;
         filter: drop-shadow(0 0.625rem 1.25rem rgba(0, 0, 0, 0.08));
-      
 
         @include media-breakpoint-up(lg) {
             margin: -5.6875rem auto 0;
@@ -105,21 +106,18 @@
     }
 
     &__quote {
-        padding: 1.5rem;
-        min-height: 13.75rem;
+        padding: 1.5rem 2rem;
         margin: 0;
         background-repeat: no-repeat;
         background-size: 100% 100%;
 
         @include media-breakpoint-up(lg) {
             padding: 1.5rem 2rem;
-            min-height: 11.5rem;
         }
     }
 
     &__quote-text {
         align-self: stretch;
-        color: v$color-secondary;
-        
+        color: $color-secondary; // fixed typo: was v$color-secondary
     }
 }
