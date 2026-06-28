@@ -76,7 +76,7 @@ function our_projects_filter()
     $total_pages = $per_page > 0 ? ceil($total / $per_page) : 1;
     $paged_ids = array_slice($all_ids, ($page - 1) * $per_page, $per_page);
 
-    echo '<div class="our-projects__cards-inner d-grid w-100 gap-3">';
+    echo '<div class="our-projects__cards-inner d-grid w-100">';
 
     if (!empty($paged_ids)) :
         $query = new WP_Query([
