@@ -35,7 +35,7 @@
         border-left-color: $color-primary-red;
         border-top-color: $color-primary-red;
         will-change: transform;
-        transition: transform 500ms ease-in-out;
+        transition: transform 5ms linear;
         pointer-events: none;
         box-sizing: content-box;
     }
