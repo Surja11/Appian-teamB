@@ -9,7 +9,7 @@ $cta_button  = get_field('faq_cta_button');
     <header>
       <div class="faq-heading d-flex flex-column justify-content-center align-items-center">
         <h2 class="mb-4">FAQ</h2>
-        <picture>
+        <picture class="divider-animate">
           <source media="(min-width: 1200px)" srcset="<?php echo esc_url(get_template_directory_uri()); ?>/resources/images/divider.svg">
           <img src="<?php echo esc_url(get_template_directory_uri()); ?>/resources/images/divider-small.svg" alt="">
         </picture>
