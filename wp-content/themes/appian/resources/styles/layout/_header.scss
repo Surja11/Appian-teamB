@@ -428,7 +428,6 @@ main {
       background-color: $color-ultra-light-red;
     }
 
-    // Disable hover effects on mobile devices
     @media (hover: none) {
       &:hover {
         color: $nav-color;
@@ -522,7 +521,6 @@ main {
         color: $nav-hover-color;
       }
 
-      // Disable hover effects on mobile devices
       @media (hover: none) {
         &:hover {
           color: $nav-color;

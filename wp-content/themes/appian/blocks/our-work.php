@@ -16,7 +16,6 @@ $valid_tabs = array_values(array_filter($tabs, function ($tab) {
 }));
 
 
-// chevron-right-icon for accordion
 $chevron = '<svg class="our-work__chevron" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <use xlink:href="#stroke0_4010_183" transform="translate(6.66811 12.1859) scale(0.00560224) rotate(-55.985)"/>
 <use xlink:href="#stroke0_4010_183" transform="translate(7.23352 12.7001) scale(0.00560224) rotate(-53.4964)"/>
@@ -41,13 +40,10 @@ $chevron = '<svg class="our-work__chevron" width="24" height="24" viewBox="0 0 2
 </svg>';
 ?>
 
-<!-- our work section -->
 <section class="our-work pt-16 pb-16 ps-xl-10 pt-xl-27 pb-xl-27 d-flex flex-column justify-content-center">
-    <!-- texture overlay that covers entire our-work section -->
     <div class="our-work__overlay"></div>
     <div class="container">
         <div class="our-work__wrapper ms-auto me-auto">
-    <!-- our work heading with underline stroke -->
         <div class=" our-work__heading d-flex flex-column justify-content-center align-items-center">
             <h2 class="mb-4"><?php echo esc_html($our_work_header ?: 'Our Work'); ?></h2>
             <picture class="divider-animate">
@@ -62,7 +58,6 @@ $chevron = '<svg class="our-work__chevron" width="24" height="24" viewBox="0 0 2
 
 
 
-    <!-- tabs for large screens -->
     <div class="our-work__tabs-container">
         <ul class="our-work__tabs d-none d-xl-flex flex-wrap justify-content-center list-unstyled mb-0" id="ourWorkTabs" role="tablist">
             <?php foreach ($valid_tabs as $index => $tab) :
@@ -80,7 +75,6 @@ $chevron = '<svg class="our-work__chevron" width="24" height="24" viewBox="0 0 2
                         data-tab-index="<?php echo $index; ?>"
                         type="button"
                         role="tab"
-                        aria-labelledby="<?php echo esc_html($tab_name); ?>"
                         aria-controls="<?php echo esc_attr($tab_id); ?>-content"
                         aria-selected="<?php echo $is_active ? 'true' : 'false'; ?>">
                         <?php echo esc_html($tab_name); ?>
@@ -90,9 +84,7 @@ $chevron = '<svg class="our-work__chevron" width="24" height="24" viewBox="0 0 2
         </ul>
     </div>
 
-    <!-- tab content for large screens -->
     <div class="our-work__tab-content d-none d-xl-block" id="ourWorkTabContent">
-        <!-- fetching repeater data from backend -->
         <?php foreach ($valid_tabs as $index => $tab) :
             $tab_id = 'tab' . ($index + 1);
             $is_active = ($index === 0);
@@ -124,10 +116,8 @@ $chevron = '<svg class="our-work__chevron" width="24" height="24" viewBox="0 0 2
         <?php endforeach; ?>
     </div>
 
-    <!-- Accordion for mobile -->
     <div class="accordion d-xl-none pt-9" id="accordionExample">
 
-        <!-- fetching from backend  -->
         <?php foreach ($valid_tabs as $index => $tab) :
             $collapse_id = 'collapse' . ($index + 1);
             $is_active = ($index === 0);

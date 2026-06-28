@@ -1,5 +1,4 @@
 const header = () => {
-  // console.log("Header js loaded");
 
   const toggleIcon = document.getElementsByClassName("navbar__icon-container")[0];
   const mainNav = document.getElementsByClassName("navbar__main")[0];
@@ -47,7 +46,6 @@ const header = () => {
 
     const closeDropdown = () => {
       trigger.setAttribute("aria-expanded", "false");
-      // console.log(trigger.getAttribute("aria-expanded"));
       dropdown.classList.remove("navbar__dropdown--open");
       if (!document.querySelector(".navbar__dropdown--open")) {
         overlay.classList.remove("navbar-overlay--visible");
@@ -57,10 +55,8 @@ const header = () => {
     };
 
     trigger.addEventListener('click', (e) => {
-      // console.log("clicked");
       e.preventDefault();
       const isOpen = trigger.getAttribute('aria-expanded') === "true";
-      // console.log(isOpen);
       if (isOpen) {
         closeDropdown();
       } else {
@@ -68,7 +64,6 @@ const header = () => {
       }
     });
 
-    // using timeout since we have small gap below the dropdown button and the dropdown box so that it won't close immediately
     parentItem.addEventListener("mouseenter", () => {
       if (window.innerWidth <= breakpoint)
         return;
@@ -157,14 +152,12 @@ const header = () => {
 
   let lastScrollY = window.scrollY;
   let scrollStopTimer = null;
-  // console.log(lastScrollY);
 
   window.addEventListener("scroll", () => {
     if (mainNav.classList.contains("navbar__main--open")) return;
 
     const currentScrollY = window.scrollY;
 
-    // console.log(currentScrollY);
     const scrollingUp = currentScrollY < lastScrollY;
     lastScrollY = currentScrollY;
 
@@ -172,13 +165,11 @@ const header = () => {
 
     if (currentScrollY <= 0) {
       header?.classList.remove("header--hidden");
-      // console.log('at top');
       return;
     }
 
     if (!scrollingUp) {
       header?.classList.add("header--hidden");
-      // console.log('it should hide')
       return;
     }
 

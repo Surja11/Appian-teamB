@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Arrow Testimonial
- * blocks/arrow-testimonial.php
- */
-
 $testimonial = get_field('arrow_testimonial');
 
 if ($testimonial) {

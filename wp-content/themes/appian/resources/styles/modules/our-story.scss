@@ -1,24 +1,18 @@
 @import '../custom';
 
-
-// using clamp for fluid padding top and bottom.
 .cta-content {
     padding-top: clamp(7.5rem, 6.1796rem + 5.6338vw, 11.25rem);
     padding-bottom: clamp(7.5rem, 6.1796rem + 5.6338vw, 11.25rem);
 
-    // defining color of caption
     &__caption {
         color: $color-neutral-200;
-
     }
-
 
     &__text {
         color: $color-neutral-600;
 
         @include media-breakpoint-up(lg) {
             text-transform: capitalize;
-
         }
 
         span {
@@ -40,23 +34,17 @@
                 height: 140%;
                 background: url('../../images/text-overlay-smal.svg') center / cover no-repeat;
 
-
                 @include media-breakpoint-up(lg) {
-                    // Desktop — background-clip text effect
                     background: url('../../images/text-overlay.svg') center/contain no-repeat;
                     left: -6px;
                     width: 137%;
                     height: 146%;
                     bottom: -9px;
-
                 }
             }
         }
-
     }
 
-
-    // using before to create a line before our content
     &-column {
         position: relative;
 
@@ -68,36 +56,8 @@
             left: -4.3125rem;
         }
     }
-
-
-
-
-    // using after pseudo element to place the highligh image
-    // &__date {
-    //     position: relative;
-
-    //     &::after {
-    //         content: "";
-    //         position: absolute;
-    //         bottom: 0;
-    //         left: -6;
-    //         z-index: -1;
-    //         width: 140%;
-    //         height: 100%;
-    //         background: url('/wp-content/themes/appian/resources/images/text-overlay.png') no-repeat center / 100% 100%;
-
-    //         @include media-breakpoint-up(xxl) {
-    //             left: -9;
-    //             width: 145%;
-    //         }
-
-    //     }
-
-
-    // }
 }
 
-// styling the CTA button
 .btn--cta {
     max-width: fit-content;
     display: flex;
@@ -124,7 +84,6 @@
         align-items: center;
         justify-content: center;
 
-
         @include media-breakpoint-up(lg) {
             width: 1.5rem;
             height: 1.5rem;
@@ -136,7 +95,5 @@
             height: 100%;
             display: block;
         }
-
-
     }
 }

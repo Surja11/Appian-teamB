@@ -1,20 +1,9 @@
 @import '../common';
 
-section.logo-marquee {
-
-  @include media-breakpoint-up(lg){
-    padding:3rem 0 !important;
-
-  
-  }
-
-}
-  .logo-marquee{
-
+.logo-marquee{
     $text-color: #121313;
     h5{
         color:  $text-color !important;
-
     }
     &__track {
         overflow: hidden;
@@ -32,10 +21,15 @@ section.logo-marquee {
         height: 32px;
         flex-shrink: 0;
         img {
-        
             object-fit: contain;
         }
     }
+}
+
+section.logo-marquee {
+  @include media-breakpoint-up(lg){
+    padding:3rem 0 !important;
+  }
 }
 
 @keyframes marquee-scroll {

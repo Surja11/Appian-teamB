@@ -83,8 +83,6 @@
     }
 
     &__category {
-       
-      
         z-index: 3;
         display: flex;
         align-items: center;
@@ -184,7 +182,6 @@
         margin-top: 0.3125rem;
     }
 
-    // Accessibility
     &__link:focus {
         outline: 3px solid $color-primary-red;
         outline-offset: 2px;
@@ -229,7 +226,6 @@
         }
     }
 
-    // Disable hover effects on mobile devices
     @media (hover: none) {
         &:hover {
             .hero-project-card__image-wrap {

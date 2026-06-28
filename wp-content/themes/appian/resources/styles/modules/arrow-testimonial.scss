@@ -1,5 +1,4 @@
 
-
 @import "../common";
 
 .c-testimonial {
@@ -118,6 +117,6 @@
 
     &__quote-text {
         align-self: stretch;
-        color: $color-secondary; // fixed typo: was v$color-secondary
+        color: $color-secondary;
     }
 }

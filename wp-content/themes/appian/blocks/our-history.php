@@ -1,6 +1,5 @@
 <?php
 
-// Get selected history items from field
 $selected_history_items = get_field('selected_history_items');
 
 if ( ! function_exists( 'our_history_get_excerpt' ) ) :
@@ -25,14 +24,12 @@ endif;
             <div class="timeline-cards-wrapper d-flex flex-column flex-sm-row align-items-center align-items-sm-start">
                 
                 <?php foreach ( $selected_history_items as $index => $post ) :
-                    // Setup post data for ACF fields
                     setup_postdata($post);
                     
                     $year    = !empty( $post->post_title ) ? esc_html( $post->post_title ) : '';
                     $content = !empty( $post->post_content ) ? apply_filters('the_content', $post->post_content) : '';
                     $image   = get_field('feature_image', $post->ID);
                     
-                    // Handle image field
                     if (is_array($image)) {
                         $img_url = $image ? esc_url( $image['url'] ) : '';
                         $img_alt = $image && !empty( $image['alt'] ) ? esc_attr( $image['alt'] ) : ($year ? esc_attr( $year ) : 'History image');
@@ -45,12 +42,10 @@ endif;
                     $gallery = get_field('image_gallery', $post->ID) ?: [];
                     
                     
-                    // Skip completely empty items
                     if (empty($year) && empty($content) && empty($img_url) && empty($gallery)) {
                         continue;
                     }
                     
-                    // Generate unique ID for modal
                     $unique_id = $year ? $year : 'item-' . ($index + 1);
                 ?>
 
@@ -61,12 +56,10 @@ endif;
                      role="button" 
                      aria-label="View details for <?php echo $year ? esc_attr($year) : 'history item'; ?>">
                     
-                    <!-- Year/Title - Only show if exists -->
                     <?php if ( $year ) : ?>
                     <div class="history-card__year body-xlarge mb-6 text-start text-md-start d-flex align-items-center justify-content-start justify-content-md-start position-relative bg-transparent top-0 start-0 z-3"><?php echo $year; ?></div>
                     <?php endif; ?>
                     
-                    <!-- Image Section - Only show if image exists -->
                     <?php if ( $img_url ) : ?>
                     <div class="history-card__image-wrapper position-relative overflow-hidden w-100">
                         <img src="<?php echo $img_url; ?>" 
@@ -75,7 +68,6 @@ endif;
                     </div>
                     <?php endif; ?>
 
-                    <!-- Gallery Section - Only show if gallery exists -->
                     <?php if ( !empty( $gallery ) ) : ?>
                     <div class="history-card__gallery d-none">
                         <?php foreach ( $gallery as $gallery_image ) : ?>
@@ -90,13 +82,11 @@ endif;
                     </div>
                     <?php endif; ?>
 
-                    <!-- Content Section - Only show if content exists -->
                     <?php if ( $content ) : ?>
                     <div class="history-card__content pt-6 pt-md-8 bg-transparent d-sm-flex flex-sm-column h-sm-100">
                         <p class="history-card__excerpt body mb-10 mb-md-5 d-block">
                             <?php echo esc_html( $excerpt ); ?>
                         </p>
-                        <!-- Hidden full content for modal -->
                         <div class="history-card__full-content d-none">
                             <?php echo wp_kses_post( $content ); ?>
                         </div>
@@ -119,7 +109,7 @@ endif;
                 <?php endif; ?>
 
                 <?php endforeach; 
-                wp_reset_postdata(); // Reset post data ?>
+                wp_reset_postdata(); ?>
 
             </div>
         </div>

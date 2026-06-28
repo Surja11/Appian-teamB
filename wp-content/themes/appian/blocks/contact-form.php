@@ -51,6 +51,9 @@ $max_future_period = $date_restrictions['max_future_period'] ?? '12';
                                     <div class="contact-form__field position-relative w-100">
                                         
                                         <?php if ($field_type === 'select') : ?>
+                                            <label for="<?php echo esc_attr($field_id); ?>" class="visually-hidden">
+                                                <?php echo esc_html($field_label); ?><?php echo $required ? ' (required)' : ''; ?>
+                                            </label>
                                             <select id="<?php echo esc_attr($field_id); ?>" name="<?php echo esc_attr($field_id); ?>" class="contact-form__input contact-form__select body w-100 cursor-pointer bg-white rounded" 
                                                     <?php echo $required ? 'required' : ''; ?>>
                                                 <option value=""><?php echo esc_html($field_label); ?><?php echo $required ? ' *' : ''; ?></option>
@@ -63,44 +66,52 @@ $max_future_period = $date_restrictions['max_future_period'] ?? '12';
                                             </select>
 
                                         <?php elseif ($field_type === 'radio') : ?>
-                                            <div class="contact-form__radio-dropdown-wrapper position-relative w-100">
-                                                
-                                                <div class="contact-form__input contact-form__radio-trigger body d-flex align-items-center justify-content-between user-select-none w-100 cursor-pointer bg-white rounded">
-                                                    <span class="contact-form__trigger-label">
-                                                        <span class="placeholder-text"><?php echo esc_html($field_label); ?><?php echo $required ? ' *' : ''; ?></span>
-                                                    </span>
-                                                    <span class="contact-form__dropdown-icon d-flex align-items-center justify-content-center">
-                                                        <?php include get_template_directory() . '/resources/images/icon-chevron-down.svg'; ?>
-                                                    </span>
-                                                </div>
-                                                
-                                                <div class="contact-form__radio-dropdown-menu w-100 bg-transparent">
-                                                    <div class="contact-form__radio-group d-flex flex-column mt-0">
-                                                        <?php foreach ($options as $r_index => $opt) : 
-                                                            $val = $opt['option_value'];
-                                                            $lbl = $opt['option_label'];
+                                            <fieldset>
+                                                <legend class="visually-hidden">
+                                                    <?php echo esc_html($field_label); ?><?php echo $required ? ' (required)' : ''; ?>
+                                                </legend>
+                                                <div class="contact-form__radio-dropdown-wrapper position-relative w-100">
+                                                    
+                                                    <div class="contact-form__input contact-form__radio-trigger body d-flex align-items-center justify-content-between user-select-none w-100 cursor-pointer bg-white rounded">
+                                                        <span class="contact-form__trigger-label">
+                                                            <span class="placeholder-text"><?php echo esc_html($field_label); ?><?php echo $required ? ' *' : ''; ?></span>
+                                                        </span>
+                                                        <span class="contact-form__dropdown-icon d-flex align-items-center justify-content-center">
+                                                            <?php include get_template_directory() . '/resources/images/icon-chevron-down.svg'; ?>
+                                                        </span>
+                                                    </div>
+                                                    
+                                                    <div class="contact-form__radio-dropdown-menu w-100 bg-transparent">
+                                                        <div class="contact-form__radio-group d-flex flex-column mt-0">
+                                                            <?php foreach ($options as $r_index => $opt) : 
+                                                                $val = $opt['option_value'];
+                                                                $lbl = $opt['option_label'];
 
-                                                            $checked = ($val === $default_value) ? 'checked' : '';
-                                                        ?>
-                                                            <div class="contact-form__radio-item d-flex align-items-center">
-                                                                <input 
-                                                                    type="radio"
-                                                                    id="radio-<?php echo esc_attr($val); ?>"
-                                                                    name="<?php echo esc_attr($field_id); ?>"
-                                                                    value="<?php echo esc_attr($val); ?>"
-                                                                    class="contact-form__radio position-relative d-inline-flex align-items-center justify-content-center cursor-pointer bg-white rounded-circle"
-                                                                    <?php echo $checked; ?>
-                                                                />
-                                                                <label for="radio-<?php echo esc_attr($val); ?>" class="contact-form__radio-label body d-flex align-items-center m-0 cursor-pointer">
-                                                                    <?php echo esc_html($lbl); ?>
-                                                                </label>
-                                                            </div>
-                                                        <?php endforeach; ?>
+                                                                $checked = ($val === $default_value) ? 'checked' : '';
+                                                            ?>
+                                                                <div class="contact-form__radio-item d-flex align-items-center">
+                                                                    <input 
+                                                                        type="radio"
+                                                                        id="radio-<?php echo esc_attr($val); ?>"
+                                                                        name="<?php echo esc_attr($field_id); ?>"
+                                                                        value="<?php echo esc_attr($val); ?>"
+                                                                        class="contact-form__radio position-relative d-inline-flex align-items-center justify-content-center cursor-pointer bg-white rounded-circle"
+                                                                        <?php echo $checked; ?>
+                                                                    />
+                                                                    <label for="radio-<?php echo esc_attr($val); ?>" class="contact-form__radio-label body d-flex align-items-center m-0 cursor-pointer">
+                                                                        <?php echo esc_html($lbl); ?>
+                                                                    </label>
+                                                                </div>
+                                                            <?php endforeach; ?>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </fieldset>
 
                                         <?php else : ?>
+                                            <label for="<?php echo esc_attr($field_id); ?>" class="visually-hidden">
+                                                <?php echo esc_html($field_label); ?><?php echo $required ? ' (required)' : ''; ?>
+                                            </label>
                                             <input
                                                 type="<?php echo esc_attr($field_type); ?>"
                                                 id="<?php echo esc_attr($field_id); ?>"
