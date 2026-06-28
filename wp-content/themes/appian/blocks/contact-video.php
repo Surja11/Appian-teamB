@@ -20,7 +20,6 @@ if ($video_source === 'upload' && $video_file) {
          tabindex="0"
          role="button"
          aria-label="Open video in popup">
-        <!-- Video thumbnail/poster -->
         <div class="video-thumbnail w-100 h-100 d-block position-relative">
             <video class="video-poster w-100 h-100 d-block" preload="metadata" muted>
                 <source src="<?php echo esc_url($final_video_url); ?>" type="video/mp4">
@@ -29,7 +28,6 @@ if ($video_source === 'upload' && $video_file) {
             <div class="video-overlay position-absolute top-0 start-0 w-100 h-100"></div>
         </div>
         
-        <!-- Play button -->
         <div class="video-controls position-absolute top-50 start-50 translate-middle">
             <button class="video-control-btn play-btn d-flex align-items-center justify-content-center position-relative border-0 rounded-circle" aria-label="Play video">
                 <span class="play-icon d-flex align-items-center justify-content-center position-absolute top-50 start-50 translate-middle">
@@ -40,7 +38,6 @@ if ($video_source === 'upload' && $video_file) {
     </div>
 </section>
 
-<!-- Video Modal -->
 <div class="video-modal-overlay position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center overflow-hidden pe-auto d-none" id="video-modal-overlay">
 
     <div class="video-modal position-relative overflow-hidden d-flex flex-column align-items-center justify-content-center">

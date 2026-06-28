@@ -308,7 +308,6 @@
       @include media-breakpoint-up(xl) { top: -$tick-h-xl; height: $tick-h-xl; }
     }
 
-    // Bottom tick — on the cell's left border
     &::after {
       content: '';
       position: absolute;

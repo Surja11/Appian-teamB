@@ -1,9 +1,4 @@
 <?php
-
-/**
- * Home Leadspace Block - Backend (ACF Fields)
- */
-
 $eyebrow_text = get_field('eyebrow_text');
 $heading_main = get_field('heading_main');
 $heading_sub  = get_field('heading_sub');
@@ -16,14 +11,11 @@ $video_poster = get_field('poster');
 <?php if ($eyebrow_text || $heading_main || $heading_sub || $video_url) : ?>
     <section class="home-leadspace w-100 overflow-hidden">
 
-        <!-- outer ellipse -->
         <div class="home-leadspace__outer-ellipse">
             <span class="home-leadspace__scroll-ellipse"></span>
 
-            <!-- inner ellipse -->
             <div class="home-leadspace__inner-ellipse">
 
-                <!-- the scrolling arc -->
 
                 <?php if ($video_url) : ?>
                     <div class="video-container">
@@ -42,11 +34,9 @@ $video_poster = get_field('poster');
                     </div>
                 <?php endif; ?>
 
-                <!-- overlay -->
                 <div class="home-leadspace__overlay position-absolute inset-0"></div>
 
 
-                <!-- text content -->
                 <div class="text-container">
                     <div class="home-leadspace__text-content d-flex flex-column">
                         <?php if ($eyebrow_text) : ?>

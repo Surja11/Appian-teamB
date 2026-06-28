@@ -34,7 +34,13 @@ if (!empty($valid_departments)) :
                 $department_link    = $department['department_link'] ?? '';
             ?>
 
-                <div class="service-card position-relative d-flex flex-column justify-content-between w-100 w-xl-50 flex-grow-1 overflow-hidden">
+                <?php if (!empty($department_link)) : ?>
+                    <a href="<?php echo esc_url($department_link); ?>" 
+                       class="service-card position-relative d-flex flex-column justify-content-between w-100 w-xl-50 flex-grow-1 overflow-hidden text-decoration-none"
+                       aria-label="Learn more about <?php echo esc_attr($department_name ? $department_name : 'this service'); ?>">
+                <?php else : ?>
+                    <div class="service-card position-relative d-flex flex-column justify-content-between w-100 w-xl-50 flex-grow-1 overflow-hidden">
+                <?php endif; ?>
                     
                     <div class="service-card__background position-absolute top-0 start-0 w-100 h-100">
                         <?php if (!empty($department_image) && is_array($department_image) && !empty($department_image['url'])) : ?>
@@ -88,13 +94,16 @@ if (!empty($valid_departments)) :
                     </div>
 
                     <?php if (!empty($department_link)) : ?>
-                        <a href="<?php echo esc_url($department_link); ?>" 
-                           class="btn-nav"
-                           aria-label="Learn more about <?php echo esc_attr($department_name ? $department_name : 'this service'); ?>">
+                        <span class="btn-nav" aria-hidden="true">
                             <?php include get_template_directory() . '/resources/images/icon-arrow-right.svg'; ?>
-                        </a>
+                        </span>
                     <?php endif; ?>
-                </div>
+
+                <?php if (!empty($department_link)) : ?>
+                    </a>
+                <?php else : ?>
+                    </div>
+                <?php endif; ?>
 
             <?php endforeach; ?>
 

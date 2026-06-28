@@ -1,9 +1,7 @@
 @import '../common';
 
-
 .testimonial-section {
     background-color: $white;
-
     position: relative;
     width: 100%;
     overflow: hidden;
@@ -33,10 +31,8 @@
     }
 }
 
-
 .testimonial-wrapper {
     position: relative;
-    
     width: 100%;
     max-width: 375px;
     height: auto;
@@ -52,7 +48,6 @@
         min-height: 366px;
         margin: 0;
         padding: 0;
-        
         padding-left: 4.375rem;
         padding-right: 6.875rem;
     }
@@ -97,7 +92,6 @@
     }
 }
 
-
 .testimonial-line-col {
     width: 1px;
     flex-shrink: 0;
@@ -114,7 +108,6 @@
         background-color: $color-neutral-100;
     }
 }
-
 
 .testimonial-left-block {
     width: auto;
@@ -182,7 +175,6 @@
 
     margin-right: 11rem;
 }
-
 
 .testimonial-content {
     flex: 1;
@@ -272,7 +264,6 @@
 
 }
 
-
 .slider-controls {
     display: flex;
     justify-content: flex-end;
@@ -280,7 +271,6 @@
     gap: 0.9375rem;
     margin-top: 4rem;
 }
-
 
 .testimonial-section {
     .slider-progress-wrapper {
@@ -294,12 +284,10 @@
             width: 9.3125rem;
             height: 1.688rem;
 
-
             .progress-current,
             .progress-total {
                 flex-shrink: 0;
                 color: $color-neutral-100;
-
                 display: flex;
                 align-items: center;
                 justify-content: center;

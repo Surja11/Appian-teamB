@@ -11,7 +11,6 @@ body {
     padding-top: 3rem;
     padding-bottom: 2rem;
 
-    // padding-block: 3rem;
 
     @include media-breakpoint-up(xl) {
         padding-top: 5rem;
@@ -27,16 +26,8 @@ body {
         }
     }
 
-    // @include media-breakpoint-up(xxl){
-    //     margin:auto;
-    // }
-
-    // &row-wrapper{
-
-    // }
 
     &__row {
-        // row-gap: 2.5625rem;
 
 
         @include media-breakpoint-up(xl) {
@@ -51,7 +42,6 @@ body {
         flex-direction: column;
 
         border-top: $border-width solid $color-neutral-100;
-        // padding: 2.5625rem 0;
 
         &--contact {
             padding-bottom: 2.5625rem;
@@ -119,13 +109,8 @@ body {
     }
 
     &__label {
-        // font-family: $font-family-sans-serif;
         color: $color-primary-red !important;
-        // font-size: 0.75rem;
-        // font-weight: $font-weight-medium;
         text-transform: uppercase;
-        // letter-spacing: 1.2px;
-        // line-height: 1.5;
         display: block;
         margin-top: 0;
         margin-bottom: 0.75rem;
@@ -283,10 +268,6 @@ body {
 
     &__text {
         margin: 0;
-        // font-style: normal;
-        // font-family: $font-family-heading;
-        // font-size: 1.25rem;
-        // line-height: 1.6;
         color: $color-neutral-600;
 
         a {
@@ -308,7 +289,6 @@ body {
     &__social {
         display: inline-flex;
         align-items: center;
-        // margin-top: 2.3125rem;
         transition: opacity 0.2s ease-in-out;
 
         @include media-breakpoint-up(xl) {

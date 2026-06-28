@@ -102,7 +102,6 @@
                 color: $white !important;
             }
 
-            // Disable hover effects on mobile devices
             @media (hover: none) {
                 &:hover {
                     background-color: $color-primary-red !important;
