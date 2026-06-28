@@ -31,7 +31,7 @@
   $row-h-md:   130px;
 
   $padding-xl: 5rem;
-  $tick-h-xl:  3.45rem;
+  $tick-h-xl:  3.44rem;
   $row-h-xl:   166px;
 
   $border-col: $color-neutral-100;
@@ -145,139 +145,98 @@
     border-left: 0.0625rem solid $border-col;
     grid-template-columns: repeat(#{$cols-mobile}, 1fr);
     grid-auto-rows: $row-h-xs;
-    overflow: visible; 
-    &::before,
+    overflow: visible;
+
+    // Bottom corner ticks 
+    &::before {
+      content: "";
+      position: absolute;
+      left: -$padding-xs;
+      bottom: 0;
+      width: $padding-xs;
+      height: 0.0625rem;
+      background-color: $border-col;
+      pointer-events: none;
+    }
+
     &::after {
       content: "";
       position: absolute;
-      top: -$tick-h-xs;
-      bottom: -$tick-h-xs;
-      width: $padding-xs;
-      pointer-events: none;
-      background-image: linear-gradient(to bottom, $border-col 1px, transparent 1px);
-      background-repeat: repeat-y;
-      background-size: 100% #{$row-h-xs};
-    }
-
-    &::before {
-      left: -$padding-xs;
-      background-position: 0 calc(#{$tick-h-xs} - 1px);
-    }
-
-    &::after {
       right: -$padding-xs;
-      background-position: 0 calc(#{$tick-h-xs} - 1px);
+      bottom: 0;
+      width: $padding-xs;
+      height: 0.0625rem;
+      background-color: $border-col;
+      pointer-events: none;
     }
 
     @media (min-width: 375px) {
-      grid-auto-rows: $row-h-375;
-
-      &::before,
-      &::after {
-        top: -$tick-h-375;
-        bottom: -$tick-h-375;
-        width: $padding-375;
-        background-size: 100% #{$row-h-375};
-      }
-
-      &::before {
-        left: -$padding-375;
-        background-position: 0 calc(#{$tick-h-375} - 1px);
-      }
-
-      &::after {
-        right: -$padding-375;
-        background-position: 0 calc(#{$tick-h-375} - 1px);
-      }
+      &::before { left: -$padding-375; width: $padding-375; }
+      &::after  { right: -$padding-375; width: $padding-375; }
     }
-
-    @media (min-width: 565px) and (max-width: 578px) {
-      grid-auto-rows: 130px;
-
-      &::before,
-      &::after {
-        top: -$tick-h-375;
-        bottom: -$tick-h-375;
-        width: $padding-375;
-        background-size: 100% 130px;
-      }
-
-      &::before {
-        left: -$padding-375;
-        background-position: 0 calc(#{$tick-h-375} - 1px);
-      }
-
-      &::after {
-        right: -$padding-375;
-        background-position: 0 calc(#{$tick-h-375} - 1px);
-      }
-    }
-
     @include media-breakpoint-up(sm) {
-      grid-auto-rows: $row-h-sm;
-
-      &::before,
-      &::after {
-        top: -$tick-h-sm;
-        bottom: -$tick-h-sm;
-        width: $padding-sm;
-        background-size: 100% #{$row-h-sm};
-      }
-
-      &::before {
-        left: -$padding-sm;
-        background-position: 0 calc(#{$tick-h-sm} - 1px);
-      }
-
-      &::after {
-        right: -$padding-sm;
-        background-position: 0 calc(#{$tick-h-sm} - 1px);
-      }
+      &::before { left: -$padding-sm; width: $padding-sm; }
+      &::after  { right: -$padding-sm; width: $padding-sm; }
+    }
+    @include media-breakpoint-up(md) {
+      &::before { left: -$padding-md; width: $padding-md; }
+      &::after  { right: -$padding-md; width: $padding-md; }
+    }
+    @include media-breakpoint-up(xl) {
+      &::before { left: -$padding-xl; width: $padding-xl; }
+      &::after  { right: -$padding-xl; width: $padding-xl; }
     }
 
+    @media (min-width: 375px) { grid-auto-rows: $row-h-375; }
+    @media (min-width: 565px) and (max-width: 578px) { grid-auto-rows: 130px; }
+    @include media-breakpoint-up(sm) { grid-auto-rows: $row-h-sm; }
     @include media-breakpoint-up(md) {
       grid-template-columns: repeat(#{$cols-desk}, 1fr);
       grid-auto-rows: $row-h-md;
+    }
+    @include media-breakpoint-up(xl) { grid-auto-rows: $row-h-xl; }
+  }
 
-      &::before,
-      &::after {
-        top: -$tick-h-md;
-        bottom: -$tick-h-md;
-        width: $padding-md;
-        background-size: 100% #{$row-h-md};
-      }
+  // Left and right ticks 
+  &__tick-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100%;
+    pointer-events: none;
 
-      &::before {
-        left: -$padding-md;
-        background-position: 0 calc(#{$tick-h-md} - 1px);
-      }
+    &::before {
+      content: '';
+      position: absolute;
+      top: -1px;
+      right: 100%;             
+      width: $padding-xs;     
+      height: 0.0625rem;     
+      background-color: $border-col;
+      display: none;
 
-      &::after {
-        right: -$padding-md;
-        background-position: 0 calc(#{$tick-h-md} - 1px);
-      }
+      @media (min-width: 375px) { width: $padding-375; }
+      @include media-breakpoint-up(sm) { width: $padding-sm; }
+      @include media-breakpoint-up(md) { width: $padding-md; }
+      @include media-breakpoint-up(xl) { width: $padding-xl; }
     }
 
-    @include media-breakpoint-up(xl) {
-      grid-auto-rows: $row-h-xl;
+    // Right tick 
+    &::after {
+      content: '';
+      position: absolute;
+      top: -1px;
+      left: 100%;           
+      width: $padding-xs;     
+      height: 0.0625rem;
+      background-color: $border-col;
+      display: none;
 
-      &::before,
-      &::after {
-        top: -$tick-h-xl;
-        bottom: -$tick-h-xl;
-        width: $padding-xl;
-        background-size: 100% #{$row-h-xl};
-      }
-
-      &::before {
-        left: -$padding-xl;
-        background-position: 0 calc(#{$tick-h-xl} - 1px);
-      }
-
-      &::after {
-        right: -$padding-xl;
-        background-position: 0 calc(#{$tick-h-xl} - 1px);
-      }
+      @media (min-width: 375px) { width: $padding-375; }
+      @include media-breakpoint-up(sm) { width: $padding-sm; }
+      @include media-breakpoint-up(md) { width: $padding-md; }
+      @include media-breakpoint-up(xl) { width: $padding-xl; }
     }
   }
 
@@ -292,6 +251,23 @@
     border-right:  0.0625rem solid $border-col;
     border-bottom: 0.0625rem solid $border-col;
 
+    a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      outline: none; 
+    }
+
+    
+    &:has(a:focus-visible) {
+      outline: 2px solid $color-primary-red;
+      outline-offset: -2px;
+      z-index: 2;
+    }
+
+    // Top tick 
     &::before {
       content: '';
       position: absolute;
@@ -301,6 +277,7 @@
       height: $tick-h-xs;
       background-color: $border-col;
       pointer-events: none;
+      display: none;
 
       @media (min-width: 375px) { top: -$tick-h-375; height: $tick-h-375; }
       @include media-breakpoint-up(sm) { top: -$tick-h-sm; height: $tick-h-sm; }
@@ -308,6 +285,7 @@
       @include media-breakpoint-up(xl) { top: -$tick-h-xl; height: $tick-h-xl; }
     }
 
+    // Bottom tick 
     &::after {
       content: '';
       position: absolute;
@@ -317,6 +295,7 @@
       height: $tick-h-xs;
       background-color: $border-col;
       pointer-events: none;
+      display: none;
 
       @media (min-width: 375px) { bottom: -$tick-h-375; height: $tick-h-375; }
       @include media-breakpoint-up(sm) { bottom: -$tick-h-sm; height: $tick-h-sm; }
@@ -324,8 +303,80 @@
       @include media-breakpoint-up(xl) { bottom: -$tick-h-xl; height: $tick-h-xl; }
     }
 
-    &--cta {
-      padding: 1rem;
+    // first row top tick
+    &:nth-child(-n + #{$cols-mobile})::before { display: block; }
+    // Last row — bottom tick
+    &:nth-last-child(-n + #{$cols-mobile})::after { display: block; }
+
+    // First column left tick
+    &:nth-child(#{$cols-mobile}n + 1) .our-partner__tick-wrapper::before {
+      display: block;
+    }
+
+    // last column right tickk
+    &:nth-child(#{$cols-mobile}n) .our-partner__tick-wrapper::after {
+      display: block;
+      left: 100%;
+      right: auto;
+    }
+
+    @include media-breakpoint-up(md) {
+      &:nth-child(-n + #{$cols-mobile})::before      { display: none; }
+      &:nth-last-child(-n + #{$cols-mobile})::after  { display: none; }
+      &:nth-child(-n + #{$cols-desk})::before        { display: block; }
+      &:nth-last-child(-n + #{$cols-desk})::after    { display: block; }
+
+      &:nth-child(#{$cols-mobile}n + 1) .our-partner__tick-wrapper::before { display: none; }
+      &:nth-child(#{$cols-mobile}n) .our-partner__tick-wrapper::after       { display: none; }
+
+      &:nth-child(#{$cols-desk}n + 1) .our-partner__tick-wrapper::before { display: block; }
+      &:nth-child(#{$cols-desk}n) .our-partner__tick-wrapper::after {
+        display: block;
+        left: 100%;
+        right: auto;
+      }
+    }
+
+    &--cta { padding: 1rem; }
+  }
+
+  &__bottom-ticks {
+    position: relative;
+    width: 100%;
+    height: 0;
+
+    // left bottom corner tick
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 0.0625rem;
+      height: $tick-h-xs;
+      background-color: $border-col;
+      pointer-events: none;
+
+      @media (min-width: 375px) { height: $tick-h-375; }
+      @include media-breakpoint-up(sm) { height: $tick-h-sm; }
+      @include media-breakpoint-up(md) { height: $tick-h-md; }
+      @include media-breakpoint-up(xl) { height: $tick-h-xl; }
+    }
+
+    // right corner tick 
+    &::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 0.0625rem;
+      height: $tick-h-xs;
+      background-color: $border-col;
+      pointer-events: none;
+
+      @media (min-width: 375px) { height: $tick-h-375; }
+      @include media-breakpoint-up(sm) { height: $tick-h-sm; }
+      @include media-breakpoint-up(md) { height: $tick-h-md; }
+      @include media-breakpoint-up(xl) { height: $tick-h-xl; }
     }
   }
 
@@ -347,4 +398,9 @@
 
 .btn-tertiary {
   border-bottom: none !important;
+
+  &:focus-visible{
+    outline: none !important;
+    outline-offset: none !important;
+  }
 }

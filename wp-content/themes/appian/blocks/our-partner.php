@@ -36,6 +36,7 @@ if (!empty($valid_partners)) :
                         $link = $partner['partner_link'];
                     ?>
                         <div class="our-partner__single-partner">
+                            <div class="our-partner__tick-wrapper"></div>
                             <div class="our-partner__img-container">
                                 <?php if (!empty($link)) : ?>
                                     <a href="<?php echo esc_url($link); ?>">
@@ -49,10 +50,12 @@ if (!empty($valid_partners)) :
                     <?php endforeach; ?>
 
                     <div class="our-partner__single-partner our-partner__single-partner--cta">
+                        <div class="our-partner__tick-wrapper"></div>
                         <a class="btn btn-tertiary" href="<?php echo esc_url($view_all) ?>">View All Partners</a>
                     </div>
 
                 </div>
+                <div class="our-partner__bottom-ticks"></div>
             </div>
 
         </section>
