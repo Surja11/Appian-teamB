@@ -1,7 +1,11 @@
 @import '../common';
 
 .wwb-leadspace-container{
-    min-height: clamp(303px, calc(303px + (816 - 303) * ((100vw - 375px) / (1440 - 375))), 816px);
+    min-height: calc(100vh - 4.375rem);
+
+    @include media-breakpoint-up(lg) {
+        min-height: calc(100vh - 5.625rem);
+    }
 
     img{
         object-fit: cover;

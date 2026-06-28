@@ -35,11 +35,11 @@ if ( $cta_link && is_array( $cta_link ) ) {
              <!-- text content with CTA button -->
             <div class="cta-content__body d-flex flex-column gap-12 gap-lg-16 pt-6 pt-lg-8">
                 <?php if ( $main_text ) : ?>
-                <h5 class="cta-content__text m-0">
+                <h2 class="h5 cta-content__text m-0">
                     <?php 
                     echo wp_kses_post( $main_text ); 
                     ?>
-                </h5>
+                </h2>
                 <?php endif; ?>
 
                 <?php if ( $link_url && $link_title ) : ?>

@@ -7,35 +7,37 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!cardsContainer) return;
 
     const enablePagination = section.getAttribute('data-enable-pagination') === 'true';
-    const perPage = parseInt(section.getAttribute('data-projects-per-page')) || 6;
+    const perPage= parseInt(section.getAttribute('data-projects-per-page')) || 6;
+    const selectedIds= section.getAttribute('data-selected-ids') || '';
 
     let currentFilter = 'all';
     let currentPage   = 1;
 
-    const filterItems         = document.querySelectorAll('.our-projects__filter-item');
-    const mobileFilterToggle  = document.getElementById('mobileFilterToggle');
-    const mobileDropdownMenu  = document.querySelector('.our-projects__filter-dropdown-menu');
+    const filterItems= document.querySelectorAll('.our-projects__filter-item');
+    const mobileFilterToggle = document.getElementById('mobileFilterToggle');
+    const mobileDropdownMenu = document.querySelector('.our-projects__filter-dropdown-menu');
     const mobileFilterOptions = document.querySelectorAll('.our-projects__filter-option');
     const mobileFilterSelected= document.querySelector('.our-projects__filter-selected');
     const mobileFilterArrow   = document.querySelector('.our-projects__filter-arrow');
 
     function loadProjects(filter, page, scroll) {
         currentFilter = filter || 'all';
-        currentPage   = page   || 1;
+        currentPage= page   || 1;
 
         cardsContainer.style.opacity      = '0.4';
         cardsContainer.style.pointerEvents = 'none';
 
         const data = new FormData();
-        data.append('action',   'our_projects_filter');
-        data.append('nonce',    projectsAjax.nonce);
-        data.append('filter',   currentFilter);
-        data.append('page',     currentPage);
-        data.append('per_page', perPage);
+        data.append('action','our_projects_filter');
+        data.append('nonce',projectsAjax.nonce);
+        data.append('filter',currentFilter);
+        data.append('page',currentPage);
+        data.append('per_page',perPage);
+        data.append('selected_ids', selectedIds);
 
         fetch(projectsAjax.ajaxurl, {
             method: 'POST',
-            body:   data,
+            body:data,
         })
         .then(r => r.text())
         .then(html => {

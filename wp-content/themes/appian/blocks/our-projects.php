@@ -41,7 +41,9 @@ if (empty($section_title) && empty($all_project_ids)) return;
 
 <section class="our-projects"
     data-enable-pagination="<?php echo $enable_pagination ? 'true' : 'false'; ?>"
-    data-projects-per-page="<?php echo esc_attr($projects_per_page); ?>">
+    data-projects-per-page="<?php echo esc_attr($projects_per_page); ?>"
+    data-selected-ids="<?php echo esc_attr( implode(',', $all_project_ids) ); ?>"
+    data-enable-filters="<?php echo $enable_filters ? 'true' : 'false'; ?>">
     <div class="container d-flex flex-column align-items-center">
 
         <?php if (!empty($section_title)) : ?>

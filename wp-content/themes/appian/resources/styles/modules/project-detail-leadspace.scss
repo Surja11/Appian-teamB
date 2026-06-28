@@ -6,7 +6,7 @@ $header-height-desktop: 5.625rem;
 
 .project-detail-leadspace {
     @include media-breakpoint-up(lg) {
-        min-height: 816px;
+        min-height: calc(100vh - #{$header-height-desktop});
         background-color: $color-ultra-dark-red;
     }
 
@@ -29,6 +29,7 @@ $header-height-desktop: 5.625rem;
         }
 
         .body-large {
+            
             line-height: 150%;
         }
 

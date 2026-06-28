@@ -40,7 +40,7 @@ $arrow_svg = str_replace('fill="#F3BABC"', 'fill="currentColor"', $arrow_svg);
             <img
                 src="<?php echo esc_url($person_image['url']); ?>"
                 alt="<?php echo esc_attr($person_image['alt']); ?>"
-                class="c-testimonial__person-img d-block object-fit-cover" />
+                class="c-testimonial__person-img d-block object-fit-cover " />
 
 
             <?php if ($person_name || $person_title || $person_company) : ?>

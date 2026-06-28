@@ -2,14 +2,14 @@
     <div class="project-detail__container container pt-16 pb-16 pt-lg-30 pb-lg-30 d-flex flex-column gap-8 gap-lg-16">
         
         <?php 
-        // Check if flexible content field has rows
+       
         if( have_rows('project_features') ):
             
-            // Loop through data
+     
             while ( have_rows('project_features') ) : the_row(); ?>
 
                 <?php 
-                // for text block
+            
                 if( get_row_layout() == 'text_block' ): 
                     $heading = get_sub_field('heading');
                     $content = get_sub_field('content');
@@ -31,7 +31,7 @@
                     </div>
 
                 <?php 
-                // for image block
+           
                 elseif( get_row_layout() == 'image_block' ): 
                     $image = get_sub_field('image');
                 ?>
@@ -48,7 +48,6 @@
             <?php 
             endwhile;
         else :
-           // if not added any layouts
             if (is_admin()) : ?>
                 <div class="p-4 text-center border dashed">
                     <p class="mb-0"><strong>Project Detail Content Block</strong></p>
