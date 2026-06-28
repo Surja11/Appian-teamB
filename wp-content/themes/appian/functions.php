@@ -125,6 +125,26 @@ function outside_traineeship_biolerplate_setup()
 add_action('after_setup_theme', 'outside_traineeship_biolerplate_setup');
 
 /**
+ * Customize the document title for 404 pages
+ */
+function custom_404_document_title($title) {
+    if (is_404()) {
+        return '404 - Page Not Found | ' . get_bloginfo('name');
+    }
+    return $title;
+}
+add_filter('document_title_parts', 'custom_404_document_title_parts');
+
+function custom_404_document_title_parts($title_parts) {
+    if (is_404()) {
+        $title_parts['title'] = '404 - Page Not Found';
+        // Remove the page part since it doesn't exist
+        unset($title_parts['page']);
+    }
+    return $title_parts;
+}
+
+/**
  * Set the content width in pixels, based on the theme's design and stylesheet.
  *
  * Priority 0 to make it available to lower priority callbacks.

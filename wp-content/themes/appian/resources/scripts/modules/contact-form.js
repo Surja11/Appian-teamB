@@ -6,6 +6,10 @@ class ContactForm {
         this.radioInputs = this.form ? this.form.querySelectorAll('.contact-form__radio') : [];
 
         this.formAction = this.form ? this.form.getAttribute('action') : '';
+        
+        // Get the max future period from the data attribute
+        this.maxFuturePeriod = this.form ? this.form.closest('.contact-form-block').getAttribute('data-max-future-period') || '12' : '12';
+        
         if (this.form) {
             this.init();
         }
@@ -96,23 +100,26 @@ class ContactForm {
         const value = field.value.trim();
         let isValid = true;
 
-        if (field.hasAttribute('required') && !value) {
+        const isDatePlaceholder = field.classList.contains('date-placeholder-mode');
+        const effectiveValue = isDatePlaceholder ? '' : value;
+
+        if (field.hasAttribute('required') && !effectiveValue) {
             this.showFieldError(field, 'This field is required');
             isValid = false;
         }
 
         const isNameField = field.name === 'first-name' || field.name === 'last-name';
 
-        if (isNameField && value) {
+        if (isNameField && effectiveValue) {
             const nameRegex = /^[a-zA-ZÀ-ÿ\s'\-]+$/;
             
-            if (!nameRegex.test(value)) {
+            if (!nameRegex.test(effectiveValue)) {
                 this.showFieldError(field, 'Please enter a valid name (letters, spaces, hyphens, and apostrophes only)');
                 isValid = false;
             }
         }
 
-        if (field.type === 'email' && value) {
+        if (field.type === 'email' && effectiveValue) {
             const emailRegex = /^[a-zA-Z0-9][a-zA-Z0-9._%+-]*[a-zA-Z0-9]@[a-zA-Z0-9][a-zA-Z0-9.-]*[a-zA-Z0-9]\.[a-zA-Z]{2,}$/;
             
             const invalidPatterns = [
@@ -127,23 +134,23 @@ class ContactForm {
                 /[#%^]/
             ];
             
-            let hasInvalidPattern = invalidPatterns.some(pattern => pattern.test(value));
+            let hasInvalidPattern = invalidPatterns.some(pattern => pattern.test(effectiveValue));
             
-            if (!emailRegex.test(value) || hasInvalidPattern) {
+            if (!emailRegex.test(effectiveValue) || hasInvalidPattern) {
                 this.showFieldError(field, 'Please enter a valid email address');
                 isValid = false;
             }
         }
 
-        if (field.type === 'tel' && value) {
-            const cleanPhone = value.replace(/\D/g, '');
+        if (field.type === 'tel' && effectiveValue) {
+            const cleanPhone = effectiveValue.replace(/\D/g, '');
             
             const isAllZeros = /^0+$/.test(cleanPhone);
-            const hasConsecutiveSpecialChars = /[\-\.]{2,}|[\s]{2,}|[\(\)]{2,}/.test(value);
-            const hasInvalidPatterns = /[^\+0-9\s.\-\(\)]/.test(value);
+            const hasConsecutiveSpecialChars = /[\-\.]{2,}|[\s]{2,}|[\(\)]{2,}/.test(effectiveValue);
+            const hasInvalidPatterns = /[^\+0-9\s.\-\(\)]/.test(effectiveValue);
             
-            const startsOK = /^[\+\(0-9]/.test(value);
-            const endsOK = /[0-9\)]$/.test(value);
+            const startsOK = /^[\+\(0-9]/.test(effectiveValue);
+            const endsOK = /[0-9\)]$/.test(effectiveValue);
             
             if (
                 !startsOK ||                      
@@ -159,17 +166,27 @@ class ContactForm {
             }
         }
 
-        if (field.type === 'date' && value) {
-            const selectedDate = new Date(value);
+        if (field.type === 'date' && effectiveValue) {
+            const selectedDate = new Date(effectiveValue);
             const today = new Date();
             today.setHours(0, 0, 0, 0);
             
             if (selectedDate < today) {
                 this.showFieldError(field, 'Please select today\'s date or a future date');
                 isValid = false;
+            } else if (this.maxFuturePeriod !== 'unlimited') {
+                const maxDate = new Date();
+                const monthsToAdd = parseInt(this.maxFuturePeriod, 10);
+                maxDate.setMonth(maxDate.getMonth() + monthsToAdd);
+                maxDate.setHours(0, 0, 0, 0);
+                
+                if (selectedDate > maxDate) {
+                    const periodText = this.getPeriodText();
+                    this.showFieldError(field, `Please select a date within ${periodText}`);
+                    isValid = false;
+                }
             }
         }
-
 
         return isValid;
     }
@@ -326,9 +343,22 @@ class ContactForm {
         const dateInputs = this.form.querySelectorAll('input[type="date"]');
         const today = new Date().toISOString().split('T')[0];
         
+        // Calculate max date based on the configured period
+        let maxDateString;
+        if (this.maxFuturePeriod === 'unlimited') {
+            maxDateString = null; // No maximum date
+        } else {
+            const maxDate = new Date();
+            const monthsToAdd = parseInt(this.maxFuturePeriod, 10);
+            maxDate.setMonth(maxDate.getMonth() + monthsToAdd);
+            maxDateString = maxDate.toISOString().split('T')[0];
+        }
+        
         dateInputs.forEach(input => {
-            // Set min attribute to restrict past dates (works on most browsers/devices)
             input.setAttribute('min', today);
+            if (maxDateString) {
+                input.setAttribute('max', maxDateString);
+            }
             
             const originalPlaceholder = input.getAttribute('placeholder');
             
@@ -338,10 +368,31 @@ class ContactForm {
                 input.classList.add('date-placeholder-mode');
             }
             
+            input.addEventListener('click', () => {
+                if (input.type === 'date') {
+                    input.showPicker && input.showPicker();
+                } else if (input.classList.contains('date-placeholder-mode')) {
+                    input.setAttribute('type', 'date');
+                    input.setAttribute('min', today);
+                    if (maxDateString) {
+                        input.setAttribute('max', maxDateString);
+                    }
+                    input.removeAttribute('placeholder');
+                    input.classList.remove('date-placeholder-mode');
+                    
+                    setTimeout(() => {
+                        input.showPicker && input.showPicker();
+                    }, 10);
+                }
+            });
+            
             input.addEventListener('focus', () => {
                 if (input.classList.contains('date-placeholder-mode')) {
                     input.setAttribute('type', 'date');
                     input.setAttribute('min', today);
+                    if (maxDateString) {
+                        input.setAttribute('max', maxDateString);
+                    }
                     input.removeAttribute('placeholder');
                     input.classList.remove('date-placeholder-mode');
                 }
@@ -361,24 +412,49 @@ class ContactForm {
                     const todayDate = new Date(today);
                     
                     if (selectedDate < todayDate) {
-                        this.showDateError(e.target);
+                        this.showDateError(e.target, 'Please select today\'s date or a future date');
+                    } else if (maxDateString) {
+                        const maxDateObj = new Date(maxDateString);
+                        if (selectedDate > maxDateObj) {
+                            const periodText = this.getPeriodText();
+                            this.showDateError(e.target, `Please select a date within ${periodText}`);
+                        } else {
+                            this.clearFieldError({ target: e.target });
+                        }
                     } else {
                         this.clearFieldError({ target: e.target });
                     }
                 }
             });
             
-            input.addEventListener('blur', (e) => {
-                if (e.target.type === 'date' && !e.target.value) {
-                    this.clearFieldError({ target: e.target });
-                } else if (e.target.classList.contains('date-placeholder-mode') && !e.target.value) {
-                    this.clearFieldError({ target: e.target });
-                }
-            });
         });
     }
 
-    showDateError(input) {
+    getPeriodText() {
+        const months = parseInt(this.maxFuturePeriod, 10);
+        
+        if (months === 3) return 'the next 3 months';
+        if (months === 6) return 'the next 6 months';
+        if (months === 12) return 'the next year';
+        if (months === 24) return 'the next 2 years';
+        if (months === 36) return 'the next 3 years';
+        if (months === 60) return 'the next 5 years';
+        
+        // Fallback for custom values
+        if (months < 12) {
+            return `the next ${months} months`;
+        } else {
+            const years = Math.floor(months / 12);
+            const remainingMonths = months % 12;
+            if (remainingMonths === 0) {
+                return `the next ${years} year${years > 1 ? 's' : ''}`;
+            } else {
+                return `the next ${years} year${years > 1 ? 's' : ''} and ${remainingMonths} month${remainingMonths > 1 ? 's' : ''}`;
+            }
+        }
+    }
+
+    showDateError(input, message = 'Please select today\'s date or a future date') {
         this.clearFieldError({ target: input });
         
         const existingError = input.parentNode.querySelector('.error-message');
@@ -390,7 +466,7 @@ class ContactForm {
         
         const errorElement = document.createElement('div');
         errorElement.className = 'error-message body-small';
-        errorElement.textContent = 'Please select today\'s date or a future date';
+        errorElement.textContent = message;
         
         input.parentNode.appendChild(errorElement);
     }

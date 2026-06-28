@@ -1,12 +1,14 @@
 <?php
 
-$title       = get_field('title');
-$subtitle    = get_field('subtitle');
-$form_fields = get_field('form_fields');
-$button_text = get_field('button_text') ?: 'Submit';
+$title          = get_field('title');
+$subtitle       = get_field('subtitle');
+$form_fields    = get_field('form_fields');
+$button_text    = get_field('button_text') ?: 'Submit';
+$date_restrictions = get_field('date_restrictions');
+$max_future_period = $date_restrictions['max_future_period'] ?? '12';
 ?>
 
-<section class="contact-form-block position-relative w-100 h-auto mx-auto bg-transparent">
+<section class="contact-form-block position-relative w-100 h-auto mx-auto bg-transparent" data-max-future-period="<?php echo esc_attr($max_future_period); ?>">
     <div class="contact-form-block__inner d-flex flex-column w-100 mx-auto my-0 p-0">
         
         <div class="contact-form__content-column flex-grow-0 flex-shrink-0 p-0 bg-transparent">
@@ -107,7 +109,6 @@ $button_text = get_field('button_text') ?: 'Submit';
                                                 class="contact-form__input body w-100 bg-white rounded<?php echo ($field_type === 'date') ? ' contact-form__date-picker' : ''; ?>"
                                                 <?php echo $required ? 'required' : ''; ?>
                                                 <?php if ($field_type === 'email') : ?>
-                                                pattern="[a-zA-Z0-9][a-zA-Z0-9._%+-]*[a-zA-Z0-9]@[a-zA-Z0-9][a-zA-Z0-9.-]*[a-zA-Z0-9]\.[a-zA-Z]{2,}"
                                                 title="Please enter a valid email address"
                                                 <?php endif; ?> />
                                         <?php endif; ?>
