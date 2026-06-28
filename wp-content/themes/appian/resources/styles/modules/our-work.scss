@@ -185,12 +185,12 @@ $tab-font-size: 0.875rem;
       padding-left: 0.75rem;
       padding-right: 0.75rem;
 
-      // Removing bootstrap's default chevron
+  
       &::after {
         display: none;
       }
 
-      ///state of accordion when closed
+
       background-color: transparent;
       color: $color-primary-red;
 
@@ -201,17 +201,7 @@ $tab-font-size: 0.875rem;
         color: $color-neutral-50;
         overflow: hidden;
         z-index: 1;
-
-        &::before {
-          content: '';
-          position: absolute;
-          bottom: -1px;
-          left: 0;
-          right: 0;
-          height: 2px;
-          background-color: $color-primary-red;
-          z-index: 2;
-        }
+        box-shadow: none !important;
       }
 
       &:focus {

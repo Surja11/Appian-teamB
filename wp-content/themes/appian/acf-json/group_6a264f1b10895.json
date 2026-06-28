@@ -111,8 +111,7 @@
                     "taxonomy": "",
                     "filters": [
                         "search",
-                        "post_type",
-                        "taxonomy"
+                        "post_type"
                     ],
                     "return_format": "object",
                     "min": "",
@@ -146,5 +145,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1782284324
+    "modified": 1782551087
 }

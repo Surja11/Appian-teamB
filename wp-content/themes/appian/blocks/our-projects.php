@@ -11,12 +11,11 @@ $enable_filters = $our_projects['enable_filters'] ?? true;
 $enable_pagination = $our_projects['enable_pagination'] ?? true;
 $projects_per_page = $our_projects['projects_per_page'] ?? 6;
 
-$all_project_ids = get_posts([
-    'post_type' => 'project',
-    'post_status' => 'publish',
-    'numberposts' => -1,
-    'fields' => 'ids',
-]);
+$selected_projects = $our_projects['select_project_items'] ?? [];
+
+$all_project_ids = !empty($selected_projects)
+    ? array_map(fn($p) => $p->ID, $selected_projects)
+    : [];
 
 $all_cats_in_use = [];
 foreach ($all_project_ids as $pid) {

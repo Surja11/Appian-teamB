@@ -1,46 +1,67 @@
-@import '../common';
+ @import '../common';
 
-.project-detail-leadspace{
-   
-    min-height: 1074px;
-    background-color: $color-ultra-dark-red;
-   
 
-    @include media-breakpoint-up(lg){
+$header-height-mobile: 4.375rem; 
+$header-height-desktop: 5.625rem; 
+
+.project-detail-leadspace {
+    @include media-breakpoint-up(lg) {
         min-height: 816px;
+        background-color: $color-ultra-dark-red;
     }
 
-    &__text-container{
-        min-height: 650px;
+    &__text-container {
         color: $color-neutral-50 !important;
+        background-color: $color-ultra-dark-red;
 
-        h1,h2{
+    
+        padding-top: calc(clamp(3.96rem, 1.1964rem + 29.4789vw, 8.1055rem) + #{$header-height-mobile});
+        padding-bottom: clamp(3.96rem, 1.1964rem + 29.4789vw, 8.1055rem);
+
+   
+        @media (min-width: 375px) {
+            padding-top: calc(5.25rem + #{$header-height-mobile});
+            padding-bottom: 5.25rem;
+        }
+
+        h1, h2 {
             color: $color-neutral-50 !important;
         }
 
-        .body-large{
+        .body-large {
             line-height: 150%;
         }
 
-          @include media-breakpoint-up(lg) {
+        @include media-breakpoint-up(lg) {
+          
+            display: flex;
+            align-items: center;
+            justify-content: center;
             width: 50%;
-            align-self: stretch;               
+            align-self: stretch;
+            background-color: transparent;
+            padding-top: 0;
+            padding-bottom: 0;
         }
     }
-    &__img-part{
-        aspect-ratio: 375/424;
 
+    &__img-part {
+        aspect-ratio: 375/424;
+        background-color: $color-ultra-dark-red;
+        overflow: hidden;
 
         @include media-breakpoint-up(lg) {
             width: 50%;
-            aspect-ratio: 720 / 816; 
+            aspect-ratio: 720 / 816;
             align-self: stretch;
+            background-color: transparent;
         }
 
         img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            display: block;
         }
     }
 }

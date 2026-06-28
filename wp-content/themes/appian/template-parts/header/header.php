@@ -4,16 +4,24 @@
     <div class="navbar__logo-container">
       <a href="<?php echo esc_url(home_url('/')); ?>" aria-label="Go to homepage">
         <?php
-        $logo_id = get_field('header_logo', 'option');
-        if ($logo_id) :
-          echo wp_get_attachment_image($logo_id, 'full', false, array('class' => 'navbar__logo'));
-        else :
+        $logo_field = get_field('header_logo', 'option');
+       
+        if ( is_array($logo_field) ) {
+            $logo_id  = $logo_field['ID'] ?? $logo_field['id'] ?? null;
+            $logo_url = $logo_field['url'] ?? '';
+            $logo_alt = $logo_field['alt'] ?? 'website logo icon';
+        } else {
+            $logo_id  = $logo_field ?: null;
+            $logo_url = '';
+            $logo_alt = 'website logo icon';
+        }
+
+        if ( $logo_id ) :
+            echo wp_get_attachment_image( $logo_id, 'full', false, array( 'class' => 'navbar__logo' ) );
+        elseif ( $logo_url ) :
         ?>
-          <img
-            src="<?php echo esc_url(get_template_directory_uri()); ?>/resources/images/logo-appian.svg"
-            class="navbar__logo"
-            alt="website logo icon" />
-      <?php endif; ?>
+          <img src="<?php echo esc_url( $logo_url ); ?>" class="navbar__logo" alt="<?php echo esc_attr( $logo_alt ); ?>" />
+        <?php endif; ?>
       </a>
     </div>
 
@@ -39,24 +47,22 @@
       if (has_nav_menu('primary-menu')) {
         wp_nav_menu(array(
           'theme_location' => 'primary-menu',
-          'container'      => false,
-          'menu_class'     => 'navbar__list',
-          'fallback_cb'    => false,
-          'walker'         => new Appian_BEM_Walker()
+          'container'=> false,
+          'menu_class'=> 'navbar__list',
+          'fallback_cb'=> false,
+          'walker'=> new Appian_BEM_Walker()
         ));
       }
       ?>
     </div>
-    <!-- test -->
-
-    <!-- Extra Information Block (Dynamic with Field Fallbacks) -->
+    
 
     <?php
-    $linkedin        = get_field('linkedin_url', 'option');
+    $linkedin= get_field('linkedin_url', 'option');
     $emergency_label = get_field('emergency_label', 'option');
-    $phone           = get_field('phone_number', 'option');
-    $clean_phone     = preg_replace('/[^0-9]/', '', $phone);
-    $valid_phone     = $phone && strlen($clean_phone) >= 7;
+    $phone= get_field('phone_number', 'option');
+    $clean_phone= preg_replace('/[^0-9]/', '', $phone);
+    $valid_phone= $phone && strlen($clean_phone) >= 7;
     ?>
 
     <?php if ( $linkedin || $emergency_label || $valid_phone ) : ?>
