@@ -24,7 +24,7 @@ $video_poster = get_field('poster');
                             muted
                             loop
                             playsinline
-                            preload="auto"
+                            preload="metadata"
                             poster="<?php echo $video_poster ? esc_url($video_poster['url']) : ''; ?>"
                             class="home-leadspace__video"
                             disablepictureinpicture
