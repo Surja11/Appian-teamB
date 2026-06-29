@@ -4,8 +4,34 @@
     "fields": [
         {
             "key": "field_6a271dac00959",
-            "label": "Person Image",
-            "name": "person_image",
+            "label": "Person Image Desktop",
+            "name": "person_image_desktop",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "",
+            "allow_in_bindings": 0,
+            "preview_size": "medium"
+        },
+        {
+            "key": "field_6a41b84a73aa2",
+            "label": "Person Image Mobile",
+            "name": "person_image_mobile",
             "aria-label": "",
             "type": "image",
             "instructions": "",
@@ -129,7 +155,10 @@
             "default_value": "#ea483b",
             "enable_opacity": 0,
             "return_format": "string",
-            "allow_in_bindings": 0
+            "allow_in_bindings": 0,
+            "custom_palette_source": "",
+            "palette_colors": "",
+            "show_color_wheel": true
         },
         {
             "key": "field_6a271e820095f",
@@ -148,7 +177,10 @@
             "default_value": "#ea483b",
             "enable_opacity": 0,
             "return_format": "string",
-            "allow_in_bindings": 0
+            "allow_in_bindings": 0,
+            "custom_palette_source": "",
+            "palette_colors": "",
+            "show_color_wheel": true
         }
     ],
     "location": [
@@ -172,5 +204,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1780948673
+    "modified": 1782691956
 }

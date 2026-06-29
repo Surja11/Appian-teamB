@@ -10,12 +10,25 @@ const header = () => {
 
   const preventScroll = (e) => e.preventDefault();
 
+  
+  function checkNavScrollable() {
+    if (mainNav.classList.contains('navbar__main--open')) {
+      setTimeout(() => {
+        const isScrollable = mainNav.scrollHeight > mainNav.clientHeight;
+        mainNav.classList.toggle('navbar__main--scrollable', isScrollable);
+      }, 50);
+    } else {
+      mainNav.classList.remove('navbar__main--scrollable');
+    }
+  }
+
   toggleIcon.addEventListener("click", () => {
     const isOpen = toggleIcon.getAttribute("aria-expanded") === "true";
     toggleIcon.setAttribute("aria-expanded", String(!isOpen));
     mainNav.classList.toggle("navbar__main--open");
     extra.classList.toggle("navbar__extra--open");
     document.body.classList.toggle("menu-open");
+    requestAnimationFrame(checkNavScrollable);
   });
 
   triggers.forEach((trigger) => {
@@ -42,6 +55,7 @@ const header = () => {
         document.addEventListener("wheel", preventScroll, { passive: false });
         document.addEventListener("touchmove", preventScroll, { passive: false });
       }
+      checkNavScrollable();
     };
 
     const closeDropdown = () => {
@@ -52,6 +66,7 @@ const header = () => {
         document.removeEventListener("wheel", preventScroll);
         document.removeEventListener("touchmove", preventScroll);
       }
+      checkNavScrollable();
     };
 
     trigger.addEventListener('click', (e) => {
@@ -137,6 +152,7 @@ const header = () => {
     if (window.innerWidth >= breakpoint) {
       toggleIcon.setAttribute("aria-expanded", "false");
       mainNav.classList.remove("navbar__main--open");
+      mainNav.classList.remove("navbar__main--scrollable");
       extra.classList.remove("navbar__extra--open");
       document.body.classList.remove("menu-open");
       triggers.forEach((trigger) => {
@@ -147,6 +163,8 @@ const header = () => {
       overlay.classList.remove("navbar-overlay--visible");
       document.removeEventListener("wheel", preventScroll);
       document.removeEventListener("touchmove", preventScroll);
+    } else {
+      checkNavScrollable();
     }
   });
 
