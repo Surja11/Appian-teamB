@@ -23,9 +23,9 @@ html :where(.editor-styles-wrapper) {
     }
   }
 
-  [loading="lazy"] {
-    opacity: 1;
-  }
+  // [loading="lazy"] {
+  //   opacity: 1;
+  // }
 
   .container {
     --grid-side-gutter: 1.5rem;

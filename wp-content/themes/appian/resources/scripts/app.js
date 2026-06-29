@@ -13,5 +13,7 @@ import './global/footer.js';
 import './global/divider-animation.js';
 import initTestimonialSlider from './modules/slider-testimonial.js';
 import 'bootstrap/js/src/collapse';
+// import { initLazyLoadImages } from '../../utils/showLazyload.js';
 
 initTestimonialSlider();
+// initLazyLoadImages();
