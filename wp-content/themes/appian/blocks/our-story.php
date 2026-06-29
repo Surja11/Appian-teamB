@@ -18,21 +18,17 @@ if ( $cta_link && is_array( $cta_link ) ) {
 
 <?php if ( $caption || $main_text || $link_url ) : ?>
 
-<!-- section for text content  with cta. using grid structure from bootstrap for styling that alighns content to right -->
 <section class="cta-content container ">
     <div class="row">
 
-<!-- used ps-0 for removing the padding for lg screens which is set by the grid gutters which is set by the grid gutters in bootstrap -->
     <div class="col col-lg-7 offset-lg-4 cta-content-column">
 
-     <!-- caption of the section styled via caption-1 utility as given in styleguide-->
         <?php if ( $caption ) : ?>
         <p class="cta-content__caption caption-1">
                 <?php echo esc_html( $caption ); ?>
             </p>
         <?php endif; ?>
 
-             <!-- text content with CTA button -->
             <div class="cta-content__body d-flex flex-column gap-12 gap-lg-16 pt-6 pt-lg-8">
                 <?php if ( $main_text ) : ?>
                 <h2 class="h5 cta-content__text m-0">
