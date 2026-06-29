@@ -66,17 +66,8 @@ class DividerAnimation {
     }
 
     findAndAnimateDividers() {
-        const pictureElements = document.querySelectorAll('picture');
-        
-        pictureElements.forEach(picture => {
-            const img = picture.querySelector('img[src*="divider"]');
-            if (img) {
-                picture.classList.add('divider-animate');
-                this.observer.observe(picture);
-            }
-        });
 
-        const historyTitles = document.querySelectorAll('.our-history__title');
+        const historyTitles = document.querySelectorAll('.appian-section__title');
         historyTitles.forEach(title => {
             title.classList.add('divider-animate-bg');
             this.observer.observe(title);

@@ -41,23 +41,13 @@ $chevron = '<svg class="our-work__chevron" width="24" height="24" viewBox="0 0 2
 </svg>';
 ?>
 
-<!-- our work section -->
 <section class="our-work pt-16 pb-16 ps-xl-10 pt-xl-27 pb-xl-27 d-flex flex-column justify-content-center">
-    <!-- texture overlay that covers entire our-work section -->
-    <div class="our-work__overlay"></div>
+
+<div class="our-work__overlay"></div>
     <div class="container">
         <div class="our-work__wrapper ms-auto me-auto">
-    <!-- our work heading with underline stroke -->
-        <div class=" our-work__heading d-flex flex-column justify-content-center align-items-center">
-            <h2 class="mb-4"><?php echo esc_html($our_work_header ?: 'Our Work'); ?></h2>
-            <picture class="divider-animate">
-            <source
-                media="(min-width: 1200px)"
-                srcset="<?php echo get_template_directory_uri(); ?>/resources/images/divider.svg">
-            <img
-                src="<?php echo get_template_directory_uri(); ?>/resources/images/divider-small.svg"
-                alt="" loading="lazy">
-            </picture>
+        <div class=" our-work__heading  d-flex flex-column justify-content-center align-items-center">
+            <h2 class="appian-section__title position-relative"><?php echo esc_html($our_work_header ?: 'Our Work'); ?></h2>
         </div>
 
 

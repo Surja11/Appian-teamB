@@ -16,7 +16,7 @@ endif;
     <div class="our-history-block__texture position-absolute top-0 start-0 end-0 bottom-0" style="background-image: url('/wp-content/themes/appian/resources/images/bg-texture.png'); background-repeat: repeat; opacity: 0.3; pointer-events: none; z-index: 1;"></div>
     
     <div class="our-history__header text-center w-100 mx-auto">
-        <h2 class="our-history__title h2 position-relative">Our History</h2>
+        <h2 class="our-history__title h2 position-relative appian-section__title">Our History</h2>
     </div>
 
     <div class="our-history__timeline w-100 p-0">
