@@ -8,11 +8,7 @@ $cta_button  = get_field('faq_cta_button');
   <div class="faq-section__wrapper ms-md-auto me-md-auto">
     <header>
       <div class="faq-heading d-flex flex-column justify-content-center align-items-center">
-        <h2 class="mb-4">FAQ</h2>
-        <picture class="divider-animate">
-          <source media="(min-width: 1200px)" srcset="<?php echo esc_url(get_template_directory_uri()); ?>/resources/images/divider.svg">
-          <img src="<?php echo esc_url(get_template_directory_uri()); ?>/resources/images/divider-small.svg" alt="">
-        </picture>
+        <h2 class="appian-section__title position-relative text-center">FAQ</h2>
       </div>
     </header>
 

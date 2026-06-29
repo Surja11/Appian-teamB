@@ -180,3 +180,24 @@
     }
   }
 }
+
+
+.divider-animate-bg{
+ &::after {
+        content: "";
+        display: block;
+        background-image: url("/wp-content/themes/appian/resources/images/divider-small.svg");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        margin: $spacer auto;
+        width: 7.5rem;
+        height: 0.3125rem;
+
+        @include media-breakpoint-up(md) {
+          width: 14.375rem;
+          height: 0.5625rem;
+          background-image: url("/wp-content/themes/appian/resources/images/divider.svg");
+        }      
+}
+}

@@ -48,15 +48,7 @@ if (empty($section_title) && empty($all_project_ids)) return;
 
         <?php if (!empty($section_title)) : ?>
             <div class="our-projects__title-block d-flex flex-column align-items-center">
-                <h2 class="our-projects__title h2 text-center mb-4"><?php echo esc_html($section_title); ?></h2>
-                <picture class="divider-animate">
-                    <source
-                        media="(min-width: 1200px)"
-                        srcset="<?php echo get_template_directory_uri(); ?>/resources/images/divider.svg">
-                    <img
-                        src="<?php echo get_template_directory_uri(); ?>/resources/images/divider-small.svg"
-                        alt="">
-                </picture>
+                <h2 class="our-projects__title h2 text-center appian-section__title position-relative"><?php echo esc_html($section_title); ?></h2>
             </div>
         <?php endif; ?>
 

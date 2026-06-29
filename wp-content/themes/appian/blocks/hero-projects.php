@@ -30,15 +30,7 @@ if (!empty($section_title) || $projects->have_posts() || !empty($featured_image)
 
             <?php if (!empty($section_title)): ?>
                 <div class="hero-projects__title-block">
-                    <h2 class="hero-projects__title h2"><?php echo esc_html($section_title); ?></h2>
-                    <picture class="divider-animate">
-                        <source
-                            media="(min-width: 1200px)"
-                            srcset="<?php echo get_template_directory_uri(); ?>/resources/images/divider.svg">
-                        <img
-                            src="<?php echo get_template_directory_uri(); ?>/resources/images/divider-small.svg"
-                            alt="">
-                    </picture>
+                    <h2 class="hero-projects__title h2 appian-section__title position-relative"><?php echo esc_html($section_title); ?></h2>
                 </div>
             <?php endif; ?>
 

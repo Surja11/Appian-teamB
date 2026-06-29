@@ -21,11 +21,7 @@ if (!empty($valid_partners)) :
         <section class="our-partner" aria-labelledby="our-partners-heading">
 
             <div class="our-partner__heading">
-                <h2 id="our-partners-heading" class="mb-4"><?php echo  esc_html($partners_title) ?></h2>
-                <picture class="divider-animate">
-                    <source media="(min-width: 1200px)" srcset="<?php echo get_template_directory_uri(); ?>/resources/images/divider.svg">
-                    <img src="<?php echo get_template_directory_uri(); ?>/resources/images/divider-small.svg" alt="">
-                </picture>
+                <h2 id="our-partners-heading " class="appian-section__title position-relative"><?php echo  esc_html($partners_title) ?></h2>
             </div>
 
             <div class="our-partner__grid-wrapper">
