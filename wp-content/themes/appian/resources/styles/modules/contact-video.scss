@@ -6,8 +6,8 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0, 0, 0, 0.8) !important;
-    backdrop-filter: blur(2px) !important;
+    background: rgba(0, 0, 0, 0.9) !important;
+    backdrop-filter: blur(8px) !important;
     z-index: 999999;
     display: flex;
     align-items: center;
@@ -46,7 +46,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    opacity: 1; /* Always visible */
+    opacity: 1;
     transition: opacity 0.3s ease;
 
     @include media-breakpoint-up(md) {
