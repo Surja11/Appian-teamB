@@ -24,7 +24,7 @@ if (!empty($valid_partners)) :
                 <h2 id="our-partners-heading" class="mb-4"><?php echo  esc_html($partners_title) ?></h2>
                 <picture class="divider-animate">
                     <source media="(min-width: 1200px)" srcset="<?php echo get_template_directory_uri(); ?>/resources/images/divider.svg">
-                    <img src="<?php echo get_template_directory_uri(); ?>/resources/images/divider-small.svg" alt="">
+                    <img src="<?php echo get_template_directory_uri(); ?>/resources/images/divider-small.svg" alt="" loading="lazy">
                 </picture>
             </div>
 
@@ -40,7 +40,7 @@ if (!empty($valid_partners)) :
                             <div class="our-partner__img-container">
                                 <?php if (!empty($link)) : ?>
                                     <a href="<?php echo esc_url($link); ?>">
-                                        <img src="<?php echo esc_url($logo['url']); ?>" alt="<?php echo esc_attr($logo['alt']); ?>">
+                                        <img src="<?php echo esc_url($logo['url']); ?>" alt="<?php echo esc_attr($logo['alt']); ?>" loading="lazy" height="180" width="180">
                                     </a>
                                 <?php else : ?>
                                     <img src="<?php echo esc_url($logo['url']); ?>" alt="<?php echo esc_attr($logo['alt']); ?>">

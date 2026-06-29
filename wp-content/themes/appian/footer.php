@@ -3,10 +3,10 @@ $footer  = get_field('footer', 'option');
 
 $address = $footer['address'] ?? [];
 $contact = $footer['contact'] ?? [];
-$phone   = $contact['phone_number'] ?? '';
-$fax     = $contact['fax_number'] ?? [];
+$phone = $contact['phone_number'] ?? '';
+$fax = $contact['fax_number'] ?? [];
 $explore = $footer['explore'] ?? [];
-$logo    = $footer['logo'] ?? null;
+$logo = $footer['logo'] ?? null;
 ?>
 
 <footer class="custom-footer">
@@ -41,9 +41,8 @@ $logo    = $footer['logo'] ?? null;
                                 required>
                             <button class="custom-footer__submit" type="submit" aria-label="Submit subscription">
                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M5 12H19M13 18L19 12L13 6" stroke="white" stroke-width="2" stroke-miterlimit="5.75877" stroke-linecap="square"/>
-</svg>
-
+                                    <path d="M5 12H19M13 18L19 12L13 6" stroke="white" stroke-width="2" stroke-miterlimit="5.75877" stroke-linecap="square"/>
+                                </svg>
                             </button>
                         </div>
                     </form>
@@ -114,17 +113,35 @@ $logo    = $footer['logo'] ?? null;
                     </p>
                 </div>
 
-                <?php if (!empty($footer['linkedin_url'])) : ?>
-                    <a href="<?php echo esc_url($footer['linkedin_url']); ?>"
-                       target="_blank" rel="noopener noreferrer"
-                       class="custom-footer__social"
-                       aria-label="Visit our LinkedIn page">
-                        <img
-                            src="<?php echo esc_url(get_template_directory_uri() . '/resources/images/icon-linkedin.svg'); ?>"
-                            alt="LinkedIn"
-                            width="24"
-                            height="24">
-                    </a>
+              
+                <?php if (have_rows('social_links', 'option')) : ?>
+                    <div class="custom-footer__socials">
+                        <?php while (have_rows('social_links', 'option')) : the_row();
+                            $platform = get_sub_field('social_platform');
+                            $url      = get_sub_field('social_url');
+                            $icon     = get_sub_field('social_icon');
+                        ?>
+                            <?php if (!empty($url)) : ?>
+                                <a href="<?php echo esc_url($url); ?>"
+                                   target="_blank"
+                                   rel="noopener noreferrer"
+                                   class="custom-footer__social"
+                                   aria-label="Visit our <?php echo esc_attr($platform); ?> page">
+
+                                    <?php if (!empty($icon['url'])) : ?>
+                                        <img
+                                            src="<?php echo esc_url($icon['url']); ?>"
+                                            alt="<?php echo esc_attr($icon['alt'] ?: $platform); ?>"
+                                            width="24"
+                                            height="24">
+                                    <?php else : ?>
+                                        <?php echo esc_html($platform); ?>
+                                    <?php endif; ?>
+
+                                </a>
+                            <?php endif; ?>
+                        <?php endwhile; ?>
+                    </div>
                 <?php endif; ?>
 
             </div>

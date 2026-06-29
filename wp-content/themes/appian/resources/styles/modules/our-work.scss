@@ -65,8 +65,9 @@ $tab-font-size: 0.875rem;
     transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 
     &:hover:not(.active) {
-      background-color: $gray-100;
+      background-color: $color-primary-red;
       outline: 1px solid $color-primary-red;
+      color: $color-neutral-50;
     }
 
     @media (hover: none) {
@@ -195,6 +196,7 @@ $tab-font-size: 0.875rem;
     }
         &:focus-visible{
          outline: 1px solid $color-primary-red !important;
+         outline-offset: -2px !important;
          box-shadow: none !important;
       }
     }

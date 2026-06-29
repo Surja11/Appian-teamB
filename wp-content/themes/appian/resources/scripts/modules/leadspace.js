@@ -1,6 +1,3 @@
-
-
-
 const scrollEllipse = document.querySelector('.home-leadspace__scroll-ellipse');
 const outerEllipse = document.querySelector('.home-leadspace__outer-ellipse');
 
@@ -13,24 +10,18 @@ const PHASES = [
 
 const TOTAL_SCROLL = window.innerHeight * 2.1;
 
-
 function getInitialOffset() {
     const w = window.innerWidth;
-
-
-    if (w <= 768) return -22;                                           
-    if (w >= 1200) return -14;                                          
-
-    if (w < 1200 && w >= 768) {
-        const t = (w - 768) / (1200 - 768);                           
-        return -22 + t * (-14 - -22);                                   
-    }
-} 
+    if (w <= 768) return -22;
+    if (w >= 1200) return -14;
+    const t = (w - 768) / (1200 - 768);
+    return -22 + t * 8;
+}
 
 if (scrollEllipse) {
     function update() {
-        const scrolled  = window.scrollY;
-        const progress  = Math.min(scrolled / TOTAL_SCROLL, 1);
+        const scrolled = window.scrollY;
+        const progress = Math.min(scrolled / TOTAL_SCROLL, 1);
 
         let rotProgress = 0;
         for (const phase of PHASES) {
@@ -41,11 +32,20 @@ if (scrollEllipse) {
             }
             rotProgress = phase.rotEnd;
         }
+
         const rotation = getInitialOffset() + (-rotProgress * 180);
         scrollEllipse.style.transform = `rotate(${rotation}deg)`;
     }
 
+    scrollEllipse.style.transition = 'none';
     update();
+    scrollEllipse.style.opacity = '1';
+
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            scrollEllipse.style.transition = '';
+        });
+    });
 
     window.addEventListener('scroll', update, { passive: true });
     window.addEventListener('scrollend', update, { passive: true });

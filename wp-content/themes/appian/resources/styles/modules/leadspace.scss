@@ -35,9 +35,10 @@
         border-left-color: $color-primary-red;
         border-top-color: $color-primary-red;
         will-change: transform;
-        transition: transform 5ms linear;
+        transition: transform 100ms cubic-bezier(.26,.73,.92,.29);
         pointer-events: none;
         box-sizing: content-box;
+        opacity: 0;
     }
 
     &__inner-ellipse {
@@ -49,13 +50,14 @@
         width: 100%;
         overflow: hidden;
     }
-   
+
     &__video {
         width: 100%;
         height: 100%;
         border-radius: inherit;
         object-fit: cover;
-        @include media-breakpoint-up(lg){
+
+        @include media-breakpoint-up(lg) {
             height: 160%;
             object-fit: contain;
         }
@@ -94,15 +96,16 @@
     }
 }
 
- .video-container{
-        position: absolute;
-        height: 100%
-    }
-    .text-container{
-        position: relative;
-        bottom: 200px;
-        display: flex;
-        justify-content: center;
-        align-items: flex-end;
-        height: 100%;
-    }
+.video-container {
+    position: absolute;
+    height: 100%;
+}
+
+.text-container {
+    position: relative;
+    bottom: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    height: 100%;
+}

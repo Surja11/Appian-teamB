@@ -40,7 +40,7 @@ if (!empty($valid_departments)) :
                         <?php if (!empty($department_image) && is_array($department_image) && !empty($department_image['url'])) : ?>
                             <img src="<?php echo esc_url($department_image['url']); ?>"
                                  alt="<?php echo esc_attr($department_image['alt'] ?? ''); ?>"
-                                 class="w-100 h-100 object-fit-cover" />
+                                 class="w-100 h-100 object-fit-cover" loading="lazy"/>
                         <?php endif; ?>
                         <div class="service-card__overlay position-absolute top-0 start-0 w-100 h-100"></div>
                     </div>
