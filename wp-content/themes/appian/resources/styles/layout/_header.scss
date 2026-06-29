@@ -13,14 +13,24 @@ $nav-z: 100;
 $nav-breakpoint: 1200px;
 
 
-@mixin focus-box($offset: 5px) {
+@mixin focus-box($offset: 2px) {
   &:focus-visible {
-    outline: 1px solid $nav-color;
+    outline: 2px solid $color-primary-red;
     outline-offset: $offset;
   }
 
   &:focus:not(:focus-visible) {
     outline: none;
+  }
+}
+
+@media (max-width: #{$nav-breakpoint - 1px}) {
+  .navbar__link:focus-visible,
+  .navbar__dropdown-trigger:focus-visible,
+  .navbar__dropdown-link:focus-visible {
+    outline: 2px solid $color-neutral-200;
+    outline-offset: -2px  !important; 
+    box-shadow: none;
   }
 }
 
@@ -207,7 +217,12 @@ main {
     width: 100%;
     margin-top: 5.03125rem;
     display: none;
+    transition: margin-top 0.4s ease;
 
+  
+    &--scrollable {
+      margin-top: 1rem;
+    }
 
     &--open {
       display: block;
@@ -279,29 +294,26 @@ main {
       border-bottom: none;
     }
 
+  
+    &.is-active {
+      > .navbar__link,
+      > .navbar__dropdown-trigger {
+        color: $nav-hover-color !important;
 
+        svg {
+          fill: $nav-hover-color !important;
+        }
+      }
+    }
 
     @include media-breakpoint-up(xl) {
       &:hover {
         color: $nav-hover-color;
       }
 
-   
       @media (hover: none) {
         &:hover {
           color: $nav-color;
-        }
-      }
-
-      &.is-active {
-
-        >.navbar__link,
-        >.navbar__dropdown-trigger {
-          color: $nav-hover-color;
-
-          svg {
-            fill: $nav-hover-color;
-          }
         }
       }
     }
@@ -531,15 +543,19 @@ main {
 }
 
 .navbar-overlay {
-  background-color: $color-light-red;
+  background-color: rgba($color-light-red, 0.15);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   display: none;
   position: fixed;
   inset: 0;
-  opacity: 0.3;
+  opacity: 0;
   z-index: #{$nav-z - 1};
   cursor: pointer;
+  transition: opacity 0.3s ease;
 
   &--visible {
     display: block;
+    opacity: 1;
   }
 }

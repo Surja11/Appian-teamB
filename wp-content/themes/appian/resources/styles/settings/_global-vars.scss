@@ -121,3 +121,8 @@ $global: "theme";
 //   --border-2xs-xs: clamp(0.5rem, 0.3607rem + 0.5714vw, 0.875rem);
 //   --border-xs-s: clamp(0.75rem, 0.5875rem + 0.6667vw, 1.1875rem);
 // }
+
+
+:focus-visible {
+  outline-color: #7C7C7C !important;
+}
