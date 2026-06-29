@@ -1,4 +1,4 @@
-@import "../custom";
+@import "../common";
 
 section#our-history-block,
 .our-history-block {
@@ -321,17 +321,6 @@ section#our-history-block,
           margin-right: 0;
           margin-bottom: 0;
           position: relative;
-
-          &::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 0;
-            transform: translateY(-50%);
-            width: 100%;
-            min-height: 3rem; // 48px recommended touch target
-            z-index: 1;
-          }
 
           @include media-breakpoint-up(md) {
             width: 7.0625rem;

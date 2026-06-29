@@ -12,7 +12,6 @@ $nav-z: 100;
 
 $nav-breakpoint: 1200px;
 
-
 @mixin focus-box($offset: 2px) {
   &:focus-visible {
     outline: 2px solid $color-primary-red;
@@ -29,7 +28,7 @@ $nav-breakpoint: 1200px;
   .navbar__dropdown-trigger:focus-visible,
   .navbar__dropdown-link:focus-visible {
     outline: 2px solid $color-neutral-200;
-    outline-offset: -2px  !important; 
+    outline-offset: -2px !important;
     box-shadow: none;
   }
 }
@@ -39,8 +38,6 @@ $nav-breakpoint: 1200px;
     color: $nav-color;
   }
 }
-
-
 
 body:has(.navbar__main--open) {
   overflow: hidden;
@@ -86,12 +83,9 @@ main {
     &:has(.navbar__main--open) {
       height: unset;
       overflow: unset;
-
-
     }
   }
 }
-
 
 .logged-in .header {
   top: 46px;
@@ -215,14 +209,12 @@ main {
 
   &__main {
     width: 100%;
-    margin-top: 5.03125rem;
     display: none;
-    transition: margin-top 0.4s ease;
+    // transition: margin-top 0.4s ease;
 
-  
-    &--scrollable {
-      margin-top: 1rem;
-    }
+    // &--scrollable {
+    //   margin-top: 1rem;
+    // }
 
     &--open {
       display: block;
@@ -231,6 +223,7 @@ main {
       min-height: 0;
       scrollbar-width: none;
       -ms-overflow-style: none;
+      margin-top: 1rem;
 
       &::-webkit-scrollbar {
         display: none;
@@ -261,23 +254,19 @@ main {
     line-height: $line-height-base;
     padding: 0;
     margin: 0;
+    margin-top: 3.66rem;
 
     @media (min-width: $nav-breakpoint) {
       flex-direction: row;
       align-items: center;
       gap: $nav-items-gap;
       flex-wrap: wrap;
-
-
     }
 
     @media (min-width: 1370px) and (max-width: 1438px) {
-
       gap: clamp(2rem, calc(-21.25rem + 3.125vw), 2.25rem) !important;
       font-size: 0.875rem;
-
     }
-
   }
 
   &__item {
@@ -290,11 +279,6 @@ main {
       position: relative;
     }
 
-    &:last-child {
-      border-bottom: none;
-    }
-
-  
     &.is-active {
       > .navbar__link,
       > .navbar__dropdown-trigger {
@@ -330,8 +314,6 @@ main {
 
     @include focus-box;
     @include active-element;
-
-
   }
 
   &__dropdown-trigger {
@@ -367,7 +349,6 @@ main {
         }
       }
 
-     
       @media (hover: none) {
         &:hover {
           color: $nav-color;
@@ -432,7 +413,9 @@ main {
     color: $nav-color;
     text-decoration: none;
     white-space: nowrap;
-    transition: color $transition-base, background-color $transition-base;
+    transition:
+      color $transition-base,
+      background-color $transition-base;
     @include focus-box($offset: 2px);
 
     &:hover {

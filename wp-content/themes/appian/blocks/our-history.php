@@ -84,18 +84,14 @@ endif;
 
                     <?php if ( $content ) : ?>
                     <div class="history-card__content pt-6 pt-md-8 bg-transparent d-sm-flex flex-sm-column h-sm-100">
-                        <p class="history-card__excerpt body mb-10 mb-md-5 d-block">
+                        <p class="history-card__excerpt body d-block">
                             <?php echo esc_html( $excerpt ); ?>
                         </p>
                         <div class="history-card__full-content d-none">
                             <?php echo wp_kses_post( $content ); ?>
                         </div>
-                        <button class="btn btn-link btn-primary history-card__read-more body-xsmall d-md-none text-decoration-none border-0 cursor-pointer text-start overflow-hidden bg-transparent text-nowrap" 
-                                data-history-id="<?php echo esc_attr($unique_id); ?>"
-                                >
-                            Continue Reading
-                        </button>
-                        <button class="btn btn-link btn-primary history-card__read-more body-small d-none d-md-inline text-decoration-none border-0 cursor-pointer text-start overflow-hidden bg-transparent text-nowrap" 
+                        
+                        <button class="btn btn-link btn-primary history-card__read-more body-small d-md-inline mt-10 mt-md-5 text-decoration-none border-0 cursor-pointer text-start overflow-hidden bg-transparent text-nowrap" 
                                 data-history-id="<?php echo esc_attr($unique_id); ?>"
                                 >
                             Continue Reading
