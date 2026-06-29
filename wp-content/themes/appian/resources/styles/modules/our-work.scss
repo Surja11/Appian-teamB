@@ -1,4 +1,4 @@
-@import '../custom';
+@import '../common';
 
 $tab-font-size: 0.875rem;
 
@@ -80,6 +80,7 @@ $tab-font-size: 0.875rem;
       background-color: $color-primary-red;
       color: $color-neutral-50;
       border-color: $color-primary-red;
+      outline: 1px solid $color-primary-red;
     }
 
     &:focus-visible {
