@@ -56,7 +56,7 @@ if (!empty($project_eyebrow)||!empty($project_title)||!empty($project_descriptio
         <?php if(!empty($project_image)):?>
         <img src="<?php 
             echo esc_url($project_image['url'])
-        ?>" alt="<?php echo esc_attr($project_image['alt'])?>"/>
+        ?>" alt="<?php echo esc_attr($project_image['alt'])?>" loading="lazy"/>
         <?php endif?>
     </div>
 
