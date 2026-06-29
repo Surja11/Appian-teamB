@@ -261,6 +261,7 @@ main {
       align-items: center;
       gap: $nav-items-gap;
       flex-wrap: wrap;
+      margin: 0;
     }
 
     @media (min-width: 1370px) and (max-width: 1438px) {
