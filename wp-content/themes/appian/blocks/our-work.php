@@ -56,7 +56,7 @@ $chevron = '<svg class="our-work__chevron" width="24" height="24" viewBox="0 0 2
                 srcset="<?php echo get_template_directory_uri(); ?>/resources/images/divider.svg">
             <img
                 src="<?php echo get_template_directory_uri(); ?>/resources/images/divider-small.svg"
-                alt="">
+                alt="" loading="lazy">
             </picture>
         </div>
 
@@ -112,7 +112,7 @@ $chevron = '<svg class="our-work__chevron" width="24" height="24" viewBox="0 0 2
                 aria-labelledby="<?php echo esc_attr($tab_id); ?>-tab">
                 <div class="our-work__tab-body pt-4 pb-5 p-xl-0 d-flex flex-row-reverse justify-content-center align-items-center">
                     <?php if ($image_url) : ?>
-                        <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($image_alt); ?>">
+                        <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($image_alt);?>" loading="lazy" width="490" height="430">
                     <?php endif; ?>
                     <div class="our-work__tab-text d-flex flex-column ">
                         <?php if ($title) : ?><h3 class="pb-6 mb-0"><?php echo esc_html($title); ?></h3><?php endif; ?>
@@ -163,7 +163,7 @@ $chevron = '<svg class="our-work__chevron" width="24" height="24" viewBox="0 0 2
                     data-bs-parent="#accordionExample">
                     <div class="accordion__body pt-4 d-flex flex-column">
                         <?php if ($image_url) : ?>
-                            <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($image_alt); ?>">
+                            <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($image_alt); ?>" loading="lazy" width="1190" height="680">
                         <?php endif; ?>
                         <div class="accordion__body-text d-flex flex-column">
                             <?php if ($title) : ?><h3 class="mb-0"><?php echo esc_html($title); ?></h3><?php endif; ?>

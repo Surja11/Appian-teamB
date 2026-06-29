@@ -489,24 +489,6 @@
                     "append": ""
                 },
                 {
-                    "key": "field_6a14180ac3e8b",
-                    "label": "Linkedin URL",
-                    "name": "linkedin_url",
-                    "aria-label": "",
-                    "type": "url",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "allow_in_bindings": 0,
-                    "placeholder": ""
-                },
-                {
                     "key": "field_6a141822c3e8c",
                     "label": "logo",
                     "name": "logo",
@@ -556,5 +538,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1780986063
+    "modified": 1782725941
 }

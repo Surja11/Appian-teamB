@@ -47,7 +47,7 @@ $arrow_svg = str_replace('fill="#F3BABC"', 'fill="currentColor"', $arrow_svg);
                 <img
                     src="<?php echo $mobile_url; ?>"
                     alt="<?php echo $mobile_alt; ?>"
-                    class="c-testimonial__person-img d-block object-fit-cover" />
+                    class="c-testimonial__person-img d-block object-fit-cover" loading="lazy" />
             </picture>
 
             <?php if ($person_name || $person_title || $person_company) : ?>
