@@ -117,13 +117,13 @@
 }
 
 // Used when using lazy="load" and use javascript to add class is-loaded from
-[loading="lazy"] {
-  opacity: 0;
+// [loading="lazy"] {
+//   opacity: 0;
 
-  &.is-loaded {
-    opacity: 1;
-  }
-}
+//   &.is-loaded {
+//     opacity: 1;
+//   }
+// }
 
 .u {
   &-content-basic {
