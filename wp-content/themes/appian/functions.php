@@ -35,6 +35,15 @@ function theme_preload_assets() {
 add_action( 'wp_head', 'theme_preload_assets', 1 );
 
 function theme_add_meta_description() {
+    if (class_exists('WPSEO_Options') || // Yoast SEO
+        class_exists('RankMath') || // RankMath 
+        function_exists('aioseo') || // All in One SEO
+        class_exists('The_SEO_Framework_Load')) { // SEO Framework
+        return;
+    }
+    
+    $meta_desc = '';
+    
     if (is_singular()) {
         global $post;
         
@@ -44,11 +53,15 @@ function theme_add_meta_description() {
             if (has_excerpt($post)) {
                 $meta_desc = get_the_excerpt($post);
             } else {
-                $meta_desc = wp_trim_words(wp_strip_all_tags(get_the_content()), 25, '...');
+                $content = get_the_content(null, false, $post);
+                $meta_desc = wp_trim_words(wp_strip_all_tags($content), 30, '...');
             }
         }
     } elseif (is_home() || is_front_page()) {
         $meta_desc = get_bloginfo('description');
+        if (empty($meta_desc)) {
+            $meta_desc = 'Welcome to ' . get_bloginfo('name') . ' - Your trusted partner in business solutions.';
+        }
     } elseif (is_category()) {
         $meta_desc = category_description();
         if (empty($meta_desc)) {
@@ -66,17 +79,45 @@ function theme_add_meta_description() {
         }
     } else {
         $meta_desc = get_bloginfo('description');
+        if (empty($meta_desc)) {
+            $meta_desc = get_bloginfo('name') . ' - Professional business solutions and services.';
+        }
+    }
+    
+    if (empty($meta_desc)) {
+        $meta_desc = 'Welcome to ' . get_bloginfo('name') . ' - Your trusted business partner.';
     }
     
     if (!empty($meta_desc)) {
         $meta_desc = wp_strip_all_tags($meta_desc);
-        $meta_desc = wp_trim_words($meta_desc, 25, '...');
+        $meta_desc = str_replace(["\r", "\n", "\t"], ' ', $meta_desc);
+        $meta_desc = preg_replace('/\s+/', ' ', $meta_desc);
+        $meta_desc = trim($meta_desc);
+        
+        if (strlen($meta_desc) > 160) {
+            $meta_desc = wp_trim_words($meta_desc, 25, '...');
+            if (strlen($meta_desc) > 160) {
+                $meta_desc = substr($meta_desc, 0, 157) . '...';
+            }
+        }
+        
         $meta_desc = esc_attr($meta_desc);
         
         echo '<meta name="description" content="' . $meta_desc . '">' . "\n";
     }
 }
 add_action('wp_head', 'theme_add_meta_description', 2);
+
+function theme_allow_search_engine_indexing() {
+    remove_action('wp_head', 'noindex', 1);
+    
+    if (!is_admin() && !is_login()) {
+        remove_action('wp_head', 'wp_no_robots');
+        
+        echo '<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">' . "\n";
+    }
+}
+add_action('wp_head', 'theme_allow_search_engine_indexing', 1);
 
 function vite_assets($entry)
 {
