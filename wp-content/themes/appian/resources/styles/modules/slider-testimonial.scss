@@ -183,7 +183,7 @@
     min-width: 0;
     width: 100%;
     
-    h5 {
+    .h5 {
         margin-bottom: 3rem;
         color: $color-neutral-600;
         text-transform: capitalize;
@@ -203,7 +203,7 @@
         align-items: flex-start;
         justify-content: flex-start;
 
-        h5 {
+        .h5 {
             margin-bottom: 3.938rem;
             
             &::before {
