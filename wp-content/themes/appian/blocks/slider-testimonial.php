@@ -48,7 +48,7 @@ endif;
                                 <div class="quote-icon-wrapper">
                                     <?php include get_template_directory() . '/resources/images/icon-quote.svg'; ?>
                                 </div>
-                                <h5><?php echo wp_kses_post($slide['quote']); ?></h5>
+                                <h2 class="h5"><?php echo wp_kses_post($slide['quote']); ?></h2>
                                 <div class="author-meta">
                                     <span class="caption-2 d-block"><?php echo esc_html($slide['author_name']); ?></span>
                                     <span class="body-small-all d-block text-neutral-200"><?php echo esc_html($slide['author_company']); ?></span>
